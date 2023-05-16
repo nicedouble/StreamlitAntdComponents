@@ -4,12 +4,13 @@ import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
 import {strToNode, AlphaColor, getParent, getHrefKeys, menuHeight} from "./custom.react";
 
-
 const AntdMenu = (props: ComponentProps) => {
     //get data
     const items = props.args['items']
     const dsk = props.args['defaultSelectedKeys']
     const dok = props.args['defaultOpenKeys'] ? props.args['defaultOpenKeys'] : dsk && getParent(dsk[0], items)
+    const width = props.args['width']
+    const inlineIndent = props.args['inlineIndent']
 
     //state
     const [selectKey, setSelectKey] = useState(dsk)
@@ -61,11 +62,12 @@ const AntdMenu = (props: ComponentProps) => {
                 onSelect={onSelect}
                 onOpenChange={onOpenChange}
                 selectedKeys={selectKey}
-                style={{borderRightWidth: 0}}
+                style={{borderRightWidth: 0, width: width}}
                 defaultSelectedKeys={[dsk]}
                 defaultOpenKeys={dok}
                 mode={'inline'}
                 items={strToNode(items)}
+                inlineIndent={inlineIndent}
             />
         </ConfigProvider>
     );

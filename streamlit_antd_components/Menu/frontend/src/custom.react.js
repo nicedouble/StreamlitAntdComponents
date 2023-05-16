@@ -55,25 +55,25 @@ const getParent = (k, obj) => {
     return allParentKeys
 }
 
-const menuHeight = (open_keys, items, item_height = 45) => {
+const menuHeight = (open_keys, items) => {
 
     const showItem_ = (open_keys, item) => {
-        let n = 1
+        let h = 48
         const showItem = (open_keys, item) => {
             if (item.hasOwnProperty('key') && open_keys) {
                 if (item.hasOwnProperty('children')) {
                     if (open_keys.includes(item['key']) || item.hasOwnProperty('type')) {
-                        n += item['children'].length
+                        h += item['children'].length*45
                         item['children'].map(item_ => showItem(open_keys, item_))
                     }
                 }
             }
             if (item.hasOwnProperty('dashed')) {
-                n = 0
+                h = 2
             }
         }
         showItem(open_keys, item)
-        return n
+        return h
     }
 
     function sum(arr) {
@@ -85,8 +85,7 @@ const menuHeight = (open_keys, items, item_height = 45) => {
     }
 
     let n_arr = items.map(item => showItem_(open_keys, item))
-    let n = sum(n_arr)
-    return n * item_height
+    return sum(n_arr)
 }
 
 

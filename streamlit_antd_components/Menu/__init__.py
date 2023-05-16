@@ -15,7 +15,7 @@ from dataclasses import dataclass
 import streamlit.components.v1 as components
 import streamlit as st
 
-_RELEASE = True
+_RELEASE = False
 
 if not _RELEASE:
     _component_func = components.declare_component(
@@ -96,6 +96,8 @@ def antd_menu(
         items: List[Union[MenuItem, MenuDivider]],
         selected_key: str = None,
         expand_keys: List[str] = None,
+        width: int = None,
+        indent: int = 24,
         key=None
 ) -> str:
     """antd design menu component https://ant.design/components/menu#menu
@@ -103,6 +105,8 @@ def antd_menu(
     :param items: menu item content
     :param selected_key: default selected key
     :param expand_keys: default expand key.if none,will expand selected parent key
+    :param width: menu width in px
+    :param indent: menu indent in px
     :param key: component unique identifier
     :return: current select item key
     """
@@ -112,6 +116,8 @@ def antd_menu(
         items=parse_items,
         defaultSelectedKeys=[selected_key],
         defaultOpenKeys=expand_keys,
+        width=width,
+        inlineIndent=indent,
         key=key
     )
     if r is None and selected_key is not None:
