@@ -1,0 +1,7 @@
+.idea
+__pycache__/
+build/
+dist/
+venv/
+*.egg-info/
+**/node_modules/
