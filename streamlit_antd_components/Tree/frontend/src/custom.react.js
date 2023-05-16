@@ -44,7 +44,7 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
     }
 }
 
-const treeHeight = (open_keys, items, item_height = 28) => {
+const treeHeight = (open_keys, items, item_height = 30) => {
 
     const showItem_ = (open_keys, item) => {
         let n = 1
