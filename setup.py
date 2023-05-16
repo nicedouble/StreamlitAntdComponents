@@ -20,6 +20,7 @@ setuptools.setup(
     description="streamlit components of antd design",
     long_description=readme(),
     long_description_content_type="text/markdown",
+    url="https://github.com/nicedouble/StreamlitAntdComponents",
     packages=setuptools.find_packages(),
     include_package_data=True,
     python_requires=">=3.9",
