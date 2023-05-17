@@ -44,6 +44,65 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
     }
 }
 
+//all parent keys
+const getParents = (keys, obj) => {
+    const getParent = (k, obj) => {
+        let allParentKeys = []
+        //get one parent key
+        const getParentKey = (key, tree) => {
+            let parentKey;
+            for (let i = 0; i < tree.length; i++) {
+                const node = tree[i];
+                if (node.children) {
+                    if (node.children.some((item) => item.key === key)) {
+                        parentKey = node.key;
+                    } else if (getParentKey(key, node.children)) {
+                        parentKey = getParentKey(key, node.children);
+                    }
+                }
+            }
+            return parentKey;
+        }
+        const getParentKey_ = (k, obj) => {
+            let key = getParentKey(k, obj)
+            if (key) {
+                allParentKeys.push(key)
+                getParentKey_(key, obj)
+            }
+        }
+        getParentKey_(k, obj)
+        return allParentKeys
+    }
+    let parentKeys = keys.map(k => getParent(k, obj))
+    let parentKey = []
+    for (let i = 0; i < parentKeys.length; i += 1) {
+        let element = parentKeys[i]
+        for (let j = 0; j < element.length; j += 1) {
+            parentKey.push(element[j])
+        }
+    }
+    return parentKey
+}
+
+const getCollapseKeys = (items) => {
+    let keys = []
+
+    const getKey = (obj) => {
+        if (Array.isArray(obj)) {
+            obj.map(obj_ => getKey(obj_))
+        } else {
+            if (obj.hasOwnProperty('children')) {
+                obj.children.map((obj_) => getKey(obj_))
+                if (!obj.hasOwnProperty('type')) {
+                    keys.push(obj.key)
+                }
+            }
+        }
+    }
+    getKey(items)
+    return keys
+}
+
 const treeHeight = (open_keys, items, item_height = 30) => {
 
     const showItem_ = (open_keys, item) => {
@@ -75,4 +134,4 @@ const treeHeight = (open_keys, items, item_height = 30) => {
     return n * item_height
 }
 
-export {strToNode, AlphaColor, treeHeight}
+export {strToNode, AlphaColor, treeHeight, getParents, getCollapseKeys}

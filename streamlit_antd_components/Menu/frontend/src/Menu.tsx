@@ -2,13 +2,15 @@ import {Streamlit, ComponentProps, withStreamlitConnection} from "streamlit-comp
 import React, {useEffect, useState} from "react";
 import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
-import {strToNode, AlphaColor, getParent, getHrefKeys, menuHeight} from "./custom.react";
+import {strToNode, AlphaColor, getParent, getHrefKeys,getCollapseKeys, menuHeight} from "./custom.react";
 
 const AntdMenu = (props: ComponentProps) => {
     //get data
     const items = props.args['items']
     const dsk = props.args['defaultSelectedKeys']
-    const dok = props.args['defaultOpenKeys'] ? props.args['defaultOpenKeys'] : dsk && getParent(dsk[0], items)
+    const defaultOpenKeys=props.args['defaultOpenKeys']
+    const expandAll=props.args['expandAll']
+    const dok = expandAll?getCollapseKeys(items):defaultOpenKeys ? defaultOpenKeys : dsk && getParent(dsk[0], items)
     const width = props.args['width']
     const inlineIndent = props.args['inlineIndent']
 

@@ -63,7 +63,7 @@ const menuHeight = (open_keys, items) => {
             if (item.hasOwnProperty('key') && open_keys) {
                 if (item.hasOwnProperty('children')) {
                     if (open_keys.includes(item['key']) || item.hasOwnProperty('type')) {
-                        h += item['children'].length*45
+                        h += item['children'].length * 45
                         item['children'].map(item_ => showItem(open_keys, item_))
                     }
                 }
@@ -108,6 +108,25 @@ const getHrefKeys = (items) => {
     return keys
 }
 
+const getCollapseKeys = (items) => {
+    let keys = []
+
+    const getKey = (obj) => {
+        if (Array.isArray(obj)) {
+            obj.map(obj_ => getKey(obj_))
+        } else {
+            if (obj.hasOwnProperty('children')) {
+                obj.children.map((obj_) => getKey(obj_))
+                if (!obj.hasOwnProperty('type')){
+                    keys.push(obj.key)
+                }
+            }
+        }
+    }
+    getKey(items)
+    return keys
+}
+
 const AlphaColor = (varColor = '--primary-color', alpha = 0.1) => {
     let pc = getComputedStyle(document.querySelector(":root")).getPropertyValue(varColor)
     let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
@@ -131,4 +150,4 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.1) => {
 }
 
 
-export {strToNode, AlphaColor, getParent, getHrefKeys, menuHeight}
+export {strToNode, AlphaColor, getParent, getHrefKeys, getCollapseKeys, menuHeight}

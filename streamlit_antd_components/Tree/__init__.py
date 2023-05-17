@@ -92,7 +92,7 @@ def antd_tree(
     :param items: tree data
     :param selected_keys: default selected keys
     :param expanded_keys: default expanded keys.if none,tree will auto expand all selected parent keys.
-    :param expand_all: expand all key
+    :param expand_all: expand all key.expand priority[expand_all>expanded_keys>auto]
     :param checkbox: show checkbox
     :param checkbox_strict: parent key and children key are not associated
     :param multiple: allow multiple select

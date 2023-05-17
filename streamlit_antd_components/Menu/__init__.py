@@ -95,7 +95,8 @@ def _is_keys_unique(data):
 def antd_menu(
         items: List[Union[MenuItem, MenuDivider]],
         selected_key: str = None,
-        expand_keys: List[str] = None,
+        expanded_keys: List[str] = None,
+        expand_all: bool = False,
         width: int = None,
         indent: int = 24,
         key=None
@@ -104,7 +105,8 @@ def antd_menu(
 
     :param items: menu item content
     :param selected_key: default selected key
-    :param expand_keys: default expand key.if none,will expand selected parent key
+    :param expanded_keys: default expanded keys.if none,menu will auto expand all selected parent keys
+    :param expand_all: expand all key.expand priority[expand_all>expanded_keys>auto]
     :param width: menu width in px
     :param indent: menu indent in px
     :param key: component unique identifier
@@ -115,7 +117,8 @@ def antd_menu(
     r = _component_func(
         items=parse_items,
         defaultSelectedKeys=[selected_key],
-        defaultOpenKeys=expand_keys,
+        defaultOpenKeys=expanded_keys,
+        expandAll=expand_all,
         width=width,
         inlineIndent=indent,
         key=key
