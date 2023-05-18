@@ -5,3 +5,7 @@ dist/
 venv/
 *.egg-info/
 **/node_modules/
+
+poetry.lock
+pyproject.toml
+.vscode
