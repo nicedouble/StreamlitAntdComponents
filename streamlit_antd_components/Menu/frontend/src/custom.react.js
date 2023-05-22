@@ -128,26 +128,41 @@ const getCollapseKeys = (items) => {
 }
 
 const AlphaColor = (varColor = '--primary-color', alpha = 0.1) => {
-    let pc = getComputedStyle(document.querySelector(":root")).getPropertyValue(varColor)
-    let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-    let sColor = pc.toLowerCase();
-    if (sColor && reg.test(sColor)) {
-        if (sColor.length === 4) {
-            let sColorNew = "#";
-            for (let i = 1; i < 4; i += 1) {
-                sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+    const getColorComponents = (color) => {
+        // Handle hexadecimal color format
+        const hexMatch = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+        if (hexMatch.test(color)) {
+            let hex = color.substring(1);
+            if (hex.length === 3) {
+                hex = hex.split('').map((char) => char + char).join('');
             }
-            sColor = sColorNew;
+            const [r, g, b] = hex.match(/.{2}/g).map((c) => parseInt(c, 16));
+            return [r, g, b];
         }
-        let sColorChange = [];
-        for (let i = 1; i < 7; i += 2) {
-            sColorChange.push(parseInt(`0x${sColor.slice(i, i + 2)}`));
+
+        // Handle RGB and RGBA color formats
+        const rgbMatch = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)$/;
+        const match = color.match(rgbMatch);
+        if (match) {
+            const [_, r, g, b] = match.map(Number);
+            return [r, g, b];
         }
-        return `rgba(${sColorChange.join(",")},${alpha})`;
+
+        // Handle other color formats or invalid colors
+        return null;
+    };
+
+    const color = getComputedStyle(document.documentElement).getPropertyValue(varColor).trim();
+    const colorComponents = getColorComponents(color);
+
+    if (colorComponents) {
+        const [r, g, b] = colorComponents;
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     } else {
-        return sColor;
+        // Handle invalid colors
+        return 'defaultColor';
     }
-}
+};
 
 
 export {strToNode, AlphaColor, getParent, getHrefKeys, getCollapseKeys, menuHeight}
