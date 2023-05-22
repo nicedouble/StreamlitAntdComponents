@@ -1,0 +1,4 @@
+.ant-space-item > a {
+    display: flex;
+    align-items: center;
+}

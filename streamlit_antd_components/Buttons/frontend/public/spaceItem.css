@@ -1,0 +1,4 @@
+div.ant-space-item{
+    display: flex;
+    flex-grow: 1;
+}

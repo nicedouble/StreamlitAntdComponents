@@ -1,0 +1,32 @@
+/*btn global*/
+.ant-btn {
+    border-radius: 0.25rem;
+    min-width: 36px;
+}
+
+/*default btn*/
+.ant-btn-default {
+    border-width: 1px;
+}
+.ant-btn-default:active {
+    color: #fff !important;
+    border-color: var(--primary-color) !important;
+    background: var(--primary-color) !important;
+}
+.ant-btn-default:focus {
+    outline: none;
+}
+
+/*primary btn*/
+.ant-btn-primary:disabled {
+    border-width: 0;
+
+}
+.ant-btn-primary:active {
+    color: var(--primary-color) !important;
+    background: transparent !important;
+    border-color: var(--primary-color) !important;
+}
+.ant-btn-primary:focus {
+    outline: none;
+}

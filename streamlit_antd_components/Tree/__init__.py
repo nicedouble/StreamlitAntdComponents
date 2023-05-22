@@ -29,7 +29,7 @@ else:
 
 @dataclass
 class TreeItem:
-    title: str  # title
+    label: str  # label
     key: str  # must be unique in all data
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
@@ -37,7 +37,7 @@ class TreeItem:
 
     @property
     def tree_data(self):
-        base_dict = {'title': self.title, 'key': self.key}
+        base_dict = {'title': self.label, 'key': self.key}
         if self.icon:
             base_dict.update({'icon': self.icon})
         if self.disabled:
