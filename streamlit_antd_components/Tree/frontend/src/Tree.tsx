@@ -15,18 +15,20 @@ const AntdTree = (props: ComponentProps) => {
     const dea = props.args['defaultExpandAll']
     const dek = dea ? getCollapseKeys(treeData) : defaultExpandedKey ? defaultExpandedKey : dsk && getParents(dsk, treeData)
     const icon = props.args['icon']
+    const height = props.args['height']
+
 
     //state
     const [value, setValue] = useState(dsk)
-    const [height, setHeight] = useState(treeHeight(dek, treeData))
+    const [autoHeight, setAutoHeight] = useState(treeHeight(dek, treeData))
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(height))
+    useEffect(() => Streamlit.setFrameHeight(height!=null?height:autoHeight))
 
     //callback
     const onExpand: TreeProps['onExpand'] = (e) => {
         //update component height
-        setHeight(treeHeight(e, treeData))
+        setAutoHeight(treeHeight(e, treeData))
     };
     const onSelect: TreeProps['onSelect'] = (selectedKeys_, info) => {
         setValue(selectedKeys_)
@@ -52,6 +54,8 @@ const AntdTree = (props: ComponentProps) => {
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         controlItemBgHover: AlphaColor('--text-color', 0.2),
                         controlItemBgActive: AlphaColor(),
+                        fontSize:14,
+                        fontFamily:'var(--font)',
                     },
                 },
             }}
@@ -71,7 +75,7 @@ const AntdTree = (props: ComponentProps) => {
                     multiple={props.args['multiple']}
                     checkable={props.args['checkable']}
                     selectable={!props.args['checkable']}
-                    height={props.args['height']}
+                    height={height}
                     checkStrictly={props.args['checkStrictly']}
                     switcherIcon={<CaretDownFilled/>}
                     showIcon={true}

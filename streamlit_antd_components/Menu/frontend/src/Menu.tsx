@@ -2,20 +2,20 @@ import {Streamlit, ComponentProps, withStreamlitConnection} from "streamlit-comp
 import React, {useEffect, useState} from "react";
 import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
-import {strToNode, AlphaColor, getParent, getHrefKeys,getCollapseKeys, menuHeight} from "./custom.react";
+import {strToNode, AlphaColor, getParent, getHrefKeys, getCollapseKeys, menuHeight} from "./custom.react";
 
 const AntdMenu = (props: ComponentProps) => {
     //get data
     const items = props.args['items']
     const dsk = props.args['defaultSelectedKeys']
-    const defaultOpenKeys=props.args['defaultOpenKeys']
-    const expandAll=props.args['expandAll']
-    const dok = expandAll?getCollapseKeys(items):defaultOpenKeys ? defaultOpenKeys : dsk && getParent(dsk[0], items)
-    const width = props.args['width']
+    const defaultOpenKeys = props.args['defaultOpenKeys']
+    const expandAll = props.args['expandAll']
+    const dok = expandAll ? getCollapseKeys(items) : defaultOpenKeys ? defaultOpenKeys : dsk && getParent(dsk, items)
+    const size = props.args['size']
     const inlineIndent = props.args['inlineIndent']
 
     //state
-    const [selectKey, setSelectKey] = useState(dsk)
+    const [selectKey, setSelectKey] = useState([dsk])
     const [height, setHeight] = useState(menuHeight(dok, items))
 
     //component height
@@ -26,7 +26,7 @@ const AntdMenu = (props: ComponentProps) => {
         //only not href item will fire
         let hrefKeys = getHrefKeys(items)
         if (hrefKeys.indexOf(e.key) === -1) {
-            setSelectKey(e.key);
+            setSelectKey([e.key]);
             Streamlit.setComponentValue(e.key);
         }
     }
@@ -56,6 +56,8 @@ const AntdMenu = (props: ComponentProps) => {
                         colorActiveBarWidth: 4,
                         itemMarginInline: 0,
                         colorSplit: AlphaColor('--text-color', 0.3),
+                        fontSize: size,
+                        fontFamily: 'var(--font)'
                     },
                 },
             }}
@@ -64,7 +66,7 @@ const AntdMenu = (props: ComponentProps) => {
                 onSelect={onSelect}
                 onOpenChange={onOpenChange}
                 selectedKeys={selectKey}
-                style={{borderRightWidth: 0, width: width}}
+                style={{borderRightWidth: 0}}
                 defaultSelectedKeys={[dsk]}
                 defaultOpenKeys={dok}
                 mode={'inline'}

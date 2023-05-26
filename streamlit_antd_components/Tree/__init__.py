@@ -9,10 +9,9 @@
 @Software : PyCharm
 """
 import os
-from typing import List
+from typing import List, Union, Callable
 from dataclasses import dataclass
 import streamlit.components.v1 as components
-import streamlit as st
 
 _RELEASE = True
 
@@ -30,14 +29,13 @@ else:
 @dataclass
 class TreeItem:
     label: str  # label
-    key: str  # must be unique in all data
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
     children: List = None  # item children,list of TreeItem
 
     @property
-    def tree_data(self):
-        base_dict = {'title': self.label, 'key': self.key}
+    def tree_items(self):
+        base_dict = {'title': self.label}
         if self.icon:
             base_dict.update({'icon': self.icon})
         if self.disabled:
@@ -47,70 +45,70 @@ class TreeItem:
         return base_dict
 
 
-def _parse_items(items: List[TreeItem]):
-    r = []
-    for i in items:
-        d = i.tree_data.copy()
-        children = d.get('children')
-        if children:
-            d.update(children=_parse_items(children))
-        r.append(d)
-    return r
+def _parse_items(items: List[TreeItem], func):
+    j, kv = 0, []
+
+    def __parse_items(items: List[TreeItem], func):
+        r = []
+        nonlocal j
+        for i in items:
+            item = i.tree_items.copy()
+            kv.append(item.get('title'))
+            children = item.get('children')
+            item.update(key=j)
+            j += 1
+            if func is not None:
+                item.update(title=func(item.get('title')))
+            if children:
+                item.update(children=__parse_items(children, func))
+            r.append(item)
+        return r
+
+    antd_items = __parse_items(items, func)
+    key_title = {idx: i for idx, i in enumerate(kv)}
+    return antd_items, key_title
 
 
-def _is_keys_unique(items):
-    keys = []
-
-    def _get_key(items_):
-        for i in range(len(items_)):
-            node = items_[i]
-            keys.append(node['key'])
-            if node.get('children'):
-                _get_key(node['children'])
-
-    _get_key(items)
-    if len(keys) != len(set(keys)):
-        duplicate_keys = [i for i in keys if keys.count(i) > 1]
-        raise ValueError(f'All key in data must be unique! duplicate keys: {duplicate_keys}')
-
-
-def antd_tree(
+def tree(
         items: List[TreeItem],
-        selected_keys: List[str] = None,
-        expanded_keys: List[str] = None,
-        expand_all: bool = False,
-        checkbox: bool = False,
-        checkbox_strict: bool = False,
-        multiple=False,
-        show_line: bool = False,
+        index: List[int] = None,
+        format_func: Callable = None,
         icon: str = None,
         height: int = None,
+        open_index: List[int] = None,
+        open_all: bool = False,
+        checkbox: bool = False,
+        checkbox_strict: bool = False,
+        multiple: bool = False,
+        show_line: bool = False,
+        return_index: bool = False,
         key=None
-) -> List[str]:
-    """antd design tree  https://ant.design/components/tree#tree-props
+) -> List[Union[str, int]]:
+    """antd design tree  https://ant.design/components/tree
 
     :param items: tree data
-    :param selected_keys: default selected keys
-    :param expanded_keys: default expanded keys.if none,tree will auto expand all selected parent keys.
-    :param expand_all: expand all key.expand priority[expand_all>expanded_keys>auto]
+    :param index: default selected tree item index
+    :param format_func: format label function,must return str
+    :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
+    :param height: set height in px to scroll
+    :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
+    :param open_all: open all items.priority[open_all>open_index]
     :param checkbox: show checkbox
-    :param checkbox_strict: parent key and children key are not associated
-    :param multiple: allow multiple select
+    :param checkbox_strict: parent item and children item are not associated
+    :param multiple: multiple select,available when checkbox=False
     :param show_line: show line
-    :param icon: bootstrap icon in all key
-    :param height: scroll height
+    :param return_index: if True,return tree item index,default return label
     :param key: component unique identifier
-    :return: list of current select item keys
+    :return: list of selected item label or index
     """
-    parse_items = _parse_items(items)
-    _is_keys_unique(parse_items)
-    if isinstance(selected_keys, list) and len(selected_keys) > 1 and not checkbox:
+    parse_items, kv = _parse_items(items, format_func)
+    if isinstance(index, list) and len(index) > 1 and not checkbox:
         multiple = True
     r = _component_func(
         treeData=parse_items,
-        defaultSelectedKey=selected_keys,
-        defaultExpandedKey=expanded_keys,
-        defaultExpandAll=expand_all,
+        defaultSelectedKey=index,
+        defaultExpandedKey=open_index,
+        defaultExpandAll=open_all,
         checkable=checkbox,
         checkStrictly=checkbox_strict,
         multiple=multiple,
@@ -119,31 +117,7 @@ def antd_tree(
         height=height,
         key=key
     )
-    if r is None and selected_keys is not None:
-        return selected_keys
+    r = index if r is None else r
+    if not return_index and r is not None:
+        return [kv.get(i) for i in r]
     return r
-
-
-if __name__ == '__main__':
-    with st.sidebar.container():
-        data = [
-            TreeItem('table1', 'table1'),
-            TreeItem('image', 'image', icon='images', children=[
-                TreeItem('image1', 'image1', icon='image-alt'),
-                TreeItem('image2', 'image2', icon='image-fill'),
-            ]),
-            TreeItem('table2', 'table2', children=[
-                TreeItem('table2-1', 'table2-1'),
-                TreeItem('table2-2', 'table2-2'),
-            ]),
-            TreeItem('table3', 'table3', disabled=True),
-            TreeItem('table4', 'table4'),
-        ]
-        item = antd_tree(
-            items=data,
-            selected_keys=['image1'],
-            checkbox=True,
-            show_line=True,
-            icon='table',
-        )
-    st.write(f'The selected item key is **{item}**')

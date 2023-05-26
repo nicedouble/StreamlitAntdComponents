@@ -2,7 +2,7 @@
 # _*_coding:utf-8_*_
 
 """
-@Time     : 2023/5/18 9:43
+@Time     : 2023/5/24 13:29
 @Author   : ji hao ran
 @File     : __init__.py.py
 @Project  : StreamlitAntdComponents
@@ -27,17 +27,16 @@ else:
 
 
 @dataclass
-class ButtonsItem:
+class TabsItem:
     label: str = None  # label
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
-    href: str = None  # link address
 
 
-def _parse_items(items: List[Union[str, ButtonsItem]], func):
+def _parse_items(items: List[Union[str, TabsItem]], func):
     r = []
     for i in items:
-        item = i.__dict__.copy() if isinstance(i, ButtonsItem) else {'label': i}
+        item = i.__dict__.copy() if isinstance(i, TabsItem) else {'label': i}
         label = item.get('label')
         if label is None:
             item.update(label='')
@@ -47,44 +46,44 @@ def _parse_items(items: List[Union[str, ButtonsItem]], func):
     return r
 
 
-def buttons(
-        items: List[Union[str, ButtonsItem]],
-        index: Union[int, None] = 0,
+def tabs(
+        items: List[Union[str, TabsItem]],
+        index: int = 0,
         format_func: Callable = None,
+        height: int = None,
         align: Literal["start", "center", "end"] = 'start',
-        direction: Literal["horizontal", "vertical"] = 'horizontal',
-        shape: Literal["default", "round"] = 'default',
-        compact: bool = False,
+        position: Literal["top", "right", "bottom", "left"] = 'top',
+        shape: Literal['default', 'card'] = 'default',
         grow: bool = False,
         return_index: bool = False,
         key=None
 ) -> Union[str, int, None]:
-    """antd design a group of buttons
+    """antd design tabs  https://ant.design/components/tabs
 
-    :param items: buttons data
-    :param index: default selected button index.if none,click button will not show active style
+    :param items: tabs data
+    :param index: default selected tab index
     :param format_func: format label function,must return str
-    :param align: buttons align,available when direction='horizontal'
-    :param direction: buttons direction
-    :param shape: buttons shape type
-    :param compact: buttons compact style
-    :param grow: grow to fill space area
-    :param return_index: if True,return button index,default return label
+    :param height: set height in px,available when position in ['right','left']
+    :param align: tabs align,available when position in ['top','bottom']
+    :param position: tabs position
+    :param shape: tabs shape
+    :param grow: grow to fill space area,available when position in ['top','bottom']
+    :param return_index: if True,return tab index,default return label
     :param key: component unique identifier
-    :return: selected button label or index
+    :return: selected tab label or index
     """
     parse_items = _parse_items(items, format_func)
     r = _component_func(
         items=parse_items,
         index=index,
         align=align,
-        direction=direction,
+        tabPosition=position,
         shape=shape,
-        compact=compact,
+        height=height,
         grow=grow,
         key=key
     )
-    r = index if r is None and index is not None else r
-    if r is not None and not return_index:
-        return items[r].__dict__.get('label') if isinstance(items[r], ButtonsItem) else items[r]
+    r = index if r is None else r
+    if not return_index:
+        return items[r].__dict__.get('label') if isinstance(items[r], TabsItem) else items[r]
     return r

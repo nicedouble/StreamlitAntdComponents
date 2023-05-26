@@ -1,0 +1,24 @@
+/*hidden more button*/
+.ant-tabs-nav-more {
+    display: none;
+}
+
+/*tab item center*/
+.ant-tabs-tab {
+    justify-content: center;
+}
+
+/*tab border*/
+.ant-tabs-nav:before {
+    border-bottom: 2px solid rgb(222, 226, 230) !important;
+}
+
+.ant-tabs-right > .ant-tabs-content-holder {
+    margin-right: -2px;
+    border-right: 2px solid rgb(222, 226, 230);
+}
+
+.ant-tabs-left > .ant-tabs-content-holder {
+    margin-left: -2px;
+    border-left: 2px solid rgb(222, 226, 230);
+}

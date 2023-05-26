@@ -10,10 +10,9 @@
 """
 
 import os
-from typing import List, Union
+from typing import List, Union, Callable
 from dataclasses import dataclass
 import streamlit.components.v1 as components
-import streamlit as st
 
 _RELEASE = True
 
@@ -40,7 +39,6 @@ class MenuDivider:
 @dataclass
 class MenuItem:
     label: str  # item label
-    key: str  # item key,must be unique
     icon: str = None  # item icon,bootstrap icons https://icons.getbootstrap.com/
     disabled: bool = False  # item disabled
     href: str = None  # item link address
@@ -49,8 +47,7 @@ class MenuItem:
 
     @property
     def menu_items(self):
-        # antd menu items shape
-        base_dict = {'label': self.label, 'key': self.key, 'href': self.href}
+        base_dict = {'label': self.label, 'href': self.href}
         if self.children_as_group:
             if self.children is None:
                 return {**base_dict, 'type': 'group'}
@@ -63,98 +60,66 @@ class MenuItem:
                 return {**base_dict, 'icon': self.icon, 'disabled': self.disabled, 'children': self.children}
 
 
-def _parse_items(items: List[Union[MenuItem, MenuDivider]]):
-    r = []
-    for i in items:
-        d = i.menu_items.copy()
-        if isinstance(i, MenuItem):
-            children = d.get('children')
-            if children:
-                d.update(children=_parse_items(children))
-        r.append(d)
-    return r
+def _parse_items(items: List[Union[MenuItem, MenuDivider]], func):
+    j, kv = 0, []
+
+    def __parse_items(items: List[Union[MenuItem, MenuDivider]], func):
+        r = []
+        nonlocal j
+        for i in items:
+            item = i.menu_items.copy()
+            kv.append(item.get('label'))
+            children = item.get('children')
+            item.update(key=str(j))
+            j += 1
+            if isinstance(i, MenuItem):
+                if func is not None:
+                    item.update(label=func(item.get('label')))
+                if children:
+                    item.update(children=__parse_items(children, func))
+            r.append(item)
+        return r
+
+    antd_items = __parse_items(items, func)
+    key_title = {idx: i for idx, i in enumerate(kv)}
+    return antd_items, key_title
 
 
-def _is_keys_unique(data):
-    keys = []
-
-    def _get_key(data):
-        for i in range(len(data)):
-            node = data[i]
-            if node.get('key'):
-                keys.append(node['key'])
-            if node.get('children'):
-                _get_key(node['children'])
-
-    _get_key(data)
-    if len(keys) != len(set(keys)):
-        duplicate_keys = [i for i in keys if keys.count(i) > 1]
-        raise ValueError(f'All key in data must be unique! duplicate keys: {duplicate_keys}')
-
-
-def antd_menu(
+def menu(
         items: List[Union[MenuItem, MenuDivider]],
-        selected_key: str = None,
-        expanded_keys: List[str] = None,
-        expand_all: bool = False,
-        width: int = None,
+        index: int = 0,
+        format_func: Callable = None,
+        size: int = 16,
         indent: int = 24,
+        open_index: List[int] = None,
+        open_all: bool = False,
+        return_index: bool = False,
         key=None
-) -> str:
+) -> Union[str, int]:
     """antd design menu component https://ant.design/components/menu#menu
 
-    :param items: menu item content
-    :param selected_key: default selected key
-    :param expanded_keys: default expanded keys.if none,menu will auto expand all selected parent keys
-    :param expand_all: expand all key.expand priority[expand_all>expanded_keys>auto]
-    :param width: menu width in px
-    :param indent: menu indent in px
+    :param items: menu data
+    :param index: default selected menu item index
+    :param format_func: format label function,must return str
+    :param size: menu item font size in px
+    :param indent: menu item indent in px
+    :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.
+    :param open_all: open all items.priority[open_all>open_index]
+    :param return_index: if True,return menu item index,default return label
     :param key: component unique identifier
-    :return: current select item key
+    :return: selected menu label or index
     """
-    parse_items = _parse_items(items)
-    _is_keys_unique(parse_items)
+    parse_items, kv = _parse_items(items, format_func)
     r = _component_func(
         items=parse_items,
-        defaultSelectedKeys=[selected_key],
-        defaultOpenKeys=expanded_keys,
-        expandAll=expand_all,
-        width=width,
+        defaultSelectedKeys=str(index),
+        defaultOpenKeys=[str(i) for i in open_index] if open_index is not None else open_index,
+        expandAll=open_all,
+        size=size,
         inlineIndent=indent,
         key=key
     )
-    if r is None and selected_key is not None:
-        return selected_key
+    r = index if r is None else int(r)
+    if not return_index and r is not None:
+        return kv.get(r)
     return r
-
-
-if __name__ == '__main__':
-    items = [
-        MenuItem('Homepage', 'homepage', icon='house'),
-        MenuItem('App', 'app', icon='app', children=[
-            MenuItem('Store', 'store', icon='bag-check'),
-            MenuItem('Brand', 'brand', icon='award', children=[
-                MenuItem('Github', 'github', icon='github'),
-                MenuItem('Google', 'google', icon='google'),
-                MenuItem('Apple', 'apple', icon='apple'),
-            ]),
-        ]),
-        MenuItem('Setting', 'setting', icon='gear', children=[
-            MenuItem('Admin', 'admin', icon='person-circle'),
-            MenuItem('Guest', 'guest', icon='person'),
-        ]),
-        MenuItem('Disabled', 'disabled', icon='send', disabled=True),
-        MenuDivider(),
-        MenuItem('Reference', 'reference', children_as_group=True, children=[
-            MenuItem('Antd Design menu', 'antd', icon='heart', href='https://ant.design/components/menu#menu'),
-            MenuItem('Bootstrap icon', 'icon', icon='bootstrap', href='https://icons.getbootstrap.com/'),
-            MenuItem('streamlit-components-tutorial', 'sct', icon='info-circle',
-                     href='https://streamlit-components-tutorial.netlify.app/'),
-        ]),
-    ]
-    with st.sidebar.container():
-        item = antd_menu(
-            items=items,
-            selected_key='apple',
-        )
-    st.write(f'The selected item key is **{item}**')
