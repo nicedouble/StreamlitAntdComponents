@@ -10,12 +10,12 @@ def readme() -> str:
     a raw string in below.
     :return: content of README.md
     """
-    return open(join(dirname(__file__), "README.md")).read()
+    return open(join(dirname(__file__), "readme.md")).read()
 
 
 setuptools.setup(
     name="streamlit-antd-components",
-    version="0.1.3",
+    version="0.1.5",
     author="jihaoran",
     description="streamlit components of antd design",
     long_description=readme(),

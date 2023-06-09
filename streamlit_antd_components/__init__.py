@@ -8,8 +8,9 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
+_RELEASE = True
 
-from .Menu import menu, MenuItem, MenuDivider
-from .Tree import tree, TreeItem
-from .Buttons import buttons, ButtonsItem
-from .Tabs import tabs, TabsItem
+from .buttons import buttons, ButtonsItem
+from .menu import menu, MenuItem
+from .tabs import tabs, TabsItem
+from .tree import tree, TreeItem

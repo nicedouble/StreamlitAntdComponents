@@ -1,0 +1,5 @@
+
+/*custom select item*/
+span.ant-tree-node-content-wrapper.ant-tree-node-selected{
+    color: var(--primary-color);
+}

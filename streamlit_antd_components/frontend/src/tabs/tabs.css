@@ -1,0 +1,9 @@
+/*hidden more button*/
+.ant-tabs-nav-more {
+    display: none;
+}
+
+/*tab item center*/
+.ant-tabs-tab {
+    justify-content: center;
+}

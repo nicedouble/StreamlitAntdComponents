@@ -33,7 +33,7 @@ This library now provides 4 component:
 import streamlit as st
 from streamlit_antd_components import buttons
 
-btn = buttons(['button1', 'button2', 'button3'], align='center', shape='round', format_func=lambda x: x.title())
+btn = buttons(['button1', 'button2', 'button3'], align='center', shape='round', format_func='title')
 st.write(f'The selected button label is: {btn}')
 ```
 
@@ -45,11 +45,11 @@ st.write(f'The selected button label is: {btn}')
 import streamlit as st
 from streamlit_antd_components import tabs
 
-tab = tabs(['tab1', 'tab2', 'tab3'], align='center', format_func=lambda x: x.title())
+tab = tabs(['tab1', 'tab2', 'tab3'], align='center', format_func='title')
 st.write(f'The selected tab label is: {tab}')
 ```
 
-![buttons](./img/tabs.jpg)
+![tabs](./img/tabs.jpg)
 
 ### menu example
 
@@ -63,12 +63,12 @@ item = menu([
         MenuItem('menu3', icon='twitter'),
         MenuItem('disabled', disabled=True),
     ]),
-], format_func=lambda x: x.title(), open_all=True)
+], format_func='title', open_all=True)
 st.write(f'The selected menu label is: {item}')
 
 ```
 
-![buttons](./img/menu.jpg)
+![menu](./img/menu.jpg)
 
 ### tree example
 
@@ -82,9 +82,9 @@ item = tree([
         TreeItem('tree3', icon='image'),
         TreeItem('disabled', disabled=True),
     ]),
-], index=[0], format_func=lambda x: x.title(), open_all=True, checkbox=True, show_line=True)
+], index=0, format_func='title', open_all=True, checkbox=True, show_line=True)
 st.write(f'The selected tree label is: {item}')
 ```
 
-![buttons](./img/tree.jpg)
+![tree](./img/tree.jpg)
 

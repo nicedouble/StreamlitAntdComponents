@@ -5,6 +5,7 @@ dist/
 venv/
 *.egg-info/
 **/node_modules/
+test*
 
 poetry.lock
 pyproject.toml
