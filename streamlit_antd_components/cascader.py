@@ -13,9 +13,8 @@ from .utils import *
 
 
 def cascader(
-        label: str,
         items: List[Union[dict, CasItem]],
-        default: List[str] = None,
+        index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         placeholder: str = 'Please choose',
         multiple: bool = False,
@@ -23,16 +22,29 @@ def cascader(
         search: bool = False,
         clear: bool = False,
         strict: bool = False,
-        max_selections: int = None,
         return_index: bool = False,
         key=None
 ) -> List[Union[str, int]]:
+    """antd design cascader  https://ant.design/components/cascader
+
+    :param items: cascader data
+    :param index: default selected cascader item index
+    :param format_func: format label function,must return str
+    :param placeholder: placeholder
+    :param multiple: multiple select
+    :param disabled: disabled status
+    :param search: allow search
+    :param clear: add clear all button
+    :param strict: parent item and children item are not associated
+    :param return_index: if True,return item index,default return label
+    :param key: component unique identifier
+    :return: list of selected item label or index
+    """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level
+    items, kv = ParseItems(items, format_func).multi_level(field='value')
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='cascader', kw=kw)
     # parse result
-    return ParseResult(r, default, return_index, kv).multi_level
-
+    return ParseResult(r, index, return_index, kv).multi_level

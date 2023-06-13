@@ -13,7 +13,7 @@ from .utils import *
 
 
 def tree(
-        items: List[Union[dict, TreeItem]],
+        items: List[Union[str, dict, TreeItem]],
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         icon: str = None,
@@ -45,7 +45,7 @@ def tree(
     :return: list of selected item label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level
+    items, kv = ParseItems(items, format_func).multi_level()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend

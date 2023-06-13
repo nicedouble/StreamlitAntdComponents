@@ -13,7 +13,7 @@ from .utils import *
 
 
 def menu(
-        items: List[Union[dict, MenuItem]],
+        items: List[Union[str, dict, MenuItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
         size: int = 16,
@@ -37,7 +37,7 @@ def menu(
     :return: selected menu label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level
+    items, kv = ParseItems(items, format_func).multi_level()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend

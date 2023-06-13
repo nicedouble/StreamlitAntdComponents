@@ -17,7 +17,7 @@ def buttons(
         index: Union[int, None] = 0,
         format_func: Union[Label, Callable] = None,
         align: Align = 'start',
-        direction: Literal["horizontal", "vertical"] = 'horizontal',
+        direction: Direction = 'horizontal',
         shape: Literal["default", "round", "circle"] = 'default',
         compact: bool = False,
         grow: bool = False,

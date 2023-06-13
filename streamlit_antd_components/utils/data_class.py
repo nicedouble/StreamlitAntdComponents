@@ -14,6 +14,13 @@ from typing import List, Literal
 # global field type
 Label = Literal['title', 'upper']
 Align = Literal['start', 'center', 'end']
+Align2 = Literal['right', 'center', 'left']
+Direction = Literal["horizontal", "vertical"]
+
+
+@dataclass
+class BsIcon:
+    name: str
 
 
 @dataclass

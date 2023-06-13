@@ -2,16 +2,15 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Cascader, ConfigProvider} from 'antd';
 import {CaretDownFilled, CaretRightFilled} from '@ant-design/icons';
+import type {DefaultOptionType} from 'antd/es/cascader';
 import {strToNode, CascaderStyle} from "./cascader.react";
-import {AlphaColor} from "../utils.react"
+import {AlphaColor, reindex} from "../utils.react"
 import './cascader.css'
 
 
-interface CascaderProp{
-    label:string
+interface CascaderProp {
     items: any[]
-    default: any
-    max_selections: any
+    index: any
     placeholder: any
     disabled: boolean
     clear: boolean
@@ -23,37 +22,67 @@ interface CascaderProp{
 
 const AntdCascader = (props: CascaderProp) => {
     //get data
-    const label = props['label']
     const items = strToNode(props['items'])
-    const defaultValue = props['default']
+    const index = reindex(props['index'], false)
     const placeholder = props['placeholder']
     const multiple = props['multiple']
     const disabled = props['disabled']
-    const showSearch = props['search']
+    const search = props['search']
     const allowClear = props['clear']
     const strict = props['strict']
-    const maxTagCount = props['max_selections']
     const key = props['key']
 
     // load css
     CascaderStyle(multiple)
 
     //state
-    const [height, setHeight] = useState(undefined)
+    const [height, setHeight] = useState()
 
     // component height
     useEffect(() => Streamlit.setFrameHeight(height))
 
     //callback
     const onChange = (value: any) => {
-        // setValue(selectedKeys_)
-        console.log(value);
-        Streamlit.setComponentValue(value);
+        let v = value === undefined ? [] : value
+        let flatten_value = Array.from(new Set(v.flat())).sort()
+        Streamlit.setComponentValue(flatten_value)
+    }
+    const dropdownVisible = (visible: boolean) => {
+        // @ts-ignore
+        setHeight(visible ? 75 + 180 : undefined)
     }
 
-    const dropdownVisible = (visible: boolean) => {
-        // setHeight(visible ? rootHeight + 180 : undefined)
+    //search
+    const filter = (inputValue: string, path: DefaultOptionType[]) => {
+        return path.some(
+            (option) => (option.rawLabel as string).toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+        )
     }
+    // search not found
+    const notFoundContent = () => {
+        return <div style={{
+            textAlign: 'center',
+            color: AlphaColor('--text-color', 0.5),
+            padding: '70px 0'
+        }}>No results</div>
+    }
+
+    //display render
+    const displayRender = (labels: string[], selectedOptions?: DefaultOptionType[] | undefined) =>
+        labels.map((label, i) => {
+            if (selectedOptions !== undefined) {
+                const option = selectedOptions[i];
+                if (option !== null && option !== undefined) {
+                    if (i === labels.length - 1) {
+                        return (
+                            <span key={option.value}>{option.rawLabel}</span>
+                        );
+                    }
+                    return <span key={option.value}>{option.rawLabel} / </span>;
+                }
+            }
+            return <span/>
+        })
 
 
     return (
@@ -86,7 +115,6 @@ const AntdCascader = (props: CascaderProp) => {
                 },
             }}
         >
-            <div className={'d-flex'} style={{margin: `0 0 ${label === '' ? 0 : 8}px`, fontSize: 14}}>{label}</div>
             <Cascader
                 id={key}
                 options={items}
@@ -95,19 +123,19 @@ const AntdCascader = (props: CascaderProp) => {
                 multiple={multiple}
                 disabled={disabled}
                 allowClear={allowClear}
-                showSearch={showSearch}
+                showSearch={search && {filter}}
                 dropdownMatchSelectWidth={true}
                 style={{width: '100%'}}
                 suffixIcon={<CaretDownFilled/>}
                 expandIcon={<CaretRightFilled/>}
-                maxTagCount={maxTagCount}
+                maxTagCount={'responsive'}
                 maxTagTextLength={13}
-                defaultValue={defaultValue}
+                defaultValue={index}
                 popupClassName={'shadow-none'}
                 onDropdownVisibleChange={dropdownVisible}
-                notFoundContent={<div style={{textAlign: 'center', color: 'rgb(163, 168, 184)'}}>No results</div>}
-                showCheckedStrategy={strict ? Cascader.SHOW_CHILD : Cascader.SHOW_PARENT}
-
+                notFoundContent={notFoundContent()}
+                displayRender={displayRender}
+                showCheckedStrategy={strict ? Cascader.SHOW_PARENT : Cascader.SHOW_CHILD}
             />
         </ConfigProvider>
     );

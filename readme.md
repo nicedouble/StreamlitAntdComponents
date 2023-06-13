@@ -88,3 +88,44 @@ st.write(f'The selected tree label is: {item}')
 
 ![tree](./img/tree.jpg)
 
+### cascader example
+
+```python
+import streamlit as st
+from streamlit_antd_components import cascader, CasItem
+
+item = cascader(
+    items=[
+        CasItem('cas1', icon='google'),
+        CasItem('cas2', icon='twitter', children=[
+            CasItem('cas3', icon='apple'),
+            CasItem('disabled', disabled=True),
+        ]),
+        CasItem('cas4'),
+    ], index=0, format_func='title', clear=True)
+st.write(f'The selected cascader label is: {item}')
+```
+
+![cascader](./img/cascader.jpg)
+
+### switch example
+
+```python
+import streamlit as st
+from streamlit_antd_components import switch, BsIcon
+
+s = switch(value=True, checked=BsIcon('sun'), unchecked=BsIcon('moon'))
+st.write(f'switch return value :{s}')
+```
+
+![switch](./img/switch.jpg)
+
+### divider example
+
+```python
+from streamlit_antd_components import divider
+
+divider(label='divider', icon='house')
+```
+
+![divider](./img/divider.jpg)

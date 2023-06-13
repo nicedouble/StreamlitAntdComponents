@@ -9,10 +9,10 @@ const CascaderStyle = (multiple) => {
         }
         `
     if (multiple) {
-        let element = document.getElementById('tabs-border');
+        let element = document.getElementById('cascader');
         if (!element) {
             element = document.createElement("style");
-            element.id = 'tabs-border';
+            element.id = 'cascader';
         }
         element.innerHTML = style;
         let root = document.getElementById("root");
@@ -33,10 +33,11 @@ const strToNode = (obj) => {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
         }
         if (icon) {
-            obj_copy.label = <span><i className={`bi bi-${icon} m-1`}/>{label}</span>
+            obj_copy.label = <span key={obj_copy.value}><i className={`bi bi-${icon} m-1`}/>{label}</span>
         } else {
-            obj_copy.label = <span>{label}</span>
+            obj_copy.label = <span key={obj_copy.value}>{label}</span>
         }
+        obj_copy['rawLabel'] = label
         return obj_copy
     }
 }

@@ -64,8 +64,7 @@ class ParseItems:
             kv.update({idx: label})
         return r, kv
 
-    @property
-    def multi_level(self):
+    def multi_level(self, field: str = 'key'):
         """parse multiple levels component items data"""
         key, kv0 = 0, []
 
@@ -76,7 +75,7 @@ class ParseItems:
                 item = self._item_to_dict(i)
                 kv0.append(item.get('label'))
                 children = item.get('children')
-                item.update(key=key)  # add key
+                item.update({field: key})  # add field
                 key += 1
                 item.update(label=self._label_format(item.get('label')))
                 if children:
