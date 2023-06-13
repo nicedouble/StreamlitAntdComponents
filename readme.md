@@ -3,7 +3,7 @@
 A Streamlit component to display [Antd-Design](https://ant.design/).
 
 Check out the [Demo](https://nicedouble-streamlitantdcomponentsdemo-app-middmy.streamlit.app/) for more example.
-![demo](./img/demo.gif)
+![demo](./img/demo.jpg)
 
 **highlight**
 
@@ -20,12 +20,15 @@ pip install streamlit-antd-components
 
 ## Usage
 
-This library now provides 4 component:
+This library now provides component blow:
 
 - `buttons` A group of buttons component.
 - `tabs` A tabs component.
 - `menu` A versatile menu for navigation
 - `tree` A hierarchical list structure component.
+- `cascader` Chooses cascade items in one float layer for better user experience.
+- `switch` Switching between two states or on-off state
+- `divider` A divider line separates different content
 
 ### buttons example
 
