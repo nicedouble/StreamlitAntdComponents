@@ -133,24 +133,32 @@ from streamlit_antd_components import divider
 
 divider(label='divider', icon='house')
 ```
+
+![divider](./img/divider.jpg)
+
 ### transfer example
 
 ```python
 import streamlit as st
 from streamlit_antd_components import transfer
 
-t=transfer(
+t = transfer(
     items=[f'item{i}' for i in range(20)],
     index=[0, 1],
 )
 st.write(f'The transfer label is {t}')
 ```
 
-![divider](./img/transfer.jpg)
+![transfer](./img/transfer.jpg)
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
+
 [share_link]: https://nicedouble-streamlitantdcomponentsdemo-app-middmy.streamlit.app/
+
 [github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
+
 [github_link]: https://github.com/nicedouble/StreamlitAntdComponents
+
 [pypi_badge]: https://badgen.net/pypi/v/streamlit-antd-components
+
 [pypi_link]: https://pypi.org/project/streamlit-antd-components/
