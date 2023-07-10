@@ -31,7 +31,6 @@ const AntdSwitch = (props: SwitchProp) => {
         Streamlit.setComponentValue(checked)
     }
 
-    // antd menu component
     return (
         <ConfigProvider
             theme={{

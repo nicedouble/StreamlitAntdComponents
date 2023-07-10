@@ -49,13 +49,11 @@ const AntdTree = (props: TreeProp) => {
     };
     const onSelect: TreeProps['onSelect'] = (selectedKeys_, info) => {
         setValue(selectedKeys_)
-        console.log(selectedKeys_)
         Streamlit.setComponentValue(selectedKeys_);
     };
     const onCheck: TreeProps['onCheck'] = (checkedKeys_, info) => {
         let ck = (Array.isArray(checkedKeys_)) ? checkedKeys_ : checkedKeys_['checked']
         setValue(ck)
-        console.log(ck)
         Streamlit.setComponentValue(ck)
     }
 

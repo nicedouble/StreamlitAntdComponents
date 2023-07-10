@@ -1,8 +1,10 @@
 # Streamlit-Antd-Components
 
+[![Open in Streamlit][share_badge]][share_link] [![GitHub][github_badge]][github_link] [![PyPI][pypi_badge]][pypi_link]
+
 A Streamlit component to display [Antd-Design](https://ant.design/).
 
-Check out the [Demo](https://nicedouble-streamlitantdcomponentsdemo-app-middmy.streamlit.app/) for more example.
+Check out the [Demo App][share_link] for more example.
 ![demo](./img/demo.jpg)
 
 **highlight**
@@ -29,6 +31,7 @@ This library now provides component blow:
 - `cascader` Chooses cascade items in one float layer for better user experience.
 - `switch` Switching between two states or on-off state
 - `divider` A divider line separates different content
+- `transfer` Double column transfer choice box
 
 ### buttons example
 
@@ -130,5 +133,24 @@ from streamlit_antd_components import divider
 
 divider(label='divider', icon='house')
 ```
+### transfer example
 
-![divider](./img/divider.jpg)
+```python
+import streamlit as st
+from streamlit_antd_components import transfer
+
+t=transfer(
+    items=[f'item{i}' for i in range(20)],
+    index=[0, 1],
+)
+st.write(f'The transfer label is {t}')
+```
+
+![divider](./img/transfer.jpg)
+
+[share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
+[share_link]: https://nicedouble-streamlitantdcomponentsdemo-app-middmy.streamlit.app/
+[github_badge]: https://badgen.net/badge/icon/GitHub?icon=github&color=black&label
+[github_link]: https://github.com/nicedouble/StreamlitAntdComponents
+[pypi_badge]: https://badgen.net/pypi/v/streamlit-antd-components
+[pypi_link]: https://pypi.org/project/streamlit-antd-components/

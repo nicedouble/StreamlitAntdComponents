@@ -17,4 +17,5 @@ from .tree import tree
 from .cascader import cascader
 from .divider import divider
 from .switch import switch
+from .transfer import transfer
 from .utils.data_class import *

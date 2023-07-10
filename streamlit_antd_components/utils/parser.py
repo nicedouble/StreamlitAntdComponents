@@ -42,6 +42,16 @@ class ParseItems:
         else:
             return label
 
+    def transfer(self):
+        r, kv = [], {}
+        for idx, v in enumerate(self.items):
+            item = {'title': v}
+            item.update(key=idx)  # add key
+            item.update(titleFormatter=self._label_format(v))
+            r.append(item)
+            kv.update({idx: v})
+        return r, kv
+
     @staticmethod
     def _item_to_dict(item):
         if isinstance(item, str):

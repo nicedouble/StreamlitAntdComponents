@@ -8,6 +8,7 @@ import AntdTree from "./tree/Tree";
 import AntdCascader from "./cascader/Cascader";
 import AntdDivider from "./divider/Divider";
 import AntdSwitch from "./switch/Switch";
+import AntdTransfer from "./transfer/Transfer";
 import {StreamlitLikeStyle} from "./utils.react"
 
 //switch component
@@ -33,6 +34,8 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdDivider(kw);
         case 'switch':
             return AntdSwitch(kw);
+        case 'transfer':
+            return AntdTransfer(kw);
         default:
             return <></>
     }
