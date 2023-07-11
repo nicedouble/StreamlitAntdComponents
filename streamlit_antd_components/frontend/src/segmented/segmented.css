@@ -1,0 +1,7 @@
+.ant-segmented-group > label {
+    margin: auto
+}
+
+.ant-segmented-group > label:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
+    color: var(--text-color) !important;
+}

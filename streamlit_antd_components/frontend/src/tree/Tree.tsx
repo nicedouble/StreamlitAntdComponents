@@ -4,7 +4,7 @@ import type {TreeProps} from 'antd/es/tree';
 import {Tree, ConfigProvider} from 'antd';
 import {CaretDownFilled} from '@ant-design/icons';
 import {strToNode, treeHeight} from "./tree.react";
-import {AlphaColor, reindex,getCollapseKeys,getParentKeys} from "../utils.react"
+import {AlphaColor, reindex, getCollapseKeys, getParentKeys, StreamlitScrollbar} from "../utils.react"
 import './tree.css'
 
 interface TreeProp {
@@ -41,7 +41,8 @@ const AntdTree = (props: TreeProp) => {
 
     // component height
     useEffect(() => Streamlit.setFrameHeight(height != null ? height : autoHeight))
-
+    //scrollbar
+    StreamlitScrollbar()
     //callback
     const onExpand: TreeProps['onExpand'] = (e) => {
         //update component height

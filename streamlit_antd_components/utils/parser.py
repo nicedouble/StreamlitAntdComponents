@@ -53,22 +53,21 @@ class ParseItems:
         return r, kv
 
     @staticmethod
-    def _item_to_dict(item):
+    def _item_to_dict(item, field: str = 'label'):
         if isinstance(item, str):
-            return {'label': item}
+            return {field: item}
         elif isinstance(item, dict):
             return item.copy()
         else:
             return item.__dict__.copy()
 
-    @property
-    def single_level(self):
+    def single_level(self, field: str = 'key'):
         """parse single level component items data"""
         r, kv = [], {}
         for idx, v in enumerate(self.items):
             item = self._item_to_dict(v)
             label = item.get('label')
-            item.update(key=idx)  # add key
+            item.update({field: idx})  # add key
             item.update(label=self._label_format(label))
             r.append(item)
             kv.update({idx: label})

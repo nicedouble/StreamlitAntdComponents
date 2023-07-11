@@ -16,6 +16,8 @@ Label = Literal['title', 'upper']
 Align = Literal['start', 'center', 'end']
 Align2 = Literal['right', 'center', 'left']
 Direction = Literal["horizontal", "vertical"]
+Size = Literal["large", "middle", "small"]
+Msg = Literal['success', 'info', 'warning', 'error']
 
 
 @dataclass
@@ -38,6 +40,11 @@ class NestedItem(Item):
 @dataclass
 class ButtonsItem(Item):
     href: str = None  # link address
+
+
+@dataclass
+class SegmentedItem(Item):
+    pass
 
 
 @dataclass

@@ -18,4 +18,6 @@ from .cascader import cascader
 from .divider import divider
 from .switch import switch
 from .transfer import transfer
+from .segmented import segmented
+from .alert import alert
 from .utils.data_class import *

@@ -9,15 +9,15 @@ import AntdCascader from "./cascader/Cascader";
 import AntdDivider from "./divider/Divider";
 import AntdSwitch from "./switch/Switch";
 import AntdTransfer from "./transfer/Transfer";
-import {StreamlitLikeStyle} from "./utils.react"
+import AntdSegmented from "./segmented/Segmented";
+import AntdAlert from "./alert/Alert";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
     //get data
     const id = props.args['id']
     const kw = props.args['kw']
-    //load global streamlit-like style
-    StreamlitLikeStyle()
+
     //return component base on component id
     switch (id) {
         case 'buttons':
@@ -36,6 +36,10 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdSwitch(kw);
         case 'transfer':
             return AntdTransfer(kw);
+        case 'segmented':
+            return AntdSegmented(kw);
+        case 'alert':
+            return AntdAlert(kw)
         default:
             return <></>
     }

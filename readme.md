@@ -26,12 +26,14 @@ This library now provides component blow:
 
 - `buttons` A group of buttons component.
 - `tabs` A tabs component.
+- `segmented` Segmented Controls.
 - `menu` A versatile menu for navigation
 - `tree` A hierarchical list structure component.
 - `cascader` Chooses cascade items in one float layer for better user experience.
 - `switch` Switching between two states or on-off state
 - `divider` A divider line separates different content
 - `transfer` Double column transfer choice box
+- `alert` Alert component for feedback
 
 ### buttons example
 
@@ -150,6 +152,31 @@ st.write(f'The transfer label is {t}')
 ```
 
 ![transfer](./img/transfer.jpg)
+
+### segmented example
+
+```python
+import streamlit as st
+from streamlit_antd_components import segmented
+
+s = segmented(
+    items=[f'item{i}' for i in range(5)],
+)
+st.write(f'The segmented label is {s}')
+```
+
+![segmented](./img/segmented.png)
+
+### alert example
+
+```python
+from streamlit_antd_components import alert
+
+alert('some message', icon=True)
+```
+
+![alert](./img/alert.png)
+
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg
 

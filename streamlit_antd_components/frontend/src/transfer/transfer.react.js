@@ -1,6 +1,3 @@
-import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
-
 //recurve str property to react node
 const strToNode = (obj) => {
     if (Array.isArray(obj)) {

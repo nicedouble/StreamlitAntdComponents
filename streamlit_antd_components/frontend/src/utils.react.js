@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const deepCopy = (obj) => {
     return JSON.parse(JSON.stringify(obj))
 }
-const StreamlitLikeStyle = () => {
+const StreamlitScrollbar = () => {
     //global streamlit like style
     let scrollBarColor = AlphaColor('--text-color', 0.4);
     let style = `
@@ -147,4 +147,4 @@ const getHrefKeys = (items) => {
     getKey(items)
     return keys
 }
-export {deepCopy, AlphaColor, StreamlitLikeStyle, getCollapseKeys, getHrefKeys, getParentKeys, reindex}
+export {deepCopy, AlphaColor, StreamlitScrollbar, getCollapseKeys, getHrefKeys, getParentKeys, reindex}

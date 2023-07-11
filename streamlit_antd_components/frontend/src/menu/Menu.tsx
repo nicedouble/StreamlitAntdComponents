@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
 import {strToNode} from "./menu.react";
-import {AlphaColor, getParentKeys, getCollapseKeys, getHrefKeys, reindex} from "../utils.react"
+import {AlphaColor, getParentKeys, getCollapseKeys, getHrefKeys, reindex,StreamlitScrollbar} from "../utils.react"
 import './menu.css'
 
 interface MenuProp {
@@ -20,6 +20,8 @@ interface MenuProp {
 const AntdMenu = (props: MenuProp) => {
     //component height
     useEffect(() => Streamlit.setFrameHeight())
+    //scrollbar
+    StreamlitScrollbar()
 
     //get data
     const items = strToNode(props['items'])

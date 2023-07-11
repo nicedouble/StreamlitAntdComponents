@@ -2,7 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider} from 'antd';
 import type {TransferDirection} from "antd/es/transfer";
-import {AlphaColor} from "../utils.react"
+import {AlphaColor,StreamlitScrollbar} from "../utils.react"
 import {strToNode, numberToStr} from "./transfer.react";
 import './transfer.css'
 
@@ -44,7 +44,8 @@ const AntdTransfer = (props: TransferProp) => {
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
-
+    //scrollbar
+    StreamlitScrollbar()
     const shadow = AlphaColor('--text-color', 0.1)
     return (
         <ConfigProvider

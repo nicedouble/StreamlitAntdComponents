@@ -39,7 +39,7 @@ def buttons(
     :return: selected button label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).single_level
+    items, kv = ParseItems(items, format_func).single_level()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
