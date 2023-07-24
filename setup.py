@@ -15,7 +15,7 @@ def readme() -> str:
 
 setuptools.setup(
     name="streamlit-antd-components",
-    version="0.1.8",
+    version="0.1.9",
     author="jihaoran",
     description="streamlit components of antd design",
     long_description=readme(),
@@ -23,7 +23,7 @@ setuptools.setup(
     url="https://github.com/nicedouble/StreamlitAntdComponents",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    python_requires=">=3.9",
+    python_requires=">=3.8",
     install_requires=[
         "streamlit >= 1.12.0",
     ],

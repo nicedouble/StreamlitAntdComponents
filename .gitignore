@@ -2,11 +2,12 @@
 __pycache__/
 build/
 dist/
-venv/
+venv*/
 *.egg-info/
 **/node_modules/
 test*
-
+**/package-lock.json
+**/tsconfig.json
 poetry.lock
 pyproject.toml
 .vscode

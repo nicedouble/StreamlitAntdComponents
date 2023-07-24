@@ -9,8 +9,9 @@ interface SegmentedProp {
     items: any[];
     index: number | string;
     size: "large" | "middle" | "small";
+    align: any;
     disabled: boolean;
-    use_container_width: boolean;
+    grow: boolean;
     key: string | undefined;
 }
 
@@ -19,10 +20,10 @@ const AntdSegmented = (props: SegmentedProp) => {
     const items = strToNode(props['items'])
     const index = props['index']
     const size = props['size']
+    const align = props['align']
     const disabled = props['disabled']
-    const use_container_width = props['use_container_width']
+    const grow = props['grow']
     const key = props['key']
-
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -31,33 +32,58 @@ const AntdSegmented = (props: SegmentedProp) => {
     const onChange = (idx: any) => {
         Streamlit.setComponentValue(idx)
     }
+    const wrapSegmented = (x: boolean) => {
+        if (x) {
+            return <Segmented
+                key={key}
+                options={items}
+                defaultValue={index}
+                disabled={disabled}
+                size={size}
+                onChange={onChange}
+                block={grow}
+            >
+            </Segmented>
+        } else {
+            return <div className={`d-flex justify-content-${align}`}>
+                <Segmented
+                    key={key}
+                    options={items}
+                    defaultValue={index}
+                    disabled={disabled}
+                    size={size}
+                    onChange={onChange}
+                >
+                </Segmented>
+            </div>
+        }
+    }
 
     return (
         <ConfigProvider
             theme={{
                 components: {
                     Segmented: {
-                        colorBgElevated: 'var(--primary-color)',
+                        itemColor: 'var(--text-color)',
+                        itemHoverBg: AlphaColor('--text-color', 0.2),
+                        itemHoverColor: 'var(--primary-color)',
+                        itemSelectedBg: AlphaColor(),
+                        itemActiveBg: AlphaColor(),
                         colorBgLayout: 'var(--secondary-background-color)',
-                        colorText: '#fff',
-                        colorTextLabel: 'var(--text-color)',
-                        colorTextDisabled:AlphaColor('--text-color',0.2),
-                        colorFill: 'transform',
-                        colorFillSecondary: AlphaColor('--text-color',0.2),
+                        colorTextDisabled: AlphaColor('--text-color', 0.2),
+                        controlHeight: 36,
+                        controlHeightSM: 28,
+                        controlHeightLG: 42,
+                        fontSize: 16,
+                        fontSizeSM: 14,
+                        fontSizeLG: 18,
+                        borderRadiusSM: 6,
+                        borderRadius: 6,
                     },
                 },
             }}
         >
-            <Segmented
-                key={key}
-                options={items}
-                defaultValue={index}
-                disabled={disabled}
-                size={size}
-                block={use_container_width}
-                onChange={onChange}
-            >
-            </Segmented>
+            {wrapSegmented(grow)}
         </ConfigProvider>
     );
 };

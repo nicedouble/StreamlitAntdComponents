@@ -17,7 +17,7 @@ def tabs(
         format_func: Union[Label, Callable] = None,
         height: int = None,
         align: Align = 'start',
-        position: Literal["top", "right", "bottom", "left"] = 'top',
+        position: Position = 'top',
         shape: Literal['default', 'card'] = 'default',
         grow: bool = False,
         return_index: bool = False,

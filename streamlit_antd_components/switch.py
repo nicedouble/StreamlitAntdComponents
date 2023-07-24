@@ -12,18 +12,24 @@ from .utils import *
 
 
 def switch(
+        label: str = None,
         value: bool = False,
         checked: Union[str, BsIcon] = None,
         unchecked: Union[str, BsIcon] = None,
+        align: Align = 'start',
+        position: Position = 'top',
         size: Literal['small', 'default', 'large'] = 'default',
         disabled: bool = False,
         key=None
 ) -> bool:
     """antd design switch  https://ant.design/components/switch
 
+    :param label: switch label
     :param value: default value
     :param checked: checked content,str or BsIcon
     :param unchecked: unchecked content,str or BsIcon
+    :param align: switch horizontal align
+    :param position: switch label position
     :param size: switch size
     :param disabled: disabled status
     :param key: component unique identifier

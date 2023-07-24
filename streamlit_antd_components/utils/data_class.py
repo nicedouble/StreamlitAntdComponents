@@ -18,6 +18,7 @@ Align2 = Literal['right', 'center', 'left']
 Direction = Literal["horizontal", "vertical"]
 Size = Literal["large", "middle", "small"]
 Msg = Literal['success', 'info', 'warning', 'error']
+Position = Literal["top", "right", "bottom", "left"]
 
 
 @dataclass

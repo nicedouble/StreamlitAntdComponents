@@ -2,7 +2,7 @@
 
 [![Open in Streamlit][share_badge]][share_link] [![GitHub][github_badge]][github_link] [![PyPI][pypi_badge]][pypi_link]
 
-A Streamlit component to display [Antd-Design](https://ant.design/).
+A Streamlit component to display [Antd-Design](https://ant.design/), streamlit widgets extension.
 
 Check out the [Demo App][share_link] for more example.
 ![demo](./img/demo.jpg)
@@ -11,8 +11,8 @@ Check out the [Demo App][share_link] for more example.
 
 * support streamlit theme(light or dark mode,or custom theme)
 * support [Bootstrap Icon](https://icons.getbootstrap.com/)
+* support nested data widgets(menu,tree,cascader...)
 * more style params
-* multiple nested items in menu and tree
 
 ## Install
 

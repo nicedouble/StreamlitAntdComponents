@@ -2,6 +2,7 @@
     margin: auto
 }
 
-.ant-segmented-group > label:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
-    color: var(--text-color) !important;
+
+label.ant-segmented-item-selected {
+    box-shadow: none !important;
 }

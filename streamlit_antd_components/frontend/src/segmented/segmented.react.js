@@ -6,7 +6,7 @@ const strToNode = (obj) => {
     return obj.map((item, idx) => {
         let item_ = deepCopy(item)
         if (item_['icon'] != null) {
-            item_['icon']=<i className={`bi bi-${item['icon']}`}/>
+            item_['icon'] = <i className={`bi bi-${item['icon']}`}/>
         }
         return item_
     })

@@ -17,8 +17,9 @@ def segmented(
         index: int = 0,
         format_func: Union[Label, Callable] = None,
         size: Size = 'middle',
+        align: Align = 'start',
+        grow: bool = False,
         disabled: bool = False,
-        use_container_width: bool = False,
         return_index: bool = False,
         key=None,
 ) -> Union[str, int]:
@@ -28,8 +29,9 @@ def segmented(
     :param index: default selected item index
     :param format_func: format label function,must return str
     :param size: segmented item size
+    :param align: segmented align
     :param disabled: disable segmented
-    :param use_container_width: width 100%
+    :param grow: width 100%
     :param return_index: if True,return button index,default return label
     :param key: component unique identifier
     :return: selected segmented item value or index
