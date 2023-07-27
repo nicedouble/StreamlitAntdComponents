@@ -8,7 +8,7 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .utils import *
+from ..utils import *
 
 
 def tabs(
@@ -27,7 +27,7 @@ def tabs(
 
     :param items: tabs data
     :param index: default selected tab index
-    :param format_func: format label function,must return str
+    :param format_func: label formatter function,receive str and return str
     :param height: set height in px,available when position in ['right','left']
     :param align: tabs align,available when position in ['top','bottom']
     :param position: tabs position
@@ -38,10 +38,10 @@ def tabs(
     :return: selected tab label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).single_level()
+    items, kv = ParseItems(items, format_func).single()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='tabs', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).single_level
+    return ParseResult(r, index, return_index, kv).single()

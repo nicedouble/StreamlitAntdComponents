@@ -9,14 +9,14 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def menu(
         items: List[Union[str, dict, MenuItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
-        size: int = 16,
+        size: Size = 'middle',
         indent: int = 24,
         open_index: List[int] = None,
         open_all: bool = False,
@@ -27,8 +27,8 @@ def menu(
 
     :param items: menu data
     :param index: default selected menu item index
-    :param format_func: format label function,must return str
-    :param size: menu item font size in px
+    :param format_func: label formatter function,receive str and return str
+    :param size: menu size
     :param indent: menu item indent in px
     :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.
     :param open_all: open all items.priority[open_all>open_index]
@@ -37,10 +37,10 @@ def menu(
     :return: selected menu label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level()
+    items, kv = ParseItems(items, format_func).multi()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='menu', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi_level
+    return ParseResult(r, index, return_index, kv).multi

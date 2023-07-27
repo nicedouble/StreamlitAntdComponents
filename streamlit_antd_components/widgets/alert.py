@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def alert(
@@ -22,12 +22,12 @@ def alert(
         banner: bool = False,
         key=None,
 ):
-    """antd design segmented
+    """antd design alert https://ant.design/components/alert
 
     :param message: alert content
     :param description: content description
     :param type: alert type
-    :param height: alert height
+    :param height: alert height,used when banner==True and description is not None
     :param icon: show icon
     :param closable: show close button
     :param banner: alert as banner

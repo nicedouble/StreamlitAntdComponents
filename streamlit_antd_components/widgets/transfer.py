@@ -8,7 +8,7 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .utils import *
+from ..utils import *
 
 
 def transfer(
@@ -30,7 +30,7 @@ def transfer(
     :param items: transfer source data
     :param index: transfer default target data index
     :param label: transfer label,[left,right]
-    :param format_func: item format func
+    :param format_func: label formatter function,receive str and return str
     :param search: show search bar
     :param pagination: show pagination
     :param oneway: oneway mode
@@ -48,4 +48,4 @@ def transfer(
     # pass component id and params to frontend
     r = component_func(id='transfer', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi_level
+    return ParseResult(r, index, return_index, kv).multi

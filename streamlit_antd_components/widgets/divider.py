@@ -9,24 +9,26 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def divider(
         label: str = '',
         icon: str = None,
-        align: Align2 = 'center',
+        align: Align = 'start',
         direction: Direction = 'horizontal',
         dashed: bool = False,
+        bold: bool = False,
         key=None
 ):
     """antd design divider component https://ant.design/components/divider
 
     :param label: divider text label
     :param icon: divider text boostrap icon,https://icons.getbootstrap.com/
-    :param align: divider align,available when direction='horizontal'
+    :param align: label align,available when direction='horizontal'
     :param direction: divider direction
-    :param dashed: dashed
+    :param dashed: dashed style
+    :param bold: label font weight bold
     :param key: component unique identifier
     """
     # pass component id and params to frontend

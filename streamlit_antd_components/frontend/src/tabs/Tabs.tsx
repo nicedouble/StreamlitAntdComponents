@@ -43,12 +43,10 @@ const AntdTabs = (props: TabsProp) => {
         Streamlit.setComponentValue(key)
     }
 
-    // antd menu component
     return (
         <ConfigProvider
             theme={{
                 components: {
-                    //custom tree theme
                     Tabs: {
                         colorText: 'var(--text-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),

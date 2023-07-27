@@ -35,6 +35,7 @@ const AntdTransfer = (props: TransferProp) => {
     const key = props['key']
     //target keys
     const [targetKeys, setTargetKeys] = useState(index);
+
     //callback
     const onChange = (nextTargetKeys: string[], direction: TransferDirection, moveKeys: string[]) => {
         setTargetKeys(nextTargetKeys);
@@ -44,9 +45,11 @@ const AntdTransfer = (props: TransferProp) => {
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
+
     //scrollbar
     StreamlitScrollbar()
     const shadow = AlphaColor('--text-color', 0.1)
+
     return (
         <ConfigProvider
             theme={{

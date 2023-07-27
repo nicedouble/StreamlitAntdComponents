@@ -8,7 +8,7 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .utils import *
+from ..utils import *
 
 
 def switch(
@@ -18,7 +18,7 @@ def switch(
         unchecked: Union[str, BsIcon] = None,
         align: Align = 'start',
         position: Position = 'top',
-        size: Literal['small', 'default', 'large'] = 'default',
+        size: Size = 'middle',
         disabled: bool = False,
         key=None
 ) -> bool:

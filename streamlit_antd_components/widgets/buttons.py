@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def buttons(
@@ -28,7 +28,7 @@ def buttons(
 
     :param items: buttons data
     :param index: default selected button index.if none,click button will not show active style
-    :param format_func: format label function,must return str
+    :param format_func: label formatter function,receive str and return str
     :param align: buttons align,available when direction='horizontal'
     :param direction: buttons direction
     :param shape: buttons shape type
@@ -39,10 +39,10 @@ def buttons(
     :return: selected button label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).single_level()
+    items, kv = ParseItems(items, format_func).single()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='buttons', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).single_level
+    return ParseResult(r, index, return_index, kv).single()

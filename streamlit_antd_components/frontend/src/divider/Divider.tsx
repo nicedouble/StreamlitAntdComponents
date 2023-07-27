@@ -10,20 +10,22 @@ interface DividerProp {
     align: any
     direction: any
     dashed: boolean
+    bold: boolean
 }
 
 const AntdDivider = (props: DividerProp) => {
     //get data
     const label = props['label'];
     const icon = props['icon'];
-    const align = props['align'];
+    // @ts-ignore
+    const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
     const direction = props['direction'];
     const dashed = props['dashed'];
+    const bold = props['bold'];
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(60))
+    useEffect(() => Streamlit.setFrameHeight(35))
 
-    // antd divider component
     return (
         <ConfigProvider
             theme={{
@@ -32,7 +34,8 @@ const AntdDivider = (props: DividerProp) => {
                     Divider: {
                         colorSplit: AlphaColor('--text-color', 0.2),
                         colorText: 'var(--text-color)',
-                        colorTextHeading: 'var(--text-color)'
+                        fontSize: 16,
+                        margin: 8
                     },
                 },
             }}
@@ -42,6 +45,7 @@ const AntdDivider = (props: DividerProp) => {
                 dashed={dashed}
                 type={direction}
                 orientation={align}
+                plain={!bold}
             />
         </ConfigProvider>
     );

@@ -14,168 +14,58 @@ Check out the [Demo App][share_link] for more example.
 * support nested data widgets(menu,tree,cascader...)
 * more style params
 
+This library now provides component blow:
+
+- `buttons` A group of buttons component.
+- `divider` A divider line separates different content
+- `menu` A versatile menu for navigation
+- `steps` A navigation bar that guides users through the steps of a task
+- `cascader` Chooses cascade items in one float layer for better user experience.
+- `checkbox` A group of checkbox.
+- `rate` Rate component
+- `switch` Switching between two states or on-off state
+- `transfer` Double column transfer choice box
+- `segmented` Segmented Controls.
+- `tabs` A tabs component.
+- `tree` A hierarchical list structure component.
+- `alert` Alert component for feedback
+- `result` Used to feed back the results of a series of operational tasks
+
 ## Install
 
 ```shell script
 pip install streamlit-antd-components
 ```
 
-## Usage
+## Quickstart
 
-This library now provides component blow:
-
-- `buttons` A group of buttons component.
-- `tabs` A tabs component.
-- `segmented` Segmented Controls.
-- `menu` A versatile menu for navigation
-- `tree` A hierarchical list structure component.
-- `cascader` Chooses cascade items in one float layer for better user experience.
-- `switch` Switching between two states or on-off state
-- `divider` A divider line separates different content
-- `transfer` Double column transfer choice box
-- `alert` Alert component for feedback
-
-### buttons example
+Create a group of buttons,use more style params.
 
 ```python
 import streamlit as st
-from streamlit_antd_components import buttons
+import streamlit_antd_components as sac
 
-btn = buttons(['button1', 'button2', 'button3'], align='center', shape='round', format_func='title')
+btn = sac.buttons(
+    items=['button1', 'button2', 'button3'],
+    index=0,
+    format_func='title',
+    align='center',
+    direction='horizontal',
+    shape='round',
+    compact=False,
+    return_index=False,
+)
 st.write(f'The selected button label is: {btn}')
 ```
 
 ![buttons](./img/buttons.jpg)
 
-### tabs example
+## Todo
 
-```python
-import streamlit as st
-from streamlit_antd_components import tabs
-
-tab = tabs(['tab1', 'tab2', 'tab3'], align='center', format_func='title')
-st.write(f'The selected tab label is: {tab}')
-```
-
-![tabs](./img/tabs.jpg)
-
-### menu example
-
-```python
-import streamlit as st
-from streamlit_antd_components import menu, MenuItem
-
-item = menu([
-    MenuItem('menu1', icon='house'),
-    MenuItem('menu2', icon='app', children=[
-        MenuItem('menu3', icon='twitter'),
-        MenuItem('disabled', disabled=True),
-    ]),
-], format_func='title', open_all=True)
-st.write(f'The selected menu label is: {item}')
-
-```
-
-![menu](./img/menu.jpg)
-
-### tree example
-
-```python
-import streamlit as st
-from streamlit_antd_components import tree, TreeItem
-
-item = tree([
-    TreeItem('tree1', icon='table'),
-    TreeItem('tree2', icon='table', children=[
-        TreeItem('tree3', icon='image'),
-        TreeItem('disabled', disabled=True),
-    ]),
-], index=0, format_func='title', open_all=True, checkbox=True, show_line=True)
-st.write(f'The selected tree label is: {item}')
-```
-
-![tree](./img/tree.jpg)
-
-### cascader example
-
-```python
-import streamlit as st
-from streamlit_antd_components import cascader, CasItem
-
-item = cascader(
-    items=[
-        CasItem('cas1', icon='google'),
-        CasItem('cas2', icon='twitter', children=[
-            CasItem('cas3', icon='apple'),
-            CasItem('disabled', disabled=True),
-        ]),
-        CasItem('cas4'),
-    ], index=0, format_func='title', clear=True)
-st.write(f'The selected cascader label is: {item}')
-```
-
-![cascader](./img/cascader.jpg)
-
-### switch example
-
-```python
-import streamlit as st
-from streamlit_antd_components import switch, BsIcon
-
-s = switch(value=True, checked=BsIcon('sun'), unchecked=BsIcon('moon'))
-st.write(f'switch return value :{s}')
-```
-
-![switch](./img/switch.jpg)
-
-### divider example
-
-```python
-from streamlit_antd_components import divider
-
-divider(label='divider', icon='house')
-```
-
-![divider](./img/divider.jpg)
-
-### transfer example
-
-```python
-import streamlit as st
-from streamlit_antd_components import transfer
-
-t = transfer(
-    items=[f'item{i}' for i in range(20)],
-    index=[0, 1],
-)
-st.write(f'The transfer label is {t}')
-```
-
-![transfer](./img/transfer.jpg)
-
-### segmented example
-
-```python
-import streamlit as st
-from streamlit_antd_components import segmented
-
-s = segmented(
-    items=[f'item{i}' for i in range(5)],
-)
-st.write(f'The segmented label is {s}')
-```
-
-![segmented](./img/segmented.png)
-
-### alert example
-
-```python
-from streamlit_antd_components import alert
-
-alert('some message', icon=True)
-```
-
-![alert](./img/alert.png)
+- Solve the problem of component(such as `DatePicker`、`TreeSelect`、`cascader`) pop-up window display to obtain a better interactive experience
+- Interaction between components
+- Add component callback function
+- Optimize project structure to reduce project size
 
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg

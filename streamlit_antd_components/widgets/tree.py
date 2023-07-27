@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def tree(
@@ -31,7 +31,7 @@ def tree(
 
     :param items: tree data
     :param index: default selected tree item index
-    :param format_func: format label function,must return str
+    :param format_func: label formatter function,receive str and return str
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
     :param height: set height in px to scroll
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
@@ -45,10 +45,10 @@ def tree(
     :return: list of selected item label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level()
+    items, kv = ParseItems(items, format_func).multi()
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='tree', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi_level
+    return ParseResult(r, index, return_index, kv).multi

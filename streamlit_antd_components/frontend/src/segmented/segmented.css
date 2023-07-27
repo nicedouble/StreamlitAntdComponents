@@ -4,5 +4,6 @@
 
 
 label.ant-segmented-item-selected {
+    color: white !important;
     box-shadow: none !important;
 }

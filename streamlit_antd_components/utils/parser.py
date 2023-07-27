@@ -61,19 +61,19 @@ class ParseItems:
         else:
             return item.__dict__.copy()
 
-    def single_level(self, field: str = 'key'):
+    def single(self, key_field: str = 'key', label_field: str = 'label', key_as_str: bool = False):
         """parse single level component items data"""
         r, kv = [], {}
         for idx, v in enumerate(self.items):
-            item = self._item_to_dict(v)
-            label = item.get('label')
-            item.update({field: idx})  # add key
-            item.update(label=self._label_format(label))
+            item = self._item_to_dict(v, label_field)
+            label = item.get(label_field)
+            item.update({key_field: str(idx) if key_as_str else idx})  # add key
+            item.update({label_field: self._label_format(label)})
             r.append(item)
             kv.update({idx: label})
         return r, kv
 
-    def multi_level(self, field: str = 'key'):
+    def multi(self, field: str = 'key'):
         """parse multiple levels component items data"""
         key, kv0 = 0, []
 
@@ -104,21 +104,20 @@ class ParseResult:
         self.return_index = return_index
         self.kv = kv
 
-    @property
-    def single_level(self):
+    def single(self, label_field: str = 'label'):
         r = self.index if self.r is None and self.index is not None else self.r
         if r is not None and not self.return_index:
             item = self.kv[r]
             if isinstance(item, str):
                 return item
             elif isinstance(item, dict):
-                return item.get('label')
+                return item.get(label_field)
             else:
-                return item.__dict__.get('label')
+                return item.__dict__.get(label_field)
         return r
 
     @property
-    def multi_level(self):
+    def multi(self):
         if self.r is None:
             self.r = self.index
         if isinstance(self.r, str):

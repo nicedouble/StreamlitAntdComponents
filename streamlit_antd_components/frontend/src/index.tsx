@@ -11,6 +11,10 @@ import AntdSwitch from "./switch/Switch";
 import AntdTransfer from "./transfer/Transfer";
 import AntdSegmented from "./segmented/Segmented";
 import AntdAlert from "./alert/Alert";
+import AntdRate from "./rate/Rate";
+import AntdSteps from "./steps/Steps";
+import AntdCheckbox from "./chekcbox/Checkbox";
+import AntdResult from "./result/Result";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
@@ -39,7 +43,15 @@ const AntdComponent = (props: ComponentProps) => {
         case 'segmented':
             return AntdSegmented(kw);
         case 'alert':
-            return AntdAlert(kw)
+            return AntdAlert(kw);
+        case 'rate':
+            return AntdRate(kw);
+        case 'steps':
+            return AntdSteps(kw)
+        case 'checkbox':
+            return AntdCheckbox(kw)
+        case 'result':
+            return AntdResult(kw)
         default:
             return <></>
     }

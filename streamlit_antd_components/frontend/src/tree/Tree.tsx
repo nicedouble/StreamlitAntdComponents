@@ -58,12 +58,10 @@ const AntdTree = (props: TreeProp) => {
         Streamlit.setComponentValue(ck)
     }
 
-    // antd menu component
     return (
         <ConfigProvider
             theme={{
                 components: {
-                    //custom tree theme
                     Tree: {
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',

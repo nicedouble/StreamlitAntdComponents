@@ -11,15 +11,6 @@
 from dataclasses import dataclass
 from typing import List, Literal
 
-# global field type
-Label = Literal['title', 'upper']
-Align = Literal['start', 'center', 'end']
-Align2 = Literal['right', 'center', 'left']
-Direction = Literal["horizontal", "vertical"]
-Size = Literal["large", "middle", "small"]
-Msg = Literal['success', 'info', 'warning', 'error']
-Position = Literal["top", "right", "bottom", "left"]
-
 
 @dataclass
 class BsIcon:
@@ -31,6 +22,21 @@ class Item:
     label: str = ''  # label
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
+
+
+@dataclass
+class StepsItem:
+    title: str = ''
+    subtitle: str = ''
+    description: str = ''
+    icon: str = None
+    disabled: bool = False
+
+
+@dataclass
+class CheckboxItem:
+    label: str = ''
+    disabled: bool = False
 
 
 @dataclass

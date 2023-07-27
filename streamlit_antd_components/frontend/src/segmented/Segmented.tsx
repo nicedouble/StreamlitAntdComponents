@@ -32,7 +32,7 @@ const AntdSegmented = (props: SegmentedProp) => {
     const onChange = (idx: any) => {
         Streamlit.setComponentValue(idx)
     }
-    const wrapSegmented = (x: boolean) => {
+    const segmentedWrap = (x: boolean) => {
         if (x) {
             return <Segmented
                 key={key}
@@ -64,11 +64,11 @@ const AntdSegmented = (props: SegmentedProp) => {
             theme={{
                 components: {
                     Segmented: {
-                        itemColor: 'var(--text-color)',
-                        itemHoverBg: AlphaColor('--text-color', 0.2),
-                        itemHoverColor: 'var(--primary-color)',
-                        itemSelectedBg: AlphaColor(),
-                        itemActiveBg: AlphaColor(),
+                        itemColor: AlphaColor('--text-color', 0.5),
+                        itemHoverBg: AlphaColor('--text-color', 0.1),
+                        itemHoverColor: 'var(--text-color)',
+                        itemSelectedBg: 'var(--primary-color)',
+                        itemActiveBg: AlphaColor('--text-color', 0.2),
                         colorBgLayout: 'var(--secondary-background-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.2),
                         controlHeight: 36,
@@ -83,7 +83,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                 },
             }}
         >
-            {wrapSegmented(grow)}
+            {segmentedWrap(grow)}
         </ConfigProvider>
     );
 };

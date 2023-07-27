@@ -10,14 +10,5 @@
 """
 _RELEASE = True
 
-from .buttons import buttons
-from .menu import menu
-from .tabs import tabs
-from .tree import tree
-from .cascader import cascader
-from .divider import divider
-from .switch import switch
-from .transfer import transfer
-from .segmented import segmented
-from .alert import alert
+from .widgets import *
 from .utils.data_class import *

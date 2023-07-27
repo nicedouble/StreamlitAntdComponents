@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def segmented(
@@ -23,11 +23,11 @@ def segmented(
         return_index: bool = False,
         key=None,
 ) -> Union[str, int]:
-    """antd design segmented
+    """antd design segmented https://ant.design/components/segmented
 
     :param items: segmented data
     :param index: default selected item index
-    :param format_func: format label function,must return str
+    :param format_func: label formatter function,receive str and return str
     :param size: segmented item size
     :param align: segmented align
     :param disabled: disable segmented
@@ -37,10 +37,10 @@ def segmented(
     :return: selected segmented item value or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).single_level(field='value')
+    items, kv = ParseItems(items, format_func).single(key_field='value')
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='segmented', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).single_level
+    return ParseResult(r, index, return_index, kv).single()

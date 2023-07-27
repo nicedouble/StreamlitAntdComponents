@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 
-from .utils import *
+from ..utils import *
 
 
 def cascader(
@@ -29,7 +29,7 @@ def cascader(
 
     :param items: cascader data
     :param index: default selected cascader item index
-    :param format_func: format label function,must return str
+    :param format_func: label formatter function,receive str and return str
     :param placeholder: placeholder
     :param multiple: multiple select
     :param disabled: disabled status
@@ -41,10 +41,10 @@ def cascader(
     :return: list of selected item label or index
     """
     # parse items
-    items, kv = ParseItems(items, format_func).multi_level(field='value')
+    items, kv = ParseItems(items, format_func).multi(field='value')
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
     r = component_func(id='cascader', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi_level
+    return ParseResult(r, index, return_index, kv).multi

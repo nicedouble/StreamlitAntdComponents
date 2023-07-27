@@ -1,0 +1,6 @@
+.ant-steps.ant-steps-horizontal.ant-steps-default.ant-steps-dot {
+    padding-top: 5px;
+}
+.ant-steps.ant-steps-vertical.ant-steps-default.ant-steps-dot {
+    padding-left: 5px;
+}

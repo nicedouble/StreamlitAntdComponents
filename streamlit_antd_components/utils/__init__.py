@@ -9,6 +9,7 @@
 @Software : PyCharm
 """
 from .data_class import *
+from .setting import *
 from .component_func import component_func
 from .callback import register_callback
 from .parser import ParseItems, ParseResult, parse_kw

@@ -1,3 +1,3 @@
-.ant-divider-inner-text{
-    font-weight: normal;
+.ant-divider-horizontal.ant-divider-with-text::before, .ant-divider-horizontal.ant-divider-with-text::after{
+    transform: none;
 }

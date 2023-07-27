@@ -1,9 +1,17 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
+import React from "react";
 
-//deep copy object func
+const positionMap = {
+    'top': 'flex-column',
+    'bottom': 'flex-column-reverse',
+    'left': 'flex-row',
+    'right': 'flex-row-reverse'
+}
+
 const deepCopy = (obj) => {
     return JSON.parse(JSON.stringify(obj))
 }
+
 const StreamlitScrollbar = () => {
     //global streamlit like style
     let scrollBarColor = AlphaColor('--text-color', 0.4);
@@ -64,6 +72,7 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
         return 'defaultColor';
     }
 };
+
 const getCollapseKeys = (items) => {
     let keys = []
 
@@ -80,6 +89,7 @@ const getCollapseKeys = (items) => {
     getKey(items)
     return keys
 }
+
 const getParentKeys = (keys, obj) => {
     const getParent = (k, obj) => {
         let allParentKeys = []
@@ -118,6 +128,7 @@ const getParentKeys = (keys, obj) => {
     }
     return parentKey
 }
+
 const reindex = (index, asString = true) => {
     let r = index
     if (typeof (index) == 'number') {
@@ -147,4 +158,22 @@ const getHrefKeys = (items) => {
     getKey(items)
     return keys
 }
-export {deepCopy, AlphaColor, StreamlitScrollbar, getCollapseKeys, getHrefKeys, getParentKeys, reindex}
+
+const parseIcon = (obj) => {
+    if (Object.prototype.toString.call(obj) === '[object Object]') {
+        return <i className={`bi bi-${obj['bs']} mx-1`}/>
+    }
+    return obj
+}
+
+export {
+    deepCopy,
+    AlphaColor,
+    StreamlitScrollbar,
+    getCollapseKeys,
+    getHrefKeys,
+    getParentKeys,
+    reindex,
+    parseIcon,
+    positionMap
+}

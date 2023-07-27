@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
 import {strToNode} from "./menu.react";
-import {AlphaColor, getParentKeys, getCollapseKeys, getHrefKeys, reindex,StreamlitScrollbar} from "../utils.react"
+import {AlphaColor, getParentKeys, getCollapseKeys, getHrefKeys, reindex, StreamlitScrollbar} from "../utils.react"
 import './menu.css'
 
 interface MenuProp {
@@ -11,7 +11,7 @@ interface MenuProp {
     index: any;
     open_index: any;
     open_all: boolean;
-    size: any;
+    size: 'small' | 'middle' | 'large';
     indent: any;
     key: string | undefined;
 }
@@ -32,6 +32,11 @@ const AntdMenu = (props: MenuProp) => {
     const indent = props['indent']
     const key = props['key']
     dok = openAll ? getCollapseKeys(items) : dok ? dok : dsk && getParentKeys(dsk, items)
+    const sizeMap = {
+        'small': {'fontSize': 14, 'lineHeight': 35},
+        'middle': {'fontSize': 16, 'lineHeight': 40},
+        'large': {'fontSize': 20, 'lineHeight': 45}
+    }
 
     //state
     const [selectKey, setSelectKey] = useState(dsk)
@@ -57,19 +62,22 @@ const AntdMenu = (props: MenuProp) => {
                 components: {
                     //custom menu theme
                     Menu: {
-                        radiusItem: 10,
-                        colorItemText: 'var(--text-color)',
-                        colorGroupTitle: AlphaColor('--text-color', 0.5),
-                        colorItemTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorItemTextHover: 'var(--text-color)',
-                        colorItemTextSelected: 'var(--primary-color)',
-                        colorItemBgHover: AlphaColor('--text-color', 0.2),
-                        colorItemBgSelected: AlphaColor(),
-                        colorSubItemBg: 'var(--background-color)',
-                        colorItemBg: 'var(--background-color)',
+                        itemBorderRadius: 8,
+                        itemColor: 'var(--text-color)',
+                        groupTitleColor: AlphaColor('--text-color', 0.5),
+                        itemDisabledColor: AlphaColor('--text-color', 0.5),
+                        itemHoverColor: 'var(--text-color)',
+                        itemSelectedColor: 'var(--primary-color)',
+                        itemHoverBg: AlphaColor('--text-color', 0.2),
+                        itemActiveBg: AlphaColor('--text-color', 0.2),
+                        itemSelectedBg: AlphaColor(),
+                        subMenuItemBg: 'var(--background-color)',
+                        itemBg: 'var(--background-color)',
                         colorSplit: AlphaColor('--text-color', 0.2),
-                        fontSize: size,
                         fontFamily: 'var(--font)',
+                        iconMarginInlineEnd: 10,
+                        fontSize: sizeMap[size]['fontSize'],
+                        itemHeight: sizeMap[size]['lineHeight'],
                     },
                 },
             }}
