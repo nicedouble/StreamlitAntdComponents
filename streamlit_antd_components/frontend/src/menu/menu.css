@@ -9,3 +9,6 @@ span.ant-menu-title-content{
 li.ant-menu-item{
     height: auto !important;
 }
+.ant-tag{
+    font-weight: normal;
+}

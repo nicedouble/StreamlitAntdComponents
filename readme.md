@@ -5,14 +5,15 @@
 A Streamlit component to display [Antd-Design](https://ant.design/), streamlit widgets extension.
 
 Check out the [Demo App][share_link] for more example.
-![demo](./img/demo.jpg)
+![demo](./img/demo.png)
 
 **highlight**
 
 * support streamlit theme(light or dark mode,or custom theme)
 * support [Bootstrap Icon](https://icons.getbootstrap.com/)
 * support nested data widgets(menu,tree,cascader...)
-* more style params
+* more components to display data
+* more style params for every component
 
 This library now provides component blow:
 
@@ -30,6 +31,7 @@ This library now provides component blow:
 - `tree` A hierarchical list structure component.
 - `alert` Alert component for feedback
 - `result` Used to feed back the results of a series of operational tasks
+- `tag` Tag for categorizing or markup
 
 ## Install
 

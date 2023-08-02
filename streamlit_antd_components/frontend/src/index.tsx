@@ -15,6 +15,7 @@ import AntdRate from "./rate/Rate";
 import AntdSteps from "./steps/Steps";
 import AntdCheckbox from "./chekcbox/Checkbox";
 import AntdResult from "./result/Result";
+import AntdTag from "./tag/Tag";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
@@ -52,6 +53,8 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdCheckbox(kw)
         case 'result':
             return AntdResult(kw)
+        case 'tag':
+            return AntdTag(kw)
         default:
             return <></>
     }

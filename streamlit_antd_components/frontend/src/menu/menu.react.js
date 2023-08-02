@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {deepCopy} from "../utils.react";
+import {Tag} from "antd";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -11,6 +12,7 @@ const strToNode = (obj) => {
         const icon = obj_copy.icon;
         const href = obj_copy.href;
         const key = obj_copy.key;
+        const tag = obj_copy.tag;
         obj_copy.key = String(key)
         if (obj_copy.children) {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
@@ -20,6 +22,12 @@ const strToNode = (obj) => {
         }
         if (href) {
             obj_copy.label = <a href={href} target='_blank' rel='noreferrer'>{obj_copy.label}</a>
+        }
+        if (tag) {
+            obj_copy.label = <div>
+                <span className={'mr-2'}>{obj_copy.label}</span>
+                <Tag bordered={true} color={'gold'}>{tag}</Tag>
+            </div>
         }
         return obj_copy
     }

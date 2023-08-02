@@ -9,7 +9,8 @@
 @Software : PyCharm
 """
 from dataclasses import dataclass
-from typing import List, Literal
+from typing import List, Literal, Union
+from .setting import Color
 
 
 @dataclass
@@ -22,6 +23,16 @@ class Item:
     label: str = ''  # label
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
+
+
+@dataclass
+class TagItem:
+    label: str  # label
+    color: Union[str, Color] = None  # color
+    icon: str = None  # bootstrap icon
+    link: str = None  # hyperlink
+    bordered: bool = True  # show border
+    closable: bool = False  # show close button
 
 
 @dataclass
@@ -72,5 +83,6 @@ class CasItem(NestedItem):
 @dataclass
 class MenuItem(NestedItem):
     href: str = None  # item link address
+    tag: str = None
     type: Literal['group', 'divider'] = None  # item type
     dashed: bool = False  # divider line style,available when type=='divider'
