@@ -15,7 +15,8 @@ import AntdRate from "./rate/Rate";
 import AntdSteps from "./steps/Steps";
 import AntdCheckbox from "./chekcbox/Checkbox";
 import AntdResult from "./result/Result";
-import AntdTag from "./tag/Tag";
+import {AntdTags, AntdTag} from "./tag/Tag";
+import AntdPagination from "./pagination/Pagination";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
@@ -53,8 +54,12 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdCheckbox(kw)
         case 'result':
             return AntdResult(kw)
+        case 'tags':
+            return AntdTags(kw)
         case 'tag':
             return AntdTag(kw)
+        case 'pagination':
+            return AntdPagination(kw)
         default:
             return <></>
     }

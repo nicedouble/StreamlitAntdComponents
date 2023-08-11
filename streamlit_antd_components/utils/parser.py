@@ -28,7 +28,7 @@ class ParseItems:
         :param items: component items data
         :param format_func: format component item label func
         """
-        self.items = items
+        self.items = items if items is not None else []
         self.format_func = format_func
 
     def _label_format(self, label: str):

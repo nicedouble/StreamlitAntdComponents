@@ -13,7 +13,8 @@ from ..utils import *
 
 
 def tree(
-        items: List[Union[str, dict, TreeItem]],
+        label: str = None,
+        items: List[Union[str, dict, TreeItem]] = None,
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         icon: str = None,
@@ -29,6 +30,7 @@ def tree(
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
 
+    :param label: tree label
     :param items: tree data
     :param index: default selected tree item index
     :param format_func: label formatter function,receive str and return str

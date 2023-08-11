@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Switch, ConfigProvider} from 'antd';
-import {AlphaColor, parseIcon, positionMap} from "../utils.react"
+import {AlphaColor, parseIcon, LabelComponent} from "../utils.react"
 import './switch.css'
 
 interface SwitchProp {
@@ -11,7 +11,7 @@ interface SwitchProp {
     unchecked: any;
     align: any;
     position: 'left' | 'right' | 'top' | 'bottom';
-    size: 'small' | 'middle' | 'large';
+    size: any
     disabled: any;
     help: any;
     key: string | undefined;
@@ -37,16 +37,6 @@ const AntdSwitch = (props: SwitchProp) => {
         Streamlit.setComponentValue(checked)
     }
 
-    const labelElement = (x: string | null) => {
-        if (x !== null) {
-            let marginMap = {'top': 'mb-1', 'bottom': 'mt-1', 'left': 'mr-2', 'right': 'ml-2'}
-            let styles = {color: 'var(--text-color)', fontSize: size === 'large' ? 16 : 14}
-            return <div className={marginMap[position]} style={styles}>{label}</div>
-        } else {
-            return undefined
-        }
-    }
-
     return (
         <ConfigProvider
             theme={{
@@ -61,21 +51,21 @@ const AntdSwitch = (props: SwitchProp) => {
                 },
             }}
         >
-            <div className={`d-flex justify-content-${align}`}>
-                <div
-                    className={`d-flex ${positionMap[position]} align-items-${['left', 'right'].indexOf(position) !== -1 ? 'center' : 'start'}`}>
-                    {labelElement(label)}
-                    <Switch
-                        id={key}
-                        checkedChildren={checked}
-                        unCheckedChildren={unchecked}
-                        defaultChecked={value}
-                        disabled={disabled}
-                        size={size !== 'small' ? 'default' : 'small'}
-                        onClick={onClick}
-                    />
-                </div>
-            </div>
+            <LabelComponent
+                label={label}
+                align={align}
+                position={position}
+                size={size}
+                children={<Switch
+                    id={key}
+                    checkedChildren={checked}
+                    unCheckedChildren={unchecked}
+                    defaultChecked={value}
+                    disabled={disabled}
+                    size={size !== 'small' ? 'default' : 'small'}
+                    onClick={onClick}
+                />}
+            />
         </ConfigProvider>
     );
 };

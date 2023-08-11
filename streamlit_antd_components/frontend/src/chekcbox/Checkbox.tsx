@@ -3,16 +3,15 @@ import React, {useEffect, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {AlphaColor, reindex, positionMap} from "../utils.react"
+import {AlphaColor, reindex, LabelComponent} from "../utils.react"
 
 interface CheckboxProp {
+    label: any
     items: any[]
     index: any
     check_all: boolean
-    check_all_label: string
-    check_all_position: 'top' | 'right' | 'bottom' | 'left'
+    position: 'top' | 'right' | 'bottom' | 'left'
     align: string
-    direction: string
     disabled: boolean
     key: string | undefined
 }
@@ -23,10 +22,9 @@ const AntdCheckbox = (props: CheckboxProp) => {
     let index0 = reindex(props['index'], false)
     let index = index0 === null ? [] : index0
     const check_all = props['check_all']
-    const check_all_label = props['check_all_label']
-    const check_all_position = props['check_all_position']
+    const label = props['label']
+    const position = props['position']
     const align = props['align']
-    const direction = props['direction']
     const disabled = props['disabled']
     const key = props['key']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
@@ -74,7 +72,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
                 onChange={onCheckAllChange}
                 style={{paddingRight: 8, whiteSpace: "nowrap"}}
             >
-                {check_all_label}
+                {'All'}
             </Checkbox>
         } else {
             return undefined
@@ -98,20 +96,24 @@ const AntdCheckbox = (props: CheckboxProp) => {
                 },
             }}
         >
-            <div className={`d-flex justify-content-${align}`}>
-                <div className={`d-flex ${positionMap[check_all_position]} align-items-start`}>
-                    {checkAllElement(check_all)}
-                    <Checkbox.Group
-                        key={key}
-                        options={items}
-                        disabled={disabled}
-                        defaultValue={index}
-                        value={checkedList}
-                        onChange={onChange}
-                        className={`d-flex justify-content-${align} flex-${direction === 'vertical' ? 'column' : 'row'}`}
-                    />
-                </div>
-            </div>
+            <LabelComponent
+                label={label}
+                align={align}
+                position={position}
+                children={
+                    <div className={`d-flex flex-row align-items-start`}>
+                        {checkAllElement(check_all)}
+                        <Checkbox.Group
+                            key={key}
+                            options={items}
+                            disabled={disabled}
+                            defaultValue={index}
+                            value={checkedList}
+                            onChange={onChange}
+                        />
+                    </div>
+                }
+            />
         </ConfigProvider>
     );
 };

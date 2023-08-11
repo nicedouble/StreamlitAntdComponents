@@ -2,15 +2,16 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider} from 'antd';
 import type {TransferDirection} from "antd/es/transfer";
-import {AlphaColor,StreamlitScrollbar} from "../utils.react"
+import {AlphaColor, StreamlitScrollbar, LabelComponent} from "../utils.react"
 import {strToNode, numberToStr} from "./transfer.react";
 import './transfer.css'
 
 
 interface TransferProp {
+    label: any
     items: any[]
     index: any
-    label: any
+    titles: any
     search: boolean
     pagination: boolean
     oneway: boolean
@@ -23,9 +24,10 @@ interface TransferProp {
 
 const AntdTransfer = (props: TransferProp) => {
     //get data
+    const label = props['label']
     const items = strToNode(props['items'])
     const index = numberToStr(props['index'])
-    const label = props['label']
+    const titles = props['titles']
     const search = props['search']
     const pagination = props['pagination']
     const oneway = props['oneway']
@@ -104,19 +106,25 @@ const AntdTransfer = (props: TransferProp) => {
                 },
             }}
         >
-            <Transfer
-                key={key}
-                dataSource={items}
-                titles={label}
-                targetKeys={targetKeys}
-                onChange={onChange}
-                render={(item: any) => item.title}
-                showSearch={search}
-                showSelectAll={true}
-                pagination={pagination}
-                oneWay={oneway}
-                disabled={disabled}
-                listStyle={{width: width, height: height}}
+            <LabelComponent
+                label={label}
+                onlyLabel={true}
+                children={
+                    <Transfer
+                        key={key}
+                        dataSource={items}
+                        titles={titles}
+                        targetKeys={targetKeys}
+                        onChange={onChange}
+                        render={(item: any) => item.title}
+                        showSearch={search}
+                        showSelectAll={true}
+                        pagination={pagination}
+                        oneWay={oneway}
+                        disabled={disabled}
+                        listStyle={{width: width, height: height}}
+                    />
+                }
             />
         </ConfigProvider>
     );

@@ -33,3 +33,9 @@
 .ant-alert.ant-alert-error .ant-alert-message{
     color: rgb(125, 53, 59);
 }
+.anticon.anticon-close{
+    color: inherit;
+}
+div.ant-alert-content p{
+    margin-bottom: 0;
+}

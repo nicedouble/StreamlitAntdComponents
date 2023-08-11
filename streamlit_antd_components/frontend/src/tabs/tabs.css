@@ -7,3 +7,7 @@
 .ant-tabs-tab {
     justify-content: center;
 }
+
+.ant-tabs-tab-btn{
+    text-shadow: none !important;
+}

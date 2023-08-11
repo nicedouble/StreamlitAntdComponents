@@ -16,11 +16,13 @@ def buttons(
         items: List[Union[str, dict, ButtonsItem]],
         index: Union[int, None] = 0,
         format_func: Union[Label, Callable] = None,
+        label: str = None,
         align: Align = 'start',
+        position: Position = 'top',
+        size: Size = 'middle',
         direction: Direction = 'horizontal',
-        shape: Literal["default", "round", "circle"] = 'default',
+        shape: Shape = 'default',
         compact: bool = False,
-        grow: bool = False,
         return_index: bool = False,
         key=None,
 ) -> Union[str, int, None]:
@@ -28,12 +30,14 @@ def buttons(
 
     :param items: buttons data
     :param index: default selected button index.if none,click button will not show active style
-    :param format_func: label formatter function,receive str and return str
+    :param format_func: item label formatter function,receive str and return str
+    :param label: buttons label
     :param align: buttons align,available when direction='horizontal'
+    :param position: buttons label position
+    :param size: buttons size
     :param direction: buttons direction
     :param shape: buttons shape type
     :param compact: buttons compact style
-    :param grow: grow to fill space area
     :param key: component unique identifier
     :param return_index: if True,return button index,default return label
     :return: selected button label or index

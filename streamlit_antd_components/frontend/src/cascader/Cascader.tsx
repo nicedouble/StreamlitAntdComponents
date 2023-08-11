@@ -4,11 +4,12 @@ import {Cascader, ConfigProvider} from 'antd';
 import {CaretDownFilled, CaretRightFilled} from '@ant-design/icons';
 import type {DefaultOptionType} from 'antd/es/cascader';
 import {strToNode, CascaderStyle} from "./cascader.react";
-import {AlphaColor, reindex} from "../utils.react"
+import {AlphaColor, reindex, StreamlitScrollbar, LabelComponent} from "../utils.react"
 import './cascader.css'
 
 
 interface CascaderProp {
+    label: any
     items: any[]
     index: any
     placeholder: any
@@ -22,6 +23,7 @@ interface CascaderProp {
 
 const AntdCascader = (props: CascaderProp) => {
     //get data
+    const label = props['label']
     const items = strToNode(props['items'])
     const index = reindex(props['index'], false)
     const placeholder = props['placeholder']
@@ -34,6 +36,7 @@ const AntdCascader = (props: CascaderProp) => {
 
     // load css
     CascaderStyle(multiple)
+    StreamlitScrollbar()
 
     //state
     const [height, setHeight] = useState()
@@ -48,8 +51,9 @@ const AntdCascader = (props: CascaderProp) => {
         Streamlit.setComponentValue(flatten_value)
     }
     const dropdownVisible = (visible: boolean) => {
+        let labelHeight = label !== null ? 30 : 0
         // @ts-ignore
-        setHeight(visible ? 75 + 180 : undefined)
+        setHeight(visible ? 40 + 180 + labelHeight : undefined)
     }
 
     //search
@@ -91,7 +95,6 @@ const AntdCascader = (props: CascaderProp) => {
                 components: {
                     Cascader: {
                         colorBgContainer: 'var(--background-color)',
-                        colorBorder: AlphaColor('--text-color', 0.5),
                         controlItemBgHover: 'var(--secondary-background-color)',
                         controlItemBgActive: AlphaColor(),
                         colorPrimary: 'var(--primary-color)',
@@ -115,27 +118,34 @@ const AntdCascader = (props: CascaderProp) => {
                 },
             }}
         >
-            <Cascader
-                id={key}
-                options={items}
-                onChange={onChange}
-                placeholder={placeholder}
-                multiple={multiple}
-                disabled={disabled}
-                allowClear={allowClear}
-                showSearch={search && {filter}}
-                dropdownMatchSelectWidth={true}
-                style={{width: '100%'}}
-                suffixIcon={<CaretDownFilled/>}
-                expandIcon={<CaretRightFilled/>}
-                maxTagCount={'responsive'}
-                maxTagTextLength={13}
-                defaultValue={index}
-                popupClassName={'shadow-none'}
-                onDropdownVisibleChange={dropdownVisible}
-                notFoundContent={notFoundContent()}
-                displayRender={displayRender}
-                showCheckedStrategy={strict ? Cascader.SHOW_PARENT : Cascader.SHOW_CHILD}
+            <LabelComponent
+                label={label}
+                onlyLabel={true}
+                children={
+                    <Cascader
+                        id={key}
+                        options={items}
+                        onChange={onChange}
+                        placeholder={placeholder}
+                        multiple={multiple}
+                        disabled={disabled}
+                        allowClear={allowClear}
+                        showSearch={search && {filter}}
+                        dropdownMatchSelectWidth={true}
+                        style={{width: '100%'}}
+                        suffixIcon={<CaretDownFilled/>}
+                        expandIcon={<CaretRightFilled/>}
+                        maxTagCount={'responsive'}
+                        maxTagTextLength={13}
+                        defaultValue={index}
+                        popupClassName={'shadow-none'}
+                        onDropdownVisibleChange={dropdownVisible}
+                        notFoundContent={notFoundContent()}
+                        displayRender={displayRender}
+                        expandTrigger={'click'}
+                        showCheckedStrategy={strict ? Cascader.SHOW_PARENT : Cascader.SHOW_CHILD}
+                    />
+                }
             />
         </ConfigProvider>
     );

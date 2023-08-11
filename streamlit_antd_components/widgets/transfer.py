@@ -12,9 +12,10 @@ from ..utils import *
 
 
 def transfer(
-        items: List[str],
+        label: str = None,
+        items: List[str] = None,
         index: List[int] = None,
-        label: List[str] = None,
+        titles: List[str] = None,
         format_func: Union[Label, Callable] = None,
         search: bool = False,
         pagination: bool = False,
@@ -27,9 +28,10 @@ def transfer(
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
 
+    :param label: transfer label
     :param items: transfer source data
     :param index: transfer default target data index
-    :param label: transfer label,[left,right]
+    :param titles: transfer left and right box title,[left,right]
     :param format_func: label formatter function,receive str and return str
     :param search: show search bar
     :param pagination: show pagination

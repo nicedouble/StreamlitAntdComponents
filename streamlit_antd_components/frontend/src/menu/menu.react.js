@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {deepCopy} from "../utils.react";
-import {Tag} from "antd";
+import {AntdTag} from "../tag/Tag";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -26,7 +26,7 @@ const strToNode = (obj) => {
         if (tag) {
             obj_copy.label = <div>
                 <span className={'mr-2'}>{obj_copy.label}</span>
-                <Tag bordered={true} color={'gold'}>{tag}</Tag>
+                {AntdTag(tag)}
             </div>
         }
         return obj_copy

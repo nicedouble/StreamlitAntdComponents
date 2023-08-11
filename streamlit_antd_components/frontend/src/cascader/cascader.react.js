@@ -1,23 +1,32 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import {deepCopy} from "../utils.react";
+import {deepCopy, AlphaColor} from "../utils.react";
 
 const CascaderStyle = (multiple) => {
-    let style = `
+    let borderStyle = `
+        /*dropdown border*/
+        .ant-select-dropdown {
+            border: 1px solid ${AlphaColor('--text-color', 0.1)};
+        }
+        /*vertical border*/
+        ul.ant-cascader-menu:not(:last-child) {
+            border-inline-end: 1px solid ${AlphaColor('--text-color', 0.1)} !important;
+        }
+    `
+    let checkboxStyle = `
         .ant-select-selection-item{
             color: rgb(255, 255, 255);
         }
         `
-    if (multiple) {
-        let element = document.getElementById('cascader');
-        if (!element) {
-            element = document.createElement("style");
-            element.id = 'cascader';
-        }
-        element.innerHTML = style;
-        let root = document.getElementById("root");
-        root && root.appendChild(element)
+    let style = multiple ? borderStyle + checkboxStyle : borderStyle
+    let element = document.getElementById('cascader');
+    if (!element) {
+        element = document.createElement("style");
+        element.id = 'cascader';
     }
+    element.innerHTML = style;
+    let root = document.getElementById("root");
+    root && root.appendChild(element)
 }
 
 

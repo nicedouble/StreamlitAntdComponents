@@ -12,10 +12,12 @@ from ..utils import *
 
 
 def rate(
+        label: str = None,
         value: float = 0,
         count: int = 5,
         symbol: Union[str, BsIcon] = None,
         align: Align = 'start',
+        position: Position = 'top',
         half: bool = False,
         clear: bool = False,
         readonly: bool = False,
@@ -25,10 +27,12 @@ def rate(
 ) -> float:
     """antd design rate
 
+    :param label: rate label
     :param value: rate default value,must be divide by 0.5
     :param count: rate total count
     :param symbol: rate item symbol,default star,can be str or BsIcon
     :param align: rate align
+    :param position: rate label position
     :param half: allow half select
     :param clear: allow double click to clear select
     :param readonly: readonly mode

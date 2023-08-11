@@ -5,14 +5,14 @@ import {strToNode, TabsStyle} from "./tabs.react";
 import {AlphaColor} from "../utils.react"
 import './tabs.css'
 
-interface TabsProp{
+interface TabsProp {
     items: any[];
     index: string;
     align: string;
     position: any;
     shape: any;
     centered: boolean;
-    height: number|null;
+    height: number | null;
     grow: boolean;
     key: string | undefined;
 }
@@ -52,11 +52,17 @@ const AntdTabs = (props: TabsProp) => {
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         colorPrimary: 'var(--primary-color)',
                         colorBgContainerDisabled: 'transform',
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: AlphaColor('--primary-color', 0.2),
                         colorPrimaryHover: 'var(--primary-color)',
                         colorPrimaryActive: 'var(--primary-color)',
                         fontSize: 14,
                         fontFamily: 'var(--font)',
+                        cardBg: AlphaColor('--text-color', 0.05),
+                        cardHeight: 36,
+                        cardGutter: 2,
+                        horizontalItemGutter: 15,
+                        horizontalMargin:'0 0 10px 0',
+                        colorBorderSecondary:AlphaColor('--text-color', 0.1),
                     },
                 },
             }}

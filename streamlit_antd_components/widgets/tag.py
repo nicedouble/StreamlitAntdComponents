@@ -12,7 +12,32 @@ from ..utils import *
 
 
 def tag(
-        items: Union[str, dict, TagItem],
+        label: str,
+        color: Union[str, Color] = None,
+        icon: str = None,
+        link: str = None,
+        bordered: bool = True,
+        closable: bool = False,
+        key=None
+) -> None:
+    """antd design tag  https://ant.design/components/tag
+
+    :param label: tag label
+    :param color: label formatter function,receive str and return str
+    :param icon: tag align
+    :param link: tag direction
+    :param bordered: show tag border
+    :param closable: show tag close button
+    :param key: component unique identifier
+    """
+    # pass component id and params to frontend
+    r = component_func(id='tag', kw=locals())
+    # parse result
+    return r
+
+
+def tags(
+        items: Union[str, dict, Tag],
         format_func: Union[Label, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
@@ -33,6 +58,6 @@ def tag(
     kw.update(items=items)
     del kw['format_func']
     # pass component id and params to frontend
-    r = component_func(id='tag', kw=kw)
+    r = component_func(id='tags', kw=kw)
     # parse result
     return r

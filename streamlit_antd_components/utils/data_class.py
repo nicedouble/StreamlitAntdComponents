@@ -20,13 +20,13 @@ class BsIcon:
 
 @dataclass
 class Item:
-    label: str = ''  # label
+    label: str = ''  # item label
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
 
 
 @dataclass
-class TagItem:
+class Tag:
     label: str  # label
     color: Union[str, Color] = None  # color
     icon: str = None  # bootstrap icon
@@ -83,6 +83,23 @@ class CasItem(NestedItem):
 @dataclass
 class MenuItem(NestedItem):
     href: str = None  # item link address
-    tag: str = None
+    tag: Union[str, Tag] = None  # item tag
     type: Literal['group', 'divider'] = None  # item type
     dashed: bool = False  # divider line style,available when type=='divider'
+
+    @property
+    def __dict__(self):
+        if isinstance(self.tag, Tag):
+            self.tag = self.tag.__dict__
+        elif isinstance(self.tag, str):
+            self.tag = Tag(self.tag).__dict__
+        return {
+            'label': self.label,
+            'icon': self.icon,
+            'disabled': self.disabled,
+            'children': self.children,
+            'href': self.href,
+            'tag': self.tag,
+            'type': self.type,
+            'dashed': self.dashed
+        }

@@ -1,11 +1,56 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import Marquee from 'react-fast-marquee';
+import rehypeRaw from "rehype-raw";
 
 const positionMap = {
     'top': 'flex-column',
     'bottom': 'flex-column-reverse',
     'left': 'flex-row',
     'right': 'flex-row-reverse'
+}
+const labelElement = (position, label, size) => {
+    if (label !== null) {
+        let marginMap = {'top': 'mb-2', 'bottom': 'mt-2', 'left': 'mr-2', 'right': 'ml-2'}
+        let styles = {color: 'var(--text-color)', fontSize: size === 'large' ? 16 : 14}
+        return <div className={marginMap[position]} style={styles}>{label}</div>
+    } else {
+        return undefined
+    }
+}
+
+const LabelComponent = ({label, onlyLabel = false, align = 'start', position = 'top', size = 'middle', children}) => {
+    if (onlyLabel) {
+        return <div>
+            {labelElement('top', label, 'middle')}
+            {children}
+        </div>
+    } else {
+        let alignItem = `align-items-${['left', 'right'].indexOf(position) !== -1 ? 'center' : 'start'}`
+        return <div className={`d-flex justify-content-${align}`}>
+            <div
+                className={`d-flex ${positionMap[position]} justify-content-${align} ${alignItem}`}>
+                {labelElement(position, label, size)}
+                {children}
+            </div>
+        </div>
+    }
+}
+
+
+const marquee = (x) => {
+    if (x !== null) {
+        return <Marquee pauseOnHover={true} gradient={false}>{markdown(x)}</Marquee>
+    }
+    return undefined
+}
+
+const markdown = (x) => {
+    if (x !== null) {
+        return <ReactMarkdown rehypePlugins={[rehypeRaw]}>{x}</ReactMarkdown>
+    }
+    return undefined
 }
 
 const deepCopy = (obj) => {
@@ -26,10 +71,10 @@ const StreamlitScrollbar = () => {
             background-color: ${scrollBarColor};
         }`
     //insert style
-    let element = document.getElementById('streamlit-like');
+    let element = document.getElementById('streamlit-scrollbar');
     if (!element) {
         element = document.createElement("style");
-        element.id = 'streamlit-like';
+        element.id = 'streamlit-scrollbar';
     }
     element.innerHTML = style;
     let root = document.getElementById("root");
@@ -175,5 +220,7 @@ export {
     getParentKeys,
     reindex,
     parseIcon,
-    positionMap
+    markdown,
+    marquee,
+    LabelComponent,
 }

@@ -34,3 +34,7 @@
 .ant-btn-primary:focus {
     outline: none;
 }
+
+button.ant-btn.ant-btn-sm {
+    font-size: 14px !important;
+}

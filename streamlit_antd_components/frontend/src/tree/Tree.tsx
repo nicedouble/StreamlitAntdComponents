@@ -4,10 +4,11 @@ import type {TreeProps} from 'antd/es/tree';
 import {Tree, ConfigProvider} from 'antd';
 import {CaretDownFilled} from '@ant-design/icons';
 import {strToNode, treeHeight} from "./tree.react";
-import {AlphaColor, reindex, getCollapseKeys, getParentKeys, StreamlitScrollbar} from "../utils.react"
+import {AlphaColor, reindex, getCollapseKeys, getParentKeys, StreamlitScrollbar, LabelComponent} from "../utils.react"
 import './tree.css'
 
 interface TreeProp {
+    label: any
     items: any[]
     index: any
     icon: any
@@ -23,6 +24,7 @@ interface TreeProp {
 
 const AntdTree = (props: TreeProp) => {
     //get data
+    const label = props['label']
     const items = strToNode(props['items']);
     const dsk = reindex(props['index'], false)
     let dok = reindex(props['open_index'], false)
@@ -37,7 +39,8 @@ const AntdTree = (props: TreeProp) => {
 
     //state
     const [value, setValue] = useState(dsk)
-    const [autoHeight, setAutoHeight] = useState(treeHeight(dok, items))
+    const labelHeight = label !== null ? 30 : 0
+    const [autoHeight, setAutoHeight] = useState(treeHeight(dok, items) + labelHeight)
 
     // component height
     useEffect(() => Streamlit.setFrameHeight(height != null ? height : autoHeight))
@@ -46,7 +49,7 @@ const AntdTree = (props: TreeProp) => {
     //callback
     const onExpand: TreeProps['onExpand'] = (e) => {
         //update component height
-        setAutoHeight(treeHeight(e, items))
+        setAutoHeight(treeHeight(e, items)+labelHeight)
     };
     const onSelect: TreeProps['onSelect'] = (selectedKeys_, info) => {
         setValue(selectedKeys_)
@@ -77,29 +80,33 @@ const AntdTree = (props: TreeProp) => {
                 },
             }}
         >
-            <div>
-                <Tree
-                    onSelect={onSelect}
-                    onCheck={onCheck}
-                    onExpand={onExpand}
-                    selectedKeys={value}
-                    checkedKeys={value}
-                    defaultSelectedKeys={dsk}
-                    defaultCheckedKeys={dsk}
-                    defaultExpandedKeys={dok}
-                    treeData={items}
-                    showLine={showLine}
-                    multiple={multiple}
-                    checkable={checkable}
-                    selectable={!checkable}
-                    height={height}
-                    checkStrictly={checkStrictly}
-                    switcherIcon={<CaretDownFilled/>}
-                    showIcon={true}
-                    icon={icon && <i className={`bi bi-${icon}`}/>}
-                    style={{whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden'}}
-                />
-            </div>
+            <LabelComponent
+                label={label}
+                onlyLabel={true}
+                children={
+                    <Tree
+                        onSelect={onSelect}
+                        onCheck={onCheck}
+                        onExpand={onExpand}
+                        selectedKeys={value}
+                        checkedKeys={value}
+                        defaultSelectedKeys={dsk}
+                        defaultCheckedKeys={dsk}
+                        defaultExpandedKeys={dok}
+                        treeData={items}
+                        showLine={showLine}
+                        multiple={multiple}
+                        checkable={checkable}
+                        selectable={!checkable}
+                        height={height}
+                        checkStrictly={checkStrictly}
+                        switcherIcon={<CaretDownFilled/>}
+                        showIcon={true}
+                        icon={icon && <i className={`bi bi-${icon}`}/>}
+                        style={{whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden'}}
+                    />
+                }
+            />
         </ConfigProvider>
     );
 };

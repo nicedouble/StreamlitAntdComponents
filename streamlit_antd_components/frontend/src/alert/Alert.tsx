@@ -1,12 +1,12 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Alert, ConfigProvider} from 'antd';
-import Marquee from 'react-fast-marquee';
 import './alert.css'
+import {markdown, marquee} from "../utils.react";
 
 interface AlertProp {
     message: string;
-    description: string | null;
+    description: string;
     type: "info" | "success" | "warning" | 'error';
     icon: boolean;
     height: number | undefined;
@@ -42,14 +42,14 @@ const AntdAlert = (props: AlertProp) => {
         >
             <Alert
                 key={key}
-                message={banner ? <Marquee pauseOnHover={true} gradient={false}>{message}</Marquee> : message}
-                description={description}
+                message={banner ? marquee(message) : markdown(message)}
+                description={markdown(description)}
                 type={type}
                 showIcon={icon}
                 closable={closable}
                 banner={banner}
                 style={{minHeight: 42, borderRadius: 5, height: height}}
-                onClose={()=>Streamlit.setFrameHeight(0)}
+                onClose={() => Streamlit.setFrameHeight(0)}
             />
         </ConfigProvider>
     );

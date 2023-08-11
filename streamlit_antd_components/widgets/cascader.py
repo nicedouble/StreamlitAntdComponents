@@ -13,7 +13,8 @@ from ..utils import *
 
 
 def cascader(
-        items: List[Union[dict, CasItem]],
+        label: str = None,
+        items: List[Union[str, dict, CasItem]] = None,
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         placeholder: str = 'Please choose',
@@ -27,6 +28,7 @@ def cascader(
 ) -> List[Union[str, int]]:
     """antd design cascader  https://ant.design/components/cascader
 
+    :param label: cascader label
     :param items: cascader data
     :param index: default selected cascader item index
     :param format_func: label formatter function,receive str and return str

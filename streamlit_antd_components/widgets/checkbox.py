@@ -15,11 +15,10 @@ def checkbox(
         items: List[Union[str, dict, CheckboxItem]],
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
-        check_all: bool = False,
-        check_all_label: str = 'Check all',
-        check_all_position: Position = 'top',
+        label: str = None,
         align: Align = 'start',
-        direction: Direction = 'horizontal',
+        position: Position = 'top',
+        check_all: bool = False,
         disabled: bool = False,
         return_index: bool = False,
         key=None,
@@ -29,11 +28,10 @@ def checkbox(
     :param items: checkbox items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param check_all: show check all box
-    :param check_all_label: check all box label
-    :param check_all_position: check all box position
+    :param label: checkbox label
     :param align: checkbox align
-    :param direction: checkbox direction
+    :param position: checkbox label position
+    :param check_all: show check all box
     :param disabled: disable checkbox
     :param return_index: return select item index
     :param key: component key

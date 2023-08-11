@@ -13,6 +13,7 @@ from typing import Literal
 # global field type
 Label = Literal['title', 'upper']
 Align = Literal['start', 'center', 'end']
+Shape = Literal["default", "round", "circle"]
 Direction = Literal["horizontal", "vertical"]
 Size = Literal["large", "middle", "small"]
 Msg = Literal['success', 'info', 'warning', 'error']

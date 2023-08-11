@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Result, Empty, Space, ConfigProvider} from 'antd';
-import {AlphaColor} from "../utils.react";
+import {AlphaColor, markdown} from "../utils.react";
 
 interface ResultProp {
     title: any;
@@ -40,11 +40,12 @@ const AntdResult = (props: ResultProp) => {
         } else {
             return <Result
                 key={key}
-                title={title}
-                subTitle={subtitle}
+                title={markdown(title)}
+                subTitle={markdown(subtitle)}
                 status={status}
                 icon={icon !== null ? <i className={`bi bi-${icon}`} style={{fontSize: 72, color: color}}/> : undefined}
                 className={'pb-0'}
+                style={{wordWrap:'break-word'}}
             />
         }
     }
@@ -64,7 +65,7 @@ const AntdResult = (props: ResultProp) => {
                         colorError: colorMap.error,
                     },
                     Empty: {
-                        colorText: AlphaColor('--text-color',0.5),
+                        colorText: AlphaColor('--text-color', 0.5),
                     }
                 },
             }}
