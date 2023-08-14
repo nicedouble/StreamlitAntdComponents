@@ -32,7 +32,7 @@ This library now provides component blow:
 - `alert` Alert component for feedback
 - `result` Used to feed back the results of a series of operational tasks
 - `tag` Tag for categorizing or markup
-- `paginationi` A long list can be divided into several pages
+- `pagination` A long list can be divided into several pages
 
 ## Install
 

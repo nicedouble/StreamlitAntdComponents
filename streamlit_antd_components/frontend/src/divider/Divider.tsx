@@ -30,22 +30,23 @@ const AntdDivider = (props: DividerProp) => {
         <ConfigProvider
             theme={{
                 components: {
-                    //custom tree theme
                     Divider: {
                         colorSplit: AlphaColor('--text-color', 0.2),
                         colorText: 'var(--text-color)',
-                        fontSize: 16,
+                        fontSize: 14,
+                        fontFamily: 'var(--font)',
                         margin: 8
                     },
                 },
             }}
         >
             <Divider
-                children={icon ? <span><i className={`bi bi-${icon} mx-1`}/>{label}</span> : label}
+                children={icon ? <span><i className={`bi bi-${icon} mr-1`}/>{label}</span> : label}
                 dashed={dashed}
                 type={direction}
                 orientation={align}
-                plain={!bold}
+                plain={true}
+                style={{fontWeight: bold ? "bold" : "normal"}}
             />
         </ConfigProvider>
     );
