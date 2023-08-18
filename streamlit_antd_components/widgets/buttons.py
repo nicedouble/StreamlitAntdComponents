@@ -31,7 +31,7 @@ def buttons(
     :param items: buttons data
     :param index: default selected button index.if none,click button will not show active style
     :param format_func: item label formatter function,receive str and return str
-    :param label: buttons label
+    :param label: buttons label,markdown and html with bootstrap available
     :param align: buttons align,available when direction='horizontal'
     :param position: buttons label position
     :param size: buttons size

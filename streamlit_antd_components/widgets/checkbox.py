@@ -28,7 +28,7 @@ def checkbox(
     :param items: checkbox items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param label: checkbox label
+    :param label: checkbox label,markdown and html with bootstrap available
     :param align: checkbox align
     :param position: checkbox label position
     :param check_all: show check all box

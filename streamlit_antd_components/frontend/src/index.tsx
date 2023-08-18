@@ -1,22 +1,22 @@
 import {ComponentProps, withStreamlitConnection} from "streamlit-component-lib";
 import React from "react"
 import ReactDOM from "react-dom"
-import AntdButtons from "./buttons/Buttons";
-import AntdTabs from "./tabs/Tabs";
-import AntdMenu from "./menu/Menu";
-import AntdTree from "./tree/Tree";
-import AntdCascader from "./cascader/Cascader";
-import AntdDivider from "./divider/Divider";
-import AntdSwitch from "./switch/Switch";
-import AntdTransfer from "./transfer/Transfer";
-import AntdSegmented from "./segmented/Segmented";
-import AntdAlert from "./alert/Alert";
-import AntdRate from "./rate/Rate";
-import AntdSteps from "./steps/Steps";
-import AntdCheckbox from "./chekcbox/Checkbox";
-import AntdResult from "./result/Result";
-import {AntdTags, AntdTag} from "./tag/Tag";
-import AntdPagination from "./pagination/Pagination";
+import AntdButtons from "./ts/Buttons";
+import AntdTabs from "./ts/Tabs";
+import AntdMenu from "./ts/Menu";
+import AntdTree from "./ts/Tree";
+import AntdCascader from "./ts/Cascader";
+import AntdDivider from "./ts/Divider";
+import AntdSwitch from "./ts/Switch";
+import AntdTransfer from "./ts/Transfer";
+import AntdSegmented from "./ts/Segmented";
+import AntdAlert from "./ts/Alert";
+import AntdRate from "./ts/Rate";
+import AntdSteps from "./ts/Steps";
+import AntdCheckbox from "./ts/Checkbox";
+import AntdResult from "./ts/Result";
+import {AntdTags, AntdTag} from "./ts/Tag";
+import AntdPagination from "./ts/Pagination";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {

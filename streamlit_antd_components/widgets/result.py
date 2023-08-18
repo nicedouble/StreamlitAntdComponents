@@ -19,10 +19,10 @@ def result(
         icon: str = None,
         key=None,
 ):
-    """antd design result
+    """antd design result https://ant.design/components/result
 
-    :param title: result title
-    :param subtitle: result subtitle
+    :param title: result title,markdown and html with bootstrap available
+    :param subtitle: result subtitle,markdown and html with bootstrap available
     :param status: result status
     :param icon: custom bs icon
     :param key: component unique identifier

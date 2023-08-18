@@ -24,8 +24,8 @@ def alert(
 ):
     """antd design alert https://ant.design/components/alert
 
-    :param message: alert content
-    :param description: content description
+    :param message: alert content,markdown and html with bootstrap available
+    :param description: content description,markdown and html with bootstrap available
     :param type: alert type
     :param height: alert height,used when banner==True and description is not None
     :param icon: show icon

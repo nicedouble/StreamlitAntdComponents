@@ -24,6 +24,14 @@ class Item:
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
 
+    @staticmethod
+    def parse_tag(tag):
+        if isinstance(tag, Tag):
+            tag = tag.__dict__
+        elif isinstance(tag, str):
+            tag = Tag(tag).__dict__
+        return tag
+
 
 @dataclass
 class Tag:
@@ -72,7 +80,13 @@ class TabsItem(Item):
 
 @dataclass
 class TreeItem(NestedItem):
-    pass
+    tag: Union[str, Tag] = None  # item tag
+
+    @property
+    def __dict__(self):
+        d = super(TreeItem, self).__dict__
+        d.update({'tag': self.parse_tag(self.tag)})
+        return d
 
 
 @dataclass
@@ -89,17 +103,6 @@ class MenuItem(NestedItem):
 
     @property
     def __dict__(self):
-        if isinstance(self.tag, Tag):
-            self.tag = self.tag.__dict__
-        elif isinstance(self.tag, str):
-            self.tag = Tag(self.tag).__dict__
-        return {
-            'label': self.label,
-            'icon': self.icon,
-            'disabled': self.disabled,
-            'children': self.children,
-            'href': self.href,
-            'tag': self.tag,
-            'type': self.type,
-            'dashed': self.dashed
-        }
+        d = super(MenuItem, self).__dict__
+        d.update({'tag': self.parse_tag(self.tag)})
+        return d

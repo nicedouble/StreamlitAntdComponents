@@ -25,9 +25,9 @@ def rate(
         color: str = None,
         key=None,
 ) -> float:
-    """antd design rate
+    """antd design rate https://ant.design/components/rate
 
-    :param label: rate label
+    :param label: rate label,markdown and html with bootstrap available
     :param value: rate default value,must be divide by 0.5
     :param count: rate total count
     :param symbol: rate item symbol,default star,can be str or BsIcon

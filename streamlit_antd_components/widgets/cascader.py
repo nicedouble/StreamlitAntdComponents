@@ -28,7 +28,7 @@ def cascader(
 ) -> List[Union[str, int]]:
     """antd design cascader  https://ant.design/components/cascader
 
-    :param label: cascader label
+    :param label: cascader label,markdown and html with bootstrap available
     :param items: cascader data
     :param index: default selected cascader item index
     :param format_func: label formatter function,receive str and return str

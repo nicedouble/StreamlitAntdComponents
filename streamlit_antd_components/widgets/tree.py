@@ -23,14 +23,13 @@ def tree(
         open_all: bool = False,
         checkbox: bool = False,
         checkbox_strict: bool = False,
-        multiple: bool = False,
-        show_line: bool = False,
+        show_line: bool = True,
         return_index: bool = False,
         key=None
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
 
-    :param label: tree label
+    :param label: tree label,markdown and html with bootstrap available
     :param items: tree data
     :param index: default selected tree item index
     :param format_func: label formatter function,receive str and return str
@@ -40,7 +39,6 @@ def tree(
     :param open_all: open all items.priority[open_all>open_index]
     :param checkbox: show checkbox
     :param checkbox_strict: parent item and children item are not associated
-    :param multiple: multiple select,available when checkbox=False
     :param show_line: show line
     :param return_index: if True,return tree item index,default return label
     :param key: component unique identifier
@@ -53,4 +51,4 @@ def tree(
     # pass component id and params to frontend
     r = component_func(id='tree', kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi
+    return ParseResult(r, [index] if isinstance(index, int) else index, return_index, kv).multi

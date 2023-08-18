@@ -28,7 +28,7 @@ def transfer(
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
 
-    :param label: transfer label
+    :param label: transfer label,markdown and html with bootstrap available
     :param items: transfer source data
     :param index: transfer default target data index
     :param titles: transfer left and right box title,[left,right]

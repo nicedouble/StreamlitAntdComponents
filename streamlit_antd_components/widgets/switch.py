@@ -24,7 +24,7 @@ def switch(
 ) -> bool:
     """antd design switch  https://ant.design/components/switch
 
-    :param label: switch label
+    :param label: switch label,markdown and html with bootstrap available
     :param value: default value
     :param checked: checked content,str or BsIcon
     :param unchecked: unchecked content,str or BsIcon

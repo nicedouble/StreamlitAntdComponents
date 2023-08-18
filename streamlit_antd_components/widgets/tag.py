@@ -41,14 +41,16 @@ def tags(
         format_func: Union[Label, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
+        checkable: bool = False,
         key=None
-) -> None:
+):
     """antd design tag  https://ant.design/components/tag
 
-    :param items: tag items
+    :param items: tags items
     :param format_func: label formatter function,receive str and return str
-    :param align: tag align
-    :param direction: tag direction
+    :param align: tags align
+    :param direction: tags direction
+    :param checkable: tags checkable mode
     :param key: component unique identifier
     """
     # parse items
@@ -60,4 +62,4 @@ def tags(
     # pass component id and params to frontend
     r = component_func(id='tags', kw=kw)
     # parse result
-    return r
+    return [kv.get(i) for i in r] if checkable and isinstance(r, list) else None
