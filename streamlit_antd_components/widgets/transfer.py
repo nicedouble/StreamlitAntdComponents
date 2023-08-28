@@ -48,6 +48,6 @@ def transfer(
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
-    r = component_func(id='transfer', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
     return ParseResult(r, index, return_index, kv).multi

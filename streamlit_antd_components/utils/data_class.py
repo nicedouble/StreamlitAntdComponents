@@ -11,6 +11,8 @@
 from dataclasses import dataclass
 from typing import List, Literal, Union
 from .setting import Color
+import sys
+import inspect
 
 
 @dataclass
@@ -66,6 +68,7 @@ class NestedItem(Item):
 @dataclass
 class ButtonsItem(Item):
     href: str = None  # link address
+    color: str = None  # button color
 
 
 @dataclass

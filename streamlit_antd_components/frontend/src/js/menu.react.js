@@ -24,10 +24,10 @@ const strToNode = (obj) => {
             obj_copy.label = <a href={href} target='_blank' rel='noreferrer'>{obj_copy.label}</a>
         }
         if (tag) {
-            obj_copy.label = <div>
+            obj_copy.label = <>
                 <span className={'mr-2'}>{obj_copy.label}</span>
                 {AntdTag(tag)}
-            </div>
+            </>
         }
         return obj_copy
     }

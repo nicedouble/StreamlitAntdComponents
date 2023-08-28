@@ -11,12 +11,16 @@
 
 from typing import List, Union, Callable, Any
 
+__all__ = ['parse_kw', 'ParseResult', 'ParseItems']
+
 
 def parse_kw(kw: dict, items):
     r = kw.copy()
     r.update(items=items)
-    del r['return_index']
-    del r['format_func']
+    delete_keys = ['return_index', 'format_func', 'kv']
+    for k in delete_keys:
+        if k in r.keys():
+            del r[k]
     return r
 
 

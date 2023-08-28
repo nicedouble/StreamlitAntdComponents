@@ -49,6 +49,6 @@ def tree(
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
-    r = component_func(id='tree', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
     return ParseResult(r, [index] if isinstance(index, int) else index, return_index, kv).multi

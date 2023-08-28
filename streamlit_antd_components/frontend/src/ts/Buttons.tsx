@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
-import {AlphaColor, getHrefKeys, LabelComponent} from "../js/utils.react"
+import {AlphaColor, getHrefKeys, LabelComponent,insertStyle} from "../js/utils.react"
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/buttons.css"
 
@@ -16,6 +16,66 @@ interface ButtonsProp {
     direction: "horizontal" | "vertical" | undefined;
     compact: boolean;
     key: string | undefined;
+}
+
+interface ButtonProp {
+    label: any;
+    icon: any;
+    disabled: any;
+    href: any;
+    color: any;
+}
+
+const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonProp, onClick: any) => {
+    const color = props['color'] != null ? props['color'] : 'var(--primary-color)'
+    let style = `
+        #btn-${idx}.ant-btn-default:active {
+            color: #fff !important;
+            border-color: ${color} !important;
+            background: ${color} !important;
+        }
+        #btn-${idx}.ant-btn-primary:active {
+            color: ${color} !important;
+            background: transparent !important;
+            border-color: ${color} !important;
+        }`
+    insertStyle(`btn-${idx}-style`,style)
+    return (
+        <ConfigProvider
+            theme={{
+                components: {
+                    Button: {
+                        colorText: 'var(--text-color)',
+                        colorTextDisabled: AlphaColor('--text-color', 0.5),
+                        colorPrimary: color,
+                        colorBgContainerDisabled: 'transform',
+                        colorBgContainer: 'var(--background-color)',
+                        colorPrimaryHover: color,
+                        controlHeight: 35.5,
+                        fontSize: 16,
+                        borderRadiusLG: 6,
+                        fontSizeLG: 18,
+                        colorBorder: AlphaColor('--text-color', 0.2),
+                    },
+                },
+            }}
+        >
+            <Button
+                id={`btn-${idx}`}
+                key={idx}
+                type={type_}
+                shape={shape}
+                onClick={() => onClick(idx)}
+                disabled={props['disabled']}
+                href={props['href'] ? props['href'] : undefined}
+                target={'_blank'}
+                icon={props['icon'] && <i className={`bi bi-${props['icon']}`}/>}
+                size={size}
+            >
+                {props['label']}
+            </Button>
+        </ConfigProvider>
+    )
 }
 
 const AntdButtons = (props: ButtonsProp) => {
@@ -53,56 +113,24 @@ const AntdButtons = (props: ButtonsProp) => {
     }
 
     return (
-        <ConfigProvider
-            theme={{
-                components: {
-                    Button: {
-                        colorText: 'var(--text-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorPrimary: 'var(--primary-color)',
-                        colorBgContainerDisabled: 'transform',
-                        colorBgContainer: 'var(--background-color)',
-                        colorPrimaryHover: 'var(--primary-color)',
-                        controlHeight: 35.5,
-                        fontSize: 16,
-                        borderRadiusLG: 6,
-                        fontSizeLG: 18,
-                        colorBorder: AlphaColor('--text-color', 0.2),
-                    },
-                },
-            }}
-        >
-            <LabelComponent
-                label={label}
-                align={align}
-                position={position}
-                size={size}
-                children={
-                    <Component
-                        id={key}
-                        direction={direction}
-                    >
-                        {items.map((item: any, idx) => {
-                                let type_: any = index != null ? selected === idx ? "primary" : "default" : "default"
-                                return <Button
-                                    key={idx}
-                                    type={type_}
-                                    shape={shape}
-                                    onClick={() => onClick(idx)}
-                                    disabled={item['disabled']}
-                                    href={item['href'] ? item['href'] : undefined}
-                                    target={'_blank'}
-                                    icon={item['icon'] && <i className={`bi bi-${item['icon']}`}/>}
-                                    size={size}
-                                >
-                                    {item['label']}
-                                </Button>
-                            }
-                        )}
-                    </Component>
-                }
-            />
-        </ConfigProvider>
+        <LabelComponent
+            label={label}
+            align={align}
+            position={position}
+            size={size}
+            children={
+                <Component
+                    id={key}
+                    direction={direction}
+                >
+                    {items.map((item: any, idx) => {
+                            let type_: any = index != null ? selected === idx ? "primary" : "default" : "default"
+                            return AntdButton(idx,type_,shape,size,item,onClick)
+                        }
+                    )}
+                </Component>
+            }
+        />
     );
 };
 

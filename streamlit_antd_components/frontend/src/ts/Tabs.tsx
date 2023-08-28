@@ -59,7 +59,7 @@ const AntdTabs = (props: TabsProp) => {
                         fontFamily: 'var(--font)',
                         cardBg: AlphaColor('--text-color', 0.05),
                         cardGutter: 2,
-                        cardPadding:'5px 10px',
+                        cardPadding:'8px 12px',
                         horizontalItemGutter: 15,
                         horizontalMargin:'0',
                         colorBorderSecondary:AlphaColor('--text-color', 0.1),

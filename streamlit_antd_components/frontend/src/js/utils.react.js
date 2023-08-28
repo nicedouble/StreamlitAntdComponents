@@ -74,9 +74,9 @@ const StreamlitScrollbar = () => {
     let scrollBarColor = AlphaColor('--text-color', 0.4);
     let style = `
         ::-webkit-scrollbar {
-        height: 6px;
-        width: 6px;
-        background-color: transparent;
+            height: 6px;
+            width: 6px;
+            background-color: transparent;
         }
         ::-webkit-scrollbar-thumb {
             border-radius: 10px;

@@ -34,4 +34,4 @@ def alert(
     :param key: component unique identifier
     """
     # pass component id and params to frontend
-    r = component_func(id='alert', kw=locals())
+    r = component_func(id=get_func_name(), kw=locals())

@@ -38,6 +38,6 @@ def pagination(
     :return: select value
     """
     # pass component id and params to frontend
-    r = component_func(id='pagination', kw=locals())
+    r = component_func(id=get_func_name(), kw=locals())
     # parse result
     return r if r is not None else index

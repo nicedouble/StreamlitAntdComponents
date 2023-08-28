@@ -30,4 +30,4 @@ def result(
     # pass component id and params to frontend
     kw = locals()
     kw.update(title=str(status).title() if title is None else title)
-    r = component_func(id='result', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)

@@ -31,7 +31,7 @@ def tag(
     :param key: component unique identifier
     """
     # pass component id and params to frontend
-    r = component_func(id='tag', kw=locals())
+    r = component_func(id=get_func_name(), kw=locals())
     # parse result
     return r
 
@@ -56,10 +56,8 @@ def tags(
     # parse items
     items, kv = ParseItems(items, format_func).single()
     # component params
-    kw = locals()
-    kw.update(items=items)
-    del kw['format_func']
+    kw = parse_kw(locals(), items)
     # pass component id and params to frontend
-    r = component_func(id='tags', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
     return [kv.get(i) for i in r] if checkable and isinstance(r, list) else None

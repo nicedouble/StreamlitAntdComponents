@@ -60,7 +60,6 @@ const AntdMenu = (props: MenuProp) => {
         <ConfigProvider
             theme={{
                 components: {
-                    //custom menu theme
                     Menu: {
                         itemBorderRadius: 8,
                         itemColor: 'var(--text-color)',
@@ -78,6 +77,7 @@ const AntdMenu = (props: MenuProp) => {
                         iconMarginInlineEnd: 10,
                         fontSize: sizeMap[size]['fontSize'],
                         itemHeight: sizeMap[size]['lineHeight'],
+                        iconSize: sizeMap[size]['fontSize'] + 3,
                     },
                 },
             }}

@@ -40,6 +40,6 @@ def switch(
     kw.update(checked={'bs': checked.__dict__.get('name')} if isinstance(checked, BsIcon) else checked)
     kw.update(unchecked={'bs': unchecked.__dict__.get('name')} if isinstance(unchecked, BsIcon) else unchecked)
     # pass component id and params to frontend
-    r = component_func(id='switch', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
     return value if r is None else r

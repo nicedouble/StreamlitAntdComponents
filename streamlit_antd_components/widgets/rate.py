@@ -47,6 +47,6 @@ def rate(
     kw = dict(locals())
     kw.update(symbol={'bs': symbol.__dict__.get('name')} if isinstance(symbol, BsIcon) else symbol)
     # pass component id and params to frontend
-    r = component_func(id='rate', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
     return r if r is not None else value

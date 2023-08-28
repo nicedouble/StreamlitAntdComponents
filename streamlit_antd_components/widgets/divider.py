@@ -32,4 +32,4 @@ def divider(
     :param key: component unique identifier
     """
     # pass component id and params to frontend
-    component_func(id='divider', kw=locals())
+    component_func(id=get_func_name(), kw=locals())

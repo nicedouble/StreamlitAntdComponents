@@ -40,7 +40,7 @@ const AntdTag = (props: tagProp) => {
                 components: {
                     Tag: {
                         defaultColor: 'var(--text-color)',
-                        defaultBg: AlphaColor('--text-color', 0.05)
+                        defaultBg: AlphaColor('--text-color', 0.05),
                     },
                 },
             }}
@@ -51,6 +51,7 @@ const AntdTag = (props: tagProp) => {
                 icon={icon && <i className={`bi bi-${icon} mx-1`}/>}
                 closeIcon={closable}
                 bordered={bordered}
+                style={{margin: 0, borderRadius: 10}}
             >
                 {link ?
                     <a href={link} target={'_blank'} rel={'noreferrer'}
@@ -100,7 +101,7 @@ const AntdTags = (props: TagsProp) => {
             id={key}
             className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap`}
             direction={direction}
-            size={2}
+            size={10}
         >
             {items.map((item: any) => {
                 if (!checkable) {
@@ -110,6 +111,7 @@ const AntdTags = (props: TagsProp) => {
                         key={item['label']}
                         checked={selectedTags.includes(item['label'])}
                         onChange={(checked) => handleChange(item['label'], checked)}
+                        style={{margin: 0, borderRadius: 10}}
                     >
                         {item['label']}
                     </CheckableTag>

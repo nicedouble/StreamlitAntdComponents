@@ -42,8 +42,7 @@ def checkbox(
     # component params
     kw = parse_kw(locals(), items)
     # pass component id and params to frontend
-    r = component_func(id='checkbox', kw=kw)
+    r = component_func(id=get_func_name(), kw=kw)
     # parse result
-    # return r
-    # r=index if r is None else r
-    return ParseResult(r, index, return_index, kv).multi
+    r = ParseResult(r, [index] if isinstance(index, int) else index, return_index, kv).multi
+    return [] if r is None else r
