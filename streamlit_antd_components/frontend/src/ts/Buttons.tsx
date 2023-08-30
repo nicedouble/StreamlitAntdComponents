@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
-import {AlphaColor, getHrefKeys, LabelComponent,insertStyle} from "../js/utils.react"
+import {AlphaColor, getHrefKeys, LabelComponent, insertStyle} from "../js/utils.react"
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/buttons.css"
 
@@ -39,7 +39,7 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
             background: transparent !important;
             border-color: ${color} !important;
         }`
-    insertStyle(`btn-${idx}-style`,style)
+    insertStyle(`btn-${idx}-style`, style)
     return (
         <ConfigProvider
             theme={{
@@ -53,7 +53,6 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
                         colorPrimaryHover: color,
                         controlHeight: 35.5,
                         fontSize: 16,
-                        borderRadiusLG: 6,
                         fontSizeLG: 18,
                         colorBorder: AlphaColor('--text-color', 0.2),
                     },
@@ -125,7 +124,7 @@ const AntdButtons = (props: ButtonsProp) => {
                 >
                     {items.map((item: any, idx) => {
                             let type_: any = index != null ? selected === idx ? "primary" : "default" : "default"
-                            return AntdButton(idx,type_,shape,size,item,onClick)
+                            return AntdButton(idx, type_, shape, size, item, onClick)
                         }
                     )}
                 </Component>

@@ -15,7 +15,7 @@ def readme() -> str:
 
 setuptools.setup(
     name="streamlit-antd-components",
-    version="0.1.17",
+    version="0.1.18",
     author="jihaoran",
     description="streamlit components of antd design",
     long_description=readme(),

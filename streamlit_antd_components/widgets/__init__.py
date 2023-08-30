@@ -24,4 +24,3 @@ from .checkbox import checkbox
 from .result import result
 from .tag import tag, tags
 from .pagination import pagination
-from .datepicker import datepicker

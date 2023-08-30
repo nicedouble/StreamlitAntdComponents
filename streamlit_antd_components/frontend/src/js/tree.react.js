@@ -1,7 +1,8 @@
 import React from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import {deepCopy} from "./utils.react";
+import {AlphaColor, deepCopy} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
+import {ConfigProvider, Tooltip} from "antd";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -11,6 +12,7 @@ const strToNode = (obj) => {
         let obj_copy = deepCopy(obj);
         const icon = obj_copy.icon;
         const tag = obj_copy.tag;
+        const tooltip = obj_copy.tooltip;
         if (obj_copy.children) {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
         }
@@ -18,10 +20,33 @@ const strToNode = (obj) => {
             obj_copy.icon = <i className={`bi bi-${icon}`}/>
         }
         if (tag) {
-            obj_copy.label = <span>
-                <span className={'mr-2'}>{obj_copy.label}</span>
-                {AntdTag(tag)}
-            </span>
+            obj_copy.label = <>{obj_copy.label} {AntdTag(tag)}</>
+        }else{
+            obj_copy.label = <>{obj_copy.label}</>
+        }
+        if (tooltip) {
+            obj_copy.label = <ConfigProvider
+                theme={{
+                    components: {
+                        Tooltip: {
+                            colorBgSpotlight: 'var(--background-color)',
+                            colorTextLightSolid:'var(--text-color)',
+                            borderRadius: 6,
+                            controlHeight: 12,
+                            fontSize: 12,
+                        },
+                    },
+                }}
+            >
+                <Tooltip
+                    title={tooltip}
+                    placement={'bottomLeft'}
+                    arrow={false}
+                    overlayInnerStyle={{padding: '2px 6px',border:`1px solid ${AlphaColor('--text-color')}`}}
+                >
+                    {obj_copy.label}
+                </Tooltip>
+            </ConfigProvider>
         }
         obj_copy['title'] = obj_copy.label
         delete obj_copy.label

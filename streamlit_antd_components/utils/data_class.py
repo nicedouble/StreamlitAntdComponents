@@ -84,6 +84,7 @@ class TabsItem(Item):
 @dataclass
 class TreeItem(NestedItem):
     tag: Union[str, Tag] = None  # item tag
+    tooltip: str = None  # item tooltip
 
     @property
     def __dict__(self):

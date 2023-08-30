@@ -17,7 +17,6 @@ import AntdCheckbox from "./ts/Checkbox";
 import AntdResult from "./ts/Result";
 import {AntdTags, AntdTag} from "./ts/Tag";
 import AntdPagination from "./ts/Pagination";
-import AntdDatePicker from "./ts/DatePicker";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
@@ -61,8 +60,6 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdTag(kw)
         case 'pagination':
             return AntdPagination(kw)
-        case 'datepicker':
-            return AntdDatePicker(kw)
         default:
             return <></>
     }
