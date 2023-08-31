@@ -21,6 +21,7 @@ def transfer(
         pagination: bool = False,
         oneway: bool = False,
         disabled: bool = False,
+        reload: bool = False,
         width: Union[int, str] = None,
         height: int = None,
         return_index=False,
@@ -37,6 +38,7 @@ def transfer(
     :param pagination: show pagination
     :param oneway: oneway mode
     :param disabled: disable transfer
+    :param reload: show reload button
     :param width: width in px
     :param height: height in px
     :param return_index: return item index
@@ -50,4 +52,5 @@ def transfer(
     # pass component id and params to frontend
     r = component_func(id=get_func_name(), kw=kw)
     # parse result
-    return ParseResult(r, index, return_index, kv).multi
+    r = ParseResult(r, index, return_index, kv).multi
+    return [] if r is None else r
