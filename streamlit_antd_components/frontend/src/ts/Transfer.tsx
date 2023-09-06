@@ -60,21 +60,26 @@ const AntdTransfer = (props: TransferProp) => {
     //footer
     const renderFooter = (
         _: TransferListProps<any>,
-        info ?: any,
+        info?: {
+            direction: TransferDirection;
+        },
     ) => {
-        if (info.direction === 'left') {
-            return (
-                <Button size="small" style={{float: 'left', margin: 5}} onClick={reset} icon={<ReloadOutlined/>}>
+        let float = info !== undefined ? info.direction : 'left'
+        return (
+            <ConfigProvider
+                theme={{
+                    components: {
+                        Button: {
+                            colorPrimary: 'var(--primary-color)',
+                        }
+                    }
+                }}
+            >
+                <Button size="small" type={'primary'} style={{float: `${float}`, margin: 5}} onClick={reset} icon={<ReloadOutlined/>}>
                     Reload
                 </Button>
-            );
-        } else {
-            return (
-                <Button size="small" style={{float: 'right', margin: 5}} onClick={reset} icon={<ReloadOutlined/>}>
-                    Reload
-                </Button>
-            );
-        }
+            </ConfigProvider>
+        );
     };
 
     // component height
@@ -110,7 +115,7 @@ const AntdTransfer = (props: TransferProp) => {
                         colorPrimaryActive: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
                         colorBgContainer: 'var(--background-color)',
-                        colorBorder: AlphaColor('--text-color', 0.2),
+                        colorBorder: AlphaColor('--text-color', 0.3),
                     },
                     Input: {
                         colorBgContainer: 'var(--background-color)',
@@ -134,7 +139,7 @@ const AntdTransfer = (props: TransferProp) => {
                         boxShadowSecondary: `0 6px 16px 0 ${shadow}, 0 3px 6px -4px ${shadow}, 0 9px 28px 8px ${shadow}`
                     },
                     Empty: {
-                        colorTextDisabled: AlphaColor('--text-color', 0.2),
+                        colorTextDisabled: AlphaColor('--text-color', 0.3),
                     }
                 },
             }}

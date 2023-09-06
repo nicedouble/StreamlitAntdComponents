@@ -10,6 +10,7 @@ interface ButtonsProp {
     items: any[];
     index: number | null;
     shape: "circle" | "default" | "round" | undefined;
+    type: string;
     align: any;
     position: 'left' | 'right' | 'top' | 'bottom';
     size: any
@@ -26,7 +27,7 @@ interface ButtonProp {
     color: any;
 }
 
-const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonProp, onClick: any) => {
+const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonProp, onClick: any, isSelect: boolean) => {
     const color = props['color'] != null ? props['color'] : 'var(--primary-color)'
     let style = `
         #btn-${idx}.ant-btn-default:active {
@@ -39,7 +40,7 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
             background: transparent !important;
             border-color: ${color} !important;
         }`
-    insertStyle(`btn-${idx}-style`, style)
+    isSelect && insertStyle(`btn-${idx}-style`, style)
     return (
         <ConfigProvider
             theme={{
@@ -51,6 +52,7 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
                         colorBgContainerDisabled: 'transform',
                         colorBgContainer: 'var(--background-color)',
                         colorPrimaryHover: color,
+                        colorPrimaryActive: color,
                         controlHeight: 35.5,
                         fontSize: 16,
                         fontSizeLG: 18,
@@ -83,6 +85,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const items = props['items']
     const index = props['index']
     const shape = props['shape']
+    const type = props['type']
     const align = props['align']
     const position = props['position']
     const size = props['size']
@@ -123,8 +126,9 @@ const AntdButtons = (props: ButtonsProp) => {
                     direction={direction}
                 >
                     {items.map((item: any, idx) => {
-                            let type_: any = index != null ? selected === idx ? "primary" : "default" : "default"
-                            return AntdButton(idx, type_, shape, size, item, onClick)
+                            let otherType = ['primary', 'default'].find((x) => x !== type)
+                            let type_: any = index != null ? selected === idx ? otherType : type : type
+                            return AntdButton(idx, type_, shape, size, item, onClick, index != null)
                         }
                     )}
                 </Component>

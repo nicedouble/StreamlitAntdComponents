@@ -1,9 +1,0 @@
-.ant-segmented-group > label {
-    margin: auto
-}
-
-
-label.ant-segmented-item-selected {
-    /*color: white !important;*/
-    box-shadow: none !important;
-}

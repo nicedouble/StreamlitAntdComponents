@@ -18,11 +18,6 @@ interface MenuProp {
 
 
 const AntdMenu = (props: MenuProp) => {
-    //component height
-    useEffect(() => Streamlit.setFrameHeight())
-    //scrollbar
-    StreamlitScrollbar()
-
     //get data
     const items = strToNode(props['items'])
     const dsk = reindex(props['index'])
@@ -40,6 +35,12 @@ const AntdMenu = (props: MenuProp) => {
 
     //state
     const [selectKey, setSelectKey] = useState(dsk)
+
+    //component height
+    useEffect(() => Streamlit.setFrameHeight())
+
+    //scrollbar
+    StreamlitScrollbar()
 
     //callback
     const onSelect: MenuProps['onSelect'] = (e) => {

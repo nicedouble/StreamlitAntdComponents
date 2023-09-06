@@ -1,91 +1,87 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect} from "react";
-import {Segmented, ConfigProvider} from 'antd';
-import {AlphaColor} from "../js/utils.react";
+import React, {useEffect, useState} from "react";
+import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
-import "../css/segmented.css"
+
 
 interface SegmentedProp {
     items: any[];
-    index: number | string;
-    size: "large" | "middle" | "small";
+    index: number;
+    size: string;
     align: any;
+    direction: any;
     disabled: boolean;
     grow: boolean;
+    readonly: boolean;
     key: string | undefined;
 }
+
 
 const AntdSegmented = (props: SegmentedProp) => {
     //get data
     const items = strToNode(props['items'])
-    const index = props['index']
+    const index = String(props['index'])
     const size = props['size']
     const align = props['align']
+    const direction = props['direction']
     const disabled = props['disabled']
     const grow = props['grow']
+    const readonly = props['readonly']
     const key = props['key']
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
+    const [value, setValue] = useState(index)
+
     //callback
-    const onChange = (idx: any) => {
-        Streamlit.setComponentValue(idx)
-    }
-    const segmentedWrap = (x: boolean) => {
-        if (x) {
-            return <Segmented
-                key={key}
-                options={items}
-                defaultValue={index}
-                disabled={disabled}
-                size={size}
-                onChange={onChange}
-                block={grow}
-            >
-            </Segmented>
-        } else {
-            return <div className={`d-flex justify-content-${align}`}>
-                <Segmented
-                    key={key}
-                    options={items}
-                    defaultValue={index}
-                    disabled={disabled}
-                    size={size}
-                    onChange={onChange}
-                >
-                </Segmented>
-            </div>
-        }
+    const onChange = (value: string) => {
+        setValue(value)
+        Streamlit.setComponentValue(Number(value))
     }
 
-    return (
-        <ConfigProvider
-            theme={{
-                components: {
-                    Segmented: {
-                        itemColor: AlphaColor('--text-color', 0.5),
-                        itemHoverBg: AlphaColor('--text-color', 0.1),
-                        itemHoverColor: 'var(--text-color)',
-                        itemSelectedBg: 'var(--primary-color)',
-                        itemActiveBg: AlphaColor('--text-color', 0.2),
-                        colorBgLayout: 'var(--secondary-background-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.2),
-                        controlHeight: 36,
-                        controlHeightSM: 28,
-                        controlHeightLG: 42,
-                        fontSize: 16,
-                        fontSizeSM: 14,
-                        fontSizeLG: 18,
-                        borderRadiusSM: 6,
-                        borderRadius: 6,
-                    },
+    const segmentedWrap = <SegmentedControl
+        data={items}
+        defaultValue={index}
+        onChange={onChange}
+        value={value}
+        fullWidth={grow}
+        disabled={disabled}
+        size={size}
+        key={key}
+        radius={'md'}
+        orientation={direction}
+        readOnly={readonly}
+        styles={(theme) => ({
+            root: {
+                backgroundColor: 'var(--secondary-background-color)',
+            },
+            label: {
+                color: 'var(--text-color)',
+                marginBottom: 0,
+                '&:hover': {
+                    color: 'var(--text-color)'
                 },
-            }}
-        >
-            {segmentedWrap(grow)}
-        </ConfigProvider>
-    );
+                '&[data-active]': {
+                    color: '#fff'
+                },
+                '&[data-active]:hover': {
+                    color: '#fff'
+                },
+            },
+            indicator: {
+                backgroundColor: 'var(--primary-color)',
+            },
+        })}
+    />
+
+    if (grow) {
+        return segmentedWrap
+    } else {
+        return <div className={`d-flex justify-content-${align}`}>
+            {segmentedWrap}
+        </div>
+    }
 };
 
 export default AntdSegmented

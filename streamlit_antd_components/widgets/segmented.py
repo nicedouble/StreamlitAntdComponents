@@ -16,21 +16,25 @@ def segmented(
         items: List[Union[str, dict, SegmentedItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
-        size: Size = 'middle',
+        size: SIZE = 'md',
         align: Align = 'start',
+        direction: Direction = 'horizontal',
         grow: bool = False,
         disabled: bool = False,
+        readonly: bool = False,
         return_index: bool = False,
         key=None,
 ) -> Union[str, int]:
-    """antd design segmented https://ant.design/components/segmented
+    """mantine segmentedControl https://mantine.dev/core/segmented-control/
 
     :param items: segmented data
     :param index: default selected item index
     :param format_func: label formatter function,receive str and return str
     :param size: segmented item size
     :param align: segmented align
+    :param direction: segmented direction
     :param disabled: disable segmented
+    :param readonly: readonly mode
     :param grow: width 100%
     :param return_index: if True,return button index,default return label
     :param key: component unique identifier

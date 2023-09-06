@@ -22,6 +22,7 @@ def buttons(
         size: Size = 'middle',
         direction: Direction = 'horizontal',
         shape: Shape = 'default',
+        type: Type = 'default',
         compact: bool = False,
         return_index: bool = False,
         key=None,
@@ -36,7 +37,8 @@ def buttons(
     :param position: buttons label position
     :param size: buttons size
     :param direction: buttons direction
-    :param shape: buttons shape type
+    :param shape: buttons shape
+    :param type: buttons type
     :param compact: buttons compact style
     :param key: component unique identifier
     :param return_index: if True,return button index,default return label
