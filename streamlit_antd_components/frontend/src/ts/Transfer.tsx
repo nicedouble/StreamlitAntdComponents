@@ -94,11 +94,11 @@ const AntdTransfer = (props: TransferProp) => {
             theme={{
                 components: {
                     Transfer: {
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'transform',
                         colorBorder: AlphaColor('--text-color', 0.2),
                         colorText: 'var(--text-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        controlItemBgHover: 'var(--secondary-background-color)',
+                        controlItemBgHover: AlphaColor('--text-color', 0.1),
                         controlItemBgActive: 'transform',
                         controlItemBgActiveHover: 'transform',
                         fontFamily: 'var(--font)',
@@ -114,11 +114,11 @@ const AntdTransfer = (props: TransferProp) => {
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryActive: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'transform',
                         colorBorder: AlphaColor('--text-color', 0.3),
                     },
                     Input: {
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'inherit',
                         colorBorder: AlphaColor('--text-color', 0.2),
                         colorPrimaryHover: 'var(--primary-color)',
                         controlOutlineWidth: 0,
@@ -126,14 +126,14 @@ const AntdTransfer = (props: TransferProp) => {
                     },
                     Pagination: {
                         colorText: 'var(--text-color)',
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'inherit',
                         colorBorder: AlphaColor('--text-color', 0.2),
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
                         controlOutlineWidth: 0
                     },
                     Dropdown: {
-                        colorBgElevated: 'var(--background-color)',
+                        colorBgElevated: 'transform',
                         colorText: 'var(--text-color)',
                         controlItemBgHover: 'var(--secondary-background-color)',
                         boxShadowSecondary: `0 6px 16px 0 ${shadow}, 0 3px 6px -4px ${shadow}, 0 9px 28px 8px ${shadow}`

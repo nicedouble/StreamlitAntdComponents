@@ -90,7 +90,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
                         colorBgContainer: '--background-color',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         colorBgContainerDisabled: AlphaColor('--text-color', 0.2),
-                        colorBorder: AlphaColor('--text-color', 0.2),
+                        colorBorder: AlphaColor('--text-color', 0.3),
                         fontSize: 16,
                     },
                 },

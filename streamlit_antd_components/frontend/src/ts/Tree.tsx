@@ -75,14 +75,14 @@ const AntdTree = (props: TreeProp) => {
                     Tree: {
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'transform',
                         colorText: 'var(--text-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        controlItemBgHover: AlphaColor('--text-color', 0.2),
+                        controlItemBgHover: AlphaColor('--text-color', 0.1),
                         controlItemBgActive: AlphaColor(),
                         fontSize: 14,
                         fontFamily: 'var(--font)',
-                        colorBorder: AlphaColor('--text-color', 0.2),
+                        colorBorder: AlphaColor('--text-color', 0.3),
                     },
                 },
             }}

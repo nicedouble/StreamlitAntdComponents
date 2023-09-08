@@ -1,4 +1,5 @@
 import {ComponentProps, withStreamlitConnection} from "streamlit-component-lib";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react"
 import ReactDOM from "react-dom"
 import AntdButtons from "./ts/Buttons";

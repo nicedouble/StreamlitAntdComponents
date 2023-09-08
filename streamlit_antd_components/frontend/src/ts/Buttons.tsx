@@ -2,7 +2,6 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
 import {AlphaColor, getHrefKeys, LabelComponent, insertStyle} from "../js/utils.react"
-import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/buttons.css"
 
 interface ButtonsProp {
@@ -50,13 +49,15 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         colorPrimary: color,
                         colorBgContainerDisabled: 'transform',
-                        colorBgContainer: 'var(--background-color)',
+                        colorBgContainer: 'transform',
                         colorPrimaryHover: color,
                         colorPrimaryActive: color,
-                        controlHeight: 35.5,
+                        controlHeight: 38,
                         fontSize: 16,
                         fontSizeLG: 18,
                         colorBorder: AlphaColor('--text-color', 0.2),
+                        borderRadius: 8,
+                        borderRadiusSM: 6,
                     },
                 },
             }}
@@ -96,14 +97,13 @@ const AntdButtons = (props: ButtonsProp) => {
     //wrap component
     const Component = compact ? Space.Compact : Space
 
-    //load style
-    // grow && growStyle()
-
     //state
     const [selected, setSelected] = useState(index)
 
-    // component height
-    useEffect(() => Streamlit.setFrameHeight())
+    // set timeout to render component height
+    useEffect(() => {
+        setTimeout(() => Streamlit.setFrameHeight(), 0.01)
+    })
 
     //callback
     const onClick = (idx: number) => {
@@ -124,6 +124,7 @@ const AntdButtons = (props: ButtonsProp) => {
                 <Component
                     id={key}
                     direction={direction}
+                    className={'d-flex flex-sm-wrap'}
                 >
                     {items.map((item: any, idx) => {
                             let otherType = ['primary', 'default'].find((x) => x !== type)

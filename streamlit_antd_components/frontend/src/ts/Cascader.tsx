@@ -95,11 +95,12 @@ const AntdCascader = (props: CascaderProp) => {
                 components: {
                     Cascader: {
                         colorBgContainer: 'var(--background-color)',
-                        controlItemBgHover: 'var(--secondary-background-color)',
+                        controlItemBgHover: AlphaColor('--text-color', 0.1),
                         controlItemBgActive: AlphaColor(),
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
+                        colorBorder: AlphaColor('--text-color', 0.3),
                     },
                     Select: {
                         colorBgContainer: 'var(--secondary-background-color)',
@@ -114,7 +115,8 @@ const AntdCascader = (props: CascaderProp) => {
                         controlOutlineWidth: 0,
                         lineHeight: 1.6,
                         fontFamily: 'var(--font)',
-                    }
+                        borderRadius: 8,
+                    },
                 },
             }}
         >

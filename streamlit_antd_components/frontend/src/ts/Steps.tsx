@@ -28,7 +28,7 @@ const AntdSteps = (props: StepsProp) => {
     const key = props['key']
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight())
+    useEffect(() => {setTimeout(()=>Streamlit.setFrameHeight(),0.01)})
 
     const [current, setCurrent] = useState(index)
 

@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import {AlphaColor, deepCopy} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
@@ -21,7 +20,7 @@ const strToNode = (obj) => {
         }
         if (tag) {
             obj_copy.label = <>{obj_copy.label} {AntdTag(tag)}</>
-        }else{
+        } else {
             obj_copy.label = <>{obj_copy.label}</>
         }
         if (tooltip) {
@@ -30,7 +29,7 @@ const strToNode = (obj) => {
                     components: {
                         Tooltip: {
                             colorBgSpotlight: 'var(--background-color)',
-                            colorTextLightSolid:'var(--text-color)',
+                            colorTextLightSolid: 'var(--text-color)',
                             borderRadius: 6,
                             controlHeight: 12,
                             fontSize: 12,
@@ -42,7 +41,7 @@ const strToNode = (obj) => {
                     title={tooltip}
                     placement={'bottomLeft'}
                     arrow={false}
-                    overlayInnerStyle={{padding: '2px 6px',border:`1px solid ${AlphaColor('--text-color')}`}}
+                    overlayInnerStyle={{padding: '2px 6px', border: `1px solid ${AlphaColor('--text-color')}`}}
                 >
                     {obj_copy.label}
                 </Tooltip>

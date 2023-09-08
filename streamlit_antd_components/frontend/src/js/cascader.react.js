@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import {deepCopy, AlphaColor,insertStyle} from "./utils.react";
 
 const CascaderStyle = (multiple) => {

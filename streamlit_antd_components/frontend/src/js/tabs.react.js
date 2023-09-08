@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import {deepCopy, AlphaColor, insertStyle} from "./utils.react"
 
 const TabsStyle = (align, grow) => {
@@ -41,10 +40,14 @@ const strToNode = (obj) => {
         let item_ = deepCopy(item)
         item_['key'] = idx
         if (item_['icon'] != null) {
-            item_['label'] = <span>
-                <span style={{marginRight: 8}}><i className={`bi bi-${item['icon']}`}/></span>
-                {item_['label']}
-            </span>
+            if (item_['label'].length > 0) {
+                item_['label'] = <>
+                    <span className={'mr-2'}><i className={`bi bi-${item['icon']}`}/></span>
+                    {item_['label']}
+                </>
+            } else {
+                item_['label'] = <i className={`bi bi-${item['icon']}`}/>
+            }
         }
         return item_
     })

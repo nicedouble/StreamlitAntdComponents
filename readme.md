@@ -1,6 +1,9 @@
 # Streamlit-Antd-Components
 
-[![Open in Streamlit][share_badge]][share_link] [![GitHub][github_badge]][github_link] [![PyPI][pypi_badge]][pypi_link]
+[![Open in Streamlit][share_badge]][share_link] 
+[![GitHub][github_badge]][github_link] 
+[![PyPI][pypi_badge]][pypi_link]
+[![download][download_badge]][download_link]
 
 A Streamlit component to display [Antd-Design](https://ant.design/), streamlit widgets extension.
 
@@ -82,3 +85,7 @@ st.write(f'The selected button label is: {btn}')
 [pypi_badge]: https://badgen.net/pypi/v/streamlit-antd-components
 
 [pypi_link]: https://pypi.org/project/streamlit-antd-components/
+
+[download_badge]: https://badgen.net/pypi/dm/streamlit-antd-components
+
+[download_link]: https://pypi.org/project/streamlit-antd-components/#files

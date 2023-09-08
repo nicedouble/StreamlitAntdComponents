@@ -1,4 +1,3 @@
-import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import Marquee from 'react-fast-marquee';
@@ -70,7 +69,6 @@ const insertStyle = (id, style) => {
 }
 
 const StreamlitScrollbar = () => {
-    //global streamlit like style
     let scrollBarColor = AlphaColor('--text-color', 0.4);
     let style = `
         ::-webkit-scrollbar {

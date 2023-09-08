@@ -10,11 +10,7 @@ const numberToStr = (obj) => {
     if (obj===null){
         return []
     }
-    if (Array.isArray(obj)) {
-        return obj.map(obj_ => numberToStr(obj_))
-    } else {
-        return String(obj)
-    }
+    return obj.map((x)=>String(x))
 }
 
 export {strToNode,numberToStr}

@@ -46,14 +46,16 @@ const AntdPagination = (props: PaginationProp) => {
             theme={{
                 components: {
                     Pagination: {
-                        itemActiveBg: 'var(--background-color)',
-                        colorBgContainer: 'var(--background-color)',
+                        itemActiveBg: 'transform',
+                        colorBgContainer: 'inherit',
                         colorPrimary: 'var(--primary-color)',
                         colorPrimaryHover: 'var(--primary-color)',
                         colorText: 'var(--text-color)',
                         colorBgTextActive: AlphaColor('--text-color', 0.2),
                         colorBgTextHover: AlphaColor('--text-color', 0.1),
-                        borderRadius: circle ? 16 : 6
+                        borderRadius: circle ? 16 : 6,
+                        controlOutlineWidth: 0,
+                        colorBorder: AlphaColor('--text-color', 0.3),
                     },
                 },
             }}

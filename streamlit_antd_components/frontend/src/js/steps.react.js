@@ -1,6 +1,5 @@
 import {deepCopy} from "./utils.react";
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 
 const strToNode = (obj) => {
     return obj.map((item, idx) => {

@@ -1,5 +1,4 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import {deepCopy} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 

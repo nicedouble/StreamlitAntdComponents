@@ -19,7 +19,7 @@ interface TabsProp {
 
 const AntdTabs = (props: TabsProp) => {
     //get data
-    const items = props['items']
+    const items = strToNode(props['items'])
     const index = props['index']
     const align = props['align']
     const position = props['position']
@@ -48,28 +48,29 @@ const AntdTabs = (props: TabsProp) => {
             theme={{
                 components: {
                     Tabs: {
+                        itemActiveColor: 'var(--primary-color)',
+                        itemHoverColor: 'var(--primary-color)',
+                        itemSelectedColor: 'var(--primary-color)',
+                        inkBarColor: 'var(--primary-color)',
+                        colorBgContainer: AlphaColor('--primary-color', 0.2),
                         colorText: 'var(--text-color)',
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         colorPrimary: 'var(--primary-color)',
                         colorBgContainerDisabled: 'transform',
-                        colorBgContainer: AlphaColor('--primary-color', 0.2),
-                        colorPrimaryHover: 'var(--primary-color)',
-                        colorPrimaryActive: 'var(--primary-color)',
                         fontSize: 14,
                         fontFamily: 'var(--font)',
-                        cardBg: AlphaColor('--text-color', 0.05),
+                        cardBg: AlphaColor('--text-color', 0.1),
                         cardGutter: 2,
-                        cardPadding:'8px 12px',
                         horizontalItemGutter: 15,
-                        horizontalMargin:'0',
-                        colorBorderSecondary:AlphaColor('--text-color', 0.1),
+                        horizontalMargin: '0',
+                        colorBorderSecondary: 'transform',
                     },
                 },
             }}
         >
             <Tabs
                 id={key}
-                items={strToNode(items)}
+                items={items}
                 defaultActiveKey={index}
                 onTabClick={onClick}
                 type={shape === 'default' ? 'line' : shape}
