@@ -2,11 +2,12 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
-
+import "../css/segmented.css"
 
 interface SegmentedProp {
     items: any[];
     index: number;
+    radius: string;
     size: string;
     align: any;
     direction: any;
@@ -21,6 +22,7 @@ const AntdSegmented = (props: SegmentedProp) => {
     //get data
     const items = strToNode(props['items'])
     const index = String(props['index'])
+    const radius = props['radius']
     const size = props['size']
     const align = props['align']
     const direction = props['direction']
@@ -49,9 +51,10 @@ const AntdSegmented = (props: SegmentedProp) => {
         disabled={disabled}
         size={size}
         key={key}
-        radius={'md'}
+        radius={radius}
         orientation={direction}
         readOnly={readonly}
+        className={'d-flex flex-wrap'}
         styles={(theme) => ({
             root: {
                 backgroundColor: 'var(--secondary-background-color)',
@@ -72,6 +75,9 @@ const AntdSegmented = (props: SegmentedProp) => {
             indicator: {
                 backgroundColor: 'var(--primary-color)',
             },
+            control:{
+                color:'red'
+            }
         })}
     />
 

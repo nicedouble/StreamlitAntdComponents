@@ -29,16 +29,17 @@ interface ButtonProp {
 const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonProp, onClick: any, isSelect: boolean) => {
     const color = props['color'] != null ? props['color'] : 'var(--primary-color)'
     let style = `
-        #btn-${idx}.ant-btn-default:active {
+        #btn-${idx}.ant-btn-default:not(:disabled):active {
             color: #fff !important;
             border-color: ${color} !important;
             background: ${color} !important;
         }
-        #btn-${idx}.ant-btn-primary:active {
+        #btn-${idx}.ant-btn-primary:not(:disabled):active {
             color: ${color} !important;
             background: transparent !important;
             border-color: ${color} !important;
-        }`
+        }        
+    `
     isSelect && insertStyle(`btn-${idx}-style`, style)
     return (
         <ConfigProvider
@@ -93,6 +94,16 @@ const AntdButtons = (props: ButtonsProp) => {
     const direction = props['direction']
     const compact = props['compact']
     const key = props['key']
+
+    //load custom style
+    let style = `      
+        .ant-btn-primary:disabled{
+            color: ${AlphaColor('--text-color', 0.5)} !important;
+            background: ${AlphaColor('--text-color', 0.1)} !important;
+            border-color: ${AlphaColor('--text-color', 0.1)} !important;
+        }
+    `
+    insertStyle(`buttons-style`, style)
 
     //wrap component
     const Component = compact ? Space.Compact : Space

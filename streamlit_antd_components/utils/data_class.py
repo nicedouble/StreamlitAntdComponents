@@ -73,7 +73,7 @@ class ButtonsItem(Item):
 
 @dataclass
 class SegmentedItem(Item):
-    pass
+    href: str = None  # link address
 
 
 @dataclass

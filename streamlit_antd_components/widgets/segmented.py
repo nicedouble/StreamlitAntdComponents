@@ -16,6 +16,7 @@ def segmented(
         items: List[Union[str, dict, SegmentedItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
+        radius: SIZE = 'md',
         size: SIZE = 'md',
         align: Align = 'start',
         direction: Direction = 'horizontal',
@@ -30,7 +31,8 @@ def segmented(
     :param items: segmented data
     :param index: default selected item index
     :param format_func: label formatter function,receive str and return str
-    :param size: segmented item size
+    :param radius: segmented radius
+    :param size: segmented size
     :param align: segmented align
     :param direction: segmented direction
     :param disabled: disable segmented

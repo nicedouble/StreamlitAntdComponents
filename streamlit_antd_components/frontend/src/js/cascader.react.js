@@ -1,5 +1,5 @@
 import React from "react";
-import {deepCopy, AlphaColor,insertStyle} from "./utils.react";
+import {deepCopy, AlphaColor, insertStyle} from "./utils.react";
 
 const CascaderStyle = (multiple) => {
     let borderStyle = `
@@ -16,11 +16,10 @@ const CascaderStyle = (multiple) => {
         .ant-select-selection-item{
             color: rgb(255, 255, 255);
         }
-        `
+    `
     let style = multiple ? borderStyle + checkboxStyle : borderStyle
-    insertStyle('cascader',style)
+    insertStyle('cascader-style', style)
 }
-
 
 //recurve str property to react node
 const strToNode = (obj) => {

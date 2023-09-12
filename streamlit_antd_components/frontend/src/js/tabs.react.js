@@ -30,7 +30,7 @@ const TabsStyle = (align, grow) => {
     if (grow) {
         style += growStyle
     }
-    insertStyle('tabs', style)
+    insertStyle('tabs-style', style)
 }
 
 

@@ -1,0 +1,21 @@
+/*custom a*/
+.mantine-SegmentedControl-label>a{
+    color: var(--text-color);
+    text-decoration: none;
+    display: inline-block;
+}
+.mantine-SegmentedControl-label>a:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.mantine-SegmentedControl-label>a:hover{
+    color: var(--primary-color);
+}
+
+.mantine-SegmentedControl-label[data-disabled="true"]>a{
+    color: #adb5bd !important;
+}
