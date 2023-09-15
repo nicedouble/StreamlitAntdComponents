@@ -2,14 +2,17 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
+import {LabelComponent} from "../js/utils.react"
 import "../css/segmented.css"
 
 interface SegmentedProp {
     items: any[];
     index: number;
+    label: string;
     radius: string;
     size: string;
     align: any;
+    position: any;
     direction: any;
     disabled: boolean;
     grow: boolean;
@@ -22,9 +25,11 @@ const AntdSegmented = (props: SegmentedProp) => {
     //get data
     const items = strToNode(props['items'])
     const index = String(props['index'])
+    const label = props['label']
     const radius = props['radius']
     const size = props['size']
     const align = props['align']
+    const position = props['position']
     const direction = props['direction']
     const disabled = props['disabled']
     const grow = props['grow']
@@ -74,9 +79,6 @@ const AntdSegmented = (props: SegmentedProp) => {
             },
             indicator: {
                 backgroundColor: 'var(--primary-color)',
-            },
-            control:{
-                color:'red'
             }
         })}
     />
@@ -84,9 +86,12 @@ const AntdSegmented = (props: SegmentedProp) => {
     if (grow) {
         return segmentedWrap
     } else {
-        return <div className={`d-flex justify-content-${align}`}>
-            {segmentedWrap}
-        </div>
+        return <LabelComponent
+            label={label}
+            align={align}
+            position={position}
+            children={segmentedWrap}
+        />
     }
 };
 

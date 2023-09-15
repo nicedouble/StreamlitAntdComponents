@@ -11,8 +11,6 @@
 from dataclasses import dataclass
 from typing import List, Literal, Union
 from .setting import Color
-import sys
-import inspect
 
 
 @dataclass
@@ -25,14 +23,6 @@ class Item:
     label: str = ''  # item label
     icon: str = None  # boostrap icon,https://icons.getbootstrap.com/
     disabled: bool = False  # disabled item
-
-    @staticmethod
-    def parse_tag(tag):
-        if isinstance(tag, Tag):
-            tag = tag.__dict__
-        elif isinstance(tag, str):
-            tag = Tag(tag).__dict__
-        return tag
 
 
 @dataclass
@@ -61,8 +51,21 @@ class CheckboxItem:
 
 
 @dataclass
+class ChipItem(Item):
+    pass
+
+
+@dataclass
 class NestedItem(Item):
     children: List = None  # item children
+
+    @staticmethod
+    def parse_tag(tag):
+        if isinstance(tag, Tag):
+            tag = tag.__dict__
+        elif isinstance(tag, str):
+            tag = Tag(tag).__dict__
+        return tag
 
 
 @dataclass

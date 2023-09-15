@@ -18,6 +18,7 @@ import AntdCheckbox from "./ts/Checkbox";
 import AntdResult from "./ts/Result";
 import {AntdTags, AntdTag} from "./ts/Tag";
 import AntdPagination from "./ts/Pagination";
+import AntdChip from "./ts/Chip";
 
 //switch component
 const AntdComponent = (props: ComponentProps) => {
@@ -61,6 +62,8 @@ const AntdComponent = (props: ComponentProps) => {
             return AntdTag(kw)
         case 'pagination':
             return AntdPagination(kw)
+        case 'chip':
+            return AntdChip(kw)
         default:
             return <></>
     }

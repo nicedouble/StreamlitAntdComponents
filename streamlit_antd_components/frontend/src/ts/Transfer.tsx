@@ -133,10 +133,10 @@ const AntdTransfer = (props: TransferProp) => {
                         controlOutlineWidth: 0
                     },
                     Dropdown: {
-                        colorBgElevated: 'transform',
+                        colorBgElevated: 'var(--secondary-background-color)',
                         colorText: 'var(--text-color)',
-                        controlItemBgHover: 'var(--secondary-background-color)',
-                        boxShadowSecondary: `0 6px 16px 0 ${shadow}, 0 3px 6px -4px ${shadow}, 0 9px 28px 8px ${shadow}`
+                        controlItemBgHover: AlphaColor('--text-color', 0.1),
+                        boxShadowSecondary: `0 6px 16px 0 ${shadow}, 0 3px 6px -4px ${shadow}, 0 9px 28px 8px ${shadow}`,
                     },
                     Empty: {
                         colorTextDisabled: AlphaColor('--text-color', 0.3),

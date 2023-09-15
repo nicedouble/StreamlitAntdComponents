@@ -177,10 +177,14 @@ const getParentKeys = (keys, obj) => {
     return parentKey
 }
 
-const reindex = (index, asString = true) => {
+const reindex = (index, asString = true, asArray = true) => {
     let r = index
     if (typeof (index) == 'number') {
-        r = [asString ? String(index) : index]
+        if (asArray) {
+            r = [asString ? String(index) : index]
+        } else {
+            r = asString ? String(index) : index
+        }
     }
     if (Array.isArray(index) && asString) {
         r = index.map(i => String(i))

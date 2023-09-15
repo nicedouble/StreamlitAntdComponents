@@ -16,10 +16,12 @@ def segmented(
         items: List[Union[str, dict, SegmentedItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
+        label: str = None,
+        align: Align = 'start',
+        position: Position = 'top',
+        direction: Direction = 'horizontal',
         radius: SIZE = 'md',
         size: SIZE = 'md',
-        align: Align = 'start',
-        direction: Direction = 'horizontal',
         grow: bool = False,
         disabled: bool = False,
         readonly: bool = False,
@@ -31,13 +33,15 @@ def segmented(
     :param items: segmented data
     :param index: default selected item index
     :param format_func: label formatter function,receive str and return str
+    :param label: segmented label
+    :param align: segmented align
+    :param position: segmented label position
+    :param direction: segmented direction
     :param radius: segmented radius
     :param size: segmented size
-    :param align: segmented align
-    :param direction: segmented direction
+    :param grow: width 100%
     :param disabled: disable segmented
     :param readonly: readonly mode
-    :param grow: width 100%
     :param return_index: if True,return button index,default return label
     :param key: component unique identifier
     :return: selected segmented item value or index

@@ -8,19 +8,15 @@
     border-width: 1px;
 }
 
-.ant-btn-default:focus {
-    outline: none;
-}
-
 /*primary btn*/
 .ant-btn-primary:disabled {
     border-width: 0;
 }
 
-.ant-btn-primary:focus {
-    outline: none;
-}
-
 button.ant-btn.ant-btn-sm {
     font-size: 14px !important;
+}
+
+button:focus {
+    outline: none;
 }

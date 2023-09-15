@@ -28,8 +28,10 @@ interface ButtonProp {
 
 const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonProp, onClick: any, isSelect: boolean) => {
     const color = props['color'] != null ? props['color'] : 'var(--primary-color)'
-    let style = `
-        #btn-${idx}.ant-btn-default:not(:disabled):active {
+    const textColor = props['color'] != null ? props['color'] : 'var(--text-color)'
+    const linkColor = props['color'] != null ? props['color'] : '#1677ff'
+    let selectStyle = `
+        #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
             color: #fff !important;
             border-color: ${color} !important;
             background: ${color} !important;
@@ -38,25 +40,45 @@ const AntdButton = (idx: any, type_: any, shape: any, size: any, props: ButtonPr
             color: ${color} !important;
             background: transparent !important;
             border-color: ${color} !important;
-        }        
+        }
     `
-    isSelect && insertStyle(`btn-${idx}-style`, style)
+    let unSelectStyle = `
+        #btn-${idx}.ant-btn-primary:not(:disabled):hover{
+            box-shadow: 0 0 3px ${color}, 0 0 3px rgba(0, 0, 0, .05);
+        }
+        #btn-${idx}.ant-btn-text:not(:disabled):hover{
+            color:${textColor};
+        }
+        #btn-${idx}.ant-btn-text{
+            color:${textColor};
+        }
+        #btn-${idx}.ant-btn-text:disabled{
+            color:${AlphaColor('--text-color', 0.5)};
+        }
+    `
+
+    insertStyle(`btn-${idx}-style`, isSelect ? selectStyle : unSelectStyle)
+
     return (
         <ConfigProvider
             theme={{
                 components: {
                     Button: {
-                        colorText: 'var(--text-color)',
+                        colorText: isSelect ? 'var(--text-color)' : color,
                         colorTextDisabled: AlphaColor('--text-color', 0.5),
                         colorPrimary: color,
                         colorBgContainerDisabled: 'transform',
                         colorBgContainer: 'transform',
                         colorPrimaryHover: color,
                         colorPrimaryActive: color,
+                        colorBgTextHover: AlphaColor('--text-color', 0.1),
+                        colorLink: linkColor,
+                        colorLinkHover: linkColor,
+                        colorLinkActive: linkColor,
                         controlHeight: 38,
                         fontSize: 16,
                         fontSizeLG: 18,
-                        colorBorder: AlphaColor('--text-color', 0.2),
+                        colorBorder: isSelect ? AlphaColor('--text-color', 0.2) : color,
                         borderRadius: 8,
                         borderRadiusSM: 6,
                     },
@@ -102,6 +124,9 @@ const AntdButtons = (props: ButtonsProp) => {
             background: ${AlphaColor('--text-color', 0.1)} !important;
             border-color: ${AlphaColor('--text-color', 0.1)} !important;
         }
+        .ant-btn-dashed:disabled,.ant-btn-default:disabled{
+            border-color: ${AlphaColor('--text-color', 0.1)} !important;
+        }
     `
     insertStyle(`buttons-style`, style)
 
@@ -135,7 +160,7 @@ const AntdButtons = (props: ButtonsProp) => {
                 <Component
                     id={key}
                     direction={direction}
-                    className={'d-flex flex-sm-wrap'}
+                    className={`d-flex flex-wrap mx-1 m${label == null ? "y" : "b"}-2`}
                 >
                     {items.map((item: any, idx) => {
                             let otherType = ['primary', 'default'].find((x) => x !== type)
