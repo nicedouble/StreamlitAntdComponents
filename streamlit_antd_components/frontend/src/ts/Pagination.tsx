@@ -14,7 +14,6 @@ interface PaginationProp {
     simple: boolean
     disabled: boolean
     show_total: boolean
-    key: any
 }
 
 const AntdPagination = (props: PaginationProp) => {
@@ -28,7 +27,6 @@ const AntdPagination = (props: PaginationProp) => {
     const simple = props['simple'];
     const disabled = props['disabled'];
     const show_total = props['show_total'];
-    const key = props['key'];
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -62,7 +60,6 @@ const AntdPagination = (props: PaginationProp) => {
         >
             <div className={`d-flex justify-content-${align}`}>
                 <Pagination
-                    key={key}
                     current={current}
                     showQuickJumper={jump}
                     defaultCurrent={index}

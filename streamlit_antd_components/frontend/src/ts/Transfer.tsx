@@ -19,7 +19,8 @@ interface TransferProp {
     disabled: boolean
     width: number | string
     height: number
-    key: string | undefined
+    return_index: boolean;
+    kv: any;
 }
 
 
@@ -36,7 +37,8 @@ const AntdTransfer = (props: TransferProp) => {
     const disabled = props['disabled']
     const width = props['width']
     const height = props['height']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     //data source
     const [dataSource, setDataSource] = useState(items)
@@ -46,15 +48,15 @@ const AntdTransfer = (props: TransferProp) => {
     //callback
     const onChange = (nextTargetKeys: string[], direction: TransferDirection, moveKeys: string[]) => {
         setTargetKeys(nextTargetKeys);
-        Streamlit.setComponentValue(nextTargetKeys.map((x) => Number(x)));
+        Streamlit.setComponentValue(nextTargetKeys.map((x) => return_index ? Number(x) : kv[Number(x)]));
     };
     const onSearch = (dir: TransferDirection, value: string) => {
-        Streamlit.setComponentValue(targetKeys.map((x: any) => Number(x)))
+        Streamlit.setComponentValue(targetKeys.map((x: any) => return_index ? Number(x) : kv[Number(x)]))
     };
     const reset = () => {
         setDataSource(items)
         setTargetKeys(index)
-        Streamlit.setComponentValue(props['index'])
+        Streamlit.setComponentValue(props['index'].map((x: any) => return_index ? x : kv[x]))
     }
 
     //footer
@@ -75,7 +77,8 @@ const AntdTransfer = (props: TransferProp) => {
                     }
                 }}
             >
-                <Button size="small" type={'primary'} style={{float: `${float}`, margin: 5}} onClick={reset} icon={<ReloadOutlined/>}>
+                <Button size="small" type={'primary'} style={{float: `${float}`, margin: 5}} onClick={reset}
+                        icon={<ReloadOutlined/>}>
                     Reload
                 </Button>
             </ConfigProvider>
@@ -149,7 +152,6 @@ const AntdTransfer = (props: TransferProp) => {
                 onlyLabel={true}
                 children={
                     <Transfer
-                        key={key}
                         dataSource={dataSource}
                         titles={titles}
                         targetKeys={targetKeys}

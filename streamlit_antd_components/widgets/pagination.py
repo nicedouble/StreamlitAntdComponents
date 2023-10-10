@@ -21,6 +21,9 @@ def pagination(
         jump: bool = False,
         simple: bool = False,
         show_total: bool = False,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None,
 ) -> float:
     """antd design pagination https://ant.design/components/pagination
@@ -34,10 +37,13 @@ def pagination(
     :param jump: determine whether you can jump to pages directly
     :param simple: simple mode
     :param show_total: To display the total number and range
+    :param on_change: pagination change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component key
-    :return: select value
+    :return: select page number
     """
+    # register callback
+    register(key, on_change, args, kwargs)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=locals())
-    # parse result
-    return r if r is not None else index
+    return component(id=get_func_name(), kw=update_kw(locals()), default=index, key=key)

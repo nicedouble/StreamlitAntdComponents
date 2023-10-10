@@ -11,17 +11,30 @@
 
 from typing import List, Union, Callable, Any
 
-__all__ = ['parse_kw', 'ParseResult', 'ParseItems']
+__all__ = ['update_kw', 'get_default', 'ParseItems']
 
 
-def parse_kw(kw: dict, items):
+def update_kw(kw: dict, items=None):
     r = kw.copy()
-    r.update(items=items)
-    delete_keys = ['return_index', 'format_func', 'kv']
+    if items is not None:
+        r.update(items=items)
+    delete_keys = ['format_func', 'key', 'on_change', 'arg', 'kwargs']
     for k in delete_keys:
         if k in r.keys():
             del r[k]
     return r
+
+
+def get_default(index, return_index, kv):
+    if return_index:
+        return index
+    else:
+        if isinstance(index, int):
+            return kv.get(index)
+        if isinstance(index, list):
+            return [kv.get(i) for i in index]
+        if index is None:
+            return None
 
 
 class ParseItems:
@@ -99,36 +112,3 @@ class ParseItems:
         r = _add_key(self.items)
         kv = {idx: v for idx, v in enumerate(kv0)}
         return r, kv
-
-
-class ParseResult:
-    def __init__(self, r, index, return_index, kv):
-        self.r = r
-        self.index = index
-        self.return_index = return_index
-        self.kv = kv
-
-    def single(self, label_field: str = 'label'):
-        r = self.index if self.r is None and self.index is not None else self.r
-        if r is not None and not self.return_index:
-            item = self.kv[r]
-            if isinstance(item, str):
-                return item
-            elif isinstance(item, dict):
-                return item.get(label_field)
-            else:
-                return item.__dict__.get(label_field)
-        return r
-
-    @property
-    def multi(self):
-        if self.r is None:
-            self.r = self.index
-        if isinstance(self.r, str):
-            self.r = int(self.r)
-        if self.r is not None and not self.return_index:
-            if isinstance(self.r, list):
-                return [self.kv.get(i) for i in self.r]
-            elif isinstance(self.r, int):
-                return self.kv.get(self.r)
-        return self.r

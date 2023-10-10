@@ -25,6 +25,9 @@ def transfer(
         width: Union[int, str] = None,
         height: int = None,
         return_index=False,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
@@ -42,15 +45,19 @@ def transfer(
     :param width: width in px
     :param height: height in px
     :param return_index: return item index
+    :param on_change: item change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component unique identifier
     :return: selected transfer label or index
     """
+    # register callback
+    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).transfer()
     # component params
-    kw = parse_kw(locals(), items)
+    kw = update_kw(locals(), items)
+    # component default
+    default = get_default(index, return_index, kv)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=kw)
-    # parse result
-    r = ParseResult(r, index, return_index, kv).multi
-    return [] if r is None else r
+    return component(id=get_func_name(), kw=kw, default=default, key=key)

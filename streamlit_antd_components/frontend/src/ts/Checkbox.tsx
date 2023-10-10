@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {AlphaColor, reindex, LabelComponent} from "../js/utils.react"
+import {AlphaColor, LabelComponent} from "../js/utils.react"
 
 interface CheckboxProp {
     label: any
@@ -13,20 +13,21 @@ interface CheckboxProp {
     position: 'top' | 'right' | 'bottom' | 'left'
     align: string
     disabled: boolean
-    key: string | undefined
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdCheckbox = (props: CheckboxProp) => {
     //get data
     const items = props['items']
-    let index0 = reindex(props['index'], false)
-    let index = index0 === null ? [] : index0
+    let index = props['index']
     const check_all = props['check_all']
     const label = props['label']
     const position = props['position']
     const align = props['align']
     const disabled = props['disabled']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
 
     // component height
@@ -54,14 +55,14 @@ const AntdCheckbox = (props: CheckboxProp) => {
         setCheckedList(list)
         setIndeterminate(!!list.length && list.length < allIndex.length);
         setCheckAll(list.length === allIndex.length)
-        Streamlit.setComponentValue(list)
+        Streamlit.setComponentValue(list.map((x: any) => return_index ? x : kv[x]))
     }
     const onCheckAllChange = (e: CheckboxChangeEvent) => {
         let stValue = e.target.checked ? allIndex : [];
         setCheckedList(stValue);
         setIndeterminate(false);
         setCheckAll(e.target.checked);
-        Streamlit.setComponentValue(stValue)
+        Streamlit.setComponentValue(stValue.map((x: any) => return_index ? x : kv[x]))
     };
 
     const checkAllElement = (x: boolean) => {
@@ -104,7 +105,6 @@ const AntdCheckbox = (props: CheckboxProp) => {
                     <div className={`d-flex flex-row align-items-start`}>
                         {checkAllElement(check_all)}
                         <Checkbox.Group
-                            key={key}
                             options={items}
                             disabled={disabled}
                             defaultValue={index}

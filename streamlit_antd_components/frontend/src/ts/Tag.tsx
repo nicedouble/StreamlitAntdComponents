@@ -11,7 +11,6 @@ interface tagProp {
     link: any
     bordered: any
     closable: any
-    key: any
 }
 
 interface TagsProp {
@@ -19,7 +18,7 @@ interface TagsProp {
     align: string
     direction: "horizontal" | "vertical"
     checkable: boolean
-    key: any
+    return_index: boolean;
 }
 
 const AntdTag = (props: tagProp) => {
@@ -30,7 +29,6 @@ const AntdTag = (props: tagProp) => {
     const link = props['link'];
     const bordered = props['bordered'];
     const closable = props['closable'];
-    const key = props['key'];
 
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -46,7 +44,6 @@ const AntdTag = (props: tagProp) => {
             }}
         >
             <Tag
-                key={key}
                 color={color}
                 icon={icon && <i className={`bi bi-${icon} mx-1`}/>}
                 closeIcon={closable}
@@ -67,7 +64,7 @@ const AntdTags = (props: TagsProp) => {
     const align = props['align'];
     const direction = props['direction'];
     const checkable = props['checkable'];
-    const key = props['key'];
+    const return_index = props['return_index']
 
     const {CheckableTag} = Tag;
     const itemsList = items.map((item) => item['label'])
@@ -80,7 +77,7 @@ const AntdTags = (props: TagsProp) => {
             ? [...selectedTags, tag]
             : selectedTags.filter((t) => t !== tag);
         setSelectedTags(nextSelectedTags);
-        Streamlit.setComponentValue(nextSelectedTags.map((label) => itemsList.indexOf(label)))
+        Streamlit.setComponentValue(nextSelectedTags.map((x) => return_index?itemsList.indexOf(x):x))
     };
 
     return <ConfigProvider
@@ -98,7 +95,6 @@ const AntdTags = (props: TagsProp) => {
         }}
     >
         <Space
-            id={key}
             className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap`}
             direction={direction}
             size={10}

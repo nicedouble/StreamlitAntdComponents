@@ -16,7 +16,8 @@ interface ChipProp {
     size: string
     variant: string
     multiple: boolean
-    key: string | undefined
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdChip = (props: ChipProp) => {
@@ -31,7 +32,8 @@ const AntdChip = (props: ChipProp) => {
     const size = props['size']
     const variant = props['variant']
     const multiple = props['multiple']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -44,8 +46,11 @@ const AntdChip = (props: ChipProp) => {
     //callback
     const onChange = (values: any) => {
         setValue(values)
-        const stValue = Array.isArray(values) ? values.map((x: any) => Number(x)) : Number(values)
-        Streamlit.setComponentValue(stValue)
+        if (Array.isArray(values)) {
+            Streamlit.setComponentValue(values.map((x: any) => return_index ? Number(x) : kv[Number(x)]))
+        } else {
+            Streamlit.setComponentValue(return_index ? Number(values) : kv[Number(values)])
+        }
     }
 
     return (
@@ -55,7 +60,6 @@ const AntdChip = (props: ChipProp) => {
             position={position}
             children={
                 <Chip.Group
-                    key={key}
                     onChange={onChange}
                     value={value}
                     multiple={multiple}

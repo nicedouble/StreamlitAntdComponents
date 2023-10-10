@@ -10,10 +10,10 @@
 """
 from .data_class import *
 from .setting import *
-from .component_func import component_func
-from .callback import register_callback
+from .component_func import component
+from .callback import register
 from .parser import *
-from typing import Callable, Union
+from typing import Callable, Union, Dict, Tuple, Any
 import inspect
 
 

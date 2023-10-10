@@ -64,6 +64,7 @@ const AntdSwitch = (props: SwitchProp) => {
                     disabled={disabled}
                     size={size !== 'small' ? 'default' : 'small'}
                     onClick={onClick}
+                    className={`mx-1 mb-${label !== null && position === 'bottom' ? 0 : 1} mt-${label !== null && position === 'top' ? 0 : 1}`}
                 />}
             />
         </ConfigProvider>

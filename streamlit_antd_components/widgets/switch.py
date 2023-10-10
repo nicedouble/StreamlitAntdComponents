@@ -20,6 +20,9 @@ def switch(
         position: Position = 'top',
         size: Size = 'middle',
         disabled: bool = False,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None
 ) -> bool:
     """antd design switch  https://ant.design/components/switch
@@ -32,14 +35,18 @@ def switch(
     :param position: switch label position
     :param size: switch size
     :param disabled: disabled status
+    :param on_change: switch change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component unique identifier
     :return: True when open,False when close
     """
+    # register callback
+    register(key, on_change, args, kwargs)
     # parse icon
     kw = dict(locals())
     kw.update(checked={'bs': checked.__dict__.get('name')} if isinstance(checked, BsIcon) else checked)
     kw.update(unchecked={'bs': unchecked.__dict__.get('name')} if isinstance(unchecked, BsIcon) else unchecked)
+    kw = update_kw(kw)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=kw)
-    # parse result
-    return value if r is None else r
+    return component(id=get_func_name(), kw=kw, default=value, key=key)

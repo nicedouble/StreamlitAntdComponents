@@ -13,7 +13,7 @@ from ..utils import *
 
 
 def divider(
-        label: str = '',
+        label: str = None,
         icon: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
@@ -32,4 +32,4 @@ def divider(
     :param key: component unique identifier
     """
     # pass component id and params to frontend
-    component_func(id=get_func_name(), kw=locals())
+    component(id=get_func_name(), kw=locals(), key=key)

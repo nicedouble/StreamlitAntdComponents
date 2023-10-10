@@ -25,6 +25,9 @@ def tree(
         checkbox_strict: bool = False,
         show_line: bool = True,
         return_index: bool = False,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
@@ -37,18 +40,26 @@ def tree(
     :param height: set height in px to scroll
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
     :param open_all: open all items.priority[open_all>open_index]
-    :param checkbox: show checkbox
+    :param checkbox: show checkbox to allow multiple select
     :param checkbox_strict: parent item and children item are not associated
     :param show_line: show line
     :param return_index: if True,return tree item index,default return label
+    :param on_change: item change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component unique identifier
     :return: list of selected item label or index
     """
+    # register callback
+    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).multi()
+    # parse index
+    if index is None:
+        index = []
     # component params
-    kw = parse_kw(locals(), items)
+    kw = update_kw(locals(), items)
+    # component default
+    default = get_default(index, return_index, kv)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=kw)
-    # parse result
-    return ParseResult(r, [index] if isinstance(index, int) else index, return_index, kv).multi
+    return component(id=get_func_name(), kw=kw, default=default, key=key)

@@ -14,7 +14,8 @@ interface TabsProp {
     centered: boolean;
     height: number | null;
     grow: boolean;
-    key: string | undefined;
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdTabs = (props: TabsProp) => {
@@ -27,7 +28,8 @@ const AntdTabs = (props: TabsProp) => {
     const centered = props['centered']
     const height = props['height']
     const grow = props['grow']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     // load style
     TabsStyle(align, grow)
@@ -40,7 +42,7 @@ const AntdTabs = (props: TabsProp) => {
 
     //callback
     const onClick = (key: string) => {
-        Streamlit.setComponentValue(key)
+        Streamlit.setComponentValue(return_index ? key : kv[key])
     }
 
     return (
@@ -69,7 +71,6 @@ const AntdTabs = (props: TabsProp) => {
             }}
         >
             <Tabs
-                id={key}
                 items={items}
                 defaultActiveKey={index}
                 onTabClick={onClick}

@@ -22,10 +22,13 @@ def chip(
         radius: SIZE = 'lg',
         size: SIZE = 'md',
         variant: Variant = 'filled',
-        multiple: bool = True,
+        multiple: bool = False,
         return_index: bool = False,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None,
-) -> Union[str, int]:
+) -> Union[str, int, List[str], List[int]]:
     """mantine chip https://mantine.dev/core/chip/
 
     :param items: chip items
@@ -40,9 +43,14 @@ def chip(
     :param variant: chip item style
     :param multiple: chip multiple mode
     :param return_index: return select item index
+    :param on_change: item change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component key
     :return: selected item label or index
     """
+    # register callback
+    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).single(key_field='value')
     # parse index
@@ -54,13 +62,8 @@ def chip(
         if index is None:
             index = []
     # component params
-    kw = parse_kw(locals(), items)
+    kw = update_kw(locals(), items)
+    # component default
+    default = get_default(index, return_index, kv)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=kw)
-    # parse result
-    if multiple:
-        r = ParseResult(r, index, return_index, kv).multi
-        return [] if r is None else r
-    else:
-        r = ParseResult(r, index, return_index, kv).single()
-        return r
+    return component(id=get_func_name(), kw=kw, default=default, key=key)

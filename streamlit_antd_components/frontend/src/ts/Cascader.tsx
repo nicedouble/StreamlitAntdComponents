@@ -18,7 +18,8 @@ interface CascaderProp {
     search: boolean
     multiple: boolean
     strict: boolean
-    key: string | undefined
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdCascader = (props: CascaderProp) => {
@@ -32,7 +33,8 @@ const AntdCascader = (props: CascaderProp) => {
     const search = props['search']
     const allowClear = props['clear']
     const strict = props['strict']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     // load css
     CascaderStyle(multiple)
@@ -48,7 +50,7 @@ const AntdCascader = (props: CascaderProp) => {
     const onChange = (value: any) => {
         let v = value === undefined ? [] : value
         let flatten_value = Array.from(new Set(v.flat())).sort()
-        Streamlit.setComponentValue(flatten_value)
+        Streamlit.setComponentValue(flatten_value.map((x: any) => return_index ? x : kv[x]))
     }
     const dropdownVisible = (visible: boolean) => {
         let labelHeight = label !== null ? 30 : 0
@@ -125,7 +127,6 @@ const AntdCascader = (props: CascaderProp) => {
                 onlyLabel={true}
                 children={
                     <Cascader
-                        id={key}
                         options={items}
                         onChange={onChange}
                         placeholder={placeholder}

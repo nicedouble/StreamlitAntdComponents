@@ -17,7 +17,8 @@ interface SegmentedProp {
     disabled: boolean;
     grow: boolean;
     readonly: boolean;
-    key: string | undefined;
+    return_index: boolean;
+    kv: any;
 }
 
 
@@ -34,7 +35,8 @@ const AntdSegmented = (props: SegmentedProp) => {
     const disabled = props['disabled']
     const grow = props['grow']
     const readonly = props['readonly']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -44,7 +46,7 @@ const AntdSegmented = (props: SegmentedProp) => {
     //callback
     const onChange = (value: string) => {
         setValue(value)
-        Streamlit.setComponentValue(Number(value))
+        Streamlit.setComponentValue(return_index ? Number(value) : kv[Number(value)])
     }
 
     const segmentedWrap = <SegmentedControl
@@ -55,7 +57,6 @@ const AntdSegmented = (props: SegmentedProp) => {
         fullWidth={grow}
         disabled={disabled}
         size={size}
-        key={key}
         radius={radius}
         orientation={direction}
         readOnly={readonly}

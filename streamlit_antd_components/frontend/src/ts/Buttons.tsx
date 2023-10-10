@@ -15,7 +15,8 @@ interface ButtonsProp {
     size: any
     direction: "horizontal" | "vertical" | undefined;
     compact: boolean;
-    key: string | undefined;
+    return_index: boolean;
+    kv: any;
 }
 
 interface ButtonProp {
@@ -115,7 +116,8 @@ const AntdButtons = (props: ButtonsProp) => {
     const size = props['size']
     const direction = props['direction']
     const compact = props['compact']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     //load custom style
     let style = `      
@@ -146,7 +148,7 @@ const AntdButtons = (props: ButtonsProp) => {
         //not href index
         if (getHrefKeys(items).indexOf(idx) === -1) {
             setSelected(idx)
-            Streamlit.setComponentValue(idx)
+            Streamlit.setComponentValue(return_index ? idx : kv[idx])
         }
     }
 
@@ -158,7 +160,6 @@ const AntdButtons = (props: ButtonsProp) => {
             size={size}
             children={
                 <Component
-                    id={key}
                     direction={direction}
                     className={`d-flex flex-wrap mx-1 m${label == null ? "y" : "b"}-2`}
                 >

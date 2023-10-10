@@ -25,7 +25,8 @@ interface TreeProp {
     checkbox: boolean
     checkbox_strict: boolean
     show_line: boolean
-    key: string | undefined
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdTree = (props: TreeProp) => {
@@ -40,6 +41,8 @@ const AntdTree = (props: TreeProp) => {
     const checkable = props['checkbox']
     const checkStrictly = props['checkbox_strict']
     const showLine = props['show_line']
+    const return_index = props['return_index']
+    const kv = props['kv']
     dok = openAll ? getCollapseKeys(items) : dok ? dok : dsk && getParentKeys(dsk, items)
 
     //state
@@ -60,12 +63,12 @@ const AntdTree = (props: TreeProp) => {
     };
     const onSelect: TreeProps['onSelect'] = (selectedKeys_, info) => {
         setValue(selectedKeys_)
-        Streamlit.setComponentValue(selectedKeys_);
+        Streamlit.setComponentValue(selectedKeys_.map((x: any) => return_index ? x : kv[x]));
     };
     const onCheck: TreeProps['onCheck'] = (checkedKeys_, info) => {
         let ck = (Array.isArray(checkedKeys_)) ? checkedKeys_ : checkedKeys_['checked']
         setValue(ck)
-        Streamlit.setComponentValue(ck)
+        Streamlit.setComponentValue(ck.map((x: any) => return_index ? x : kv[x]))
     }
 
     return (

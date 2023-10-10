@@ -23,6 +23,9 @@ def rate(
         readonly: bool = False,
         size: int = 20,
         color: str = None,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None,
 ) -> float:
     """antd design rate https://ant.design/components/rate
@@ -38,15 +41,20 @@ def rate(
     :param readonly: readonly mode
     :param size: symbol size in px
     :param color: symbol color,default primary color
+    :param on_change: rate change callback
+    :param args: callback args
+    :param kwargs: callback kwargs
     :param key: component key
     :return: select value
     """
     assert value % 0.5 == 0, 'value must be divisible by 0.5'
     if value % 1 != 0 and not half:
         raise ValueError('value must be int when half is False')
+    # register callback
+    register(key, on_change, args, kwargs)
+    # component params
     kw = dict(locals())
     kw.update(symbol={'bs': symbol.__dict__.get('name')} if isinstance(symbol, BsIcon) else symbol)
+    kw = update_kw(kw)
     # pass component id and params to frontend
-    r = component_func(id=get_func_name(), kw=kw)
-    # parse result
-    return r if r is not None else value
+    return component(id=get_func_name(), kw=kw, default=value, key=key)

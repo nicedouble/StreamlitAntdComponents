@@ -17,7 +17,6 @@ interface RateProp {
     readonly: boolean
     size: number
     color: any
-    key: any
 }
 
 const AntdRate = (props: RateProp) => {
@@ -33,7 +32,6 @@ const AntdRate = (props: RateProp) => {
     const readonly = props['readonly'];
     const size = props['size'];
     const color = props['color'];
-    const key = props['key'];
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -59,7 +57,6 @@ const AntdRate = (props: RateProp) => {
                 position={position}
                 children={
                     <Rate
-                        key={key}
                         defaultValue={value}
                         count={count}
                         character={symbol !== null ? symbol : <StarFilled/>}

@@ -45,3 +45,11 @@ def register_callback(element_key, callback, *callback_args, **callback_kwargs):
 
     # Register a callback for a given element_key.
     _state._components_callbacks[element_key] = (callback, callback_args, callback_kwargs)
+
+
+def register(key, callback, args, kwargs):
+    if callback is not None:
+        assert key is not None, 'Please set a key in component !'
+        args = args if args is not None else []
+        kwargs = kwargs if kwargs is not None else {}
+        register_callback(key, callback, *args, **kwargs)

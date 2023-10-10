@@ -13,7 +13,8 @@ interface MenuProp {
     open_all: boolean;
     size: 'small' | 'middle' | 'large';
     indent: any;
-    key: string | undefined;
+    return_index: boolean;
+    kv: any;
 }
 
 
@@ -25,7 +26,8 @@ const AntdMenu = (props: MenuProp) => {
     const openAll = props['open_all']
     const size = props['size']
     const indent = props['indent']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
     dok = openAll ? getCollapseKeys(items) : dok ? dok : dsk && getParentKeys(dsk, items)
     const sizeMap = {
         'small': {'fontSize': 14, 'lineHeight': 35},
@@ -48,12 +50,13 @@ const AntdMenu = (props: MenuProp) => {
         let hrefKeys = getHrefKeys(items)
         if (hrefKeys.indexOf(e.key) === -1) {
             setSelectKey([e.key]);
-            Streamlit.setComponentValue(Number(e.key));
+            Streamlit.setComponentValue(return_index ? Number(e.key) : kv[Number(e.key)]);
         }
     }
     const onOpenChange: MenuProps['onOpenChange'] = (e) => {
+        const stValue = return_index ? Number(selectKey[0]) : kv[Number(selectKey[0])]
         //set time to rerender
-        setTimeout(() => Streamlit.setComponentValue(Number(selectKey[0])), 200)
+        setTimeout(() => Streamlit.setComponentValue(stValue), 200)
     }
 
     // antd menu component
@@ -84,7 +87,6 @@ const AntdMenu = (props: MenuProp) => {
             }}
         >
             <Menu
-                id={key}
                 onSelect={onSelect}
                 onOpenChange={onOpenChange}
                 selectedKeys={selectKey}

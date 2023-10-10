@@ -70,7 +70,7 @@ st.write(f'The selected button label is: {btn}')
 
 - Solve the problem of component(such as `DatePicker`、`TreeSelect`、`cascader`) pop-up window display to obtain a better interactive experience
 - Interaction between components
-- Add component callback function
+- ~~Add component callback function~~
 
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg

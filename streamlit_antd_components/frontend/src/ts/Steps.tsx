@@ -13,7 +13,8 @@ interface StepsProp {
     direction: any;
     type: any;
     dot: boolean;
-    key: string | undefined;
+    return_index: boolean;
+    kv: any;
 }
 
 const AntdSteps = (props: StepsProp) => {
@@ -25,17 +26,20 @@ const AntdSteps = (props: StepsProp) => {
     const direction = props['direction']
     const type = props['type']
     const dot = props['dot']
-    const key = props['key']
+    const return_index = props['return_index']
+    const kv = props['kv']
 
     // component height
-    useEffect(() => {setTimeout(()=>Streamlit.setFrameHeight(),0.01)})
+    useEffect(() => {
+        setTimeout(() => Streamlit.setFrameHeight(), 0.01)
+    })
 
     const [current, setCurrent] = useState(index)
 
     //callback
     const onChange = (current: any) => {
         setCurrent(current)
-        Streamlit.setComponentValue(current)
+        Streamlit.setComponentValue(return_index ? current : kv[current])
     }
 
     return (
@@ -51,13 +55,12 @@ const AntdSteps = (props: StepsProp) => {
                         colorTextDisabled: AlphaColor('--text-color', 0.2),
                         controlItemBgActive: AlphaColor(),
                         colorSplit: AlphaColor('--text-color', 0.2),
-                        navArrowColor:AlphaColor('--text-color', 0.5),
+                        navArrowColor: AlphaColor('--text-color', 0.5),
                     },
                 },
             }}
         >
             <Steps
-                key={key}
                 items={items}
                 current={current}
                 direction={direction}
