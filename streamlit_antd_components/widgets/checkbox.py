@@ -16,9 +16,9 @@ def checkbox(
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         label: str = None,
-        align: Align = 'start',
         position: Position = 'top',
-        check_all: bool = False,
+        align: Align = 'start',
+        check_all: Union[str] = None,
         disabled: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -32,9 +32,9 @@ def checkbox(
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
     :param label: checkbox label,markdown and html with bootstrap available
-    :param align: checkbox align
     :param position: checkbox label position
-    :param check_all: show check all box
+    :param align: checkbox align
+    :param check_all: check all box label,default none to hidden
     :param disabled: disable checkbox
     :param return_index: return select item index
     :param on_change: item change callback

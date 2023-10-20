@@ -8,27 +8,36 @@ interface AlertProp {
     message: string;
     description: string;
     type: "info" | "success" | "warning" | 'error';
+    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     icon: boolean;
-    height: number | undefined;
     closable: boolean;
-    banner: boolean;
-    key: string | undefined;
+    banner: boolean | boolean[];
 }
 
 const AntdAlert = (props: AlertProp) => {
     //get data
-    let message = props['message']
+    const message = props['message']
     const description = props['description']
     const type = props['type']
+    const radius = props['radius']
     const icon = props['icon']
-    const height = props['height']
     const closable = props['closable']
     const banner = props['banner']
-    const key = props['key']
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight())
+    useEffect(() => {setTimeout(() => Streamlit.setFrameHeight(), 0.001)})
 
+    const radiusMap = {'xs': 2, 'sm': 5, 'md': 10, 'lg': 20, 'xl': 25}
+
+    const getBanner = (ban: boolean | boolean[]) => {
+        if (Array.isArray(ban)) {
+            //total banner,message banner,description banner
+            return [ban[0] || ban[1], ban[0], ban[1]]
+        } else {
+            return [ban, ban, ban]
+        }
+    }
+    const [totalBanner, messageBanner, descriptionBanner] = getBanner(banner)
     return (
         <ConfigProvider
             theme={{
@@ -41,14 +50,13 @@ const AntdAlert = (props: AlertProp) => {
             }}
         >
             <Alert
-                key={key}
-                message={banner ? marquee(message) : markdown(message)}
-                description={markdown(description)}
+                message={messageBanner ? marquee(message) : markdown(message)}
+                description={descriptionBanner ? marquee(description) : markdown(description)}
                 type={type}
                 showIcon={icon}
                 closable={closable}
-                banner={banner}
-                style={{minHeight: 42, borderRadius: 5, height: height}}
+                banner={totalBanner}
+                style={{borderRadius: radiusMap[radius]}}
                 onClose={() => Streamlit.setFrameHeight(0)}
             />
         </ConfigProvider>

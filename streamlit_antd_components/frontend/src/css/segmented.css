@@ -13,7 +13,7 @@
     right: 0;
 }
 .mantine-SegmentedControl-label>a:hover{
-    color: var(--primary-color);
+    color: var(--text-color);
 }
 
 .mantine-SegmentedControl-label[data-disabled="true"]>a{

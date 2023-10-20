@@ -17,11 +17,14 @@ def segmented(
         index: int = 0,
         format_func: Union[Label, Callable] = None,
         label: str = None,
-        align: Align = 'start',
         position: Position = 'top',
+        align: Align = 'start',
         direction: Direction = 'horizontal',
-        radius: SIZE = 'md',
-        size: SIZE = 'md',
+        radius: MantineSize = 'md',
+        size: MantineSize = 'md',
+        color: MantineColor = None,
+        bg_color: str = None,
+        divider: bool = True,
         grow: bool = False,
         disabled: bool = False,
         readonly: bool = False,
@@ -37,11 +40,14 @@ def segmented(
     :param index: default selected item index
     :param format_func: label formatter function,receive str and return str
     :param label: segmented label
-    :param align: segmented align
     :param position: segmented label position
+    :param align: segmented align
     :param direction: segmented direction
     :param radius: segmented radius
     :param size: segmented size
+    :param color: segmented indicator background color,default streamlit primary color
+    :param bg_color: segmented background color,default streamlit secondary background color
+    :param divider: show segmented vertical divider
     :param grow: width 100%
     :param disabled: disable segmented
     :param readonly: readonly mode

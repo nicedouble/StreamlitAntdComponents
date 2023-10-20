@@ -12,7 +12,7 @@ from ..utils import *
 
 
 def tags(
-        items: Union[str, dict, Tag],
+        items: List[Union[str, dict, Tag]],
         format_func: Union[Label, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',

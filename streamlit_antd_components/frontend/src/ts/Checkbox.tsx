@@ -9,7 +9,7 @@ interface CheckboxProp {
     label: any
     items: any[]
     index: any
-    check_all: boolean
+    check_all: null | string
     position: 'top' | 'right' | 'bottom' | 'left'
     align: string
     disabled: boolean
@@ -65,15 +65,15 @@ const AntdCheckbox = (props: CheckboxProp) => {
         Streamlit.setComponentValue(stValue.map((x: any) => return_index ? x : kv[x]))
     };
 
-    const checkAllElement = (x: boolean) => {
-        if (x) {
+    const checkAllElement = (x: null | string) => {
+        if (typeof (x) == 'string') {
             return <Checkbox
                 indeterminate={indeterminate}
                 checked={checkAll}
                 onChange={onCheckAllChange}
                 style={{paddingRight: 8, whiteSpace: "nowrap"}}
             >
-                {'All'}
+                {x}
             </Checkbox>
         } else {
             return undefined

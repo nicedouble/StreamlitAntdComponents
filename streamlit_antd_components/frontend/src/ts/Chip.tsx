@@ -1,6 +1,6 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
-import {Chip, Group, Stack} from "@mantine/core";
+import {Chip, Group, Stack, MantineSize} from "@mantine/core";
 import {AlphaColor, reindex, LabelComponent} from "../js/utils.react"
 import strToNode from "../js/chip.react";
 
@@ -13,7 +13,7 @@ interface ChipProp {
     align: string
     direction: string
     radius: string
-    size: string
+    size: MantineSize
     variant: string
     multiple: boolean
     return_index: boolean;
