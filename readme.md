@@ -5,7 +5,7 @@
 [![PyPI][pypi_badge]][pypi_link]
 [![download][download_badge]][download_link]
 
-A Streamlit customer component to implement [Antd-Design](https://ant.design/) and [Mantine](https://v6.mantine.dev/) widgets.
+A Streamlit custom component to implement [Antd-Design](https://ant.design/) and [Mantine](https://v6.mantine.dev/) widgets.
 
 Check out the [Demo App][share_link] for more example.
 ![demo](./img/demo.png)
