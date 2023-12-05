@@ -1,54 +1,62 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
-import {Divider, ConfigProvider} from 'antd';
+import {Divider} from '@mantine/core';
 import {AlphaColor} from "../js/utils.react"
-import '../css/divider.css'
 
 interface DividerProp {
     label: any
+    color: any
     icon: any
     align: any
-    direction: any
-    dashed: boolean
-    bold: boolean
+    size: any
+    variant: any
+    label_style: any
 }
 
 const AntdDivider = (props: DividerProp) => {
     //get data
     const label = props['label'];
     const icon = props['icon'];
+    const color = props['color'];
     // @ts-ignore
     const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
-    const direction = props['direction'];
-    const dashed = props['dashed'];
-    const bold = props['bold'];
+    const size = props['size'];
+    const variant = props['variant'];
+    let label_style = props['label_style'];
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(35))
+    useEffect(() => Streamlit.setFrameHeight())
+    //set color
+    if (color == null) {
+        if (label_style == null) {
+            label_style = {"color": "var(--text-color) !important"}
+        } else {
+            if (label_style.hasOwnProperty('color') && label_style['color'].indexOf('important') < 0) {
+                label_style['color'] = label_style['color'] + ' !important'
+            }
+            if(!label_style.hasOwnProperty('color')) {
+                label_style['color'] = "var(--text-color) !important"
+            }
+        }
+    } else {
+        if (label_style != null) {
+            if (label_style.hasOwnProperty('color') && label_style['color'].indexOf('important') < 0) {
+                label_style['color'] = label_style['color'] + ' !important'
+            }
+        }
+    }
 
     return (
-        <ConfigProvider
-            theme={{
-                components: {
-                    Divider: {
-                        colorSplit: AlphaColor('--text-color', 0.2),
-                        colorText: 'var(--text-color)',
-                        fontSize: 14,
-                        fontFamily: 'var(--font)',
-                        margin: 8
-                    },
-                },
-            }}
-        >
-            <Divider
-                children={icon ? <span><i className={`bi bi-${icon} mr-1`}/>{label}</span> : label}
-                dashed={dashed}
-                type={direction}
-                orientation={align}
-                plain={true}
-                style={{fontWeight: bold ? "bold" : "normal"}}
-            />
-        </ConfigProvider>
+        <Divider
+            color={color == null ? AlphaColor('--text-color', 0.2) : color}
+            label={icon ? <span><i className={`bi bi-${icon} mr-1`}/>{label}</span> : label}
+            labelPosition={align}
+            size={size}
+            variant={variant}
+            styles={(theme) => ({
+                label: label_style,
+            })}
+        />
     );
 };
 

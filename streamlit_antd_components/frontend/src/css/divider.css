@@ -1,7 +1,0 @@
-.ant-divider-horizontal.ant-divider-with-text::before, .ant-divider-horizontal.ant-divider-with-text::after {
-    transform: none;
-}
-
-.ant-divider-inner-text {
-    padding: 0 8px !important;
-}

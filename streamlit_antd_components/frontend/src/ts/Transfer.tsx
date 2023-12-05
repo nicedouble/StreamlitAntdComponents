@@ -15,7 +15,7 @@ interface TransferProp {
     search: boolean
     pagination: boolean
     oneway: boolean
-    reload: boolean
+    reload: boolean | string
     disabled: boolean
     width: number | string
     height: number
@@ -79,7 +79,7 @@ const AntdTransfer = (props: TransferProp) => {
             >
                 <Button size="small" type={'primary'} style={{float: `${float}`, margin: 5}} onClick={reset}
                         icon={<ReloadOutlined/>}>
-                    Reload
+                    {typeof (reload) == 'boolean' ? 'Reload' : reload}
                 </Button>
             </ConfigProvider>
         );
@@ -168,7 +168,7 @@ const AntdTransfer = (props: TransferProp) => {
                             height: height,
                             minHeight: 200 + (search ? 60 : 0) + (reload ? 40 : 0)
                         }}
-                        footer={reload ? renderFooter : undefined}
+                        footer={typeof(reload)=='string'||String(reload)==='true' ? renderFooter : undefined}
                     />
                 }
             />

@@ -16,19 +16,21 @@ def divider(
         label: str = None,
         icon: str = None,
         align: Align = 'start',
-        direction: Direction = 'horizontal',
-        dashed: bool = False,
-        bold: bool = False,
+        color: MantineColor = None,
+        variant: Literal['solid', 'dashed', 'dotted'] = 'solid',
+        size: MantineSize = 'xs',
+        label_style: Dict[str, str] = None,
         key=None
 ):
-    """antd design divider component https://ant.design/components/divider
+    """mantine divider component https://v6.mantine.dev/core/divider/
 
     :param label: divider text label
     :param icon: divider text boostrap icon,https://icons.getbootstrap.com/
-    :param align: label align,available when direction='horizontal'
-    :param direction: divider direction
-    :param dashed: dashed style
-    :param bold: label font weight bold
+    :param align: label align
+    :param color: divider color
+    :param variant: divider variant
+    :param size: divider size
+    :param label_style: divider label style,such as {'font-size':'20px','font-weight':'bold','color':'red'}
     :param key: component unique identifier
     """
     # pass component id and params to frontend

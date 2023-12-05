@@ -21,7 +21,7 @@ def transfer(
         pagination: bool = False,
         oneway: bool = False,
         disabled: bool = False,
-        reload: bool = False,
+        reload: Union[bool, str] = False,
         width: Union[int, str] = None,
         height: int = None,
         return_index=False,
@@ -41,7 +41,7 @@ def transfer(
     :param pagination: show pagination
     :param oneway: oneway mode
     :param disabled: disable transfer
-    :param reload: show reload button
+    :param reload: reload button,set str to rename button label
     :param width: width in px
     :param height: height in px
     :param return_index: return item index

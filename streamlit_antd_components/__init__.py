@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 _RELEASE = True
-__VERSION__ = "0.2.3"
+__VERSION__ = "0.2.4"
 
 from .widgets import *
 from .utils.data_class import *
