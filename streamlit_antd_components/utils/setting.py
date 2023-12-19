@@ -12,7 +12,7 @@ from typing import Literal
 
 __all__ = [
     'Label', 'Align', 'Shape', 'Type', 'Direction', 'Size', 'MantineSize', 'Variant', 'Msg', 'Status', 'Position',
-    'Color', 'MantineColor', 'PICKER'
+    'Color', 'MantineColor','MantinePosition', 'PICKER'
 ]
 # global field type
 Label = Literal['title', 'upper']
@@ -26,6 +26,7 @@ Variant = Literal['outline', 'light', 'filled']
 Msg = Literal['success', 'info', 'warning', 'error']
 Status = Literal['success', 'info', 'warning', 'error', 'empty', 404, 405, 500]
 Position = Literal["top", "right", "bottom", "left"]
+MantinePosition = Literal["left", "right"]
 Color = Literal['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple']
 MantineColor = Literal[
     'dark', 'gray', 'red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange']

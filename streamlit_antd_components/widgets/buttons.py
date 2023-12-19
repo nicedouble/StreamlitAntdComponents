@@ -55,7 +55,7 @@ def buttons(
     # parse items
     items, kv = ParseItems(items, format_func).single()
     # component params
-    kw = update_kw(locals(), items)
+    kw = update_kw(locals(), items=items)
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend

@@ -24,8 +24,30 @@ else:
     component_func = components.declare_component("sac", path=build_dir)
 
 
+def convert_session_value(id, value, kv: dict, return_index: bool):
+    if value is not None:
+        list_value = value if isinstance(value, list) else [value]
+        if len(list_value) == 0:
+            return
+        if kv is not None:
+            # index list
+            r = [k for k, v in kv.items() if (k if return_index else v) in list_value]
+            if len(r) == 0:
+                raise ValueError(f'{value} is invalid in {id} component !')
+            return r if isinstance(value, list) else r[0]
+        else:
+            return value
+
+
 def component(id, kw, default=None, key=None):
     # repair component session init value
     if key is not None and key not in st.session_state:
         st.session_state[key] = default
+    # pass component session state value to frontend
+    if key is not None:
+        # convert value
+        st_value = convert_session_value(id, st.session_state[key], kw.get('kv'), kw.get('return_index'))
+        kw.update({"stValue": st_value})
+    else:
+        kw.update({"stValue": None})
     return component_func(id=id, kw=kw, default=default, key=key)

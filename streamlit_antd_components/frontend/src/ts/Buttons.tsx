@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
-import {AlphaColor, getHrefKeys, LabelComponent, insertStyle} from "../js/utils.react"
+import {AlphaColor, getHrefKeys, LabelComponent, insertStyle, reindex} from "../js/utils.react"
 import "../css/buttons.css"
 
 interface ButtonsProp {
@@ -17,6 +17,7 @@ interface ButtonsProp {
     compact: boolean;
     return_index: boolean;
     kv: any;
+    stValue: any
 }
 
 interface ButtonProp {
@@ -142,6 +143,23 @@ const AntdButtons = (props: ButtonsProp) => {
     useEffect(() => {
         setTimeout(() => Streamlit.setFrameHeight(), 0.01)
     })
+
+    //listen index
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (i !== prevIndex.current && i !== null) {
+            setSelected(i);
+            Streamlit.setComponentValue(return_index ? i : kv[i]);
+            prevIndex.current = props['index']
+        }
+        if (st_i !== prevStValue.current) {
+            setSelected(st_i);
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
 
     //callback
     const onClick = (idx: number) => {

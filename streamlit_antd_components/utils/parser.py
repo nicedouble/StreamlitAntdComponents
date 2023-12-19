@@ -11,18 +11,26 @@
 
 from typing import List, Union, Callable, Any
 
-__all__ = ['update_kw', 'get_default', 'ParseItems']
+__all__ = ['update_kw', 'update_index', 'get_default', 'ParseItems']
 
 
-def update_kw(kw: dict, items=None):
+def update_kw(kw: dict, **kwargs):
     r = kw.copy()
-    if items is not None:
-        r.update(items=items)
-    delete_keys = ['format_func', 'key', 'on_change', 'arg', 'kwargs']
+    r.update(**kwargs)
+    delete_keys = ['format_func', 'key', 'on_change', 'args', 'kwargs']
     for k in delete_keys:
         if k in r.keys():
             del r[k]
     return r
+
+
+def update_index(i, return_type='array'):
+    if return_type == 'array':
+        if isinstance(i, int):
+            return [i]
+        if i is None:
+            return []
+        return i
 
 
 def get_default(index, return_index, kv):

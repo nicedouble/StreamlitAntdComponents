@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Chip, Group, Stack, MantineSize} from "@mantine/core";
 import {AlphaColor, reindex, LabelComponent} from "../js/utils.react"
 import strToNode from "../js/chip.react";
@@ -18,6 +18,7 @@ interface ChipProp {
     multiple: boolean
     return_index: boolean;
     kv: any;
+    stValue: any
 }
 
 const AntdChip = (props: ChipProp) => {
@@ -52,6 +53,28 @@ const AntdChip = (props: ChipProp) => {
             Streamlit.setComponentValue(return_index ? Number(values) : kv[Number(values)])
         }
     }
+
+    //listen index
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (String(i) !== String(prevIndex.current)) {
+            const ii = reindex(i, true, props['multiple'])
+            setValue(ii);
+            prevIndex.current = props['index']
+            if (Array.isArray(ii)) {
+                Streamlit.setComponentValue(ii.map((x: any) => return_index ? Number(x) : kv[Number(x)]))
+            } else {
+                Streamlit.setComponentValue(return_index ? Number(ii) : kv[Number(ii)])
+            }
+        }
+        if (String(st_i) !== String(prevStValue.current)) {
+            setValue(reindex(st_i, true, props['multiple']));
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
 
     return (
         <LabelComponent

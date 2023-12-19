@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
@@ -9,12 +9,13 @@ interface CheckboxProp {
     label: any
     items: any[]
     index: any
-    check_all: null | string
+    check_all: boolean | string
     position: 'top' | 'right' | 'bottom' | 'left'
     align: string
     disabled: boolean
     return_index: boolean;
     kv: any;
+    stValue: any
 }
 
 const AntdCheckbox = (props: CheckboxProp) => {
@@ -65,18 +66,36 @@ const AntdCheckbox = (props: CheckboxProp) => {
         Streamlit.setComponentValue(stValue.map((x: any) => return_index ? x : kv[x]))
     };
 
-    const checkAllElement = (x: null | string) => {
-        if (typeof (x) == 'string') {
+    //listen index
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (String(i) !== String(prevIndex.current)) {
+            setCheckedList(i);
+            prevIndex.current = props['index']
+            Streamlit.setComponentValue(i.map((x: any) => return_index ? x : kv[x]))
+        }
+        if (String(st_i) !== String(prevStValue.current)) {
+            setCheckedList(Array.isArray(st_i) ? st_i : [st_i]);
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
+
+    const checkAllElement = (x: boolean | string) => {
+        if (String(x) === 'false') {
+            return undefined
+        } else {
             return <Checkbox
                 indeterminate={indeterminate}
                 checked={checkAll}
                 onChange={onCheckAllChange}
                 style={{paddingRight: 8, whiteSpace: "nowrap"}}
             >
-                {x}
+                {String(x) === 'true' ? 'Check all' : x}
             </Checkbox>
-        } else {
-            return undefined
         }
     }
 

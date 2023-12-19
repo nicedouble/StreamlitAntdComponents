@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
 import {LabelComponent} from "../js/utils.react"
@@ -22,6 +22,7 @@ interface SegmentedProp {
     readonly: boolean;
     return_index: boolean;
     kv: any;
+    stValue: any
 }
 
 
@@ -54,6 +55,23 @@ const AntdSegmented = (props: SegmentedProp) => {
         setValue(value)
         Streamlit.setComponentValue(return_index ? Number(value) : kv[Number(value)])
     }
+
+    //listen index and stIndex
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (i !== prevIndex.current && i !== null) {
+            setValue(String(i));
+            Streamlit.setComponentValue(return_index ? Number(i) : kv[Number(i)]);
+            prevIndex.current = props['index']
+        }
+        if (st_i !== prevStValue.current) {
+            setValue(String(st_i));
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
 
     const segmentedWrap = <SegmentedControl
         color={color}

@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Rate, ConfigProvider} from 'antd';
 import {AlphaColor, parseIcon, LabelComponent} from "../js/utils.react"
 import {StarFilled} from '@ant-design/icons';
@@ -17,6 +17,7 @@ interface RateProp {
     readonly: boolean
     size: number
     color: any
+    stValue: any
 }
 
 const AntdRate = (props: RateProp) => {
@@ -33,6 +34,7 @@ const AntdRate = (props: RateProp) => {
     const size = props['size'];
     const color = props['color'];
 
+    const [v, setV] = useState(value)
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -40,6 +42,16 @@ const AntdRate = (props: RateProp) => {
     const onChange = (value: number) => {
         Streamlit.setComponentValue(value)
     }
+
+    //listen index
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const st_i = props['stValue']
+        if (String(st_i) !== String(prevStValue.current)) {
+            setV(st_i);
+            prevStValue.current = props['stValue']
+        }
+    }, [props])
 
     return (
         <ConfigProvider
@@ -58,6 +70,7 @@ const AntdRate = (props: RateProp) => {
                 children={
                     <Rate
                         defaultValue={value}
+                        value={v}
                         count={count}
                         character={symbol !== null ? symbol : <StarFilled/>}
                         allowClear={clear}

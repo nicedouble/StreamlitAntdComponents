@@ -41,6 +41,6 @@ def tags(
     # parse items
     items, kv = ParseItems(items, format_func).single()
     # component params
-    kw = update_kw(locals(), items)
+    kw = update_kw(locals(), items=items)
     # pass component id and params to frontend
     return component(id=get_func_name(), kw=kw, default=[], key=key)

@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Pagination, ConfigProvider} from 'antd';
 import type {PaginationProps} from 'antd';
 import {AlphaColor} from "../js/utils.react"
@@ -14,6 +14,7 @@ interface PaginationProp {
     simple: boolean
     disabled: boolean
     show_total: boolean
+    stValue:any
 }
 
 const AntdPagination = (props: PaginationProp) => {
@@ -38,6 +39,23 @@ const AntdPagination = (props: PaginationProp) => {
         setCurrent(page);
         Streamlit.setComponentValue(page)
     }
+
+    //listen index
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (i !== prevIndex.current) {
+            setCurrent(i);
+            Streamlit.setComponentValue(i);
+            prevIndex.current = props['index']
+        }
+        if (st_i !== prevStValue.current) {
+            setCurrent(st_i);
+            prevStValue.current = props['stValue']
+        }
+    }, [props])
 
     return (
         <ConfigProvider

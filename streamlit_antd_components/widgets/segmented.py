@@ -14,7 +14,7 @@ from ..utils import *
 
 def segmented(
         items: List[Union[str, dict, SegmentedItem]],
-        index: int = 0,
+        index: Union[int, None] = 0,
         format_func: Union[Label, Callable] = None,
         label: str = None,
         position: Position = 'top',
@@ -37,7 +37,7 @@ def segmented(
     """mantine segmentedControl https://mantine.dev/core/segmented-control/
 
     :param items: segmented data
-    :param index: default selected item index
+    :param index: default selected item index,if None,default not selected item.
     :param format_func: label formatter function,receive str and return str
     :param label: segmented label
     :param position: segmented label position
@@ -63,7 +63,7 @@ def segmented(
     # parse items
     items, kv = ParseItems(items, format_func).single(key_field='value')
     # component params
-    kw = update_kw(locals(), items)
+    kw = update_kw(locals(), items=items)
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend

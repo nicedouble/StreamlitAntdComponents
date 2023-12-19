@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import type {MenuProps} from 'antd';
 import {Menu, ConfigProvider} from 'antd';
 import {strToNode} from "../js/menu.react";
@@ -15,6 +15,7 @@ interface MenuProp {
     indent: any;
     return_index: boolean;
     kv: any;
+    stValue:any
 }
 
 
@@ -40,6 +41,23 @@ const AntdMenu = (props: MenuProp) => {
 
     //component height
     useEffect(() => Streamlit.setFrameHeight())
+
+    //listen index
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (i !== prevIndex.current) {
+            setSelectKey(reindex(i));
+            Streamlit.setComponentValue(return_index ? i : kv[i]);
+            prevIndex.current = props['index']
+        }
+        if (st_i !== prevStValue.current) {
+            setSelectKey(reindex(st_i));
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
 
     //scrollbar
     StreamlitScrollbar()

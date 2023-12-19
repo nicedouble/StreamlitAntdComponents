@@ -1,5 +1,5 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Steps, ConfigProvider} from 'antd';
 import {AlphaColor} from "../js/utils.react";
 import {strToNode} from "../js/steps.react";
@@ -15,6 +15,7 @@ interface StepsProp {
     dot: boolean;
     return_index: boolean;
     kv: any;
+    stValue: any
 }
 
 const AntdSteps = (props: StepsProp) => {
@@ -41,6 +42,23 @@ const AntdSteps = (props: StepsProp) => {
         setCurrent(current)
         Streamlit.setComponentValue(return_index ? current : kv[current])
     }
+
+    //listen index and stIndex
+    const prevIndex = useRef(props['index'])
+    const prevStValue = useRef(props['stValue'])
+    useEffect(() => {
+        const i = props['index']
+        const st_i = props['stValue']
+        if (i !== prevIndex.current && i !== null) {
+            setCurrent(i);
+            Streamlit.setComponentValue(return_index ? i : kv[i]);
+            prevIndex.current = props['index']
+        }
+        if (st_i !== prevStValue.current) {
+            setCurrent(st_i);
+            prevStValue.current = props['stValue']
+        }
+    }, [props, kv, return_index])
 
     return (
         <ConfigProvider

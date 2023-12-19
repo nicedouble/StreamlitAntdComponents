@@ -4,6 +4,14 @@ import Marquee from 'react-fast-marquee';
 import rehypeRaw from "rehype-raw";
 import '../css/utils.css'
 
+const MartineFontSize = {
+    'xs': 12,
+    'sm': 14,
+    'md': 16,
+    'lg': 18,
+    'xl': 20,
+}
+
 const positionMap = {
     'top': 'flex-column',
     'bottom': 'flex-column-reverse',
@@ -230,5 +238,6 @@ export {
     markdown,
     marquee,
     LabelComponent,
-    insertStyle
+    insertStyle,
+    MartineFontSize
 }

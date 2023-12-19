@@ -18,14 +18,14 @@ def checkbox(
         label: str = None,
         position: Position = 'top',
         align: Align = 'start',
-        check_all: Union[str] = None,
+        check_all: Union[bool, str] = False,
         disabled: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
-) -> Union[str, int]:
+) -> List[Union[str, int]]:
     """antd design checkbox https://ant.design/components/checkbox
 
     :param items: checkbox items
@@ -34,7 +34,7 @@ def checkbox(
     :param label: checkbox label,markdown and html with bootstrap available
     :param position: checkbox label position
     :param align: checkbox align
-    :param check_all: check all box label,default none to hidden
+    :param check_all: check all box label
     :param disabled: disable checkbox
     :param return_index: return select item index
     :param on_change: item change callback
@@ -48,12 +48,9 @@ def checkbox(
     # parse items
     items, kv = ParseItems(items, format_func).single(key_field='value')
     # parse index
-    if isinstance(index, int):
-        index = [index]
-    if index is None:
-        index = []
+    index = update_index(index)
     # component params
-    kw = update_kw(locals(), items)
+    kw = update_kw(locals(), items=items, index=index)
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend
