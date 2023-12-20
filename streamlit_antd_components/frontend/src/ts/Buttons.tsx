@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
-import {AlphaColor, getHrefKeys, LabelComponent, insertStyle, reindex} from "../js/utils.react"
+import {AlphaColor, getHrefKeys, LabelComponent, insertStyle} from "../js/utils.react"
 import "../css/buttons.css"
 
 interface ButtonsProp {
@@ -157,6 +157,7 @@ const AntdButtons = (props: ButtonsProp) => {
         }
         if (st_i !== prevStValue.current) {
             setSelected(st_i);
+            Streamlit.setComponentValue(return_index ? i : kv[st_i]);
             prevStValue.current = props['stValue']
         }
     }, [props, kv, return_index])

@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {AlphaColor, parseIcon, MartineFontSize, reindex} from "../js/utils.react"
+import {AlphaColor, parseIcon, MartineFontSize} from "../js/utils.react"
 
 interface SwitchProp {
     label: any;

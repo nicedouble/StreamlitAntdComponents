@@ -53,6 +53,7 @@ const AntdPagination = (props: PaginationProp) => {
         }
         if (st_i !== prevStValue.current) {
             setCurrent(st_i);
+            Streamlit.setComponentValue(st_i);
             prevStValue.current = props['stValue']
         }
     }, [props])

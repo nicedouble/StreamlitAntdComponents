@@ -61,6 +61,7 @@ const AntdTabs = (props: TabsProp) => {
         }
         if (st_i !== prevStValue.current) {
             setActiveKey(st_i);
+            Streamlit.setComponentValue(return_index ? st_i : kv[st_i]);
             prevStValue.current = props['stValue']
         }
     }, [props, kv, return_index])

@@ -71,8 +71,14 @@ const AntdChip = (props: ChipProp) => {
             }
         }
         if (String(st_i) !== String(prevStValue.current)) {
-            setValue(reindex(st_i, true, props['multiple']));
+            const st_ii=reindex(st_i, true, props['multiple'])
+            setValue(st_ii);
             prevStValue.current = props['stValue']
+            if (Array.isArray(st_ii)) {
+                Streamlit.setComponentValue(st_ii.map((x: any) => return_index ? Number(x) : kv[Number(x)]))
+            } else {
+                Streamlit.setComponentValue(return_index ? Number(st_ii) : kv[Number(st_ii)])
+            }
         }
     }, [props, kv, return_index])
 

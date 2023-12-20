@@ -79,8 +79,10 @@ const AntdCheckbox = (props: CheckboxProp) => {
             Streamlit.setComponentValue(i.map((x: any) => return_index ? x : kv[x]))
         }
         if (String(st_i) !== String(prevStValue.current)) {
-            setCheckedList(Array.isArray(st_i) ? st_i : [st_i]);
+            const st_ii=Array.isArray(st_i) ? st_i : [st_i]
+            setCheckedList(st_ii);
             prevStValue.current = props['stValue']
+            Streamlit.setComponentValue(st_ii.map((x: any) => return_index ? x : kv[x]))
         }
     }, [props, kv, return_index])
 

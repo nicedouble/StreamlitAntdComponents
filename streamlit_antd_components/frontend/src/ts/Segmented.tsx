@@ -69,6 +69,7 @@ const AntdSegmented = (props: SegmentedProp) => {
         }
         if (st_i !== prevStValue.current) {
             setValue(String(st_i));
+            Streamlit.setComponentValue(return_index ? Number(st_i) : kv[Number(st_i)]);
             prevStValue.current = props['stValue']
         }
     }, [props, kv, return_index])

@@ -15,7 +15,7 @@ interface MenuProp {
     indent: any;
     return_index: boolean;
     kv: any;
-    stValue:any
+    stValue: any
 }
 
 
@@ -55,6 +55,7 @@ const AntdMenu = (props: MenuProp) => {
         }
         if (st_i !== prevStValue.current) {
             setSelectKey(reindex(st_i));
+            Streamlit.setComponentValue(return_index ? st_i : kv[st_i]);
             prevStValue.current = props['stValue']
         }
     }, [props, kv, return_index])
