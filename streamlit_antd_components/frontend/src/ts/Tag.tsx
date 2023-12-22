@@ -2,11 +2,13 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Space, Tag, ConfigProvider} from 'antd';
 import '../css/tag.css'
-import {AlphaColor} from "../js/utils.react";
+import {AlphaColor, MartineRadiusSize, MartineFontSize} from "../js/utils.react";
 
 interface tagProp {
     label: any
     color: any
+    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     icon: any
     link: any
     bordered: any
@@ -25,6 +27,8 @@ const AntdTag = (props: tagProp) => {
     //get data
     const label = props['label'];
     const color = props['color'];
+    const radius = props['radius'];
+    const size = props['size'];
     const icon = props['icon'];
     const link = props['link'];
     const bordered = props['bordered'];
@@ -45,13 +49,18 @@ const AntdTag = (props: tagProp) => {
         >
             <Tag
                 color={color}
-                icon={icon && <i className={`bi bi-${icon} mx-1`}/>}
+                icon={icon && <i className={`bi bi-${icon} mr-1`}/>}
                 closeIcon={closable}
                 bordered={bordered}
-                style={{margin: 0, borderRadius: 10}}
+                className={['lg', 'xl'].indexOf(size) !== -1 ? 'py-1' : 'py-0'}
+                style={{
+                    margin: 0,
+                    borderRadius: MartineRadiusSize[radius],
+                    fontSize: MartineFontSize[size],
+                }}
             >
                 {link ?
-                    <a href={link} target={'_blank'} rel={'noreferrer'}
+                    <a href={link} target={'_blank'} rel={'noreferrer'} className={'text-decoration-none'}
                        style={{color: 'inherit'}}>{label}</a> : label}
             </Tag>
         </ConfigProvider>
@@ -77,7 +86,7 @@ const AntdTags = (props: TagsProp) => {
             ? [...selectedTags, tag]
             : selectedTags.filter((t) => t !== tag);
         setSelectedTags(nextSelectedTags);
-        Streamlit.setComponentValue(nextSelectedTags.map((x) => return_index?itemsList.indexOf(x):x))
+        Streamlit.setComponentValue(nextSelectedTags.map((x) => return_index ? itemsList.indexOf(x) : x))
     };
 
     return <ConfigProvider

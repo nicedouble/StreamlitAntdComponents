@@ -16,7 +16,9 @@ def menu(
         items: List[Union[str, dict, MenuItem]],
         index: int = 0,
         format_func: Union[Label, Callable] = None,
-        size: Size = 'middle',
+        size: MantineSize = 'md',
+        color: MantineColor = None,
+        variant: Literal['light', 'filled', 'subtle'] = 'light',
         indent: int = 24,
         open_index: List[int] = None,
         open_all: bool = False,
@@ -32,6 +34,8 @@ def menu(
     :param index: default selected menu item index
     :param format_func: label formatter function,receive str and return str
     :param size: menu size
+    :param color: menu color
+    :param variant: menu variant
     :param indent: menu item indent in px
     :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.
     :param open_all: open all items.priority[open_all>open_index]

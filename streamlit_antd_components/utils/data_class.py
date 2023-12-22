@@ -10,7 +10,7 @@
 """
 from dataclasses import dataclass
 from typing import List, Literal, Union
-from .setting import Color
+from .setting import Color, MantineSize
 
 __all__ = [
     'BsIcon',  # icon
@@ -39,6 +39,8 @@ class Tag:
     icon: str = None  # bootstrap icon
     link: str = None  # hyperlink
     bordered: bool = True  # show border
+    radius: MantineSize = 'lg'
+    size: MantineSize = 'sm'
     closable: bool = False  # show close button
 
 
@@ -72,6 +74,8 @@ class NestedItem(Item):
             tag = tag.__dict__
         elif isinstance(tag, str):
             tag = Tag(tag).__dict__
+        elif isinstance(tag, list):
+            tag = [Tag(i).__dict__ if isinstance(i, str) else i.__dict__ for i in tag]
         return tag
 
 
@@ -110,8 +114,9 @@ class CasItem(NestedItem):
 
 @dataclass
 class MenuItem(NestedItem):
+    description: str = None
     href: str = None  # item link address
-    tag: Union[str, Tag] = None  # item tag
+    tag: Union[str, Tag, List[Union[str, Tag]]] = None  # item tag
     type: Literal['group', 'divider'] = None  # item type
     dashed: bool = False  # divider line style,available when type=='divider'
 

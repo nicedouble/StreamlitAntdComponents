@@ -2,13 +2,19 @@
 li.ant-menu-item.ant-menu-item-selected {
     font-weight: bold;
 }
-span.ant-menu-title-content{
+span.ant-menu-title-content {
     word-wrap: break-word;
     white-space: normal;
 }
-li.ant-menu-item{
+
+li.ant-menu-item {
     height: auto !important;
 }
-.ant-tag{
+
+.ant-menu-submenu-title {
+    height: auto !important;
+}
+
+.ant-tag {
     font-weight: normal;
 }

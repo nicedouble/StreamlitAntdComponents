@@ -25,7 +25,7 @@ interface CascaderProp {
 const AntdCascader = (props: CascaderProp) => {
     //get data
     const label = props['label']
-    const items = strToNode(props['items'])
+    const items = strToNode(props.items)
     const index = reindex(props['index'], false)
     const placeholder = props['placeholder']
     const multiple = props['multiple']

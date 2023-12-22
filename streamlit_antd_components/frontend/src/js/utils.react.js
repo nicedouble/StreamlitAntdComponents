@@ -11,6 +11,13 @@ const MartineFontSize = {
     'lg': 18,
     'xl': 20,
 }
+const MartineRadiusSize = {
+    'xs': '0.125rem',
+    'sm': '0.25rem',
+    'md': '0.5rem',
+    'lg': '1rem',
+    'xl': '2rem',
+}
 
 const positionMap = {
     'top': 'flex-column',
@@ -239,5 +246,6 @@ export {
     marquee,
     LabelComponent,
     insertStyle,
-    MartineFontSize
+    MartineFontSize,
+    MartineRadiusSize
 }

@@ -1,9 +1,12 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import type {MenuProps} from 'antd';
-import {Menu, ConfigProvider} from 'antd';
+import {ConfigProvider, Menu} from 'antd';
+import {useMantineTheme} from "@mantine/core";
 import {strToNode} from "../js/menu.react";
-import {AlphaColor, getParentKeys, getCollapseKeys, getHrefKeys, reindex, StreamlitScrollbar} from "../js/utils.react"
+import {
+    AlphaColor, getCollapseKeys, getHrefKeys, getParentKeys, reindex, StreamlitScrollbar, MartineFontSize, insertStyle
+} from "../js/utils.react"
 import '../css/menu.css'
 
 interface MenuProp {
@@ -11,7 +14,9 @@ interface MenuProp {
     index: any;
     open_index: any;
     open_all: boolean;
-    size: 'small' | 'middle' | 'large';
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    color: any
+    variant: any
     indent: any;
     return_index: boolean;
     kv: any;
@@ -21,19 +26,33 @@ interface MenuProp {
 
 const AntdMenu = (props: MenuProp) => {
     //get data
-    const items = strToNode(props['items'])
-    const dsk = reindex(props['index'])
-    let dok = reindex(props['open_index'])
+    const items = strToNode(props.items, props.size, props.variant)
+    const dsk = reindex(props.index)
+    const openIndex = reindex(props.open_index)
     const openAll = props['open_all']
     const size = props['size']
+    const color = props['color']
+    const variant = props['variant']
     const indent = props['indent']
     const return_index = props['return_index']
     const kv = props['kv']
-    dok = openAll ? getCollapseKeys(items) : dok ? dok : dsk && getParentKeys(dsk, items)
-    const sizeMap = {
-        'small': {'fontSize': 14, 'lineHeight': 35},
-        'middle': {'fontSize': 16, 'lineHeight': 40},
-        'large': {'fontSize': 20, 'lineHeight': 45}
+    const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
+    const theme = useMantineTheme()
+    const primaryColor = color == null ? 'var(--primary-color)' : theme.colors[color][6]
+    const primaryLightColor = color == null ? AlphaColor() : theme.colors[color][1]
+
+    //custom style
+    StreamlitScrollbar()
+    if (variant === 'filled') {
+        let textStyle = `
+        li.ant-menu-item-selected .sac-menu-description{
+            color: ${theme.fn.darken('#fff', 0.1)} !important
+        }
+        .ant-menu-submenu-selected > .ant-menu-submenu-title{
+            color:${primaryColor} !important
+        }
+    `
+        insertStyle(`sac.menu.filled`, textStyle)
     }
 
     //state
@@ -60,8 +79,6 @@ const AntdMenu = (props: MenuProp) => {
         }
     }, [props, kv, return_index])
 
-    //scrollbar
-    StreamlitScrollbar()
 
     //callback
     const onSelect: MenuProps['onSelect'] = (e) => {
@@ -89,18 +106,18 @@ const AntdMenu = (props: MenuProp) => {
                         groupTitleColor: AlphaColor('--text-color', 0.5),
                         itemDisabledColor: AlphaColor('--text-color', 0.5),
                         itemHoverColor: 'var(--text-color)',
-                        itemSelectedColor: 'var(--primary-color)',
                         itemHoverBg: AlphaColor('--text-color', 0.1),
                         itemActiveBg: AlphaColor('--text-color', 0.2),
-                        itemSelectedBg: AlphaColor(),
+                        itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
+                        itemSelectedBg: variant === 'light' ? primaryLightColor : variant === 'filled' ? primaryColor : 'transform',
                         subMenuItemBg: 'transform',
                         itemBg: 'transform',
                         colorSplit: AlphaColor('--text-color', 0.2),
                         fontFamily: 'var(--font)',
                         iconMarginInlineEnd: 10,
-                        fontSize: sizeMap[size]['fontSize'],
-                        itemHeight: sizeMap[size]['lineHeight'],
-                        iconSize: sizeMap[size]['fontSize'] + 3,
+                        fontSize: MartineFontSize[size],
+                        itemHeight: MartineFontSize[size] + 20,
+                        iconSize: MartineFontSize[size] + 3,
                     },
                 },
             }}
@@ -116,6 +133,7 @@ const AntdMenu = (props: MenuProp) => {
                 items={items}
                 inlineIndent={indent}
                 className={'text-wrap text-break'}
+                subMenuCloseDelay={0}
             />
         </ConfigProvider>
     );

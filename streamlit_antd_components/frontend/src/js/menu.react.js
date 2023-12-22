@@ -1,71 +1,51 @@
 import React from "react";
-import {deepCopy} from "./utils.react";
+import {AlphaColor, deepCopy, MartineFontSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 
 //recurve str property to react node
-const strToNode = (obj) => {
+const strToNode = (obj, size, variant) => {
     if (Array.isArray(obj)) {
-        return obj.map(obj_ => strToNode(obj_))
+        return obj.map(obj_ => strToNode(obj_, size, variant))
     } else {
         let obj_copy = deepCopy(obj);
         const icon = obj_copy.icon;
         const href = obj_copy.href;
         const key = obj_copy.key;
         const tag = obj_copy.tag;
+        const description = obj_copy.description;
         obj_copy.key = String(key)
         if (obj_copy.children) {
-            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
+            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant))
         }
         if (icon) {
             obj_copy.icon = <span><i className={`bi bi-${icon}`}/></span>
         }
+        if (description) {
+            obj_copy.label = <div style={{lineHeight: 1.3}} className={'py-2'}>
+                <div style={{wordBreak: 'break-word'}}>{obj_copy.label}</div>
+                <div className={'sac-menu-description'} variant style={{
+                    color: AlphaColor('--text-color', 0.5),
+                    fontSize: MartineFontSize[size] - 2,
+                    wordBreak: 'break-word',
+                    fontWeight: 'normal'
+                }}>{description}</div>
+            </div>
+        }
         if (href) {
-            obj_copy.label = <a href={href} target='_blank' rel='noreferrer'>{obj_copy.label}</a>
+            obj_copy.label =
+                <a href={href} target='_blank' rel='noreferrer' className={'text-decoration-none'}>{obj_copy.label}</a>
         }
         if (tag) {
-            obj_copy.label = <>
-                <span className={'mr-2'}>{obj_copy.label}</span>
-                {AntdTag(tag)}
-            </>
+            obj_copy.label = <div className={'d-flex align-items-center justify-content-between'}>
+                <div className={'mr-3'}>{obj_copy.label}</div>
+                <div className={'d-flex flex-wrap'} style={{maxWidth:'50%'}}>{Array.isArray(tag) ? tag.map((x) => <div
+                    className={'mx-1'}>{AntdTag(x)}</div>) : AntdTag(tag)}
+                </div>
+            </div>
         }
         return obj_copy
     }
 }
 
 
-const menuHeight = (open_keys, items) => {
-
-    const showItem_ = (open_keys, item) => {
-        const itemHeight = 52
-        let h = itemHeight
-        const showItem = (open_keys, item) => {
-            if (open_keys && item.children && open_keys.includes(item['key'])) {
-                h += item['children'].length * itemHeight
-                item['children'].map(item_ => showItem(open_keys, item_))
-            }
-            if (item.type === 'divider') {
-                h = 2
-            }
-            if (item.type === 'group') {
-                h += item['children'].length * itemHeight
-            }
-        }
-        showItem(open_keys, item)
-        return h
-    }
-
-    function sum(arr) {
-        let s = 0;
-        for (let i = arr.length - 1; i >= 0; i--) {
-            s += arr[i];
-        }
-        return s;
-    }
-
-    let n_arr = items.map(item => showItem_(open_keys, item))
-
-    return sum(n_arr)
-}
-
-
-export {strToNode, menuHeight}
+export {strToNode}

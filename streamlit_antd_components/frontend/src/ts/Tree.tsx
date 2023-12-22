@@ -32,9 +32,9 @@ interface TreeProp {
 const AntdTree = (props: TreeProp) => {
     //get data
     const label = props['label']
-    const items = strToNode(props['items']);
-    const dsk = reindex(props['index'], false)
-    let dok = reindex(props['open_index'], false)
+    const items = strToNode(props.items)
+    const dsk = reindex(props.index, false)
+    const openIndex = reindex(props.open_index, false)
     const openAll = props['open_all']
     const icon = props['icon']
     const height = props['height']
@@ -43,7 +43,7 @@ const AntdTree = (props: TreeProp) => {
     const showLine = props['show_line']
     const return_index = props['return_index']
     const kv = props['kv']
-    dok = openAll ? getCollapseKeys(items) : dok ? dok : dsk && getParentKeys(dsk, items)
+    const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
 
     //state
     const [value, setValue] = useState(dsk)

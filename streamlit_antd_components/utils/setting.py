@@ -12,7 +12,7 @@ from typing import Literal
 
 __all__ = [
     'Label', 'Align', 'Shape', 'Type', 'Direction', 'Size', 'MantineSize', 'Variant', 'Msg', 'Status', 'Position',
-    'Color', 'MantineColor','MantinePosition', 'PICKER'
+    'Color', 'MantineColor', 'MantinePosition', 'PICKER'
 ]
 # global field type
 Label = Literal['title', 'upper']
