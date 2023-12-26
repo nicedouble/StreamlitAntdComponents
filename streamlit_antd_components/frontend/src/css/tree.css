@@ -1,8 +1,3 @@
-/*custom select item*/
-span.ant-tree-node-content-wrapper.ant-tree-node-selected {
-    color: var(--primary-color);
-}
-
-.ant-tree-title .ant-tag {
-    line-height: 16px;
+span.ant-tree-node-content-wrapper {
+    padding-bottom: 2px !important;
 }

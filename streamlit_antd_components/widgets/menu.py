@@ -20,6 +20,7 @@ def menu(
         color: MantineColor = None,
         variant: Literal['light', 'filled', 'subtle'] = 'light',
         indent: int = 24,
+        height: int = None,
         open_index: List[int] = None,
         open_all: bool = False,
         return_index: bool = False,
@@ -37,6 +38,7 @@ def menu(
     :param color: menu color
     :param variant: menu variant
     :param indent: menu item indent in px
+    :param height: menu height in px
     :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.
     :param open_all: open all items.priority[open_all>open_index]
     :param return_index: if True,return menu item index,default return label

@@ -98,6 +98,7 @@ class TabsItem(Item):
 @dataclass
 class TreeItem(NestedItem):
     tag: Union[str, Tag] = None  # item tag
+    description: str = None
     tooltip: str = None  # item tooltip
 
     @property

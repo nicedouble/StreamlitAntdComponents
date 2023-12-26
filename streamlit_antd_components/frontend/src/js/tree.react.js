@@ -1,28 +1,50 @@
 import React from "react";
-import {AlphaColor, deepCopy} from "./utils.react";
+import {AlphaColor, deepCopy, MartineFontSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
 
 //recurve str property to react node
-const strToNode = (obj) => {
+const strToNode = (obj, size, treeIcon) => {
     if (Array.isArray(obj)) {
-        return obj.map(obj_ => strToNode(obj_))
+        return obj.map(obj_ => strToNode(obj_, size, treeIcon))
     } else {
         let obj_copy = deepCopy(obj);
-        const icon = obj_copy.icon;
+        const itemIcon = obj_copy.icon;
         const tag = obj_copy.tag;
+        const description = obj_copy.description;
         const tooltip = obj_copy.tooltip;
+        const icon = treeIcon != null ? treeIcon : itemIcon !== null ? itemIcon : null
         if (obj_copy.children) {
-            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
+            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, treeIcon))
         }
-        if (icon) {
-            obj_copy.icon = <i className={`bi bi-${icon}`}/>
+        //add description
+        if (description) {
+            obj_copy.label = <div style={{lineHeight: 1.2, wordBreak: 'break-word', whiteSpace: 'break-spaces'}}>
+                <div>{obj_copy.label}</div>
+                <div className={'tree-desc'} style={{
+                    color: AlphaColor('--text-color', 0.5),
+                    fontSize: MartineFontSize[size] - 2,
+                }}>{description}</div>
+            </div>
         }
+        //add tag
         if (tag) {
-            obj_copy.label = <>{obj_copy.label} {AntdTag(tag)}</>
-        } else {
-            obj_copy.label = <>{obj_copy.label}</>
+            obj_copy.label = <div className={'d-flex align-items-start justify-content-between flex-grow-1'}>
+                <div className={'mr-3'}>{obj_copy.label}</div>
+                <div className={'d-flex flex-wrap align-self-center'}>{Array.isArray(tag) ? tag.map((x) => <div
+                    className={'mx-1'}>{AntdTag(x)}</div>) : AntdTag(tag)}
+                </div>
+            </div>
         }
+        //add icon
+        if (icon) {
+            obj_copy.label = <div className={'d-flex align-items-start'}>
+                <div className={'mr-1'}>{<i className={`bi bi-${icon}`}/>}</div>
+                <div className={'d-flex  flex-grow-1'}>{obj_copy.label}
+                </div>
+            </div>
+        }
+        //add tooltip
         if (tooltip) {
             obj_copy.label = <ConfigProvider
                 theme={{
@@ -49,38 +71,10 @@ const strToNode = (obj) => {
         }
         obj_copy['title'] = obj_copy.label
         delete obj_copy.label
+        delete obj_copy.icon
         return obj_copy
     }
 }
 
 
-const treeHeight = (open_keys, items, item_height = 30) => {
-
-    const showItem_ = (open_keys, item) => {
-        let n = 1
-        const showItem = (open_keys, item) => {
-            if (open_keys && item.children) {
-                if (open_keys.includes(item['key'])) {
-                    n += item['children'].length
-                    item['children'].map(item_ => showItem(open_keys, item_))
-                }
-            }
-        }
-        showItem(open_keys, item)
-        return n
-    }
-
-    function sum(arr) {
-        let s = 0;
-        for (let i = arr.length - 1; i >= 0; i--) {
-            s += arr[i];
-        }
-        return s;
-    }
-
-    let n_arr = items.map(item => showItem_(open_keys, item))
-    let n = sum(n_arr)
-    return n * item_height
-}
-
-export {strToNode, treeHeight}
+export {strToNode}

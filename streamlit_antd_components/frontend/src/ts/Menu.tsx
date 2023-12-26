@@ -2,10 +2,17 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import type {MenuProps} from 'antd';
 import {ConfigProvider, Menu} from 'antd';
-import {useMantineTheme} from "@mantine/core";
 import {strToNode} from "../js/menu.react";
 import {
-    AlphaColor, getCollapseKeys, getHrefKeys, getParentKeys, reindex, StreamlitScrollbar, MartineFontSize, insertStyle
+    AlphaColor,
+    getCollapseKeys,
+    getHrefKeys,
+    getParentKeys,
+    reindex,
+    StreamlitScrollbar,
+    MartineFontSize,
+    insertStyle,
+    PrimaryColor
 } from "../js/utils.react"
 import '../css/menu.css'
 
@@ -18,6 +25,7 @@ interface MenuProp {
     color: any
     variant: any
     indent: any;
+    height: any;
     return_index: boolean;
     kv: any;
     stValue: any
@@ -34,26 +42,31 @@ const AntdMenu = (props: MenuProp) => {
     const color = props['color']
     const variant = props['variant']
     const indent = props['indent']
+    const height = props['height']
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const theme = useMantineTheme()
-    const primaryColor = color == null ? 'var(--primary-color)' : theme.colors[color][6]
-    const primaryLightColor = color == null ? AlphaColor() : theme.colors[color][1]
+    const primaryColor =PrimaryColor(color).primaryColor
+    const primaryLightColor = PrimaryColor(color).primaryLightColor
 
     //custom style
     StreamlitScrollbar()
-    if (variant === 'filled') {
-        let textStyle = `
-        li.ant-menu-item-selected .sac-menu-description{
-            color: ${theme.fn.darken('#fff', 0.1)} !important
-        }
-        .ant-menu-submenu-selected > .ant-menu-submenu-title{
-            color:${primaryColor} !important
-        }
-    `
-        insertStyle(`sac.menu.filled`, textStyle)
+    const textStyle = `
+    li.ant-menu-item.ant-menu-item-selected .menu-desc{
+        color: ${variant === 'filled' ? '#fff' : primaryColor} !important
     }
+    .ant-menu-submenu-selected > .ant-menu-submenu-title,.ant-menu-submenu-selected > .ant-menu-submenu-title .menu-desc{
+        color:${primaryColor} !important
+    }
+    .ant-menu-item-group-title{
+        margin: 4px !important;
+        padding: 0 16px 0 ${indent}px !important
+    }
+    .ant-menu-item-group-list>li{
+        padding-left: ${2 * indent}px !important
+    }
+    `
+    insertStyle(`sac.menu.filled`, textStyle)
 
     //state
     const [selectKey, setSelectKey] = useState(dsk)
@@ -126,7 +139,7 @@ const AntdMenu = (props: MenuProp) => {
                 onSelect={onSelect}
                 onOpenChange={onOpenChange}
                 selectedKeys={selectKey}
-                style={{borderRightWidth: 0}}
+                style={{borderRightWidth: 0, height: height, overflowY: 'auto'}}
                 defaultSelectedKeys={dsk}
                 defaultOpenKeys={dok}
                 mode={'inline'}

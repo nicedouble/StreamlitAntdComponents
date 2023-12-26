@@ -18,6 +18,8 @@ def tree(
         index: Union[int, List[int]] = None,
         format_func: Union[Label, Callable] = None,
         icon: str = None,
+        size: MantineSize = 'md',
+        color: MantineColor = None,
         height: int = None,
         open_index: List[int] = None,
         open_all: bool = False,
@@ -37,6 +39,8 @@ def tree(
     :param index: default selected tree item index
     :param format_func: label formatter function,receive str and return str
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
+    :param size: tree size
+    :param color: tree color,default streamlit primary color
     :param height: set height in px to scroll
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
     :param open_all: open all items.priority[open_all>open_index]

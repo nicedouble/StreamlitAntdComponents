@@ -1,6 +1,6 @@
 /*custom select item*/
 li.ant-menu-item.ant-menu-item-selected {
-    font-weight: bold;
+    font-weight: normal;
 }
 span.ant-menu-title-content {
     word-wrap: break-word;

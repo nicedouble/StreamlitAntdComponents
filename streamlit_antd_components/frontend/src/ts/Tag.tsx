@@ -52,11 +52,13 @@ const AntdTag = (props: tagProp) => {
                 icon={icon && <i className={`bi bi-${icon} mr-1`}/>}
                 closeIcon={closable}
                 bordered={bordered}
-                className={['lg', 'xl'].indexOf(size) !== -1 ? 'py-1' : 'py-0'}
                 style={{
                     margin: 0,
                     borderRadius: MartineRadiusSize[radius],
                     fontSize: MartineFontSize[size],
+                    paddingTop: MartineFontSize[size]-12,
+                    paddingBlock: MartineFontSize[size]-12,
+                    lineHeight:1.2
                 }}
             >
                 {link ?
@@ -104,7 +106,7 @@ const AntdTags = (props: TagsProp) => {
         }}
     >
         <Space
-            className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap`}
+            className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap align-items-end`}
             direction={direction}
             size={10}
         >

@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown";
 import Marquee from 'react-fast-marquee';
 import rehypeRaw from "rehype-raw";
 import '../css/utils.css'
+import {useMantineTheme} from "@mantine/core";
 
 const MartineFontSize = {
     'xs': 12,
@@ -17,6 +18,13 @@ const MartineRadiusSize = {
     'md': '0.5rem',
     'lg': '1rem',
     'xl': '2rem',
+}
+
+const PrimaryColor = (color) => {
+    const theme = useMantineTheme()
+    const primary = color == null ? 'var(--primary-color)' : theme.colors[color][6]
+    const light = color == null ? AlphaColor() : theme.colors[color][1]
+    return {'primaryColor': primary, 'primaryLightColor': light}
 }
 
 const positionMap = {
@@ -247,5 +255,6 @@ export {
     LabelComponent,
     insertStyle,
     MartineFontSize,
-    MartineRadiusSize
+    MartineRadiusSize,
+    PrimaryColor
 }
