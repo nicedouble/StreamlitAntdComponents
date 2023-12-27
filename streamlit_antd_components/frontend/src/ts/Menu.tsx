@@ -4,7 +4,6 @@ import type {MenuProps} from 'antd';
 import {ConfigProvider, Menu} from 'antd';
 import {strToNode} from "../js/menu.react";
 import {
-    AlphaColor,
     getCollapseKeys,
     getHrefKeys,
     getParentKeys,
@@ -12,7 +11,7 @@ import {
     StreamlitScrollbar,
     MartineFontSize,
     insertStyle,
-    PrimaryColor
+    GetColor, LightenColor
 } from "../js/utils.react"
 import '../css/menu.css'
 
@@ -46,8 +45,9 @@ const AntdMenu = (props: MenuProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const primaryColor =PrimaryColor(color).primaryColor
-    const primaryLightColor = PrimaryColor(color).primaryLightColor
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const primaryLightColor = LightenColor(primaryColor)
+    const textColor = GetColor('--text-color')
 
     //custom style
     StreamlitScrollbar()
@@ -116,16 +116,16 @@ const AntdMenu = (props: MenuProp) => {
                     Menu: {
                         itemBorderRadius: 8,
                         itemColor: 'var(--text-color)',
-                        groupTitleColor: AlphaColor('--text-color', 0.5),
-                        itemDisabledColor: AlphaColor('--text-color', 0.5),
+                        groupTitleColor: LightenColor(textColor, 0.5),
+                        itemDisabledColor: LightenColor(textColor, 0.5),
                         itemHoverColor: 'var(--text-color)',
-                        itemHoverBg: AlphaColor('--text-color', 0.1),
-                        itemActiveBg: AlphaColor('--text-color', 0.2),
+                        itemHoverBg: LightenColor(textColor, 0.8),
+                        itemActiveBg: LightenColor(textColor, 0.8),
                         itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
                         itemSelectedBg: variant === 'light' ? primaryLightColor : variant === 'filled' ? primaryColor : 'transform',
                         subMenuItemBg: 'transform',
                         itemBg: 'transform',
-                        colorSplit: AlphaColor('--text-color', 0.2),
+                        colorSplit: LightenColor(textColor, 0.8),
                         fontFamily: 'var(--font)',
                         iconMarginInlineEnd: 10,
                         fontSize: MartineFontSize[size],

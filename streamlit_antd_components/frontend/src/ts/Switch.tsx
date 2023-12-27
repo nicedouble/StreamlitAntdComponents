@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {AlphaColor, parseIcon, MartineFontSize} from "../js/utils.react"
+import {AlphaColor, parseIcon, MartineFontSize, GetColor, LightenColor} from "../js/utils.react"
 
 interface SwitchProp {
     label: any;
@@ -35,8 +35,12 @@ const AntdSwitch = (props: SwitchProp) => {
     const radius = props['radius']
     const disabled = props['disabled']
     const key = props['key']
+    const primaryColor = GetColor(onColor == null ? '--primary-color' : onColor)
+    const secondaryBgColor = GetColor(offColor == null ? '--secondary-background-color' : offColor)
+    const textColor = GetColor('--text-color')
 
     const [checked, setChecked] = useState(value)
+
 
     // set component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -79,7 +83,7 @@ const AntdSwitch = (props: SwitchProp) => {
                         marginBottom: 0,
                     },
                     description: {
-                        color: AlphaColor('--text-color', 0.5)
+                        color: LightenColor(textColor,0.5)
                     },
                     trackLabel: {
                         fontSize: MartineFontSize[size] - 2,
@@ -87,19 +91,12 @@ const AntdSwitch = (props: SwitchProp) => {
                     },
                     track: {
                         cursor: 'pointer',
-                        'input:checked+&': onColor == null && !disabled ? {
-                            backgroundColor: 'var(--primary-color)',
-                            borderColor: 'var(--primary-color)',
-                        } : Object.keys(theme.colors).indexOf(onColor) < 0 && !disabled ? {
-                            backgroundColor: onColor,
-                            borderColor: onColor,
+                        'input:checked+&': !disabled ? {
+                            backgroundColor: primaryColor,
+                            borderColor: primaryColor,
                         } : {},
-                        backgroundColor: offColor == null ?
-                            theme.colors.dark[1] : Object.keys(theme.colors).indexOf(offColor) > 0 ?
-                                theme.colors[offColor][6] : offColor,
-                        borderColor: offColor == null ?
-                            theme.colors.dark[1] : Object.keys(theme.colors).indexOf(offColor) > 0 ?
-                                theme.colors[offColor][6] : offColor,
+                        backgroundColor: secondaryBgColor,
+                        borderColor: secondaryBgColor
                     }
                 })}
             />

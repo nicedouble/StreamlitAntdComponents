@@ -2,7 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
-import {LabelComponent} from "../js/utils.react"
+import {GetColor, LabelComponent} from "../js/utils.react"
 import "../css/segmented.css"
 
 interface SegmentedProp {
@@ -44,6 +44,8 @@ const AntdSegmented = (props: SegmentedProp) => {
     const readonly = props['readonly']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const secondaryBgColor = GetColor(bg_color == null ? '--secondary-background-color' : bg_color)
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -89,7 +91,7 @@ const AntdSegmented = (props: SegmentedProp) => {
         className={'d-flex flex-wrap'}
         styles={(theme) => ({
             root: {
-                backgroundColor: bg_color == null ? 'var(--secondary-background-color)' : bg_color,
+                backgroundColor: secondaryBgColor,
             },
             label: {
                 color: 'var(--text-color)',
@@ -105,7 +107,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                 },
             },
             indicator: {
-                backgroundColor: color == null ? 'var(--primary-color)' : 'none',
+                backgroundColor: primaryColor,
             },
             control: {
                 '&:not(:first-of-type)': {

@@ -17,7 +17,7 @@ def menu(
         index: int = 0,
         format_func: Union[Label, Callable] = None,
         size: MantineSize = 'md',
-        color: MantineColor = None,
+        color: Union[MantineColor, str] = None,
         variant: Literal['light', 'filled', 'subtle'] = 'light',
         indent: int = 24,
         height: int = None,
@@ -35,7 +35,7 @@ def menu(
     :param index: default selected menu item index
     :param format_func: label formatter function,receive str and return str
     :param size: menu size
-    :param color: menu color
+    :param color: menu color,default streamlit primary color,support mantine color, hex and rgb color
     :param variant: menu variant
     :param indent: menu item indent in px
     :param height: menu height in px

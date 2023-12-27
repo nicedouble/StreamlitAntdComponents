@@ -40,7 +40,7 @@ def tree(
     :param format_func: label formatter function,receive str and return str
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
     :param size: tree size
-    :param color: tree color,default streamlit primary color
+    :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
     :param height: set height in px to scroll
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
     :param open_all: open all items.priority[open_all>open_index]

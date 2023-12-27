@@ -20,11 +20,25 @@ const MartineRadiusSize = {
     'xl': '2rem',
 }
 
-const PrimaryColor = (color) => {
+const GetColor = (color) => {
     const theme = useMantineTheme()
-    const primary = color == null ? 'var(--primary-color)' : theme.colors[color][6]
-    const light = color == null ? AlphaColor() : theme.colors[color][1]
-    return {'primaryColor': primary, 'primaryLightColor': light}
+    if (color.indexOf('--') === 0) {
+        return getRootColor(color)
+    } else {
+        if (Object.keys(theme.colors).indexOf(color) !== -1) {
+            return theme.colors[color][6]
+        } else {
+            return color
+        }
+    }
+}
+const LightenColor = (color, alpha = 0.8) => {
+    const theme = useMantineTheme()
+    return theme.fn.lighten(color, alpha)
+}
+const DarkenColor = (color, alpha = 0.2) => {
+    const theme = useMantineTheme()
+    return theme.fn.darken(color, alpha)
 }
 
 const positionMap = {
@@ -107,6 +121,41 @@ const StreamlitScrollbar = () => {
     insertStyle('streamlit-scrollbar', style)
 }
 
+const getRootColor = (varColor) => {
+    const color = getComputedStyle(document.documentElement).getPropertyValue(varColor).trim();
+    const colorComponents = getColorComponents(color)
+    if (colorComponents) {
+        const [r, g, b] = colorComponents
+        return `rgb(${r},${g},${b})`
+    } else {
+        return null
+    }
+}
+
+const getColorComponents = (color) => {
+    // Handle hexadecimal color format
+    const hexMatch = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+    if (hexMatch.test(color)) {
+        let hex = color.substring(1);
+        if (hex.length === 3) {
+            hex = hex.split('').map((char) => char + char).join('');
+        }
+        const [r, g, b] = hex.match(/.{2}/g).map((c) => parseInt(c, 16));
+        return [r, g, b];
+    }
+
+    // Handle RGB and RGBA color formats
+    const rgbMatch = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)$/;
+    const match = color.match(rgbMatch);
+    if (match) {
+        const [_, r, g, b] = match.map(Number);
+        return [r, g, b];
+    }
+
+    // Handle other color formats or invalid colors
+    return null;
+};
+
 const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
     const getColorComponents = (color) => {
         // Handle hexadecimal color format
@@ -137,7 +186,8 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
 
     if (colorComponents) {
         const [r, g, b] = colorComponents;
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        return `
+        rgba(${r}, ${g}, ${b}, ${alpha})`;
     } else {
         // Handle invalid colors
         return 'defaultColor';
@@ -236,7 +286,9 @@ const getHrefKeys = (items) => {
 
 const parseIcon = (obj) => {
     if (Object.prototype.toString.call(obj) === '[object Object]') {
-        return <i className={`bi bi-${obj['bs']} mx-1`}/>
+        return <i className={`
+        bi
+        bi -${obj['bs']} mx - 1`}/>
     }
     return obj
 }
@@ -256,5 +308,5 @@ export {
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    PrimaryColor
+    GetColor, LightenColor, DarkenColor
 }

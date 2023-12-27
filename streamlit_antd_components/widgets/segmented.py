@@ -22,8 +22,8 @@ def segmented(
         direction: Direction = 'horizontal',
         radius: MantineSize = 'md',
         size: MantineSize = 'md',
-        color: MantineColor = None,
-        bg_color: str = None,
+        color: Union[MantineColor, str] = None,
+        bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
         grow: bool = False,
         disabled: bool = False,
@@ -45,8 +45,8 @@ def segmented(
     :param direction: segmented direction
     :param radius: segmented radius
     :param size: segmented size
-    :param color: segmented indicator background color,default streamlit primary color
-    :param bg_color: segmented background color,default streamlit secondary background color
+    :param color: segmented indicator background color,default streamlit primary color,support mantine color, hex and rgb color
+    :param bg_color: segmented background color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param divider: show segmented vertical divider
     :param grow: width 100%
     :param disabled: disable segmented

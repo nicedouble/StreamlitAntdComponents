@@ -5,12 +5,11 @@ import {Tree, ConfigProvider} from 'antd';
 import {CaretDownFilled} from '@ant-design/icons';
 import {strToNode} from "../js/tree.react";
 import {
-    AlphaColor,
     reindex,
     getCollapseKeys,
     getParentKeys,
     StreamlitScrollbar,
-    LabelComponent, MartineFontSize, insertStyle, PrimaryColor
+    LabelComponent, MartineFontSize, insertStyle, GetColor, LightenColor
 } from "../js/utils.react"
 import '../css/tree.css'
 
@@ -47,8 +46,9 @@ const AntdTree = (props: TreeProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const primaryColor = PrimaryColor(color).primaryColor
-    const primaryLightColor = PrimaryColor(color).primaryLightColor
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const primaryLightColor = LightenColor(primaryColor)
+    const textColor = GetColor('--text-color')
 
     //state
     const [value, setValue] = useState(dsk)
@@ -94,13 +94,13 @@ const AntdTree = (props: TreeProp) => {
                         colorPrimaryHover: primaryColor,
                         colorBgContainer: 'transform',
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        controlItemBgHover: AlphaColor('--text-color', 0.1),
+                        colorTextDisabled: LightenColor(textColor,0.5),
+                        controlItemBgHover: LightenColor(textColor,0.9),
                         controlItemBgActive: primaryLightColor,
                         controlInteractiveSize: MartineFontSize[size],
                         fontSize: MartineFontSize[size],
                         fontFamily: 'var(--font)',
-                        colorBorder: AlphaColor('--text-color', 0.3),
+                        colorBorder: LightenColor(textColor,0.6)
                     },
                 },
             }}

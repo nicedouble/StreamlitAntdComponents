@@ -21,8 +21,8 @@ def switch(
         position: MantinePosition = 'right',
         size: MantineSize = 'sm',
         radius: MantineSize = 'xl',
-        on_color: MantineColor = None,
-        off_color: MantineColor = None,
+        on_color: Union[MantineColor, str] = None,
+        off_color: Union[MantineColor, str] = None,
         disabled: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -40,8 +40,8 @@ def switch(
     :param position: switch label position
     :param size: switch size
     :param radius: switch radius
-    :param on_color: switch on status color,default streamlit primary color
-    :param off_color: switch off status color,default gray
+    :param on_color: switch on status color,default streamlit primary color,support mantine color, hex and rgb color
+    :param off_color: switch off status color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param disabled: disabled status
     :param on_change: switch change callback
     :param args: callback args

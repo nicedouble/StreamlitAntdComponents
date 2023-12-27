@@ -1,14 +1,15 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Steps, ConfigProvider} from 'antd';
-import {AlphaColor} from "../js/utils.react";
+import {GetColor, insertStyle, LightenColor, MartineFontSize} from "../js/utils.react";
 import {strToNode} from "../js/steps.react";
 import "../css/steps.css"
 
 interface StepsProp {
     items: any[];
     index: number;
-    size: "default" | "small";
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    color: any
     placement: any;
     direction: any;
     type: any;
@@ -23,19 +24,30 @@ const AntdSteps = (props: StepsProp) => {
     const items = strToNode(props['items'])
     const index = props['index']
     const size = props['size']
+    const color = props['color']
     const placement = props['placement']
     const direction = props['direction']
     const type = props['type']
     const dot = props['dot']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const primaryLightColor = LightenColor(primaryColor)
+    const textColor = GetColor('--text-color')
+
+    const [current, setCurrent] = useState(index)
 
     // component height
     useEffect(() => {
         setTimeout(() => Streamlit.setFrameHeight(), 0.01)
     })
 
-    const [current, setCurrent] = useState(index)
+    const textStyle = `
+    .ant-steps-item-title{
+        font-size:${MartineFontSize[size]}px !important
+    }
+    `
+    insertStyle(`sac.steps.title`, textStyle)
 
     //callback
     const onChange = (current: any) => {
@@ -66,15 +78,21 @@ const AntdSteps = (props: StepsProp) => {
             theme={{
                 components: {
                     Steps: {
-                        colorFillContent: AlphaColor('--text-color', 0.1),
-                        colorPrimary: 'var(--primary-color)',
+                        colorTextLabel: LightenColor(textColor, 0.2),
+                        colorFillContent: LightenColor(textColor, 0.9),
+                        colorSplit: LightenColor(textColor, 0.5),
+                        navArrowColor: LightenColor(textColor, 0.5),
+                        colorTextDescription: LightenColor(textColor, 0.5),
+                        colorPrimary: primaryColor,
                         colorText: 'var(--text-color)',
-                        colorTextLabel: AlphaColor('--text-color', 0.5),
-                        colorTextDescription: AlphaColor('--text-color', 0.5),
-                        colorTextDisabled: AlphaColor('--text-color', 0.2),
-                        controlItemBgActive: AlphaColor(),
-                        colorSplit: AlphaColor('--text-color', 0.2),
-                        navArrowColor: AlphaColor('--text-color', 0.5),
+                        controlItemBgActive: primaryLightColor,
+                        customIconFontSize: MartineFontSize[size] + 14,
+                        iconFontSize: MartineFontSize[size] - 2,
+                        iconSize: MartineFontSize[size] + 16,
+                        fontSize: MartineFontSize[size] - 2,
+                        dotSize: MartineFontSize[size] - 8,
+                        dotCurrentSize: MartineFontSize[size] - 6,
+                        iconTop:0,
                     },
                 },
             }}
@@ -84,7 +102,6 @@ const AntdSteps = (props: StepsProp) => {
                 current={current}
                 direction={direction}
                 labelPlacement={placement}
-                size={size}
                 type={type}
                 progressDot={dot}
                 onChange={onChange}
