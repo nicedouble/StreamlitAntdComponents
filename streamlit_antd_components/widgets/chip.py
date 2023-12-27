@@ -21,6 +21,7 @@ def chip(
         direction: Direction = 'horizontal',
         radius: MantineSize = 'lg',
         size: MantineSize = 'md',
+        color: Union[MantineColor, str] = None,
         variant: Variant = 'filled',
         multiple: bool = False,
         return_index: bool = False,
@@ -40,6 +41,7 @@ def chip(
     :param direction: chip direction
     :param radius: chip item radius
     :param size: chip item size
+    :param color: chip color,default streamlit primary color,support mantine color, hex and rgb color
     :param variant: chip item style
     :param multiple: chip multiple mode
     :param return_index: return select item index

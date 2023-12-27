@@ -22,7 +22,7 @@ def rate(
         clear: bool = False,
         readonly: bool = False,
         size: int = 20,
-        color: str = None,
+        color: Union[MantineColor, str] = None,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
@@ -40,7 +40,7 @@ def rate(
     :param clear: allow double click to clear select
     :param readonly: readonly mode
     :param size: symbol size in px
-    :param color: symbol color,default primary color
+    :param color: symbol color,default streamlit primary color,support mantine color, hex and rgb color
     :param on_change: rate change callback
     :param args: callback args
     :param kwargs: callback kwargs

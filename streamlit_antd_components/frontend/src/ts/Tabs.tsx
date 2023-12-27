@@ -2,7 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Tabs, ConfigProvider} from 'antd';
 import {strToNode, TabsStyle} from "../js/tabs.react";
-import {AlphaColor} from "../js/utils.react"
+import {GetColor, LightenColor, MartineFontSize} from "../js/utils.react"
 import '../css/tabs.css'
 
 interface TabsProp {
@@ -14,6 +14,8 @@ interface TabsProp {
     centered: boolean;
     height: number | null;
     grow: boolean;
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    color: any;
     return_index: boolean;
     kv: any;
     stValue: any
@@ -29,8 +31,12 @@ const AntdTabs = (props: TabsProp) => {
     const centered = props['centered']
     const height = props['height']
     const grow = props['grow']
+    const size = props['size']
+    const color = props['color']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
 
     const [activeKey, setActiveKey] = useState(index)
     // load style
@@ -71,22 +77,23 @@ const AntdTabs = (props: TabsProp) => {
             theme={{
                 components: {
                     Tabs: {
-                        itemActiveColor: 'var(--primary-color)',
-                        itemHoverColor: 'var(--primary-color)',
-                        itemSelectedColor: 'var(--primary-color)',
-                        inkBarColor: 'var(--primary-color)',
-                        colorBgContainer: AlphaColor('--primary-color', 0.2),
+                        itemActiveColor: primaryColor,
+                        itemHoverColor: primaryColor,
+                        itemSelectedColor: primaryColor,
+                        inkBarColor: primaryColor,
+                        colorBgContainer: LightenColor(primaryColor, 0.8),
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorPrimary: 'var(--primary-color)',
+                        colorTextDisabled: LightenColor(textColor, 0.5),
+                        colorPrimary: primaryColor,
                         colorBgContainerDisabled: 'transform',
-                        fontSize: 14,
+                        fontSize: MartineFontSize[size],
                         fontFamily: 'var(--font)',
-                        cardBg: AlphaColor('--text-color', 0.1),
+                        cardBg: LightenColor(textColor, 0.9),
                         cardGutter: 2,
                         horizontalItemGutter: 15,
                         horizontalMargin: '0',
                         colorBorderSecondary: 'transform',
+                        cardHeight: MartineFontSize[size] + 25
                     },
                 },
             }}

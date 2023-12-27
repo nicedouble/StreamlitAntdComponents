@@ -19,6 +19,8 @@ def tabs(
         align: Align = 'start',
         position: Position = 'top',
         shape: Literal['default', 'card'] = 'default',
+        size: MantineSize = 'md',
+        color: Union[MantineColor, str] = None,
         grow: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -35,6 +37,8 @@ def tabs(
     :param align: tabs align,available when position in ['top','bottom']
     :param position: tabs position
     :param shape: tabs shape
+    :param size: tabs size
+    :param color: tabs color,default streamlit primary color,support mantine color, hex and rgb color
     :param grow: grow to fill space area,available when position in ['top','bottom']
     :param return_index: if True,return tab index,default return label
     :param on_change: item change callback

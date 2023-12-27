@@ -1,9 +1,8 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Chip, Group, Stack, MantineSize} from "@mantine/core";
-import {AlphaColor, reindex, LabelComponent} from "../js/utils.react"
+import {reindex, LabelComponent, GetColor, LightenColor, DarkenColor} from "../js/utils.react"
 import strToNode from "../js/chip.react";
-
 
 interface ChipProp {
     label: any
@@ -14,6 +13,7 @@ interface ChipProp {
     direction: string
     radius: string
     size: MantineSize
+    color: any
     variant: string
     multiple: boolean
     return_index: boolean;
@@ -31,10 +31,14 @@ const AntdChip = (props: ChipProp) => {
     const direction = props['direction']
     const radius = props['radius']
     const size = props['size']
+    const color = props['color']
     const variant = props['variant']
     const multiple = props['multiple']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
+    const secondaryBgColor = GetColor('--secondary-background-color')
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -71,7 +75,7 @@ const AntdChip = (props: ChipProp) => {
             }
         }
         if (String(st_i) !== String(prevStValue.current)) {
-            const st_ii=reindex(st_i, true, props['multiple'])
+            const st_ii = reindex(st_i, true, props['multiple'])
             setValue(st_ii);
             prevStValue.current = props['stValue']
             if (Array.isArray(st_ii)) {
@@ -93,7 +97,7 @@ const AntdChip = (props: ChipProp) => {
                     value={value}
                     multiple={multiple}
                 >
-                    <Wrap spacing={'sm'}>
+                    <Wrap spacing={'xs'}>
                         {items.map((item: any, idx: any) =>
                             <Chip
                                 key={idx}
@@ -104,34 +108,36 @@ const AntdChip = (props: ChipProp) => {
                                 disabled={item.disabled}
                                 styles={(theme) => ({
                                     label: {
-                                        color: 'var(--text-color)',
+                                        marginBottom:0,
+                                        color: textColor,
                                         borderColor:
-                                            variant !== 'outline' ? 'transparent' : AlphaColor('--text-color', 0.2),
-                                        backgroundColor:
-                                            variant === 'outline' ? 'transparent' : AlphaColor('--text-color', 0.1),
+                                            variant !== 'outline' ? 'transparent' : LightenColor(textColor, 0.8),
+                                        backgroundColor: variant === 'outline' ? 'transparent' : secondaryBgColor,
                                         '&:hover': {
-                                            backgroundColor: AlphaColor('--text-color', 0.05),
+                                            backgroundColor:
+                                                variant === 'outline' ? 'transparent' : DarkenColor(secondaryBgColor, 0.1),
+                                            borderColor:
+                                                variant === 'outline' ? primaryColor : 'transparent',
                                         },
                                         '&[data-checked]:not([data-disabled])': {
                                             color:
-                                                variant === 'light' ? 'var(--primary-color)' :
-                                                    variant === 'filled' ? '#fff' : 'var(--text-color)'
+                                                variant === 'light' ? primaryColor : variant === 'filled' ? '#fff' : textColor
                                             ,
                                             backgroundColor:
-                                                variant === 'light' ? AlphaColor('--primary-color', 0.2) :
-                                                    variant === 'filled' ? 'var(--primary-color)' : 'transparent',
+                                                variant === 'light' ? LightenColor(primaryColor, 0.8) :
+                                                    variant === 'filled' ? primaryColor : 'transparent',
                                             borderColor:
-                                                variant === 'outline' ? 'var(--primary-color)' : 'transparent',
+                                                variant === 'outline' ? primaryColor : 'transparent',
                                         },
                                         '&[data-checked]:not([data-disabled]):hover': {
                                             backgroundColor:
-                                                variant === 'light' ? AlphaColor('--primary-color', 0.2) :
-                                                    variant === 'filled' ? 'var(--primary-color)' : 'transparent',
+                                                variant === 'light' ? LightenColor(primaryColor, 0.7) :
+                                                    variant === 'filled' ? DarkenColor(primaryColor, 0.1) : 'transparent',
                                         },
                                     },
                                     checkIcon: {
                                         color:
-                                            variant === 'filled' ? '#fff' : 'var(--primary-color)'
+                                            variant === 'filled' ? '#fff' : primaryColor
                                     }
                                 })}
                             >

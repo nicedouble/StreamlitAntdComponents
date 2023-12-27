@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Divider} from '@mantine/core';
-import {AlphaColor} from "../js/utils.react"
+import {LightenColor, GetColor} from "../js/utils.react"
 
 interface DividerProp {
     label: any
@@ -22,6 +22,7 @@ const AntdDivider = (props: DividerProp) => {
     const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
     const size = props['size'];
     const variant = props['variant'];
+    const textColor = GetColor('--text-color')
     let label_style = props['label_style'];
 
     // component height
@@ -48,7 +49,7 @@ const AntdDivider = (props: DividerProp) => {
 
     return (
         <Divider
-            color={color == null ? AlphaColor('--text-color', 0.2) : color}
+            color={color == null ? LightenColor(textColor,0.8) : color}
             label={icon ? <span><i className={`bi bi-${icon} mr-1`}/>{label}</span> : label}
             labelPosition={align}
             size={size}

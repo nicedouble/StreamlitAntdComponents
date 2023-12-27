@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Rate, ConfigProvider} from 'antd';
-import {AlphaColor, parseIcon, LabelComponent} from "../js/utils.react"
+import {parseIcon, LabelComponent, GetColor, LightenColor} from "../js/utils.react"
 import {StarFilled} from '@ant-design/icons';
 
 
@@ -33,6 +33,8 @@ const AntdRate = (props: RateProp) => {
     const readonly = props['readonly'];
     const size = props['size'];
     const color = props['color'];
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
 
     const [v, setV] = useState(value)
     // component height
@@ -58,7 +60,7 @@ const AntdRate = (props: RateProp) => {
             theme={{
                 components: {
                     Rate: {
-                        colorFillContent: AlphaColor('--text-color', 0.3),
+                        colorFillContent: LightenColor(textColor, 0.7),
                     },
                 },
             }}
@@ -76,7 +78,7 @@ const AntdRate = (props: RateProp) => {
                         allowClear={clear}
                         allowHalf={half}
                         disabled={readonly}
-                        style={{fontSize: size, color: color === null ? 'var(--primary-color)' : color}}
+                        style={{fontSize: size, color: primaryColor}}
                         onChange={onChange}
                     />
                 }
