@@ -1,12 +1,12 @@
 import React from "react";
-import {AlphaColor, deepCopy, MartineFontSize} from "./utils.react";
+import {deepCopy, MartineFontSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
 
 //recurve str property to react node
-const strToNode = (obj, size, treeIcon) => {
+const strToNode = (obj, size, treeIcon, desc_color) => {
     if (Array.isArray(obj)) {
-        return obj.map(obj_ => strToNode(obj_, size, treeIcon))
+        return obj.map(obj_ => strToNode(obj_, size, treeIcon, desc_color))
     } else {
         let obj_copy = deepCopy(obj);
         const itemIcon = obj_copy.icon;
@@ -15,14 +15,14 @@ const strToNode = (obj, size, treeIcon) => {
         const tooltip = obj_copy.tooltip;
         const icon = treeIcon != null ? treeIcon : itemIcon !== null ? itemIcon : null
         if (obj_copy.children) {
-            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, treeIcon))
+            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, treeIcon, desc_color))
         }
         //add description
         if (description) {
             obj_copy.label = <div style={{lineHeight: 1.2, wordBreak: 'break-word', whiteSpace: 'break-spaces'}}>
                 <div>{obj_copy.label}</div>
                 <div className={'tree-desc'} style={{
-                    color: AlphaColor('--text-color', 0.5),
+                    color: desc_color,
                     fontSize: MartineFontSize[size] - 2,
                 }}>{description}</div>
             </div>
@@ -63,7 +63,7 @@ const strToNode = (obj, size, treeIcon) => {
                     title={tooltip}
                     placement={'bottomLeft'}
                     arrow={false}
-                    overlayInnerStyle={{padding: '2px 6px', border: `1px solid ${AlphaColor('--text-color')}`}}
+                    overlayInnerStyle={{padding: '2px 6px', border: `1px solid ${desc_color}`}}
                 >
                     {obj_copy.label}
                 </Tooltip>

@@ -1,8 +1,3 @@
-/*btn global*/
-.ant-btn {
-    min-width: 36px;
-}
-
 /*default btn*/
 .ant-btn-default {
     border-width: 1px;
@@ -11,10 +6,6 @@
 /*primary btn*/
 .ant-btn-primary:disabled {
     border-width: 0;
-}
-
-button.ant-btn.ant-btn-sm {
-    font-size: 14px !important;
 }
 
 button:focus {

@@ -14,9 +14,12 @@ from ..utils import *
 def checkbox(
         items: List[Union[str, dict, CheckboxItem]],
         index: Union[int, List[int]] = None,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         label: str = None,
-        position: Position = 'top',
+        description: str = None,
+        radius: MantineSize = 'sm',
+        size: MantineSize = 'md',
+        color: Union[MantineColor, str] = None,
         align: Align = 'start',
         check_all: Union[bool, str] = False,
         disabled: bool = False,
@@ -31,8 +34,11 @@ def checkbox(
     :param items: checkbox items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param label: checkbox label,markdown and html with bootstrap available
-    :param position: checkbox label position
+    :param label: checkbox label
+    :param description: checkbox description
+    :param radius: checkbox item radius
+    :param size: checkbox item size
+    :param color: checkbox color,default streamlit primary color,support mantine color, hex and rgb color
     :param align: checkbox align
     :param check_all: check all box label
     :param disabled: disable checkbox

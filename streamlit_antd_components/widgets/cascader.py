@@ -13,11 +13,13 @@ from ..utils import *
 
 
 def cascader(
-        label: str = None,
         items: List[Union[str, dict, CasItem]] = None,
         index: Union[int, List[int]] = None,
-        format_func: Union[Label, Callable] = None,
+        label: str = None,
+        description: str = None,
+        format_func: Union[Formatter, Callable] = None,
         placeholder: str = 'Please choose',
+        color: Union[MantineColor, str] = None,
         multiple: bool = False,
         disabled: bool = False,
         search: bool = False,
@@ -31,11 +33,13 @@ def cascader(
 ) -> List[Union[str, int]]:
     """antd design cascader  https://ant.design/components/cascader
 
-    :param label: cascader label,markdown and html with bootstrap available
     :param items: cascader data
     :param index: default selected cascader item index
+    :param label: cascader label
+    :param description: cascader description
     :param format_func: label formatter function,receive str and return str
     :param placeholder: placeholder
+    :param color: primary color,default streamlit primary color,support mantine color, hex and rgb color
     :param multiple: multiple select
     :param disabled: disabled status
     :param search: allow search

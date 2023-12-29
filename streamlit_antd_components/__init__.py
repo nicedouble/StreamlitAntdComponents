@@ -8,7 +8,7 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-_RELEASE = False
+_RELEASE = True
 __VERSION__ = "0.2.5"
 
 from .widgets import *

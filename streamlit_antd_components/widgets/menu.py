@@ -15,7 +15,7 @@ from ..utils import *
 def menu(
         items: List[Union[str, dict, MenuItem]],
         index: int = 0,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         size: MantineSize = 'md',
         color: Union[MantineColor, str] = None,
         variant: Literal['light', 'filled', 'subtle'] = 'light',

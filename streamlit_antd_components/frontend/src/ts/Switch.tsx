@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {AlphaColor, parseIcon, MartineFontSize, GetColor, LightenColor} from "../js/utils.react"
+import {parseIcon, MartineFontSize, GetColor, RgbaColor} from "../js/utils.react"
 
 interface SwitchProp {
     label: any;
@@ -83,7 +83,7 @@ const AntdSwitch = (props: SwitchProp) => {
                         marginBottom: 0,
                     },
                     description: {
-                        color: LightenColor(textColor,0.5)
+                        color: RgbaColor(textColor,0.5)
                     },
                     trackLabel: {
                         fontSize: MartineFontSize[size] - 2,

@@ -3,22 +3,26 @@ import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider, Button} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
 import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
-import {AlphaColor, StreamlitScrollbar, LabelComponent} from "../js/utils.react"
+import {StreamlitScrollbar, GetColor, RgbaColor, DarkenColor, LabelWrap} from "../js/utils.react"
 import {strToNode, numberToStr} from "../js/transfer.react";
 import '../css/transfer.css'
 
 interface TransferProp {
     label: any
+    description: any
     items: any[]
     index: any
     titles: any
     search: boolean
     pagination: boolean
     oneway: boolean
+    color: any
+    align: any
     reload: boolean | string
     disabled: boolean
-    width: number | string
+    width: number
     height: number
+    with_container_width: boolean
     return_index: boolean;
     kv: any;
 }
@@ -27,18 +31,25 @@ interface TransferProp {
 const AntdTransfer = (props: TransferProp) => {
     //get data
     const label = props['label']
+    const description = props['description']
     const items = strToNode(props['items'])
     const index = numberToStr(props['index'])
     const titles = props['titles']
     const search = props['search']
     const pagination = props['pagination']
     const oneway = props['oneway']
+    const color = props['color']
+    const align = props['align']
     const reload = props['reload']
     const disabled = props['disabled']
     const width = props['width']
     const height = props['height']
+    const grow = props['with_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const secondaryBgColor = GetColor('--secondary-background-color')
+    const textColor = GetColor('--text-color')
 
     //data source
     const [dataSource, setDataSource] = useState(items)
@@ -72,7 +83,7 @@ const AntdTransfer = (props: TransferProp) => {
                 theme={{
                     components: {
                         Button: {
-                            colorPrimary: 'var(--primary-color)',
+                            colorPrimary: primaryColor,
                         }
                     }
                 }}
@@ -90,7 +101,6 @@ const AntdTransfer = (props: TransferProp) => {
 
     //scrollbar
     StreamlitScrollbar()
-    const shadow = AlphaColor('--text-color', 0.1)
 
     return (
         <ConfigProvider
@@ -98,58 +108,61 @@ const AntdTransfer = (props: TransferProp) => {
                 components: {
                     Transfer: {
                         colorBgContainer: 'transform',
-                        colorBorder: AlphaColor('--text-color', 0.2),
+                        colorBorder: RgbaColor(textColor),
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        controlItemBgHover: AlphaColor('--text-color', 0.1),
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: 'transform',
                         controlItemBgActiveHover: 'transform',
                         fontFamily: 'var(--font)',
                     },
                     Button: {
-                        colorPrimary: 'var(--primary-color)',
-                        colorPrimaryHover: 'var(--primary-color)',
-                        colorPrimaryActive: 'var(--primary-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorBgContainerDisabled: AlphaColor('--text-color', 0.1),
+                        colorPrimary: primaryColor,
+                        colorPrimaryHover: primaryColor,
+                        colorPrimaryActive: DarkenColor(primaryColor, 0.1),
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        colorBgContainerDisabled: RgbaColor(textColor, 0.1),
                     },
                     Checkbox: {
-                        colorPrimary: 'var(--primary-color)',
-                        colorPrimaryActive: 'var(--primary-color)',
-                        colorPrimaryHover: 'var(--primary-color)',
+                        colorPrimary: primaryColor,
+                        colorPrimaryActive: primaryColor,
+                        colorPrimaryHover: primaryColor,
                         colorBgContainer: 'transform',
-                        colorBorder: AlphaColor('--text-color', 0.3),
+                        colorBorder: RgbaColor(textColor, 0.3),
                     },
                     Input: {
                         colorBgContainer: 'inherit',
-                        colorBorder: AlphaColor('--text-color', 0.2),
-                        colorPrimaryHover: 'var(--primary-color)',
+                        colorBorder: RgbaColor(textColor),
+                        colorPrimaryHover: primaryColor,
+                        activeBorderColor: primaryColor,
                         controlOutlineWidth: 0,
-                        colorTextPlaceholder: AlphaColor('--text-color', 0.2),
+                        colorTextPlaceholder: RgbaColor(textColor, 0.5),
                     },
                     Pagination: {
                         colorText: 'var(--text-color)',
                         colorBgContainer: 'inherit',
-                        colorBorder: AlphaColor('--text-color', 0.2),
-                        colorPrimary: 'var(--primary-color)',
-                        colorPrimaryHover: 'var(--primary-color)',
+                        colorBorder: RgbaColor(textColor),
+                        colorPrimary: primaryColor,
+                        colorPrimaryHover: primaryColor,
                         controlOutlineWidth: 0
                     },
                     Dropdown: {
-                        colorBgElevated: 'var(--secondary-background-color)',
+                        colorBgElevated: GetColor('--background-color'),
                         colorText: 'var(--text-color)',
-                        controlItemBgHover: AlphaColor('--text-color', 0.1),
-                        boxShadowSecondary: `0 6px 16px 0 ${shadow}, 0 3px 6px -4px ${shadow}, 0 9px 28px 8px ${shadow}`,
+                        controlItemBgHover: secondaryBgColor,
+                        boxShadowSecondary: `0 6px 16px 0 ${secondaryBgColor}, 0 3px 6px -4px ${secondaryBgColor}, 0 9px 28px 8px ${secondaryBgColor}`,
                     },
                     Empty: {
-                        colorTextDisabled: AlphaColor('--text-color', 0.3),
+                        colorTextDisabled: RgbaColor(textColor, 0.3),
                     }
                 },
             }}
         >
-            <LabelComponent
+            <LabelWrap
                 label={label}
-                onlyLabel={true}
+                desc={description}
+                align={align}
+                grow={grow}
                 children={
                     <Transfer
                         dataSource={dataSource}
@@ -164,11 +177,11 @@ const AntdTransfer = (props: TransferProp) => {
                         oneWay={oneway}
                         disabled={disabled}
                         listStyle={{
-                            width: width,
+                            width: grow ? '100%' : width,
                             height: height,
                             minHeight: 200 + (search ? 60 : 0) + (reload ? 40 : 0)
                         }}
-                        footer={typeof(reload)=='string'||String(reload)==='true' ? renderFooter : undefined}
+                        footer={typeof (reload) == 'string' || String(reload) === 'true' ? renderFooter : undefined}
                     />
                 }
             />

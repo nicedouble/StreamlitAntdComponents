@@ -1,11 +1,11 @@
 import React from "react";
-import {AlphaColor, deepCopy, MartineFontSize} from "./utils.react";
+import {deepCopy, MartineFontSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 
 //recurve str property to react node
-const strToNode = (obj, size, variant) => {
+const strToNode = (obj, size, variant,desc_color) => {
     if (Array.isArray(obj)) {
-        return obj.map(obj_ => strToNode(obj_, size, variant))
+        return obj.map(obj_ => strToNode(obj_, size, variant,desc_color))
     } else {
         let obj_copy = deepCopy(obj);
         const icon = obj_copy.icon;
@@ -16,7 +16,7 @@ const strToNode = (obj, size, variant) => {
         const type = obj_copy.type;
         obj_copy.key = String(key)
         if (obj_copy.children) {
-            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant))
+            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant,desc_color))
         }
         //add icon
         if (icon) {
@@ -27,7 +27,7 @@ const strToNode = (obj, size, variant) => {
             obj_copy.label = <div style={{lineHeight: 1.3}} className={'py-2'}>
                 <div style={{wordBreak: 'break-word'}}>{obj_copy.label}</div>
                 <div className={'menu-desc'} style={{
-                    color: AlphaColor('--text-color', 0.5),
+                    color: desc_color,
                     fontSize: MartineFontSize[size] - 2,
                     wordBreak: 'break-word',
                     fontWeight: 'normal'

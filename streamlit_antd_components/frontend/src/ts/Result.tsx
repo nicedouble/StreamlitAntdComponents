@@ -1,11 +1,11 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Result, Empty, Space, ConfigProvider} from 'antd';
-import {AlphaColor, markdown} from "../js/utils.react";
+import {RgbaColor, markdown, GetColor} from "../js/utils.react";
 
 interface ResultProp {
-    title: any;
-    subtitle: string | null;
+    label: any;
+    description: string | null;
     status: any;
     icon: any;
     key: string | undefined;
@@ -13,8 +13,8 @@ interface ResultProp {
 
 const AntdResult = (props: ResultProp) => {
     //get data
-    let title = props['title']
-    const subtitle = props['subtitle']
+    let title = props['label']
+    const subtitle = props['description']
     const status = props['status']
     const icon = props['icon']
     const key = props['key']
@@ -26,6 +26,7 @@ const AntdResult = (props: ResultProp) => {
     }
     // @ts-ignore
     const color = colorMap[status]
+    const textColor = GetColor('--text-color')
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -45,7 +46,7 @@ const AntdResult = (props: ResultProp) => {
                 status={status}
                 icon={icon !== null ? <i className={`bi bi-${icon}`} style={{fontSize: 72, color: color}}/> : undefined}
                 className={'pb-0'}
-                style={{wordWrap:'break-word'}}
+                style={{wordWrap: 'break-word'}}
             />
         }
     }
@@ -56,7 +57,7 @@ const AntdResult = (props: ResultProp) => {
                 components: {
                     Result: {
                         colorTextHeading: 'var(--text-color)',
-                        colorTextDescription: AlphaColor('--text-color', 0.5),
+                        colorTextDescription: RgbaColor(textColor, 0.5),
                         iconFontSize: 72,
                         extraMargin: 0,
                         colorInfo: colorMap.info,
@@ -65,7 +66,7 @@ const AntdResult = (props: ResultProp) => {
                         colorError: colorMap.error,
                     },
                     Empty: {
-                        colorText: AlphaColor('--text-color', 0.5),
+                        colorText: RgbaColor(textColor, 0.5),
                     }
                 },
             }}

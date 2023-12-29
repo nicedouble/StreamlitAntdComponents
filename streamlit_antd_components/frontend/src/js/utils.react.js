@@ -13,11 +13,11 @@ const MartineFontSize = {
     'xl': 20,
 }
 const MartineRadiusSize = {
-    'xs': '0.125rem',
-    'sm': '0.25rem',
-    'md': '0.5rem',
-    'lg': '1rem',
-    'xl': '2rem',
+    'xs': 2,
+    'sm': 4,
+    'md': 8,
+    'lg': 16,
+    'xl': 32,
 }
 
 const GetColor = (color) => {
@@ -32,47 +32,32 @@ const GetColor = (color) => {
         }
     }
 }
-const LightenColor = (color, alpha = 0.8) => {
+const RgbaColor = (color, alpha = 0.2) => {
     const theme = useMantineTheme()
-    return theme.fn.lighten(color, alpha)
+    return theme.fn.rgba(color, alpha)
 }
 const DarkenColor = (color, alpha = 0.2) => {
     const theme = useMantineTheme()
     return theme.fn.darken(color, alpha)
 }
 
-const positionMap = {
-    'top': 'flex-column',
-    'bottom': 'flex-column-reverse',
-    'left': 'flex-row',
-    'right': 'flex-row-reverse'
-}
-const labelElement = (position, label, size) => {
-    if (label !== null) {
-        let marginMap = {'top': 'mb-2', 'bottom': 'mt-2', 'left': 'mr-2', 'right': 'ml-2'}
-        let styles = {color: 'var(--text-color)', fontSize: size === 'large' ? 16 : 14}
-        return <div className={marginMap[position]} style={styles} id={'label'}>{markdown(label)}</div>
-    } else {
-        return undefined
-    }
-}
 
-const LabelComponent = ({label, onlyLabel = false, align = 'start', position = 'top', size = 'middle', children}) => {
-    if (onlyLabel) {
-        return <div>
-            {labelElement('top', label, 'middle')}
-            {children}
-        </div>
-    } else {
-        let alignItem = `align-items-${['left', 'right'].indexOf(position) !== -1 ? 'center' : 'start'}`
-        return <div className={`d-flex justify-content-${align}`}>
-            <div
-                className={`d-flex ${positionMap[position]} justify-content-${align} ${alignItem}`}>
-                {labelElement(position, label, size)}
+const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, children}) => {
+    const textColor = GetColor('--text-color')
+    return <div style={{display: grow ? 'block' : 'flex', justifyContent: align}}>
+        {label !== null ?
+            <div style={{display: 'flex', flexDirection: 'column', gap: 5, width: grow ? '100%' : 'unset'}}>
+                <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
+                    <div style={{color: textColor, fontSize: MartineFontSize[size]}}>{label}</div>
+                    <div style={{
+                        color: RgbaColor(textColor, 0.5),
+                        fontSize: MartineFontSize[size] - 2,
+                        display: desc === null ? 'none' : 'block'
+                    }}>{desc}</div>
+                </div>
                 {children}
-            </div>
-        </div>
-    }
+            </div> : children}
+    </div>
 }
 
 
@@ -106,7 +91,8 @@ const insertStyle = (id, style) => {
 }
 
 const StreamlitScrollbar = () => {
-    let scrollBarColor = AlphaColor('--text-color', 0.4);
+    const textColor = GetColor('--text-color')
+    let scrollBarColor = RgbaColor(textColor, 0.4)
     let style = `
         ::-webkit-scrollbar {
             height: 6px;
@@ -122,41 +108,6 @@ const StreamlitScrollbar = () => {
 }
 
 const getRootColor = (varColor) => {
-    const color = getComputedStyle(document.documentElement).getPropertyValue(varColor).trim();
-    const colorComponents = getColorComponents(color)
-    if (colorComponents) {
-        const [r, g, b] = colorComponents
-        return `rgb(${r},${g},${b})`
-    } else {
-        return null
-    }
-}
-
-const getColorComponents = (color) => {
-    // Handle hexadecimal color format
-    const hexMatch = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
-    if (hexMatch.test(color)) {
-        let hex = color.substring(1);
-        if (hex.length === 3) {
-            hex = hex.split('').map((char) => char + char).join('');
-        }
-        const [r, g, b] = hex.match(/.{2}/g).map((c) => parseInt(c, 16));
-        return [r, g, b];
-    }
-
-    // Handle RGB and RGBA color formats
-    const rgbMatch = /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)$/;
-    const match = color.match(rgbMatch);
-    if (match) {
-        const [_, r, g, b] = match.map(Number);
-        return [r, g, b];
-    }
-
-    // Handle other color formats or invalid colors
-    return null;
-};
-
-const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
     const getColorComponents = (color) => {
         // Handle hexadecimal color format
         const hexMatch = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
@@ -180,19 +131,15 @@ const AlphaColor = (varColor = '--primary-color', alpha = 0.2) => {
         // Handle other color formats or invalid colors
         return null;
     };
-
     const color = getComputedStyle(document.documentElement).getPropertyValue(varColor).trim();
-    const colorComponents = getColorComponents(color);
-
+    const colorComponents = getColorComponents(color)
     if (colorComponents) {
-        const [r, g, b] = colorComponents;
-        return `
-        rgba(${r}, ${g}, ${b}, ${alpha})`;
+        const [r, g, b] = colorComponents
+        return `rgb(${r},${g},${b})`
     } else {
-        // Handle invalid colors
-        return 'defaultColor';
+        return null
     }
-};
+}
 
 const getCollapseKeys = (items) => {
     let keys = []
@@ -293,7 +240,6 @@ const parseIcon = (obj) => {
 
 export {
     deepCopy,
-    AlphaColor,
     StreamlitScrollbar,
     getCollapseKeys,
     getHrefKeys,
@@ -302,9 +248,8 @@ export {
     parseIcon,
     markdown,
     marquee,
-    LabelComponent,
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, LightenColor, DarkenColor
+    GetColor, RgbaColor, DarkenColor, LabelWrap
 }

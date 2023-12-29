@@ -15,9 +15,9 @@ from ..utils import *
 def segmented(
         items: List[Union[str, dict, SegmentedItem]],
         index: Union[int, None] = 0,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         label: str = None,
-        position: Position = 'top',
+        description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
         radius: MantineSize = 'md',
@@ -40,7 +40,7 @@ def segmented(
     :param index: default selected item index,if None,default not selected item.
     :param format_func: label formatter function,receive str and return str
     :param label: segmented label
-    :param position: segmented label position
+    :param description: segmented label
     :param align: segmented align
     :param direction: segmented direction
     :param radius: segmented radius

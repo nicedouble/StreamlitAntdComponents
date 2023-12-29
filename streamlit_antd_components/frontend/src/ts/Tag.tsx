@@ -1,8 +1,8 @@
 import {Streamlit} from "streamlit-component-lib";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {Space, Tag, ConfigProvider} from 'antd';
 import '../css/tag.css'
-import {AlphaColor, MartineRadiusSize, MartineFontSize} from "../js/utils.react";
+import {MartineRadiusSize, MartineFontSize, GetColor, RgbaColor} from "../js/utils.react";
 
 interface tagProp {
     label: any
@@ -19,7 +19,6 @@ interface TagsProp {
     items: tagProp[]
     align: string
     direction: "horizontal" | "vertical"
-    checkable: boolean
     return_index: boolean;
 }
 
@@ -33,6 +32,7 @@ const AntdTag = (props: tagProp) => {
     const link = props['link'];
     const bordered = props['bordered'];
     const closable = props['closable'];
+    const textColor = GetColor('--text-color')
 
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -42,7 +42,7 @@ const AntdTag = (props: tagProp) => {
                 components: {
                     Tag: {
                         defaultColor: 'var(--text-color)',
-                        defaultBg: AlphaColor('--text-color', 0.05),
+                        defaultBg: RgbaColor(textColor, 0.05),
                     },
                 },
             }}
@@ -56,9 +56,9 @@ const AntdTag = (props: tagProp) => {
                     margin: 0,
                     borderRadius: MartineRadiusSize[radius],
                     fontSize: MartineFontSize[size],
-                    paddingTop: MartineFontSize[size]-12,
-                    paddingBlock: MartineFontSize[size]-12,
-                    lineHeight:1.2
+                    paddingTop: MartineFontSize[size] - 12,
+                    paddingBlock: MartineFontSize[size] - 12,
+                    lineHeight: 1.2
                 }}
             >
                 {link ?
@@ -74,30 +74,16 @@ const AntdTags = (props: TagsProp) => {
     const items = props['items'];
     const align = props['align'];
     const direction = props['direction'];
-    const checkable = props['checkable'];
-    const return_index = props['return_index']
-
-    const {CheckableTag} = Tag;
-    const itemsList = items.map((item) => item['label'])
-    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => Streamlit.setFrameHeight())
-
-    const handleChange = (tag: string, checked: boolean) => {
-        const nextSelectedTags = checked
-            ? [...selectedTags, tag]
-            : selectedTags.filter((t) => t !== tag);
-        setSelectedTags(nextSelectedTags);
-        Streamlit.setComponentValue(nextSelectedTags.map((x) => return_index ? itemsList.indexOf(x) : x))
-    };
 
     return <ConfigProvider
         theme={{
             components: {
                 Tag: {
                     defaultColor: 'var(--text-color)',
-                    defaultBg: AlphaColor('--text-color', 0.05),
-                    colorFillSecondary: AlphaColor('--primary-color', 0.1),
+                    defaultBg: RgbaColor(GetColor('--text-color'), 0.05),
+                    colorFillSecondary: RgbaColor(GetColor('--primary-color'), 0.1),
                     colorPrimary: 'var(--primary-color)',
                     colorPrimaryActive: 'var(--primary-color)',
                     colorPrimaryHover: 'var(--primary-color)',
@@ -111,18 +97,7 @@ const AntdTags = (props: TagsProp) => {
             size={10}
         >
             {items.map((item: any) => {
-                if (!checkable) {
-                    return AntdTag(item)
-                } else {
-                    return <CheckableTag
-                        key={item['label']}
-                        checked={selectedTags.includes(item['label'])}
-                        onChange={(checked) => handleChange(item['label'], checked)}
-                        style={{margin: 0, borderRadius: 10}}
-                    >
-                        {item['label']}
-                    </CheckableTag>
-                }
+                return AntdTag(item)
             })}
         </Space>
     </ConfigProvider>

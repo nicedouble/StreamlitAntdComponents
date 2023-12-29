@@ -2,30 +2,53 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Alert, ConfigProvider} from 'antd';
 import '../css/alert.css'
-import {markdown, marquee} from "../js/utils.react";
+import {GetColor, insertStyle, markdown, marquee, RgbaColor} from "../js/utils.react";
 
 interface AlertProp {
-    message: string;
+    label: string;
     description: string;
-    type: "info" | "success" | "warning" | 'error';
+    color: "info" | "success" | "warning" | 'error';
     radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-    icon: boolean;
+    icon: boolean | string;
     closable: boolean;
     banner: boolean | boolean[];
 }
 
 const AntdAlert = (props: AlertProp) => {
     //get data
-    const message = props['message']
+    const message = props['label']
     const description = props['description']
-    const type = props['type']
+    const color = props['color']
     const radius = props['radius']
     const icon = props['icon']
     const closable = props['closable']
     const banner = props['banner']
+    const msgList = ['info', 'success', 'warning', 'error']
 
     // component height
-    useEffect(() => {setTimeout(() => Streamlit.setFrameHeight(), 0.001)})
+    useEffect(() => {
+        setTimeout(() => Streamlit.setFrameHeight(), 0.001)
+    })
+
+    if (msgList.indexOf(color) === -1) {
+        const primaryColor = GetColor(color)
+        const textStyle = `
+        .ant-alert.ant-alert-info{
+            color: ${primaryColor};
+            background: ${RgbaColor(primaryColor)};
+        }
+        .ant-alert.ant-alert-info .ant-alert-message{
+            color: ${primaryColor};
+        }
+        .ant-alert.ant-alert-info .anticon.anticon-close{
+            color: ${primaryColor};
+        }
+        .ant-alert-info .ant-alert-icon{
+            color: ${primaryColor}
+        }
+        `
+        insertStyle(`sac.alert.style`, textStyle)
+    }
 
     const radiusMap = {'xs': 2, 'sm': 5, 'md': 10, 'lg': 20, 'xl': 25}
 
@@ -52,12 +75,13 @@ const AntdAlert = (props: AlertProp) => {
             <Alert
                 message={messageBanner ? marquee(message) : markdown(message)}
                 description={descriptionBanner ? marquee(description) : markdown(description)}
-                type={type}
-                showIcon={icon}
+                type={msgList.indexOf(color) !== -1 ? color : 'info'}
+                showIcon={typeof (icon) === 'boolean' ? icon : true}
                 closable={closable}
                 banner={totalBanner}
                 style={{borderRadius: radiusMap[radius]}}
                 onClose={() => Streamlit.setFrameHeight(0)}
+                icon={typeof (icon) === 'boolean' ? undefined : <i className={`bi bi-${icon}`}/>}
             />
         </ConfigProvider>
     );

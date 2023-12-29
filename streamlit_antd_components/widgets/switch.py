@@ -13,8 +13,8 @@ from ..utils import *
 
 def switch(
         label: str = None,
-        value: bool = False,
         description: str = None,
+        value: bool = False,
         on_label: Union[str, BsIcon] = None,
         off_label: Union[str, BsIcon] = None,
         align: Align = 'start',
@@ -31,9 +31,9 @@ def switch(
 ) -> bool:
     """mantine switch  https://v6.mantine.dev/core/switch/
 
-    :param label: switch label,markdown and html with bootstrap available
-    :param value: default value
+    :param label: switch label
     :param description: switch description
+    :param value: default value
     :param on_label: switch on status label,str or BsIcon
     :param off_label: switch off status label,str or BsIcon
     :param align: switch align

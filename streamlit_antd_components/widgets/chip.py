@@ -14,15 +14,15 @@ from ..utils import *
 def chip(
         items: List[Union[str, dict, ChipItem]],
         index: Union[int, List[int]] = None,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         label: str = None,
+        description: str = None,
         align: Align = 'start',
-        position: Position = 'top',
         direction: Direction = 'horizontal',
         radius: MantineSize = 'lg',
         size: MantineSize = 'md',
         color: Union[MantineColor, str] = None,
-        variant: Variant = 'filled',
+        variant: Literal['outline', 'light', 'filled'] = 'filled',
         multiple: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -35,9 +35,9 @@ def chip(
     :param items: chip items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param label: chip label,markdown and html with bootstrap available
+    :param label: chip label
+    :param description: chip description
     :param align: chip align
-    :param position: chip label position
     :param direction: chip direction
     :param radius: chip item radius
     :param size: chip item size

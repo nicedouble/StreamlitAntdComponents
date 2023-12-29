@@ -26,11 +26,6 @@
     border: 1px solid var(--primary-color) !important;
 }
 
-/*select item text color*/
-li.ant-cascader-menu-item.ant-cascader-menu-item-active {
-    color: var(--primary-color);
-}
-
 li.ant-cascader-menu-item {
     overflow: unset !important;
 }

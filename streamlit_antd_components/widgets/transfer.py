@@ -12,18 +12,22 @@ from ..utils import *
 
 
 def transfer(
-        label: str = None,
         items: List[str] = None,
         index: List[int] = None,
+        format_func: Union[Formatter, Callable] = None,
+        label: str = None,
+        description: str = None,
         titles: List[str] = None,
-        format_func: Union[Label, Callable] = None,
+        color: Union[MantineColor, str] = None,
+        align: Align = 'start',
         search: bool = False,
         pagination: bool = False,
         oneway: bool = False,
         disabled: bool = False,
         reload: Union[bool, str] = False,
-        width: Union[int, str] = None,
+        width: int = None,
         height: int = None,
+        with_container_width=False,
         return_index=False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -32,11 +36,14 @@ def transfer(
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
 
-    :param label: transfer label,markdown and html with bootstrap available
     :param items: transfer source data
     :param index: transfer default target data index
-    :param titles: transfer left and right box title,[left,right]
     :param format_func: label formatter function,receive str and return str
+    :param label: transfer label
+    :param description: transfer description
+    :param titles: transfer left and right box title,[left,right]
+    :param color: transfer color,default streamlit primary color,support mantine color, hex and rgb color
+    :param align: transfer align
     :param search: show search bar
     :param pagination: show pagination
     :param oneway: oneway mode
@@ -44,6 +51,7 @@ def transfer(
     :param reload: reload button,set str to rename button label
     :param width: width in px
     :param height: height in px
+    :param with_container_width: 100%width
     :param return_index: return item index
     :param on_change: item change callback
     :param args: callback args

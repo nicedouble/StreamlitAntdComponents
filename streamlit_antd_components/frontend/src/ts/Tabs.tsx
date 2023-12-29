@@ -1,8 +1,8 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Tabs, ConfigProvider} from 'antd';
-import {strToNode, TabsStyle} from "../js/tabs.react";
-import {GetColor, LightenColor, MartineFontSize} from "../js/utils.react"
+import {strToNode} from "../js/tabs.react";
+import {GetColor, RgbaColor, MartineFontSize, insertStyle} from "../js/utils.react"
 import '../css/tabs.css'
 
 interface TabsProp {
@@ -10,7 +10,7 @@ interface TabsProp {
     index: string;
     align: string;
     position: any;
-    shape: any;
+    variant: any;
     centered: boolean;
     height: number | null;
     grow: boolean;
@@ -27,7 +27,7 @@ const AntdTabs = (props: TabsProp) => {
     const index = props['index']
     const align = props['align']
     const position = props['position']
-    const shape = props['shape']
+    const variant = props['variant']
     const centered = props['centered']
     const height = props['height']
     const grow = props['grow']
@@ -37,10 +37,48 @@ const AntdTabs = (props: TabsProp) => {
     const kv = props['kv']
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const textColor = GetColor('--text-color')
+    const borderColor = RgbaColor(textColor, 0.1)
+    const bgColor = GetColor('--background-color')
 
     const [activeKey, setActiveKey] = useState(index)
+
     // load style
-    TabsStyle(align, grow)
+    let style = `
+        .ant-tabs-nav-wrap{
+            justify-content: ${align};
+        }
+        .ant-tabs-nav:before {
+            border-bottom: ${variant === 'subtle' ? 2 : variant === 'outline' ? 1 : 0}px solid ${borderColor} !important;
+        }
+        .ant-tabs-right > .ant-tabs-content-holder {
+            margin-right: -2px;
+            border-right: 2px solid ${borderColor};
+        }
+        .ant-tabs-left > .ant-tabs-content-holder {
+            margin-left: -2px;
+            border-left: 2px solid ${borderColor};
+        }
+        .ant-tabs-card .ant-tabs-tab{
+            border-width: 1px;
+            border-style: solid;
+            border-color: ${variant === 'filled' ? bgColor : `${bgColor} ${bgColor} ${borderColor} ${bgColor}`} !important;
+            border-radius: ${variant === 'filled' ? '8px' : '8px 8px 0 0'} !important
+        }
+        .ant-tabs-card .ant-tabs-tab-active{
+            border-width: 1px;
+            border-style: solid;
+            border-color: ${variant === 'filled' ? bgColor : `${borderColor} ${borderColor} ${bgColor} ${borderColor}`} !important
+        }
+        `
+    let growStyle = `
+        .ant-tabs-tab{
+            flex-grow: 1;
+        }
+        .ant-tabs-nav-list{
+            flex-grow: 1;
+        }
+    `
+    insertStyle('tabs-style', grow ? style + growStyle : style)
 
     //component height
     let tabsHeight = ['left', 'right'].includes(position) && height != null ? height : undefined
@@ -79,21 +117,20 @@ const AntdTabs = (props: TabsProp) => {
                     Tabs: {
                         itemActiveColor: primaryColor,
                         itemHoverColor: primaryColor,
-                        itemSelectedColor: primaryColor,
+                        itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
                         inkBarColor: primaryColor,
-                        colorBgContainer: LightenColor(primaryColor, 0.8),
+                        colorBgContainer: variant === 'filled' ? primaryColor : bgColor,
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: LightenColor(textColor, 0.5),
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorPrimary: primaryColor,
                         colorBgContainerDisabled: 'transform',
                         fontSize: MartineFontSize[size],
                         fontFamily: 'var(--font)',
-                        cardBg: LightenColor(textColor, 0.9),
-                        cardGutter: 2,
+                        cardBg: variant === 'filled' ? RgbaColor(textColor, 0.1) : bgColor,
+                        cardGutter: variant === 'outline' ? 0 : 2,
                         horizontalItemGutter: 15,
                         horizontalMargin: '0',
-                        colorBorderSecondary: 'transform',
-                        cardHeight: MartineFontSize[size] + 25
+                        cardHeight: MartineFontSize[size] + 25,
                     },
                 },
             }}
@@ -103,7 +140,7 @@ const AntdTabs = (props: TabsProp) => {
                 defaultActiveKey={index}
                 activeKey={activeKey}
                 onTabClick={onClick}
-                type={shape === 'default' ? 'line' : shape}
+                type={variant === 'subtle' ? 'line' : 'card'}
                 tabPosition={position}
                 centered={centered}
                 style={{height: tabsHeight}}

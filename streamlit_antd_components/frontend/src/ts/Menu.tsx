@@ -11,7 +11,7 @@ import {
     StreamlitScrollbar,
     MartineFontSize,
     insertStyle,
-    GetColor, LightenColor
+    GetColor, RgbaColor
 } from "../js/utils.react"
 import '../css/menu.css'
 
@@ -32,8 +32,9 @@ interface MenuProp {
 
 
 const AntdMenu = (props: MenuProp) => {
+    const textColor = GetColor('--text-color')
     //get data
-    const items = strToNode(props.items, props.size, props.variant)
+    const items = strToNode(props.items, props.size, props.variant,RgbaColor(textColor,0.5))
     const dsk = reindex(props.index)
     const openIndex = reindex(props.open_index)
     const openAll = props['open_all']
@@ -46,8 +47,7 @@ const AntdMenu = (props: MenuProp) => {
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const primaryLightColor = LightenColor(primaryColor)
-    const textColor = GetColor('--text-color')
+    const primaryLightColor = RgbaColor(primaryColor)
 
     //custom style
     StreamlitScrollbar()
@@ -116,16 +116,16 @@ const AntdMenu = (props: MenuProp) => {
                     Menu: {
                         itemBorderRadius: 8,
                         itemColor: 'var(--text-color)',
-                        groupTitleColor: LightenColor(textColor, 0.5),
-                        itemDisabledColor: LightenColor(textColor, 0.5),
+                        groupTitleColor: RgbaColor(textColor, 0.5),
+                        itemDisabledColor: RgbaColor(textColor, 0.5),
                         itemHoverColor: 'var(--text-color)',
-                        itemHoverBg: LightenColor(textColor, 0.8),
-                        itemActiveBg: LightenColor(textColor, 0.8),
+                        itemHoverBg: RgbaColor(textColor),
+                        itemActiveBg: RgbaColor(textColor, 0.25),
                         itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
                         itemSelectedBg: variant === 'light' ? primaryLightColor : variant === 'filled' ? primaryColor : 'transform',
                         subMenuItemBg: 'transform',
                         itemBg: 'transform',
-                        colorSplit: LightenColor(textColor, 0.8),
+                        colorSplit: RgbaColor(textColor),
                         fontFamily: 'var(--font)',
                         iconMarginInlineEnd: 10,
                         fontSize: MartineFontSize[size],

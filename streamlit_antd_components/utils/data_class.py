@@ -10,7 +10,7 @@
 """
 from dataclasses import dataclass
 from typing import List, Literal, Union
-from .setting import Color, MantineSize
+from .setting import Color, MantineSize, MantineColor
 
 __all__ = [
     'BsIcon',  # icon
@@ -82,7 +82,7 @@ class NestedItem(Item):
 @dataclass
 class ButtonsItem(Item):
     href: str = None  # link address
-    color: str = None  # button color
+    color: Union[MantineColor, str] = None  # button color
 
 
 @dataclass

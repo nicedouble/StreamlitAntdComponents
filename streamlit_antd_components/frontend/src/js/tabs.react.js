@@ -1,38 +1,5 @@
 import React from "react";
-import {deepCopy, AlphaColor, insertStyle} from "./utils.react"
-
-const TabsStyle = (align, grow) => {
-    let color = AlphaColor('--text-color', 0.1);
-    let style = `
-        .ant-tabs-nav-wrap{
-            justify-content: ${align};
-        }
-        .ant-tabs-nav:before {
-            border-bottom: 2px solid ${color} !important;
-        }
-        .ant-tabs-right > .ant-tabs-content-holder {
-            margin-right: -2px;
-            border-right: 2px solid ${color};
-        }
-        .ant-tabs-left > .ant-tabs-content-holder {
-            margin-left: -2px;
-            border-left: 2px solid ${color};
-        }
-        `
-    let growStyle = `
-        .ant-tabs-tab{
-            flex-grow: 1;
-        }
-        .ant-tabs-nav-list{
-            flex-grow: 1;
-        }
-    `
-    if (grow) {
-        style += growStyle
-    }
-    insertStyle('tabs-style', style)
-}
-
+import {deepCopy} from "./utils.react"
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -53,4 +20,4 @@ const strToNode = (obj) => {
     })
 }
 
-export {strToNode, TabsStyle}
+export {strToNode}

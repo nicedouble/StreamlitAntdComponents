@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Steps, ConfigProvider} from 'antd';
-import {GetColor, insertStyle, LightenColor, MartineFontSize} from "../js/utils.react";
+import {GetColor, insertStyle, RgbaColor, MartineFontSize} from "../js/utils.react";
 import {strToNode} from "../js/steps.react";
 import "../css/steps.css"
 
@@ -12,7 +12,7 @@ interface StepsProp {
     color: any
     placement: any;
     direction: any;
-    type: any;
+    variant: any;
     dot: boolean;
     return_index: boolean;
     kv: any;
@@ -27,12 +27,12 @@ const AntdSteps = (props: StepsProp) => {
     const color = props['color']
     const placement = props['placement']
     const direction = props['direction']
-    const type = props['type']
+    const variant = props['variant']
     const dot = props['dot']
     const return_index = props['return_index']
     const kv = props['kv']
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const primaryLightColor = LightenColor(primaryColor)
+    const primaryLightColor = RgbaColor(primaryColor)
     const textColor = GetColor('--text-color')
 
     const [current, setCurrent] = useState(index)
@@ -45,6 +45,9 @@ const AntdSteps = (props: StepsProp) => {
     const textStyle = `
     .ant-steps-item-title{
         font-size:${MartineFontSize[size]}px !important
+    }
+    .ant-steps-item-custom .ant-steps-item-icon .ant-steps-icon{
+        color:${RgbaColor(textColor,0.5)} !important
     }
     `
     insertStyle(`sac.steps.title`, textStyle)
@@ -78,11 +81,11 @@ const AntdSteps = (props: StepsProp) => {
             theme={{
                 components: {
                     Steps: {
-                        colorTextLabel: LightenColor(textColor, 0.2),
-                        colorFillContent: LightenColor(textColor, 0.9),
-                        colorSplit: LightenColor(textColor, 0.5),
-                        navArrowColor: LightenColor(textColor, 0.5),
-                        colorTextDescription: LightenColor(textColor, 0.5),
+                        colorTextLabel: RgbaColor(textColor, 0.5),
+                        colorFillContent: RgbaColor(textColor, 0.1),
+                        colorSplit: RgbaColor(textColor, 0.5),
+                        navArrowColor: RgbaColor(textColor, 0.5),
+                        colorTextDescription: RgbaColor(textColor, 0.5),
                         colorPrimary: primaryColor,
                         colorText: 'var(--text-color)',
                         controlItemBgActive: primaryLightColor,
@@ -93,6 +96,7 @@ const AntdSteps = (props: StepsProp) => {
                         dotSize: MartineFontSize[size] - 8,
                         dotCurrentSize: MartineFontSize[size] - 6,
                         iconTop:0,
+                        colorIconHover:'red'
                     },
                 },
             }}
@@ -102,7 +106,7 @@ const AntdSteps = (props: StepsProp) => {
                 current={current}
                 direction={direction}
                 labelPlacement={placement}
-                type={type}
+                type={variant}
                 progressDot={dot}
                 onChange={onChange}
             />

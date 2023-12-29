@@ -13,13 +13,16 @@ from ..utils import *
 
 
 def tree(
-        label: str = None,
         items: List[Union[str, dict, TreeItem]] = None,
         index: Union[int, List[int]] = None,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
+        label: str = None,
+        description: str = None,
         icon: str = None,
         size: MantineSize = 'md',
-        color: MantineColor = None,
+        color: Union[MantineColor, str] = None,
+        align: Align = 'start',
+        width: int = None,
         height: int = None,
         open_index: List[int] = None,
         open_all: bool = False,
@@ -34,14 +37,17 @@ def tree(
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
 
-    :param label: tree label,markdown and html with bootstrap available
     :param items: tree data
     :param index: default selected tree item index
     :param format_func: label formatter function,receive str and return str
+    :param label: tree label
+    :param description: tree description
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
     :param size: tree size
     :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
-    :param height: set height in px to scroll
+    :param align: tree align
+    :param width: tree width
+    :param height: tree height
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
     :param open_all: open all items.priority[open_all>open_index]
     :param checkbox: show checkbox to allow multiple select

@@ -2,19 +2,19 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
-import {GetColor, LabelComponent} from "../js/utils.react"
+import {GetColor, LabelWrap} from "../js/utils.react"
 import "../css/segmented.css"
 
 interface SegmentedProp {
     items: any[];
     index: number;
     label: string;
+    description: string;
     radius: string;
     size: string;
     color: string;
     bg_color: string;
     align: any;
-    position: any;
     direction: any;
     disabled: boolean;
     divider: boolean;
@@ -31,12 +31,12 @@ const AntdSegmented = (props: SegmentedProp) => {
     const items = strToNode(props['items'])
     const index = String(props['index'])
     const label = props['label']
+    const description = props['description']
     const radius = props['radius']
     const size = props['size']
     const color = props['color']
     const bg_color = props['bg_color']
     const align = props['align']
-    const position = props['position']
     const direction = props['direction']
     const disabled = props['disabled']
     const divider = props['divider']
@@ -76,57 +76,55 @@ const AntdSegmented = (props: SegmentedProp) => {
         }
     }, [props, kv, return_index])
 
-    const segmentedWrap = <SegmentedControl
-        color={color}
-        data={items}
-        defaultValue={index}
-        onChange={onChange}
-        value={value}
-        fullWidth={grow}
-        disabled={disabled}
+    return <LabelWrap
+        label={label}
+        desc={description}
         size={size}
-        radius={radius}
-        orientation={direction}
-        readOnly={readonly}
-        className={'d-flex flex-wrap'}
-        styles={(theme) => ({
-            root: {
-                backgroundColor: secondaryBgColor,
-            },
-            label: {
-                color: 'var(--text-color)',
-                marginBottom: 0,
-                '&:hover': {
-                    color: 'var(--text-color)'
-                },
-                '&[data-active]': {
-                    color: '#fff'
-                },
-                '&[data-active]:hover': {
-                    color: '#fff'
-                },
-            },
-            indicator: {
-                backgroundColor: primaryColor,
-            },
-            control: {
-                '&:not(:first-of-type)': {
-                    borderStyle: divider ? "solid" : 'none'
-                }
-            }
-        })}
+        align={align}
+        grow={grow}
+        children={
+            <SegmentedControl
+                color={color}
+                data={items}
+                defaultValue={index}
+                onChange={onChange}
+                value={value}
+                fullWidth={grow}
+                disabled={disabled}
+                size={size}
+                radius={radius}
+                orientation={direction}
+                readOnly={readonly}
+                className={'d-flex flex-wrap'}
+                styles={(theme) => ({
+                    root: {
+                        backgroundColor: secondaryBgColor,
+                    },
+                    label: {
+                        color: 'var(--text-color)',
+                        marginBottom: 0,
+                        '&:hover': {
+                            color: 'var(--text-color)'
+                        },
+                        '&[data-active]': {
+                            color: '#fff'
+                        },
+                        '&[data-active]:hover': {
+                            color: '#fff'
+                        },
+                    },
+                    indicator: {
+                        backgroundColor: primaryColor,
+                    },
+                    control: {
+                        '&:not(:first-of-type)': {
+                            borderStyle: divider ? "solid" : 'none'
+                        }
+                    }
+                })}
+            />
+        }
     />
-
-    if (grow) {
-        return segmentedWrap
-    } else {
-        return <LabelComponent
-            label={label}
-            align={align}
-            position={position}
-            children={segmentedWrap}
-        />
-    }
 };
 
 export default AntdSegmented

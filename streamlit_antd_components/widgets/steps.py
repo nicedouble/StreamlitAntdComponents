@@ -14,12 +14,12 @@ from ..utils import *
 def steps(
         items: List[Union[str, dict, StepsItem]],
         index: int = 0,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         placement: Direction = 'horizontal',
         size: MantineSize = 'md',
-        color: MantineColor = None,
+        color: Union[MantineColor, str] = None,
         direction: Direction = 'horizontal',
-        type: Literal['default', 'navigation', 'inline'] = 'default',
+        variant: Literal['default', 'navigation', 'inline'] = 'default',
         dot: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -36,7 +36,7 @@ def steps(
     :param size: steps size
     :param color: steps color,default streamlit primary color,support built-in mantine color, hex and rgb color
     :param direction: steps direction
-    :param type: steps type
+    :param variant: steps variant
     :param dot: dot style steps
     :param return_index: return select item index
     :param on_change: item change callback

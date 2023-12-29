@@ -15,14 +15,15 @@ from ..utils import *
 def buttons(
         items: List[Union[str, dict, ButtonsItem]],
         index: Union[int, None] = 0,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         label: str = None,
+        description: str = None,
+        size: MantineSize = 'md',
+        color: Union[MantineColor, str] = None,
+        radius: MantineSize = 'md',
+        variant: Literal['filled', 'outline', 'dashed', 'text', 'link'] = 'outline',
         align: Align = 'start',
-        position: Position = 'top',
-        size: Size = 'middle',
         direction: Direction = 'horizontal',
-        shape: Shape = 'default',
-        type: Type = 'default',
         compact: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -35,13 +36,14 @@ def buttons(
     :param items: buttons data
     :param index: default selected button index.if none,click button will not show active style
     :param format_func: item label formatter function,receive str and return str
-    :param label: buttons label,markdown and html with bootstrap available
+    :param label: buttons label
+    :param description: buttons description
+    :param size: button size
+    :param color: buttons color,default streamlit primary color,support mantine color, hex and rgb color
+    :param radius: button radius
+    :param variant: buttons variant
     :param align: buttons align,available when direction='horizontal'
-    :param position: buttons label position
-    :param size: buttons size
     :param direction: buttons direction
-    :param shape: buttons shape
-    :param type: buttons type
     :param compact: buttons compact style
     :param return_index: if True,return button index,default return label
     :param on_change: item change callback

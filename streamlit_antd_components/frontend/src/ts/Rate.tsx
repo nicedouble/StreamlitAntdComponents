@@ -1,21 +1,21 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Rate, ConfigProvider} from 'antd';
-import {parseIcon, LabelComponent, GetColor, LightenColor} from "../js/utils.react"
+import {parseIcon, GetColor, RgbaColor, LabelWrap, MartineFontSize} from "../js/utils.react"
 import {StarFilled} from '@ant-design/icons';
 
 
 interface RateProp {
     label: any
+    description: any
     value: any
     count: any
     symbol: any
     align: string
-    position: string
     clear: boolean
     half: boolean
     readonly: boolean
-    size: number
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     color: any
     stValue: any
 }
@@ -23,11 +23,11 @@ interface RateProp {
 const AntdRate = (props: RateProp) => {
     //get data
     const label = props['label'];
+    const description = props['description'];
     const value = props['value'];
     const count = props['count'];
     const symbol = parseIcon(props['symbol']);
     const align = props['align'];
-    const position = props['position'];
     const clear = props['clear'];
     const half = props['half'];
     const readonly = props['readonly'];
@@ -60,15 +60,16 @@ const AntdRate = (props: RateProp) => {
             theme={{
                 components: {
                     Rate: {
-                        colorFillContent: LightenColor(textColor, 0.7),
+                        colorFillContent: RgbaColor(textColor, 0.2),
                     },
                 },
             }}
         >
-            <LabelComponent
+            <LabelWrap
                 label={label}
+                desc={description}
                 align={align}
-                position={position}
+                size={size}
                 children={
                     <Rate
                         defaultValue={value}
@@ -78,7 +79,7 @@ const AntdRate = (props: RateProp) => {
                         allowClear={clear}
                         allowHalf={half}
                         disabled={readonly}
-                        style={{fontSize: size, color: primaryColor}}
+                        style={{fontSize: MartineFontSize[size]+4, color: primaryColor}}
                         onChange={onChange}
                     />
                 }

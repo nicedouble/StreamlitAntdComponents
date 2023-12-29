@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Divider} from '@mantine/core';
-import {LightenColor, GetColor} from "../js/utils.react"
+import {RgbaColor, GetColor} from "../js/utils.react"
 
 interface DividerProp {
     label: any
@@ -49,7 +49,7 @@ const AntdDivider = (props: DividerProp) => {
 
     return (
         <Divider
-            color={color == null ? LightenColor(textColor,0.8) : color}
+            color={color == null ? RgbaColor(textColor) : color}
             label={icon ? <span><i className={`bi bi-${icon} mr-1`}/>{label}</span> : label}
             labelPosition={align}
             size={size}

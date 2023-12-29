@@ -9,17 +9,20 @@ import {
     getCollapseKeys,
     getParentKeys,
     StreamlitScrollbar,
-    LabelComponent, MartineFontSize, insertStyle, GetColor, LightenColor
+    MartineFontSize, insertStyle, GetColor, RgbaColor, LabelWrap
 } from "../js/utils.react"
 import '../css/tree.css'
 
 interface TreeProp {
     label: any
+    description: any
     items: any[]
     index: any
     icon: any
     size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
     color: any
+    align: any
+    width: any
     height: any
     open_index: any
     open_all: boolean
@@ -31,15 +34,19 @@ interface TreeProp {
 }
 
 const AntdTree = (props: TreeProp) => {
+    const textColor = GetColor('--text-color')
     //get data
     const label = props['label']
+    const description = props['description']
     const size = props['size']
-    const items = strToNode(props.items, size, props.icon)
+    const items = strToNode(props.items, size, props.icon, RgbaColor(textColor, 0.5))
     const dsk = reindex(props.index, false)
     const openIndex = reindex(props.open_index, false)
     const openAll = props['open_all']
     const color = props['color']
     const height = props['height']
+    const width = props['width']
+    const align = props['align']
     const checkable = props['checkbox']
     const checkStrictly = props['checkbox_strict']
     const showLine = props['show_line']
@@ -47,8 +54,7 @@ const AntdTree = (props: TreeProp) => {
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const primaryLightColor = LightenColor(primaryColor)
-    const textColor = GetColor('--text-color')
+    const primaryLightColor = RgbaColor(primaryColor)
 
     //state
     const [value, setValue] = useState(dsk)
@@ -94,20 +100,22 @@ const AntdTree = (props: TreeProp) => {
                         colorPrimaryHover: primaryColor,
                         colorBgContainer: 'transform',
                         colorText: 'var(--text-color)',
-                        colorTextDisabled: LightenColor(textColor,0.5),
-                        controlItemBgHover: LightenColor(textColor,0.9),
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: primaryLightColor,
                         controlInteractiveSize: MartineFontSize[size],
                         fontSize: MartineFontSize[size],
                         fontFamily: 'var(--font)',
-                        colorBorder: LightenColor(textColor,0.6)
+                        colorBorder: RgbaColor(textColor, 0.4)
                     },
                 },
             }}
         >
-            <LabelComponent
+            <LabelWrap
                 label={label}
-                onlyLabel={true}
+                desc={description}
+                size={size}
+                align={align}
                 children={
                     <Tree
                         onSelect={onSelect}
@@ -128,7 +136,7 @@ const AntdTree = (props: TreeProp) => {
                         blockNode={true}
                         virtual={false}
                         style={{
-                            whiteSpace: 'nowrap', overflowX: 'hidden', overflowY: 'hidden',
+                            whiteSpace: 'nowrap', overflowX: 'hidden', overflowY: 'hidden', width: width
                         }}
                     />
                 }

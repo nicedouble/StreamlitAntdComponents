@@ -13,14 +13,9 @@ from ..utils import *
 
 def tags(
         items: List[Union[str, dict, Tag]],
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        checkable: bool = False,
-        return_index: bool = False,
-        on_change: Callable = None,
-        args: Tuple[Any, ...] = None,
-        kwargs: Dict[str, Any] = None,
         key=None
 ):
     """antd design tag  https://ant.design/components/tag
@@ -29,15 +24,8 @@ def tags(
     :param format_func: label formatter function,receive str and return str
     :param align: tags align
     :param direction: tags direction
-    :param checkable: tags checkable mode
-    :param return_index: if True,return tags index,default return label
-    :param on_change: item change callback
-    :param args: callback args
-    :param kwargs: callback kwargs
     :param key: component unique identifier
     """
-    # register callback
-    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).single()
     # component params

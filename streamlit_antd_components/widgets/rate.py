@@ -12,16 +12,16 @@ from ..utils import *
 
 
 def rate(
-        label: str = None,
-        value: float = 0,
         count: int = 5,
+        value: float = 0,
+        label: str = None,
+        description: str = None,
         symbol: Union[str, BsIcon] = None,
         align: Align = 'start',
-        position: Position = 'top',
         half: bool = False,
         clear: bool = False,
         readonly: bool = False,
-        size: int = 20,
+        size: MantineSize = 'md',
         color: Union[MantineColor, str] = None,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -30,12 +30,12 @@ def rate(
 ) -> float:
     """antd design rate https://ant.design/components/rate
 
-    :param label: rate label,markdown and html with bootstrap available
-    :param value: rate default value,must be divide by 0.5
     :param count: rate total count
+    :param value: rate default value,must be divide by 0.5
+    :param label: rate label
+    :param description: rate description
     :param symbol: rate item symbol,default star,can be str or BsIcon
     :param align: rate align
-    :param position: rate label position
     :param half: allow half select
     :param clear: allow double click to clear select
     :param readonly: readonly mode

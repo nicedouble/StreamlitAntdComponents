@@ -1,0 +1,8 @@
+ul.ant-pagination.ant-pagination-simple {
+    display: flex;
+    align-items: center;
+}
+
+li.ant-pagination-simple-pager {
+    height: unset !important;
+}

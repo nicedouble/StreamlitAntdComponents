@@ -14,11 +14,11 @@ from ..utils import *
 def tabs(
         items: List[Union[str, dict, TabsItem]],
         index: int = 0,
-        format_func: Union[Label, Callable] = None,
+        format_func: Union[Formatter, Callable] = None,
         height: int = None,
         align: Align = 'start',
         position: Position = 'top',
-        shape: Literal['default', 'card'] = 'default',
+        variant: Literal['outline', 'filled', 'subtle'] = 'subtle',
         size: MantineSize = 'md',
         color: Union[MantineColor, str] = None,
         grow: bool = False,
@@ -36,7 +36,7 @@ def tabs(
     :param height: set height in px,available when position in ['right','left']
     :param align: tabs align,available when position in ['top','bottom']
     :param position: tabs position
-    :param shape: tabs shape
+    :param variant: tabs variant
     :param size: tabs size
     :param color: tabs color,default streamlit primary color,support mantine color, hex and rgb color
     :param grow: grow to fill space area,available when position in ['top','bottom']

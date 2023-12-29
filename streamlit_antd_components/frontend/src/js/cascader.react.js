@@ -1,25 +1,5 @@
 import React from "react";
-import {deepCopy, AlphaColor, insertStyle} from "./utils.react";
-
-const CascaderStyle = (multiple) => {
-    let borderStyle = `
-        /*dropdown border*/
-        .ant-select-dropdown {
-            border: 1px solid ${AlphaColor('--text-color', 0.1)};
-        }
-        /*vertical border*/
-        ul.ant-cascader-menu:not(:last-child) {
-            border-inline-end: 1px solid ${AlphaColor('--text-color', 0.1)} !important;
-        }
-    `
-    let checkboxStyle = `
-        .ant-select-selection-item{
-            color: rgb(255, 255, 255);
-        }
-    `
-    let style = multiple ? borderStyle + checkboxStyle : borderStyle
-    insertStyle('cascader-style', style)
-}
+import {deepCopy} from "./utils.react";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -42,4 +22,4 @@ const strToNode = (obj) => {
     }
 }
 
-export {strToNode, CascaderStyle}
+export {strToNode}

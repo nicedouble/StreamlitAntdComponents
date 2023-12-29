@@ -3,14 +3,17 @@ import React, {useEffect, useRef, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {AlphaColor, LabelComponent} from "../js/utils.react"
+import {GetColor, insertStyle, LabelWrap, MartineFontSize, MartineRadiusSize, RgbaColor} from "../js/utils.react"
 
 interface CheckboxProp {
     label: any
+    description: any
     items: any[]
     index: any
     check_all: boolean | string
-    position: 'top' | 'right' | 'bottom' | 'left'
+    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    color: any
     align: string
     disabled: boolean
     return_index: boolean;
@@ -24,15 +27,35 @@ const AntdCheckbox = (props: CheckboxProp) => {
     let index = props['index']
     const check_all = props['check_all']
     const label = props['label']
-    const position = props['position']
+    const description = props['description']
+    const radius = props['radius']
+    const size = props['size']
+    const color = props['color']
     const align = props['align']
     const disabled = props['disabled']
     const return_index = props['return_index']
     const kv = props['kv']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
+    const bgColor = GetColor('--background-color')
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
+
+    const textStyle = `
+    .ant-checkbox-inner{
+        border-radius:${MartineRadiusSize[radius]}px !important
+    }
+    .ant-checkbox-indeterminate .ant-checkbox-inner:after{
+        width:50% !important;
+        height:50% !important
+    }
+    .ant-checkbox-checked .ant-checkbox-inner:after{
+        top:45% !important
+    }
+    `
+    insertStyle(`sac.checkbox.style`, textStyle)
 
     //state
     const [checkedList, setCheckedList] = useState<CheckboxValueType[]>(index)
@@ -79,7 +102,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
             Streamlit.setComponentValue(i.map((x: any) => return_index ? x : kv[x]))
         }
         if (String(st_i) !== String(prevStValue.current)) {
-            const st_ii=Array.isArray(st_i) ? st_i : [st_i]
+            const st_ii = Array.isArray(st_i) ? st_i : [st_i]
             setCheckedList(st_ii);
             prevStValue.current = props['stValue']
             Streamlit.setComponentValue(st_ii.map((x: any) => return_index ? x : kv[x]))
@@ -107,21 +130,23 @@ const AntdCheckbox = (props: CheckboxProp) => {
                 components: {
                     Checkbox: {
                         colorText: '--text-color',
-                        colorPrimary: 'var(--primary-color)',
+                        colorPrimary: primaryColor,
                         colorPrimaryHover: 'transform',
-                        colorBgContainer: '--background-color',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorBgContainerDisabled: AlphaColor('--text-color', 0.2),
-                        colorBorder: AlphaColor('--text-color', 0.3),
-                        fontSize: 16,
+                        colorBgContainer: bgColor,
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        colorBgContainerDisabled: RgbaColor(textColor),
+                        colorBorder: RgbaColor(textColor, 0.3),
+                        fontSize: MartineFontSize[size],
+                        controlInteractiveSize: 2 * MartineFontSize[size] - 10,
                     },
                 },
             }}
         >
-            <LabelComponent
+            <LabelWrap
                 label={label}
+                desc={description}
                 align={align}
-                position={position}
+                size={size}
                 children={
                     <div className={`d-flex flex-row align-items-start`}>
                         {checkAllElement(check_all)}

@@ -3,18 +3,20 @@ import React, {useEffect, useState} from "react";
 import {Cascader, ConfigProvider} from 'antd';
 import {CaretDownFilled, CaretRightFilled} from '@ant-design/icons';
 import type {DefaultOptionType} from 'antd/es/cascader';
-import {strToNode, CascaderStyle} from "../js/cascader.react";
-import {AlphaColor, reindex, StreamlitScrollbar, LabelComponent} from "../js/utils.react"
+import {strToNode} from "../js/cascader.react";
+import {reindex, StreamlitScrollbar, GetColor, RgbaColor, insertStyle,LabelWrap} from "../js/utils.react"
 import '../css/cascader.css'
 
 
 interface CascaderProp {
     label: any
+    description: any
     items: any[]
     index: any
     placeholder: any
     disabled: boolean
     clear: boolean
+    color: any
     search: boolean
     multiple: boolean
     strict: boolean
@@ -25,20 +27,42 @@ interface CascaderProp {
 const AntdCascader = (props: CascaderProp) => {
     //get data
     const label = props['label']
+    const description = props['description']
     const items = strToNode(props.items)
     const index = reindex(props['index'], false)
     const placeholder = props['placeholder']
     const multiple = props['multiple']
     const disabled = props['disabled']
     const search = props['search']
+    const color = props['color']
     const allowClear = props['clear']
     const strict = props['strict']
     const return_index = props['return_index']
     const kv = props['kv']
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
 
     // load css
-    CascaderStyle(multiple)
     StreamlitScrollbar()
+    let borderStyle = `
+        /*dropdown border*/
+        .ant-select-dropdown {
+            border: 1px solid ${RgbaColor(textColor, 0.1)};
+        }
+        /*vertical border*/
+        ul.ant-cascader-menu:not(:last-child) {
+            border-inline-end: 1px solid ${RgbaColor(textColor, 0.1)} !important;
+        }
+        .ant-cascader-menu-item-active .ant-cascader-menu-item-content{
+            color:${primaryColor} !important
+        }
+    `
+    let checkboxStyle = `
+        .ant-select-selection-item{
+            color: rgb(255, 255, 255);
+        }
+    `
+    insertStyle('sac.cascader-style', multiple ? borderStyle + checkboxStyle : borderStyle)
 
     //state
     const [height, setHeight] = useState()
@@ -50,12 +74,13 @@ const AntdCascader = (props: CascaderProp) => {
     const onChange = (value: any) => {
         let v = value === undefined ? [] : value
         let flatten_value = Array.from(new Set(v.flat())).sort()
-        Streamlit.setComponentValue(flatten_value.map((x: any) => return_index ? x : kv[x]))
+        const st = flatten_value.map((x: any) => return_index ? x : kv[x])
+        Streamlit.setComponentValue(st)
     }
     const dropdownVisible = (visible: boolean) => {
         let labelHeight = label !== null ? 30 : 0
         // @ts-ignore
-        setHeight(visible ? 40 + 180 + labelHeight : undefined)
+        setHeight(visible ? 230 + labelHeight : undefined)
     }
 
     //search
@@ -68,7 +93,7 @@ const AntdCascader = (props: CascaderProp) => {
     const notFoundContent = () => {
         return <div style={{
             textAlign: 'center',
-            color: AlphaColor('--text-color', 0.5),
+            color: RgbaColor(textColor, 0.5),
             padding: '70px 0'
         }}>No results</div>
     }
@@ -97,20 +122,20 @@ const AntdCascader = (props: CascaderProp) => {
                 components: {
                     Cascader: {
                         colorBgContainer: 'var(--background-color)',
-                        controlItemBgHover: AlphaColor('--text-color', 0.1),
-                        controlItemBgActive: AlphaColor(),
-                        colorPrimary: 'var(--primary-color)',
-                        colorPrimaryHover: 'var(--primary-color)',
-                        colorTextDisabled: AlphaColor('--text-color', 0.5),
-                        colorBorder: AlphaColor('--text-color', 0.3),
+                        controlItemBgHover: 'var(--secondary-background-color)',
+                        controlItemBgActive: RgbaColor(primaryColor),
+                        colorPrimary: primaryColor,
+                        colorPrimaryHover: primaryColor,
+                        colorTextDisabled: RgbaColor(textColor, 0.5),
+                        colorBorder: RgbaColor(textColor, 0.3),
                     },
                     Select: {
                         colorBgContainer: 'var(--secondary-background-color)',
                         colorBgElevated: 'var(--background-color)',
                         colorBorder: 'var(--background-color) !important',
-                        colorFillSecondary: 'var(--primary-color)',
+                        colorFillSecondary: primaryColor,
                         colorText: 'var(--text-color)',
-                        colorTextPlaceholder: AlphaColor('--text-color', 0.5),
+                        colorTextPlaceholder: RgbaColor(textColor, 0.5),
                         colorIcon: '#fff',
                         colorIconHover: '#fff',
                         controlHeight: 40,
@@ -122,9 +147,10 @@ const AntdCascader = (props: CascaderProp) => {
                 },
             }}
         >
-            <LabelComponent
+            <LabelWrap
                 label={label}
-                onlyLabel={true}
+                desc={description}
+                grow={true}
                 children={
                     <Cascader
                         options={items}

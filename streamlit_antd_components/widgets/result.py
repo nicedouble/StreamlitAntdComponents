@@ -13,16 +13,16 @@ from ..utils import *
 
 
 def result(
-        title: str = None,
-        subtitle: str = None,
+        label: str = None,
+        description: str = None,
         status: Status = 'info',
         icon: str = None,
         key=None,
 ):
     """antd design result https://ant.design/components/result
 
-    :param title: result title,markdown and html with bootstrap available
-    :param subtitle: result subtitle,markdown and html with bootstrap available
+    :param label: result title,markdown and html with bootstrap available
+    :param description: result subtitle,markdown and html with bootstrap available
     :param status: result status
     :param icon: custom bs icon
     :param key: component unique identifier

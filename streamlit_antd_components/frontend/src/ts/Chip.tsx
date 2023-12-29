@@ -1,14 +1,14 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Chip, Group, Stack, MantineSize} from "@mantine/core";
-import {reindex, LabelComponent, GetColor, LightenColor, DarkenColor} from "../js/utils.react"
+import {reindex, GetColor, RgbaColor, DarkenColor, LabelWrap} from "../js/utils.react"
 import strToNode from "../js/chip.react";
 
 interface ChipProp {
     label: any
+    description: any
     items: any[]
     index: any
-    position: 'top' | 'right' | 'bottom' | 'left'
     align: string
     direction: string
     radius: string
@@ -26,7 +26,7 @@ const AntdChip = (props: ChipProp) => {
     const items = strToNode(props['items'])
     const index = reindex(props['index'], true, props['multiple'])
     const label = props['label']
-    const position = props['position']
+    const description = props['description']
     const align = props['align']
     const direction = props['direction']
     const radius = props['radius']
@@ -86,68 +86,67 @@ const AntdChip = (props: ChipProp) => {
         }
     }, [props, kv, return_index])
 
-    return (
-        <LabelComponent
-            label={label}
-            align={align}
-            position={position}
-            children={
-                <Chip.Group
-                    onChange={onChange}
-                    value={value}
-                    multiple={multiple}
-                >
-                    <Wrap spacing={'xs'}>
-                        {items.map((item: any, idx: any) =>
-                            <Chip
-                                key={idx}
-                                value={item.value}
-                                radius={radius}
-                                size={size}
-                                variant={variant}
-                                disabled={item.disabled}
-                                styles={(theme) => ({
-                                    label: {
-                                        marginBottom:0,
-                                        color: textColor,
+    return <LabelWrap
+        label={label}
+        desc={description}
+        size={size}
+        align={align}
+        children={
+            <Chip.Group
+                onChange={onChange}
+                value={value}
+                multiple={multiple}
+            >
+                <Wrap spacing={'xs'}>
+                    {items.map((item: any, idx: any) =>
+                        <Chip
+                            key={idx}
+                            value={item.value}
+                            radius={radius}
+                            size={size}
+                            variant={variant}
+                            disabled={item.disabled}
+                            styles={(theme) => ({
+                                label: {
+                                    marginBottom: 0,
+                                    color: textColor,
+                                    borderColor:
+                                        variant !== 'outline' ? 'transparent' : RgbaColor(textColor),
+                                    backgroundColor: variant === 'outline' ? 'transparent' : secondaryBgColor,
+                                    '&:hover': {
+                                        backgroundColor:
+                                            variant === 'outline' ? 'transparent' : DarkenColor(secondaryBgColor, 0.1),
                                         borderColor:
-                                            variant !== 'outline' ? 'transparent' : LightenColor(textColor, 0.8),
-                                        backgroundColor: variant === 'outline' ? 'transparent' : secondaryBgColor,
-                                        '&:hover': {
-                                            backgroundColor:
-                                                variant === 'outline' ? 'transparent' : DarkenColor(secondaryBgColor, 0.1),
-                                            borderColor:
-                                                variant === 'outline' ? primaryColor : 'transparent',
-                                        },
-                                        '&[data-checked]:not([data-disabled])': {
-                                            color:
-                                                variant === 'light' ? primaryColor : variant === 'filled' ? '#fff' : textColor
-                                            ,
-                                            backgroundColor:
-                                                variant === 'light' ? LightenColor(primaryColor, 0.8) :
-                                                    variant === 'filled' ? primaryColor : 'transparent',
-                                            borderColor:
-                                                variant === 'outline' ? primaryColor : 'transparent',
-                                        },
-                                        '&[data-checked]:not([data-disabled]):hover': {
-                                            backgroundColor:
-                                                variant === 'light' ? LightenColor(primaryColor, 0.7) :
-                                                    variant === 'filled' ? DarkenColor(primaryColor, 0.1) : 'transparent',
-                                        },
+                                            variant === 'outline' ? primaryColor : 'transparent',
                                     },
-                                    checkIcon: {
+                                    '&[data-checked]:not([data-disabled])': {
                                         color:
-                                            variant === 'filled' ? '#fff' : primaryColor
-                                    }
-                                })}
-                            >
-                                {item.label}
-                            </Chip>)}
-                    </Wrap>
-                </Chip.Group>
-            }
-        />
-    );
+                                            variant === 'light' ? primaryColor : variant === 'filled' ? '#fff' : textColor
+                                        ,
+                                        backgroundColor:
+                                            variant === 'light' ? RgbaColor(primaryColor) :
+                                                variant === 'filled' ? primaryColor : 'transparent',
+                                        borderColor:
+                                            variant === 'outline' ? primaryColor : 'transparent',
+                                    },
+                                    '&[data-checked]:not([data-disabled]):hover': {
+                                        backgroundColor:
+                                            variant === 'light' ? RgbaColor(primaryColor, 0.3) :
+                                                variant === 'filled' ? DarkenColor(primaryColor, 0.1) : 'transparent',
+                                    },
+                                },
+                                checkIcon: {
+                                    color:
+                                        variant === 'filled' ? '#fff' : primaryColor
+                                }
+                            })}
+                        >
+                            {item.label}
+                        </Chip>)}
+                </Wrap>
+            </Chip.Group>
+        }
+    />
 };
 
 export default AntdChip
