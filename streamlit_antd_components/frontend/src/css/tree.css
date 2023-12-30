@@ -1,3 +1,7 @@
 span.ant-tree-node-content-wrapper {
     padding-bottom: 2px !important;
 }
+.ant-tree-node-content-wrapper.ant-tree-node-content-wrapper-normal{
+    word-break: break-word;
+    white-space: break-spaces;
+}

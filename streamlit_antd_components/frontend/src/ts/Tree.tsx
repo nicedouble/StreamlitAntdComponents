@@ -136,7 +136,7 @@ const AntdTree = (props: TreeProp) => {
                         blockNode={true}
                         virtual={false}
                         style={{
-                            whiteSpace: 'nowrap', overflowX: 'hidden', overflowY: 'hidden', width: width
+                            whiteSpace: 'nowrap', overflowX: 'auto', overflowY: 'hidden', width: width
                         }}
                     />
                 }

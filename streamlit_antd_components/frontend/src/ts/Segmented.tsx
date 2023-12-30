@@ -45,7 +45,6 @@ const AntdSegmented = (props: SegmentedProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const secondaryBgColor = GetColor(bg_color == null ? '--secondary-background-color' : bg_color)
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -98,7 +97,8 @@ const AntdSegmented = (props: SegmentedProp) => {
                 className={'d-flex flex-wrap'}
                 styles={(theme) => ({
                     root: {
-                        backgroundColor: secondaryBgColor,
+                        backgroundColor: bg_color == null ? 'var(--secondary-background-color)' :
+                            Object.keys(theme.colors).indexOf(bg_color) !== -1 ? theme.colors[bg_color][1] : bg_color,
                     },
                     label: {
                         color: 'var(--text-color)',

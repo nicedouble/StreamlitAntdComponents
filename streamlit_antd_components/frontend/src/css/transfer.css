@@ -1,7 +1,4 @@
 
-.ant-transfer-list-content-item-remove:hover{
-    color: var(--primary-color) !important;
-}
 .ant-input{
     caret-color: var(--text-color) !important;
 }

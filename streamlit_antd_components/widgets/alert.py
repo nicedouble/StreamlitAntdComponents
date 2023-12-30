@@ -26,9 +26,9 @@ def alert(
 
     :param label: alert content,markdown and html with bootstrap available
     :param description: content description,markdown and html with bootstrap available
-    :param color: alert color
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
     :param radius: alert radius
-    :param icon: show icon
+    :param icon: show icon or custom icon
     :param closable: show close button
     :param banner: banner style,set list to control message and description banner.
     :param key: component unique identifier

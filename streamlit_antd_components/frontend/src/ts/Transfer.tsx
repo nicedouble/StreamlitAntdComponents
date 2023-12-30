@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider, Button} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
 import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
-import {StreamlitScrollbar, GetColor, RgbaColor, DarkenColor, LabelWrap} from "../js/utils.react"
+import {StreamlitScrollbar, GetColor, RgbaColor, DarkenColor, LabelWrap, insertStyle} from "../js/utils.react"
 import {strToNode, numberToStr} from "../js/transfer.react";
 import '../css/transfer.css'
 
@@ -101,6 +101,12 @@ const AntdTransfer = (props: TransferProp) => {
 
     //scrollbar
     StreamlitScrollbar()
+    let textStyle = `
+    .ant-transfer-list-content-item-remove:hover{
+        color: ${primaryColor} !important;
+    }
+    `
+    insertStyle('sac.transfer.style', textStyle)
 
     return (
         <ConfigProvider
