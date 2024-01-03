@@ -1,5 +1,5 @@
 import React from "react";
-import {deepCopy, MartineFontSize} from "./utils.react";
+import {deepCopy, getSize, linkTagSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
 
@@ -21,24 +21,21 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         if (description) {
             obj_copy.label = <div style={{lineHeight: 1.2, wordBreak: 'break-word', whiteSpace: 'break-spaces'}}>
                 <div>{obj_copy.label}</div>
-                <div className={'tree-desc'} style={{
-                    color: desc_color,
-                    fontSize: MartineFontSize[size] - 2,
-                }}>{description}</div>
+                <div className={'tree-desc'} style={{color: desc_color, fontSize: getSize(size)-2}}>{description}</div>
             </div>
         }
         //add tag
         if (tag) {
-            obj_copy.label = <div className={'d-flex align-items-start justify-content-between flex-grow-1'}>
+            obj_copy.label = <div className={'d-flex align-items-center justify-content-between flex-grow-1'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
                 <div className={'d-flex flex-wrap align-self-center'}>{Array.isArray(tag) ? tag.map((x) => <div
-                    className={'mx-1'}>{AntdTag(x)}</div>) : AntdTag(tag)}
+                    className={'mx-1'}>{AntdTag(linkTagSize(x,getSize(size)-4))}</div>) : AntdTag(linkTagSize(tag,getSize(size)-4))}
                 </div>
             </div>
         }
         //add icon
         if (icon) {
-            obj_copy.label = <div className={'d-flex align-items-start'}>
+            obj_copy.label = <div className={'d-flex align-items-center'}>
                 <div className={'mr-1'}>{<i className={`bi bi-${icon}`}/>}</div>
                 <div className={'d-flex  flex-grow-1'}>{obj_copy.label}
                 </div>
@@ -54,7 +51,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
                             colorTextLightSolid: 'var(--text-color)',
                             borderRadius: 6,
                             controlHeight: 12,
-                            fontSize: 12,
+                            fontSize: getSize(size)-4,
                         },
                     },
                 }}

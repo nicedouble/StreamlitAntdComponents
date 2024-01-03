@@ -1,6 +1,5 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import Marquee from 'react-fast-marquee';
 import rehypeRaw from "rehype-raw";
 import '../css/utils.css'
 import {useMantineTheme} from "@mantine/core";
@@ -19,6 +18,16 @@ const MartineRadiusSize = {
     'lg': 16,
     'xl': 32,
 }
+
+
+const getSize = (size, base = MartineFontSize) => {
+    if (['xs', 'sm', 'md', 'lg', 'xl'].indexOf(size) !== -1) {
+        return base[size]
+    } else {
+        return size
+    }
+}
+
 
 const GetColor = (color) => {
     const theme = useMantineTheme()
@@ -41,6 +50,13 @@ const DarkenColor = (color, alpha = 0.2) => {
     return theme.fn.darken(color, alpha)
 }
 
+const linkTagSize = (x, new_default) => {
+    let new_x = deepCopy(x)
+    if (new_x.size === 'sm') {
+        new_x.size = new_default
+    }
+    return new_x
+}
 
 const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, children}) => {
     const textColor = GetColor('--text-color')
@@ -48,10 +64,10 @@ const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, chi
         {label !== null ?
             <div style={{display: 'flex', flexDirection: 'column', gap: 5, width: grow ? '100%' : 'unset'}}>
                 <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
-                    <div style={{color: textColor, fontSize: MartineFontSize[size]}}>{label}</div>
+                    <div style={{color: textColor, fontSize: getSize(size)}}>{label}</div>
                     <div style={{
                         color: RgbaColor(textColor, 0.5),
-                        fontSize: MartineFontSize[size] - 2,
+                        fontSize: getSize(size) - 2,
                         display: desc === null ? 'none' : 'block'
                     }}>{desc}</div>
                 </div>
@@ -60,13 +76,6 @@ const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, chi
     </div>
 }
 
-
-const marquee = (x) => {
-    if (x !== null) {
-        return <Marquee pauseOnHover={true} gradient={false}>{markdown(x)}</Marquee>
-    }
-    return undefined
-}
 
 const markdown = (x) => {
     if (x !== null) {
@@ -247,9 +256,8 @@ export {
     reindex,
     parseIcon,
     markdown,
-    marquee,
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, RgbaColor, DarkenColor, LabelWrap
+    GetColor, RgbaColor, DarkenColor, LabelWrap, getSize, linkTagSize
 }

@@ -18,10 +18,10 @@ def tabs(
         height: int = None,
         align: Align = 'start',
         position: Position = 'top',
-        variant: Literal['outline', 'filled', 'subtle'] = 'subtle',
-        size: MantineSize = 'md',
+        variant: Literal['default', 'outline'] = 'default',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
-        grow: bool = False,
+        use_container_width: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -37,9 +37,9 @@ def tabs(
     :param align: tabs align,available when position in ['top','bottom']
     :param position: tabs position
     :param variant: tabs variant
-    :param size: tabs size
+    :param size: tabs size,support mantine size and int in px
     :param color: tabs color,default streamlit primary color,support mantine color, hex and rgb color
-    :param grow: grow to fill space area,available when position in ['top','bottom']
+    :param use_container_width: makes the tabs stretch its width to match the parent container,available when position in ['top','bottom']
     :param return_index: if True,return tab index,default return label
     :param on_change: item change callback
     :param args: callback args

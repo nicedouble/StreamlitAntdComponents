@@ -15,8 +15,10 @@ from ..utils import *
 def alert(
         label: str,
         description: str = None,
+        size: Union[MantineSize, int] = 'md',
         color: Union[Msg, MantineColor, str] = 'info',
-        radius: MantineSize = 'md',
+        radius: Union[MantineSize, int] = 'md',
+        variant: Literal['light', 'filled', 'outline', 'transparent'] = 'light',
         icon: Union[bool, str] = False,
         closable: bool = False,
         banner: Union[bool, List[bool]] = False,
@@ -26,8 +28,10 @@ def alert(
 
     :param label: alert content,markdown and html with bootstrap available
     :param description: content description,markdown and html with bootstrap available
+    :param size: alert size,support mantine size and int in px
     :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
-    :param radius: alert radius
+    :param radius: alert radius,support mantine size and int in px
+    :param variant: alert variant
     :param icon: show icon or custom icon
     :param closable: show close button
     :param banner: banner style,set list to control message and description banner.

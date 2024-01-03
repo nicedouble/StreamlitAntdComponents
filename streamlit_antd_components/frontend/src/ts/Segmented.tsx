@@ -10,15 +10,15 @@ interface SegmentedProp {
     index: number;
     label: string;
     description: string;
-    radius: string;
-    size: string;
+    radius: any;
+    size: any;
     color: string;
     bg_color: string;
     align: any;
     direction: any;
     disabled: boolean;
     divider: boolean;
-    grow: boolean;
+    use_container_width: boolean;
     readonly: boolean;
     return_index: boolean;
     kv: any;
@@ -40,7 +40,7 @@ const AntdSegmented = (props: SegmentedProp) => {
     const direction = props['direction']
     const disabled = props['disabled']
     const divider = props['divider']
-    const grow = props['grow']
+    const grow = props['use_container_width']
     const readonly = props['readonly']
     const return_index = props['return_index']
     const kv = props['kv']
@@ -90,7 +90,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                 value={value}
                 fullWidth={grow}
                 disabled={disabled}
-                size={size}
+                size={typeof (size) == 'number' ? 'md' : size}
                 radius={radius}
                 orientation={direction}
                 readOnly={readonly}
@@ -101,6 +101,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                             Object.keys(theme.colors).indexOf(bg_color) !== -1 ? theme.colors[bg_color][1] : bg_color,
                     },
                     label: {
+                        fontSize: typeof (size) == 'number' ? size : undefined,
                         color: 'var(--text-color)',
                         marginBottom: 0,
                         '&:hover': {

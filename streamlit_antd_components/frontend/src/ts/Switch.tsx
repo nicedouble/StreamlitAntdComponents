@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {parseIcon, MartineFontSize, GetColor, RgbaColor} from "../js/utils.react"
+import {parseIcon, GetColor, RgbaColor, getSize} from "../js/utils.react"
 
 interface SwitchProp {
     label: any;
@@ -11,7 +11,7 @@ interface SwitchProp {
     off_label: any;
     align: any
     position: 'left' | 'right';
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: any
     on_color: any
     off_color: any
     radius: any
@@ -36,8 +36,8 @@ const AntdSwitch = (props: SwitchProp) => {
     const disabled = props['disabled']
     const key = props['key']
     const primaryColor = GetColor(onColor == null ? '--primary-color' : onColor)
-    const secondaryBgColor = GetColor(offColor == null ? '--secondary-background-color' : offColor)
     const textColor = GetColor('--text-color')
+    const secondaryBgColor = GetColor(offColor == null ? RgbaColor(textColor) : offColor)
 
     const [checked, setChecked] = useState(value)
 
@@ -83,11 +83,11 @@ const AntdSwitch = (props: SwitchProp) => {
                         marginBottom: 0,
                     },
                     description: {
-                        color: RgbaColor(textColor,0.5)
+                        color: RgbaColor(textColor, 0.5)
                     },
                     trackLabel: {
-                        fontSize: MartineFontSize[size] - 2,
-                        color: '#fff'
+                        fontSize: getSize(size) - 2,
+                        color: '#fff',
                     },
                     track: {
                         cursor: 'pointer',
@@ -96,7 +96,7 @@ const AntdSwitch = (props: SwitchProp) => {
                             borderColor: primaryColor,
                         } : {},
                         backgroundColor: secondaryBgColor,
-                        borderColor: secondaryBgColor
+                        borderColor: 'transparent',
                     }
                 })}
             />

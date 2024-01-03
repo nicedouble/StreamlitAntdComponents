@@ -2,13 +2,13 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Space, Tag, ConfigProvider} from 'antd';
 import '../css/tag.css'
-import {MartineRadiusSize, MartineFontSize, GetColor, RgbaColor} from "../js/utils.react";
+import {MartineRadiusSize, GetColor, RgbaColor, getSize} from "../js/utils.react";
 
 interface tagProp {
     label: any
     color: any
-    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    radius: any
+    size: any
     icon: any
     link: any
     bordered: any
@@ -54,11 +54,10 @@ const AntdTag = (props: tagProp) => {
                 bordered={bordered}
                 style={{
                     margin: 0,
-                    borderRadius: MartineRadiusSize[radius],
-                    fontSize: MartineFontSize[size],
-                    paddingTop: MartineFontSize[size] - 12,
-                    paddingBlock: MartineFontSize[size] - 12,
-                    lineHeight: 1.2
+                    borderRadius: getSize(radius, MartineRadiusSize),
+                    fontSize: getSize(size),
+                    paddingInline: getSize(size) - 4,
+                    lineHeight: `${getSize(size) + 8}px`,
                 }}
             >
                 {link ?

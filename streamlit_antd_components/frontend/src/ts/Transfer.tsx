@@ -22,7 +22,7 @@ interface TransferProp {
     disabled: boolean
     width: number
     height: number
-    with_container_width: boolean
+    use_container_width: boolean
     return_index: boolean;
     kv: any;
 }
@@ -44,7 +44,7 @@ const AntdTransfer = (props: TransferProp) => {
     const disabled = props['disabled']
     const width = props['width']
     const height = props['height']
-    const grow = props['with_container_width']
+    const grow = props['use_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
@@ -150,13 +150,14 @@ const AntdTransfer = (props: TransferProp) => {
                         colorBorder: RgbaColor(textColor),
                         colorPrimary: primaryColor,
                         colorPrimaryHover: primaryColor,
-                        controlOutlineWidth: 0
+                        controlOutlineWidth: 0,
+                        colorTextDisabled:RgbaColor(textColor)
                     },
                     Dropdown: {
                         colorBgElevated: GetColor('--background-color'),
                         colorText: 'var(--text-color)',
                         controlItemBgHover: secondaryBgColor,
-                        boxShadowSecondary: `0 6px 16px 0 ${secondaryBgColor}, 0 3px 6px -4px ${secondaryBgColor}, 0 9px 28px 8px ${secondaryBgColor}`,
+                        boxShadowSecondary: `0 0 10px ${secondaryBgColor}, 0 0 6px ${secondaryBgColor}`,
                     },
                     Empty: {
                         colorTextDisabled: RgbaColor(textColor, 0.3),

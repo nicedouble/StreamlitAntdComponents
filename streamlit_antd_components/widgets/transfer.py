@@ -27,7 +27,7 @@ def transfer(
         reload: Union[bool, str] = False,
         width: int = None,
         height: int = None,
-        with_container_width=False,
+        use_container_width=False,
         return_index=False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -51,7 +51,7 @@ def transfer(
     :param reload: reload button,set str to rename button label
     :param width: width in px
     :param height: height in px
-    :param with_container_width: 100%width
+    :param use_container_width: makes the transfer stretch its width to match the parent container
     :param return_index: return item index
     :param on_change: item change callback
     :param args: callback args

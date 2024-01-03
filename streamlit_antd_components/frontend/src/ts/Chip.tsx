@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Chip, Group, Stack, MantineSize} from "@mantine/core";
-import {reindex, GetColor, RgbaColor, DarkenColor, LabelWrap} from "../js/utils.react"
+import {Chip, Group, Stack} from "@mantine/core";
+import {reindex, GetColor, RgbaColor, DarkenColor, LabelWrap, getSize} from "../js/utils.react"
 import strToNode from "../js/chip.react";
 
 interface ChipProp {
@@ -11,8 +11,8 @@ interface ChipProp {
     index: any
     align: string
     direction: string
-    radius: string
-    size: MantineSize
+    radius: any
+    size: any
     color: any
     variant: string
     multiple: boolean
@@ -108,6 +108,7 @@ const AntdChip = (props: ChipProp) => {
                             disabled={item.disabled}
                             styles={(theme) => ({
                                 label: {
+                                    height: getSize(size)+16,
                                     marginBottom: 0,
                                     color: textColor,
                                     borderColor:

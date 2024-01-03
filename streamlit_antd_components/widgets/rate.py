@@ -18,11 +18,9 @@ def rate(
         description: str = None,
         symbol: Union[str, BsIcon] = None,
         align: Align = 'start',
-        half: bool = False,
-        clear: bool = False,
-        readonly: bool = False,
-        size: MantineSize = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
+        half: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
@@ -36,11 +34,9 @@ def rate(
     :param description: rate description
     :param symbol: rate item symbol,default star,can be str or BsIcon
     :param align: rate align
-    :param half: allow half select
-    :param clear: allow double click to clear select
-    :param readonly: readonly mode
-    :param size: symbol size in px
+    :param size: symbol size,support mantine size and int in px
     :param color: symbol color,default streamlit primary color,support mantine color, hex and rgb color
+    :param half: allow half select
     :param on_change: rate change callback
     :param args: callback args
     :param kwargs: callback kwargs

@@ -39,8 +39,8 @@ class Tag:
     icon: str = None  # bootstrap icon
     link: str = None  # hyperlink
     bordered: bool = True  # show border
-    radius: MantineSize = 'lg'
-    size: MantineSize = 'sm'
+    radius: Union[MantineSize, int] = 'lg'
+    size: Union[MantineSize, int] = 'sm'
     closable: bool = False  # show close button
 
 

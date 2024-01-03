@@ -18,7 +18,7 @@ def divider(
         align: Align = 'start',
         color: MantineColor = None,
         variant: Literal['solid', 'dashed', 'dotted'] = 'solid',
-        size: MantineSize = 'xs',
+        size: Union[MantineSize, int] = 'xs',
         label_style: Dict[str, str] = None,
         key=None
 ):
@@ -29,7 +29,7 @@ def divider(
     :param align: label align
     :param color: divider color
     :param variant: divider variant
-    :param size: divider size
+    :param size: divider size,support mantine size and int in px
     :param label_style: divider label style,such as {'font-size':'20px','font-weight':'bold','color':'red'}
     :param key: component unique identifier
     """

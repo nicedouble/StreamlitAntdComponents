@@ -6,9 +6,8 @@ import {
     insertStyle,
     GetColor,
     RgbaColor,
-    MartineFontSize,
     LabelWrap,
-    MartineRadiusSize
+    MartineRadiusSize, getSize
 } from "../js/utils.react"
 import "../css/buttons.css"
 
@@ -19,8 +18,8 @@ interface ButtonsProp {
     index: number | null;
     variant: string;
     align: any;
-    size: "xs" | "sm" | "md" | "lg" | "xl"
-    radius: "xs" | "sm" | "md" | "lg" | "xl"
+    size: any
+    radius: any
     color: any
     direction: "horizontal" | "vertical" | undefined;
     compact: boolean;
@@ -87,10 +86,10 @@ const AntdButton = (idx: any, type_: any, size: ButtonsProp['size'], color: Butt
                         colorLink: linkColor,
                         colorLinkHover: linkColor,
                         colorLinkActive: linkColor,
-                        controlHeight: 3 * MartineFontSize[size] - 10,
-                        fontSize: MartineFontSize[size],
+                        controlHeight: 3 * getSize(size) - 10,
+                        fontSize: getSize(size),
                         colorBorder: isSelect ? RgbaColor(textColor) : primary_color,
-                        borderRadius: MartineRadiusSize[radius],
+                        borderRadius: getSize(radius, MartineRadiusSize),
                         fontFamily: 'var(--font)'
                     },
                 },
@@ -141,7 +140,7 @@ const AntdButtons = (props: ButtonsProp) => {
             border-color: ${RgbaColor(textColor, 0.1)} !important;
         }
         .ant-btn {
-            min-width: ${3 * MartineFontSize[size] - 10}px;
+            min-width: ${3 * getSize(size) - 10}px;
         }
     `
     insertStyle(`sac.buttons-style`, style)

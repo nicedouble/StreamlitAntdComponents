@@ -1,56 +1,6 @@
-.ant-alert{
-    border: 0;
-}
-/*success*/
-.ant-alert.ant-alert-success{
-    color: rgb(23, 114, 51);
-    background: rgba(33, 195, 84, 0.1);
-}
-.ant-alert.ant-alert-success .ant-alert-message{
-    color: rgb(23, 114, 51);
-}
-.ant-alert.ant-alert-success .anticon.anticon-close{
-    color: rgb(23, 114, 51);
-}
-/*info*/
-.ant-alert.ant-alert-info{
-    color: rgb(0, 66, 128);
-    background: rgba(28, 131, 225, 0.1);
-}
-.ant-alert.ant-alert-info .ant-alert-message{
-    color: rgb(0, 66, 128);
-}
-.ant-alert.ant-alert-info .anticon.anticon-close{
-    color: rgb(0, 66, 128);
-}
-/*warning*/
-.ant-alert.ant-alert-warning{
-    color: rgb(146, 108, 5);
-    background: rgba(255, 227, 18, 0.1);
-}
-.ant-alert.ant-alert-warning .ant-alert-message{
-    color: rgb(146, 108, 5);
-}
-.ant-alert.ant-alert-warning .anticon.anticon-close{
-    color: rgb(146, 108, 5);
-}
-/*error*/
-.ant-alert.ant-alert-error{
-    color: rgb(125, 53, 59);
-    background: rgba(255, 43, 43, 0.09);
-}
-.ant-alert.ant-alert-error .ant-alert-message{
-    color: rgb(125, 53, 59);
-}
-.ant-alert.ant-alert-error .anticon.anticon-close{
-    color: rgb(125, 53, 59);
-}
 /*description*/
 div.ant-alert-content p{
     margin-bottom: 0;
-}
-.ant-alert-description{
-    color: inherit !important;
 }
 /*message*/
 .ant-alert-message{

@@ -143,6 +143,7 @@ const AntdCascader = (props: CascaderProp) => {
                         lineHeight: 1.6,
                         fontFamily: 'var(--font)',
                         borderRadius: 8,
+                        colorBgContainerDisabled:'var(--secondary-background-color)',
                     },
                 },
             }}

@@ -2,7 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Pagination, ConfigProvider} from 'antd';
 import type {PaginationProps} from 'antd';
-import {GetColor, insertStyle, RgbaColor, MartineFontSize, MartineRadiusSize} from "../js/utils.react"
+import {GetColor, insertStyle, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
 import '../css/pagination.css'
 
 interface PaginationProp {
@@ -13,8 +13,8 @@ interface PaginationProp {
     align: string
     circle: string
     color: any
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: any
+    radius: any
     variant: any
     simple: boolean
     disabled: boolean
@@ -54,7 +54,7 @@ const AntdPagination = (props: PaginationProp) => {
         color: ${variant === 'filled' ? '#fff' : primaryColor} !important
     }
     .ant-pagination-options-quick-jumper input{
-        border-radius: ${MartineRadiusSize[size]}px;
+        border-radius: ${getSize(radius, MartineRadiusSize)}px;
         aspect-ratio: 2/1;
         width:auto !important
     }
@@ -103,12 +103,13 @@ const AntdPagination = (props: PaginationProp) => {
                         colorText: 'var(--text-color)',
                         colorBgTextHover: RgbaColor(textColor),
                         colorBgTextActive: RgbaColor(textColor, 0.25),
-                        borderRadius: MartineRadiusSize[radius],
+                        borderRadius: getSize(radius, MartineRadiusSize),
                         controlOutlineWidth: 0,
                         colorBorder: RgbaColor(textColor, 0.3),
-                        fontSize: MartineFontSize[size],
-                        itemSize: 3 * MartineFontSize[size] - 16,
-                        controlHeight: 3 * MartineFontSize[size] - 18,
+                        fontSize: getSize(size),
+                        itemSize: 3 * getSize(size) - 16,
+                        controlHeight: 3 * getSize(size) - 18,
+                        colorTextDisabled: RgbaColor(textColor)
                     },
                 },
             }}

@@ -1,5 +1,5 @@
 import React from "react";
-import {deepCopy, MartineFontSize} from "./utils.react";
+import {linkTagSize, deepCopy, getSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 
 //recurve str property to react node
@@ -28,7 +28,7 @@ const strToNode = (obj, size, variant,desc_color) => {
                 <div style={{wordBreak: 'break-word'}}>{obj_copy.label}</div>
                 <div className={'menu-desc'} style={{
                     color: desc_color,
-                    fontSize: MartineFontSize[size] - 2,
+                    fontSize: getSize(size) - 2,
                     wordBreak: 'break-word',
                     fontWeight: 'normal'
                 }}>{description}</div>
@@ -39,14 +39,14 @@ const strToNode = (obj, size, variant,desc_color) => {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
                 <div className={'d-flex flex-wrap'} style={{maxWidth: '50%'}}>{Array.isArray(tag) ? tag.map((x) => <div
-                    className={'mx-1'}>{AntdTag(x)}</div>) : AntdTag(tag)}
+                    className={'mx-1'}>{AntdTag(linkTagSize(x,getSize(size)-2))}</div>) : AntdTag(linkTagSize(tag,getSize(size)-2))}
                 </div>
             </div>
         }
         //add group icon
         if (type === 'group' && icon) {
             obj_copy.label = <div className={'d-flex align-items-center'}>
-                <span style={{fontSize: MartineFontSize[size] + 3}}><i className={`bi bi-${icon}`}/></span>
+                <span style={{fontSize: getSize(size) + 3}}><i className={`bi bi-${icon}`}/></span>
                 <div style={{marginLeft: 10, flexGrow: 1}}>{obj_copy.label}</div>
             </div>
         }

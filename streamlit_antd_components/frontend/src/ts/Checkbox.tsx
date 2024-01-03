@@ -3,7 +3,14 @@ import React, {useEffect, useRef, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {GetColor, insertStyle, LabelWrap, MartineFontSize, MartineRadiusSize, RgbaColor} from "../js/utils.react"
+import {
+    GetColor,
+    getSize,
+    insertStyle,
+    LabelWrap,
+    MartineRadiusSize,
+    RgbaColor
+} from "../js/utils.react"
 
 interface CheckboxProp {
     label: any
@@ -11,8 +18,8 @@ interface CheckboxProp {
     items: any[]
     index: any
     check_all: boolean | string
-    radius: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    radius: any
+    size: any
     color: any
     align: string
     disabled: boolean
@@ -45,7 +52,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
 
     const textStyle = `
     .ant-checkbox-inner{
-        border-radius:${MartineRadiusSize[radius]}px !important
+        border-radius:${getSize(radius, MartineRadiusSize)}px !important
     }
     .ant-checkbox-indeterminate .ant-checkbox-inner:after{
         width:50% !important;
@@ -136,8 +143,8 @@ const AntdCheckbox = (props: CheckboxProp) => {
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorBgContainerDisabled: RgbaColor(textColor),
                         colorBorder: RgbaColor(textColor, 0.3),
-                        fontSize: MartineFontSize[size],
-                        controlInteractiveSize: 2 * MartineFontSize[size] - 10,
+                        fontSize: getSize(size),
+                        controlInteractiveSize: 2 * getSize(size) - 10,
                     },
                 },
             }}

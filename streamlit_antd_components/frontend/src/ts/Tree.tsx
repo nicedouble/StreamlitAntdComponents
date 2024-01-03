@@ -9,7 +9,7 @@ import {
     getCollapseKeys,
     getParentKeys,
     StreamlitScrollbar,
-    MartineFontSize, insertStyle, GetColor, RgbaColor, LabelWrap
+    insertStyle, GetColor, RgbaColor, LabelWrap, getSize
 } from "../js/utils.react"
 import '../css/tree.css'
 
@@ -19,7 +19,7 @@ interface TreeProp {
     items: any[]
     index: any
     icon: any
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: any
     color: any
     align: any
     width: any
@@ -69,10 +69,14 @@ const AntdTree = (props: TreeProp) => {
         color: ${primaryColor};
     }
     .ant-tree-switcher-icon {
-        font-size: ${MartineFontSize[size] - 2}px !important;
+        font-size: ${getSize(size) - 2}px !important;
     }
-    .ant-tree-node-selected .tree-desc{
-        color:${primaryColor} !important
+    .ant-tree-title{
+        line-height:${getSize(size) + 8}px !important
+    }
+    .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after{
+        width:50% !important;
+        height:50% !important;
     }
     `
     insertStyle(`sac.tree.selected`, textStyle)
@@ -103,10 +107,10 @@ const AntdTree = (props: TreeProp) => {
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: primaryLightColor,
-                        controlInteractiveSize: MartineFontSize[size],
-                        fontSize: MartineFontSize[size],
+                        controlInteractiveSize: getSize(size),
+                        fontSize: getSize(size),
                         fontFamily: 'var(--font)',
-                        colorBorder: RgbaColor(textColor, 0.4)
+                        colorBorder: RgbaColor(textColor, 0.4),
                     },
                 },
             }}

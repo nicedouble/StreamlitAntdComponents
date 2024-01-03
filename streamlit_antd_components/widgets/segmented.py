@@ -20,12 +20,12 @@ def segmented(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        radius: MantineSize = 'md',
-        size: MantineSize = 'md',
+        radius: Union[MantineSize, int] = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
         bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
-        grow: bool = False,
+        use_container_width: bool = False,
         disabled: bool = False,
         readonly: bool = False,
         return_index: bool = False,
@@ -43,12 +43,12 @@ def segmented(
     :param description: segmented label
     :param align: segmented align
     :param direction: segmented direction
-    :param radius: segmented radius
-    :param size: segmented size
+    :param radius: segmented radius,support mantine size and int in px
+    :param size: segmented size,support mantine size and int in px
     :param color: segmented indicator background color,default streamlit primary color,support mantine color, hex and rgb color
     :param bg_color: segmented background color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param divider: show segmented vertical divider
-    :param grow: width 100%
+    :param use_container_width: makes the segmented stretch its width to match the parent container
     :param disabled: disable segmented
     :param readonly: readonly mode
     :param return_index: if True,return button index,default return label

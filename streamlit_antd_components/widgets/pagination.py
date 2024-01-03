@@ -16,10 +16,10 @@ def pagination(
         index: int = 1,
         page_size: int = 10,
         align: Align = 'start',
-        size: MantineSize = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
-        radius: MantineSize = 'md',
-        variant: Literal['light', 'filled', 'outline'] = 'outline',
+        radius: Union[MantineSize, int] = 'md',
+        variant: Literal['outline', 'light', 'filled'] = 'outline',
         disabled: bool = False,
         jump: bool = False,
         simple: bool = False,
@@ -35,9 +35,9 @@ def pagination(
     :param index: default initial page number
     :param page_size: number of data items per page
     :param align: pagination align
-    :param size: pagination size
+    :param size: pagination size,support mantine size and int in px
     :param color: pagination color,default streamlit primary color,support mantine color, hex and rgb color
-    :param radius: pagination radius
+    :param radius: pagination radius,support mantine size and int in px
     :param variant: pagination variant
     :param disabled: disable pagination status
     :param jump: determine whether you can jump to pages directly

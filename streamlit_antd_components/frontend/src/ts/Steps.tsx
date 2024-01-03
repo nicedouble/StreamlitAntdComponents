@@ -1,14 +1,14 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Steps, ConfigProvider} from 'antd';
-import {GetColor, insertStyle, RgbaColor, MartineFontSize} from "../js/utils.react";
+import {GetColor, insertStyle, RgbaColor, getSize} from "../js/utils.react";
 import {strToNode} from "../js/steps.react";
 import "../css/steps.css"
 
 interface StepsProp {
     items: any[];
     index: number;
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+    size: any
     color: any
     placement: any;
     direction: any;
@@ -44,7 +44,7 @@ const AntdSteps = (props: StepsProp) => {
 
     const textStyle = `
     .ant-steps-item-title{
-        font-size:${MartineFontSize[size]}px !important
+        font-size:${getSize(size)}px !important
     }
     .ant-steps-item-custom .ant-steps-item-icon .ant-steps-icon{
         color:${RgbaColor(textColor,0.5)} !important
@@ -89,12 +89,12 @@ const AntdSteps = (props: StepsProp) => {
                         colorPrimary: primaryColor,
                         colorText: 'var(--text-color)',
                         controlItemBgActive: primaryLightColor,
-                        customIconFontSize: MartineFontSize[size] + 14,
-                        iconFontSize: MartineFontSize[size] - 2,
-                        iconSize: MartineFontSize[size] + 16,
-                        fontSize: MartineFontSize[size] - 2,
-                        dotSize: MartineFontSize[size] - 8,
-                        dotCurrentSize: MartineFontSize[size] - 6,
+                        customIconFontSize: getSize(size) + 14,
+                        iconFontSize: getSize(size) - 2,
+                        iconSize: getSize(size) + 16,
+                        fontSize: getSize(size) - 2,
+                        dotSize: getSize(size) - 8,
+                        dotCurrentSize: getSize(size) - 6,
                         iconTop:0,
                         colorIconHover:'red'
                     },

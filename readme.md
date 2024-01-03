@@ -16,7 +16,7 @@ Check out the [Demo App][share_link] for more example.
 * support [Bootstrap Icon](https://icons.getbootstrap.com/)
 * support nested data widgets(menu,tree,cascader...)
 * more components to display data
-* more style params for every component
+* more style params (size,color,radius,variant...)
 
 This library now provides component blow:
 
@@ -57,7 +57,7 @@ btn = sac.buttons(
     format_func='title',
     align='center',
     direction='horizontal',
-    shape='round',
+    radius='lg',
     compact=False,
     return_index=False,
 )
@@ -68,9 +68,10 @@ st.write(f'The selected button label is: {btn}')
 
 ## Todo
 
-- Solve the problem of component(such as `DatePicker`、`TreeSelect`、`cascader`) pop-up window display to obtain a better interactive experience
-- Interaction between components
+- pop-up component
+- ~~Interaction between components~~
 - ~~Add component callback function~~
+- multiple sac components
 
 
 [share_badge]: https://static.streamlit.io/badges/streamlit_badge_black_white.svg

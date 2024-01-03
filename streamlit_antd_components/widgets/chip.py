@@ -19,8 +19,8 @@ def chip(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        radius: MantineSize = 'lg',
-        size: MantineSize = 'md',
+        radius: Union[MantineSize, int] = 'lg',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
         variant: Literal['outline', 'light', 'filled'] = 'filled',
         multiple: bool = False,
@@ -39,8 +39,8 @@ def chip(
     :param description: chip description
     :param align: chip align
     :param direction: chip direction
-    :param radius: chip item radius
-    :param size: chip item size
+    :param radius: chip item radius,support mantine size and int in px
+    :param size: chip item size,support mantine size and int in px
     :param color: chip color,default streamlit primary color,support mantine color, hex and rgb color
     :param variant: chip item style
     :param multiple: chip multiple mode

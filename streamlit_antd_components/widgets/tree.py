@@ -19,7 +19,7 @@ def tree(
         label: str = None,
         description: str = None,
         icon: str = None,
-        size: MantineSize = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
         align: Align = 'start',
         width: int = None,
@@ -43,7 +43,7 @@ def tree(
     :param label: tree label
     :param description: tree description
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
-    :param size: tree size
+    :param size: tree size,support mantine size and int in px
     :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
     :param align: tree align
     :param width: tree width

@@ -20,7 +20,7 @@ def switch(
         align: Align = 'start',
         position: MantinePosition = 'right',
         size: MantineSize = 'sm',
-        radius: MantineSize = 'xl',
+        radius: Union[MantineSize, int] = 'xl',
         on_color: Union[MantineColor, str] = None,
         off_color: Union[MantineColor, str] = None,
         disabled: bool = False,
@@ -38,8 +38,8 @@ def switch(
     :param off_label: switch off status label,str or BsIcon
     :param align: switch align
     :param position: switch label position
-    :param size: switch size
-    :param radius: switch radius
+    :param size: switch size,support mantine size
+    :param radius: switch radius,support mantine size and int in px
     :param on_color: switch on status color,default streamlit primary color,support mantine color, hex and rgb color
     :param off_color: switch off status color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param disabled: disabled status

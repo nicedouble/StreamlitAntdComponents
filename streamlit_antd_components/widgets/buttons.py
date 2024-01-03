@@ -18,9 +18,9 @@ def buttons(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        size: MantineSize = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
-        radius: MantineSize = 'md',
+        radius: Union[MantineSize, int] = 'md',
         variant: Literal['filled', 'outline', 'dashed', 'text', 'link'] = 'outline',
         align: Align = 'start',
         direction: Direction = 'horizontal',
@@ -38,9 +38,9 @@ def buttons(
     :param format_func: item label formatter function,receive str and return str
     :param label: buttons label
     :param description: buttons description
-    :param size: button size
+    :param size: button size,support mantine size and int in px
     :param color: buttons color,default streamlit primary color,support mantine color, hex and rgb color
-    :param radius: button radius
+    :param radius: button radius,support mantine size and int in px
     :param variant: buttons variant
     :param align: buttons align,available when direction='horizontal'
     :param direction: buttons direction

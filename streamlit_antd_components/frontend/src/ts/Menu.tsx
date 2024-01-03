@@ -9,9 +9,8 @@ import {
     getParentKeys,
     reindex,
     StreamlitScrollbar,
-    MartineFontSize,
     insertStyle,
-    GetColor, RgbaColor
+    GetColor, RgbaColor, getSize
 } from "../js/utils.react"
 import '../css/menu.css'
 
@@ -20,7 +19,7 @@ interface MenuProp {
     index: any;
     open_index: any;
     open_all: boolean;
-    size: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    size: any
     color: any
     variant: any
     indent: any;
@@ -34,7 +33,7 @@ interface MenuProp {
 const AntdMenu = (props: MenuProp) => {
     const textColor = GetColor('--text-color')
     //get data
-    const items = strToNode(props.items, props.size, props.variant,RgbaColor(textColor,0.5))
+    const items = strToNode(props.items, props.size, props.variant, RgbaColor(textColor, 0.5))
     const dsk = reindex(props.index)
     const openIndex = reindex(props.open_index)
     const openAll = props['open_all']
@@ -53,9 +52,9 @@ const AntdMenu = (props: MenuProp) => {
     StreamlitScrollbar()
     const textStyle = `
     li.ant-menu-item.ant-menu-item-selected .menu-desc{
-        color: ${variant === 'filled' ? '#fff' : primaryColor} !important
+        color: ${variant === 'filled' ? RgbaColor('#fff', 0.55) : 'none'} !important
     }
-    .ant-menu-submenu-selected > .ant-menu-submenu-title,.ant-menu-submenu-selected > .ant-menu-submenu-title .menu-desc{
+    .ant-menu-submenu-selected > .ant-menu-submenu-title{
         color:${primaryColor} !important
     }
     .ant-menu-item-group-title{
@@ -128,9 +127,9 @@ const AntdMenu = (props: MenuProp) => {
                         colorSplit: RgbaColor(textColor),
                         fontFamily: 'var(--font)',
                         iconMarginInlineEnd: 10,
-                        fontSize: MartineFontSize[size],
-                        itemHeight: MartineFontSize[size] + 20,
-                        iconSize: MartineFontSize[size] + 3,
+                        fontSize: getSize(size),
+                        itemHeight: getSize(size) + 20,
+                        iconSize: getSize(size) + 3,
                     },
                 },
             }}

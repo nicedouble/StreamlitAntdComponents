@@ -16,10 +16,10 @@ def steps(
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
         placement: Direction = 'horizontal',
-        size: MantineSize = 'md',
+        size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
         direction: Direction = 'horizontal',
-        variant: Literal['default', 'navigation', 'inline'] = 'default',
+        variant: Literal['default', 'navigation'] = 'default',
         dot: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -33,7 +33,7 @@ def steps(
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
     :param placement: item title placement
-    :param size: steps size
+    :param size: steps size,support mantine size and int in px
     :param color: steps color,default streamlit primary color,support built-in mantine color, hex and rgb color
     :param direction: steps direction
     :param variant: steps variant
