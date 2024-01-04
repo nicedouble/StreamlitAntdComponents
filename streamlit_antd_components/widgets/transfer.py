@@ -18,8 +18,8 @@ def transfer(
         label: str = None,
         description: str = None,
         titles: List[str] = None,
-        color: Union[MantineColor, str] = None,
         align: Align = 'start',
+        color: Union[MantineColor, str] = None,
         search: bool = False,
         pagination: bool = False,
         oneway: bool = False,
@@ -39,11 +39,11 @@ def transfer(
     :param items: transfer source data
     :param index: transfer default target data index
     :param format_func: label formatter function,receive str and return str
-    :param label: transfer label
-    :param description: transfer description
+    :param label: transfer label,support str and markdown str
+    :param description: transfer description,support str and markdown str
     :param titles: transfer left and right box title,[left,right]
-    :param color: transfer color,default streamlit primary color,support mantine color, hex and rgb color
     :param align: transfer align
+    :param color: transfer color,default streamlit primary color,support mantine color, hex and rgb color
     :param search: show search bar
     :param pagination: show pagination
     :param oneway: oneway mode

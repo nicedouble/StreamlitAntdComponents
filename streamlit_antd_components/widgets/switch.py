@@ -19,8 +19,8 @@ def switch(
         off_label: Union[str, BsIcon] = None,
         align: Align = 'start',
         position: MantinePosition = 'right',
-        size: MantineSize = 'sm',
-        radius: Union[MantineSize, int] = 'xl',
+        size: MantineSize = 'md',
+        radius: Union[MantineSize, int] = 'lg',
         on_color: Union[MantineColor, str] = None,
         off_color: Union[MantineColor, str] = None,
         disabled: bool = False,
@@ -31,8 +31,8 @@ def switch(
 ) -> bool:
     """mantine switch  https://v6.mantine.dev/core/switch/
 
-    :param label: switch label
-    :param description: switch description
+    :param label: switch label,support str and markdown str
+    :param description: switch description,support str and markdown str
     :param value: default value
     :param on_label: switch on status label,str or BsIcon
     :param off_label: switch off status label,str or BsIcon

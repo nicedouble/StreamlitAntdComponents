@@ -19,9 +19,9 @@ def tree(
         label: str = None,
         description: str = None,
         icon: str = None,
+        align: Align = 'start',
         size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
-        align: Align = 'start',
         width: int = None,
         height: int = None,
         open_index: List[int] = None,
@@ -40,12 +40,12 @@ def tree(
     :param items: tree data
     :param index: default selected tree item index
     :param format_func: label formatter function,receive str and return str
-    :param label: tree label
-    :param description: tree description
+    :param label: tree label,support str and markdown str
+    :param description: tree description,support str and markdown str
     :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
+    :param align: tree align
     :param size: tree size,support mantine size and int in px
     :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
-    :param align: tree align
     :param width: tree width
     :param height: tree height
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
@@ -60,13 +60,19 @@ def tree(
     :param key: component unique identifier
     :return: list of selected item label or index
     """
+    if isinstance(index, list) and len(index) > 1 and not checkbox:
+        raise ValueError(f'length of index ({len(index)}) should =1  when checkbox=False')
     # register callback
     register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).multi()
     # parse index
-    if index is None:
+    if index is None and checkbox:
         index = []
+    if isinstance(index, int) and checkbox:
+        index = [index]
+    if isinstance(index, list) and not checkbox:
+        index = index[0]
     # component params
     kw = update_kw(locals(), items=items)
     # component default

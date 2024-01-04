@@ -19,12 +19,12 @@ def buttons(
         label: str = None,
         description: str = None,
         size: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['filled', 'outline', 'dashed', 'text', 'link'] = 'outline',
+        color: Union[MantineColor, str] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        compact: bool = False,
+        gap: Union[MantineSize, int] = 'sm',
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -36,15 +36,15 @@ def buttons(
     :param items: buttons data
     :param index: default selected button index.if none,click button will not show active style
     :param format_func: item label formatter function,receive str and return str
-    :param label: buttons label
-    :param description: buttons description
+    :param label: buttons label,support str and markdown str
+    :param description: buttons description,support str and markdown str
     :param size: button size,support mantine size and int in px
-    :param color: buttons color,default streamlit primary color,support mantine color, hex and rgb color
     :param radius: button radius,support mantine size and int in px
     :param variant: buttons variant
+    :param color: buttons color,default streamlit primary color,support mantine color, hex and rgb color
     :param align: buttons align,available when direction='horizontal'
     :param direction: buttons direction
-    :param compact: buttons compact style
+    :param gap: buttons gap,support mantine size and int in px.set as 0 to display compact mode
     :param return_index: if True,return button index,default return label
     :param on_change: item change callback
     :param args: callback args

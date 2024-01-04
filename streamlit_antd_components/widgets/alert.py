@@ -26,8 +26,8 @@ def alert(
 ):
     """antd design alert https://ant.design/components/alert
 
-    :param label: alert content,markdown and html with bootstrap available
-    :param description: content description,markdown and html with bootstrap available
+    :param label: alert content,support str and markdown str
+    :param description: content description,support str and markdown str
     :param size: alert size,support mantine size and int in px
     :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
     :param radius: alert radius,support mantine size and int in px

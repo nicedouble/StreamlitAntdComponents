@@ -1,8 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Alert, ConfigProvider} from 'antd';
-import '../css/alert.css'
-import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react";
+import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor,markdown} from "../js/utils.react";
 import Marquee from "react-fast-marquee";
 
 interface AlertProp {
@@ -100,8 +99,9 @@ const AntdAlert = (props: AlertProp) => {
             }}
         >
             <Alert
-                message={messageBanner ? <Marquee pauseOnHover={true}>{message}</Marquee> : message}
-                description={descriptionBanner ? <Marquee pauseOnHover={true}>{description}</Marquee> : description}
+                message={messageBanner ? <Marquee pauseOnHover={true}>{markdown(message)}</Marquee> : markdown(message)}
+                description={description == null ? undefined : descriptionBanner ?
+                    <Marquee pauseOnHover={true}>{markdown(description)}</Marquee> : markdown(description)}
                 type={Object.keys(colorList).indexOf(color) !== -1 ? color : 'info'}
                 showIcon={typeof (icon) === 'boolean' ? icon : true}
                 closable={closable}

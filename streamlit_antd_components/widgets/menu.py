@@ -17,8 +17,8 @@ def menu(
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
         size: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
         variant: Literal['light', 'filled', 'subtle'] = 'light',
+        color: Union[MantineColor, str] = None,
         indent: int = 24,
         height: int = None,
         open_index: List[int] = None,
@@ -35,8 +35,8 @@ def menu(
     :param index: default selected menu item index
     :param format_func: label formatter function,receive str and return str
     :param size: menu size,support mantine size and int in px
-    :param color: menu color,default streamlit primary color,support mantine color, hex and rgb color
     :param variant: menu variant
+    :param color: menu color,default streamlit primary color,support mantine color, hex and rgb color
     :param indent: menu item indent in px
     :param height: menu height in px
     :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.

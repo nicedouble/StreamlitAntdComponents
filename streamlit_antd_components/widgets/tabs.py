@@ -15,12 +15,12 @@ def tabs(
         items: List[Union[str, dict, TabsItem]],
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
-        height: int = None,
         align: Align = 'start',
         position: Position = 'top',
-        variant: Literal['default', 'outline'] = 'default',
         size: Union[MantineSize, int] = 'md',
+        variant: Literal['default', 'outline'] = 'default',
         color: Union[MantineColor, str] = None,
+        height: int = None,
         use_container_width: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -33,12 +33,12 @@ def tabs(
     :param items: tabs data
     :param index: default selected tab index
     :param format_func: label formatter function,receive str and return str
-    :param height: set height in px,available when position in ['right','left']
     :param align: tabs align,available when position in ['top','bottom']
     :param position: tabs position
-    :param variant: tabs variant
     :param size: tabs size,support mantine size and int in px
+    :param variant: tabs variant
     :param color: tabs color,default streamlit primary color,support mantine color, hex and rgb color
+    :param height: set height in px,available when position in ['right','left']
     :param use_container_width: makes the tabs stretch its width to match the parent container,available when position in ['top','bottom']
     :param return_index: if True,return tab index,default return label
     :param on_change: item change callback

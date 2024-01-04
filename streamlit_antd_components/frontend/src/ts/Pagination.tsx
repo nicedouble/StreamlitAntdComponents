@@ -109,7 +109,9 @@ const AntdPagination = (props: PaginationProp) => {
                         fontSize: getSize(size),
                         itemSize: 3 * getSize(size) - 16,
                         controlHeight: 3 * getSize(size) - 18,
-                        colorTextDisabled: RgbaColor(textColor)
+                        colorTextDisabled: RgbaColor(textColor),
+                        controlItemBgActiveDisabled: RgbaColor(textColor, 0.1),
+                        colorBgContainerDisabled: RgbaColor(textColor, 0.1),
                     },
                 },
             }}

@@ -39,7 +39,7 @@ class Tag:
     icon: str = None  # bootstrap icon
     link: str = None  # hyperlink
     bordered: bool = True  # show border
-    radius: Union[MantineSize, int] = 'lg'
+    radius: Union[MantineSize, int] = 'md'
     size: Union[MantineSize, int] = 'sm'
     closable: bool = False  # show close button
 

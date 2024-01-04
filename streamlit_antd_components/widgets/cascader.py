@@ -35,8 +35,8 @@ def cascader(
 
     :param items: cascader data
     :param index: default selected cascader item index
-    :param label: cascader label
-    :param description: cascader description
+    :param label: cascader label,support str and markdown str
+    :param description: cascader description,support str and markdown str
     :param format_func: label formatter function,receive str and return str
     :param placeholder: placeholder
     :param color: primary color,default streamlit primary color,support mantine color, hex and rgb color

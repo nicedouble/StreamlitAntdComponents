@@ -22,7 +22,7 @@ interface ButtonsProp {
     radius: any
     color: any
     direction: "horizontal" | "vertical" | undefined;
-    compact: boolean;
+    gap: any;
     return_index: boolean;
     kv: any;
     stValue: any
@@ -124,7 +124,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const radius = props['radius']
     const color = props['color']
     const direction = props['direction']
-    const compact = props['compact']
+    const gap = props['gap']
     const return_index = props['return_index']
     const kv = props['kv']
     const textColor = GetColor('--text-color')
@@ -144,9 +144,6 @@ const AntdButtons = (props: ButtonsProp) => {
         }
     `
     insertStyle(`sac.buttons-style`, style)
-
-    //wrap component
-    const Component = compact ? Space.Compact : Space
 
     //state
     const [selected, setSelected] = useState(index)
@@ -183,6 +180,14 @@ const AntdButtons = (props: ButtonsProp) => {
         }
     }
 
+    const buttonGroup = items.map((item: any, idx) => {
+            let otherType = ['primary', 'default'].find((x) => x !== variant)
+            let type_: any = index != null ? selected === idx ? otherType : variant : variant
+            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null)
+        }
+    )
+
+
     return (
         <LabelWrap
             label={label}
@@ -190,17 +195,12 @@ const AntdButtons = (props: ButtonsProp) => {
             size={size}
             align={align}
             children={
-                <Component
-                    direction={direction}
-                    className={`d-flex flex-wrap`}
-                >
-                    {items.map((item: any, idx) => {
-                            let otherType = ['primary', 'default'].find((x) => x !== variant)
-                            let type_: any = index != null ? selected === idx ? otherType : variant : variant
-                            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null)
-                        }
-                    )}
-                </Component>
+                typeof (gap) == 'number' && gap === 0 ?
+                    <Space.Compact direction={direction} className={'d-flex flex-wrap'}>
+                        {buttonGroup}
+                    </Space.Compact> : <Space direction={direction} wrap={true} size={4 * getSize(gap) - 46}>
+                        {buttonGroup}
+                    </Space>
             }
         />
     );

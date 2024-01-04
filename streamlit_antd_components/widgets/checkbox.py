@@ -17,8 +17,8 @@ def checkbox(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        radius: Union[MantineSize, int] = 'sm',
         size: Union[MantineSize, int] = 'md',
+        radius: Union[MantineSize, int] = 'sm',
         color: Union[MantineColor, str] = None,
         align: Align = 'start',
         check_all: Union[bool, str] = False,
@@ -34,10 +34,10 @@ def checkbox(
     :param items: checkbox items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param label: checkbox label
-    :param description: checkbox description
-    :param radius: checkbox item radius
+    :param label: checkbox label,support str and markdown str
+    :param description: checkbox description,support str and markdown str
     :param size: checkbox item size
+    :param radius: checkbox item radius
     :param color: checkbox color,default streamlit primary color,support mantine color, hex and rgb color
     :param align: checkbox align
     :param check_all: check all box label

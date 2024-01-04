@@ -64,12 +64,12 @@ const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, chi
         {label !== null ?
             <div style={{display: 'flex', flexDirection: 'column', gap: 5, width: grow ? '100%' : 'unset'}}>
                 <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
-                    <div style={{color: textColor, fontSize: getSize(size)}}>{label}</div>
+                    <div style={{color: textColor, fontSize: getSize(size)}}>{markdown(label)}</div>
                     <div style={{
                         color: RgbaColor(textColor, 0.5),
                         fontSize: getSize(size) - 2,
                         display: desc === null ? 'none' : 'block'
-                    }}>{desc}</div>
+                    }}>{markdown(desc)}</div>
                 </div>
                 {children}
             </div> : children}
@@ -79,7 +79,7 @@ const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, chi
 
 const markdown = (x) => {
     if (x !== null) {
-        return <ReactMarkdown rehypePlugins={[rehypeRaw]}>{x}</ReactMarkdown>
+        return <ReactMarkdown rehypePlugins={[rehypeRaw]} className={'sac-markdown'}>{x}</ReactMarkdown>
     }
     return undefined
 }

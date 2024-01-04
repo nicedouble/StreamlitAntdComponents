@@ -20,8 +20,8 @@ def segmented(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        radius: Union[MantineSize, int] = 'md',
         size: Union[MantineSize, int] = 'md',
+        radius: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
         bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
@@ -39,12 +39,12 @@ def segmented(
     :param items: segmented data
     :param index: default selected item index,if None,default not selected item.
     :param format_func: label formatter function,receive str and return str
-    :param label: segmented label
-    :param description: segmented label
+    :param label: segmented label,support str and markdown str
+    :param description: segmented description,support str and markdown str
     :param align: segmented align
     :param direction: segmented direction
-    :param radius: segmented radius,support mantine size and int in px
     :param size: segmented size,support mantine size and int in px
+    :param radius: segmented radius,support mantine size and int in px
     :param color: segmented indicator background color,default streamlit primary color,support mantine color, hex and rgb color
     :param bg_color: segmented background color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param divider: show segmented vertical divider

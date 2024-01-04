@@ -13,7 +13,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         const tag = obj_copy.tag;
         const description = obj_copy.description;
         const tooltip = obj_copy.tooltip;
-        const icon = treeIcon != null ? treeIcon : itemIcon !== null ? itemIcon : null
+        const icon = itemIcon != null ? itemIcon : treeIcon !== null ? treeIcon : null
         if (obj_copy.children) {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, treeIcon, desc_color))
         }
@@ -36,7 +36,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         //add icon
         if (icon) {
             obj_copy.label = <div className={'d-flex align-items-center'}>
-                <div className={'mr-1'}>{<i className={`bi bi-${icon}`}/>}</div>
+                <div className={'mr-2'}>{<i className={`bi bi-${icon}`}/>}</div>
                 <div className={'d-flex  flex-grow-1'}>{obj_copy.label}
                 </div>
             </div>

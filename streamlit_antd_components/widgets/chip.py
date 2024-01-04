@@ -19,10 +19,10 @@ def chip(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        radius: Union[MantineSize, int] = 'lg',
         size: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
+        radius: Union[MantineSize, int] = 'lg',
         variant: Literal['outline', 'light', 'filled'] = 'filled',
+        color: Union[MantineColor, str] = None,
         multiple: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
@@ -35,14 +35,14 @@ def chip(
     :param items: chip items
     :param index: default select item index
     :param format_func: label formatter function,receive str and return str
-    :param label: chip label
-    :param description: chip description
+    :param label: chip label,support str and markdown str
+    :param description: chip description,support str and markdown str
     :param align: chip align
     :param direction: chip direction
-    :param radius: chip item radius,support mantine size and int in px
     :param size: chip item size,support mantine size and int in px
-    :param color: chip color,default streamlit primary color,support mantine color, hex and rgb color
+    :param radius: chip item radius,support mantine size and int in px
     :param variant: chip item style
+    :param color: chip color,default streamlit primary color,support mantine color, hex and rgb color
     :param multiple: chip multiple mode
     :param return_index: return select item index
     :param on_change: item change callback

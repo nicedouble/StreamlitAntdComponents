@@ -72,7 +72,7 @@ const AntdTree = (props: TreeProp) => {
         font-size: ${getSize(size) - 2}px !important;
     }
     .ant-tree-title{
-        line-height:${getSize(size) + 8}px !important
+        line-height:${getSize(size) + 14}px !important
     }
     .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after{
         width:50% !important;
@@ -87,7 +87,9 @@ const AntdTree = (props: TreeProp) => {
     };
     const onSelect: TreeProps['onSelect'] = (selectedKeys_, info) => {
         setValue(selectedKeys_)
-        Streamlit.setComponentValue(selectedKeys_.map((x: any) => return_index ? x : kv[x]));
+        Streamlit.setComponentValue(checkable ?
+            selectedKeys_.map((x: any) => return_index ? x : kv[x]) :
+            return_index ? selectedKeys_[0] : kv[selectedKeys_[0]]);
     };
     const onCheck: TreeProps['onCheck'] = (checkedKeys_, info) => {
         let ck = (Array.isArray(checkedKeys_)) ? checkedKeys_ : checkedKeys_['checked']
@@ -107,7 +109,7 @@ const AntdTree = (props: TreeProp) => {
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: primaryLightColor,
-                        controlInteractiveSize: getSize(size),
+                        controlInteractiveSize: getSize(size) + 2,
                         fontSize: getSize(size),
                         fontFamily: 'var(--font)',
                         colorBorder: RgbaColor(textColor, 0.4),

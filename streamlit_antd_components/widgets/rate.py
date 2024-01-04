@@ -30,8 +30,8 @@ def rate(
 
     :param count: rate total count
     :param value: rate default value,must be divide by 0.5
-    :param label: rate label
-    :param description: rate description
+    :param label: rate label,support str and markdown str
+    :param description: rate description,support str and markdown str
     :param symbol: rate item symbol,default star,can be str or BsIcon
     :param align: rate align
     :param size: symbol size,support mantine size and int in px

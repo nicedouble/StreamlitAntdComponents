@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {parseIcon, GetColor, RgbaColor, getSize} from "../js/utils.react"
+import {parseIcon, GetColor, RgbaColor, getSize, markdown} from "../js/utils.react"
 
 interface SwitchProp {
     label: any;
@@ -66,9 +66,9 @@ const AntdSwitch = (props: SwitchProp) => {
         <div className={`d-flex justify-content-${align}`}>
             <Switch
                 id={key}
-                label={label}
+                label={markdown(label)}
                 color={onColor}
-                description={description}
+                description={markdown(description)}
                 labelPosition={position}
                 onLabel={onLabel}
                 offLabel={offLabel}

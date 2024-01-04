@@ -21,8 +21,8 @@ def result(
 ):
     """antd design result https://ant.design/components/result
 
-    :param label: result title,markdown and html with bootstrap available
-    :param description: result subtitle,markdown and html with bootstrap available
+    :param label: result label,support str and markdown str
+    :param description: result description,support str and markdown str
     :param status: result status
     :param icon: custom bs icon
     :param key: component unique identifier
