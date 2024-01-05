@@ -23,6 +23,7 @@ interface ButtonsProp {
     color: any
     direction: "horizontal" | "vertical" | undefined;
     gap: any;
+    use_container_width: boolean;
     return_index: boolean;
     kv: any;
     stValue: any
@@ -36,7 +37,7 @@ interface ButtonProp {
     color: any;
 }
 
-const AntdButton = (idx: any, type_: any, size: ButtonsProp['size'], color: ButtonsProp['color'], radius: ButtonsProp['radius'], props: ButtonProp, onClick: any, isSelect: boolean) => {
+const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
     const textColor = GetColor('--text-color')
     const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
     const text_color = props['color'] != null ? props['color'] : textColor
@@ -104,6 +105,7 @@ const AntdButton = (idx: any, type_: any, size: ButtonsProp['size'], color: Butt
                 href={props['href'] ? props['href'] : undefined}
                 target={'_blank'}
                 icon={props['icon'] && <i className={`bi bi-${props['icon']}`}/>}
+                style={{width: grow ? '100%' : undefined}}
             >
                 {props['label']}
             </Button>
@@ -125,6 +127,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const color = props['color']
     const direction = props['direction']
     const gap = props['gap']
+    const grow = props['use_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
     const textColor = GetColor('--text-color')
@@ -183,7 +186,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const buttonGroup = items.map((item: any, idx) => {
             let otherType = ['primary', 'default'].find((x) => x !== variant)
             let type_: any = index != null ? selected === idx ? otherType : variant : variant
-            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null)
+            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null,grow)
         }
     )
 
@@ -194,11 +197,14 @@ const AntdButtons = (props: ButtonsProp) => {
             desc={description}
             size={size}
             align={align}
+            grow={grow}
             children={
                 typeof (gap) == 'number' && gap === 0 ?
-                    <Space.Compact direction={direction} className={'d-flex flex-wrap'}>
+                    <Space.Compact direction={direction}>
                         {buttonGroup}
-                    </Space.Compact> : <Space direction={direction} wrap={true} size={4 * getSize(gap) - 46}>
+                    </Space.Compact> :
+                    <Space direction={direction} wrap={true} size={4 * getSize(gap) - 46}
+                           classNames={{item: 'flex-fill'}}>
                         {buttonGroup}
                     </Space>
             }

@@ -25,6 +25,7 @@ def buttons(
         align: Align = 'start',
         direction: Direction = 'horizontal',
         gap: Union[MantineSize, int] = 'sm',
+        use_container_width: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
@@ -45,6 +46,7 @@ def buttons(
     :param align: buttons align,available when direction='horizontal'
     :param direction: buttons direction
     :param gap: buttons gap,support mantine size and int in px.set as 0 to display compact mode
+    :param use_container_width: makes the buttons stretch its width to match the parent container
     :param return_index: if True,return button index,default return label
     :param on_change: item change callback
     :param args: callback args
