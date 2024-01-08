@@ -20,6 +20,8 @@ def pagination(
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['outline', 'light', 'filled'] = 'outline',
         color: Union[MantineColor, str] = None,
+        previous: str = None,
+        next: str = None,
         disabled: bool = False,
         jump: bool = False,
         simple: bool = False,
@@ -39,6 +41,8 @@ def pagination(
     :param radius: pagination radius,support mantine size and int in px
     :param variant: pagination variant
     :param color: pagination color,default streamlit primary color,support mantine color, hex and rgb color
+    :param previous: pagination previous button text
+    :param next: pagination next button text
     :param disabled: disable pagination status
     :param jump: determine whether you can jump to pages directly
     :param simple: simple mode

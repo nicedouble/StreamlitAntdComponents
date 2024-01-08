@@ -4,6 +4,7 @@ import {Pagination, ConfigProvider} from 'antd';
 import type {PaginationProps} from 'antd';
 import {GetColor, insertStyle, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
 import '../css/pagination.css'
+import {RightOutlined,LeftOutlined} from "@ant-design/icons";
 
 interface PaginationProp {
     total: any
@@ -16,6 +17,8 @@ interface PaginationProp {
     size: any
     radius: any
     variant: any
+    previous: any
+    next: any
     simple: boolean
     disabled: boolean
     show_total: boolean
@@ -33,6 +36,8 @@ const AntdPagination = (props: PaginationProp) => {
     const size = props['size'];
     const radius = props['radius'];
     const variant = props['variant'];
+    const previous = props['previous'];
+    const next = props['next'];
     const simple = props['simple'];
     const disabled = props['disabled'];
     const show_total = props['show_total'];
@@ -64,6 +69,9 @@ const AntdPagination = (props: PaginationProp) => {
     .ant-pagination-item-link[disabled]{
         color:${RgbaColor(textColor)} !important
     }
+    .ant-pagination-item-link,.ant-pagination-item-link-icon{
+        font-size:${getSize(size)}px !important
+    }
     `
     insertStyle(`sac.pagination.variant`, textStyle)
 
@@ -90,6 +98,23 @@ const AntdPagination = (props: PaginationProp) => {
             prevStValue.current = props['stValue']
         }
     }, [props])
+
+    //previous and next button
+    const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
+        if (type === 'prev' && previous !== null) {
+            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
+                <LeftOutlined/>
+                <span className={'ml-1'}>{previous}</span>
+            </button>
+        }
+        if (type === 'next' && next !== null) {
+            return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
+                <span className={'mr-1'}>{next}</span>
+                <RightOutlined/>
+            </button>
+        }
+        return originalElement;
+    };
 
     return (
         <ConfigProvider
@@ -128,7 +153,8 @@ const AntdPagination = (props: PaginationProp) => {
                     total={total}
                     showTitle={false}
                     showSizeChanger={false}
-                    showTotal={show_total ? (t, r) => `${r[0]}-${r[1]} / ${t} items` : undefined}
+                    itemRender={itemRender}
+                    showTotal={show_total ? (t, r) => `${r[0]}-${r[1]} / ${t}` : undefined}
                 />
             </div>
         </ConfigProvider>
