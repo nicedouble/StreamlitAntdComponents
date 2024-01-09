@@ -3,9 +3,10 @@ import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider, Button} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
 import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
-import {StreamlitScrollbar, GetColor, RgbaColor, DarkenColor, LabelWrap, insertStyle} from "../js/utils.react"
+import {GetColor, RgbaColor, DarkenColor, insertStyle} from "../js/utils.react"
 import {strToNode, numberToStr} from "../js/transfer.react";
 import '../css/transfer.css'
+import {LabelWrap} from "./utils";
 
 interface TransferProp {
     label: any
@@ -99,8 +100,6 @@ const AntdTransfer = (props: TransferProp) => {
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
-    //scrollbar
-    StreamlitScrollbar()
     let textStyle = `
     .ant-transfer-list-content-item-remove:hover{
         color: ${primaryColor} !important;
@@ -151,7 +150,7 @@ const AntdTransfer = (props: TransferProp) => {
                         colorPrimary: primaryColor,
                         colorPrimaryHover: primaryColor,
                         controlOutlineWidth: 0,
-                        colorTextDisabled:RgbaColor(textColor)
+                        colorTextDisabled: RgbaColor(textColor)
                     },
                     Dropdown: {
                         colorBgElevated: GetColor('--background-color'),

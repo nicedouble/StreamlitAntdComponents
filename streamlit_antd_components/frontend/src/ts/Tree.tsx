@@ -4,14 +4,9 @@ import type {TreeProps} from 'antd/es/tree';
 import {Tree, ConfigProvider} from 'antd';
 import {CaretDownFilled} from '@ant-design/icons';
 import {strToNode} from "../js/tree.react";
-import {
-    reindex,
-    getCollapseKeys,
-    getParentKeys,
-    StreamlitScrollbar,
-    insertStyle, GetColor, RgbaColor, LabelWrap, getSize
-} from "../js/utils.react"
+import {reindex, getCollapseKeys, getParentKeys, insertStyle, GetColor, RgbaColor, getSize} from "../js/utils.react"
 import '../css/tree.css'
+import {LabelWrap} from "./utils";
 
 interface TreeProp {
     label: any
@@ -62,8 +57,6 @@ const AntdTree = (props: TreeProp) => {
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
-    //scrollbar
-    StreamlitScrollbar()
     const textStyle = `
     span.ant-tree-node-content-wrapper.ant-tree-node-selected {
         color: ${primaryColor};

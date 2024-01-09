@@ -2,6 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Result, Empty, Space, ConfigProvider} from 'antd';
 import {RgbaColor, markdown, GetColor} from "../js/utils.react";
+import {CustomIcon} from "./utils";
 
 interface ResultProp {
     label: any;
@@ -44,7 +45,7 @@ const AntdResult = (props: ResultProp) => {
                 title={markdown(title)}
                 subTitle={markdown(subtitle)}
                 status={status}
-                icon={icon !== null ? <i className={`bi bi-${icon}`} style={{fontSize: 72, color: color}}/> : undefined}
+                icon={icon !== null ? <CustomIcon icon={icon} style={{fontSize: 72, color: color}}/> : undefined}
                 className={'pb-0'}
                 style={{wordWrap: 'break-word'}}
             />

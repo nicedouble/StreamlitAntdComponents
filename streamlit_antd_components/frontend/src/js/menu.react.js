@@ -1,11 +1,12 @@
 import React from "react";
 import {linkTagSize, deepCopy, getSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
+import {CustomIcon} from "../ts/utils";
 
 //recurve str property to react node
-const strToNode = (obj, size, variant,desc_color) => {
+const strToNode = (obj, size, variant, desc_color) => {
     if (Array.isArray(obj)) {
-        return obj.map(obj_ => strToNode(obj_, size, variant,desc_color))
+        return obj.map(obj_ => strToNode(obj_, size, variant, desc_color))
     } else {
         let obj_copy = deepCopy(obj);
         const icon = obj_copy.icon;
@@ -16,12 +17,10 @@ const strToNode = (obj, size, variant,desc_color) => {
         const type = obj_copy.type;
         obj_copy.key = String(key)
         if (obj_copy.children) {
-            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant,desc_color))
+            obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_, size, variant, desc_color))
         }
-        //add icon
-        if (icon) {
-            obj_copy.icon = <span><i className={`bi bi-${icon}`}/></span>
-        }
+        //icon
+        obj_copy.icon = <CustomIcon icon={icon} style={{marginRight: 10, fontSize: getSize(size) + 3}}/>
         //add description
         if (description) {
             obj_copy.label = <div style={{lineHeight: 1.3}} className={'py-2'}>
@@ -39,15 +38,15 @@ const strToNode = (obj, size, variant,desc_color) => {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
                 <div className={'d-flex flex-wrap'} style={{maxWidth: '50%'}}>{Array.isArray(tag) ? tag.map((x) => <div
-                    className={'mx-1'}>{AntdTag(linkTagSize(x,getSize(size)-2))}</div>) : AntdTag(linkTagSize(tag,getSize(size)-2))}
+                    className={'mx-1'}>{AntdTag(linkTagSize(x, getSize(size) - 2))}</div>) : AntdTag(linkTagSize(tag, getSize(size) - 2))}
                 </div>
             </div>
         }
         //add group icon
         if (type === 'group' && icon) {
             obj_copy.label = <div className={'d-flex align-items-center'}>
-                <span style={{fontSize: getSize(size) + 3}}><i className={`bi bi-${icon}`}/></span>
-                <div style={{marginLeft: 10, flexGrow: 1}}>{obj_copy.label}</div>
+                {obj_copy.icon}
+                <div style={{flexGrow: 1}}>{obj_copy.label}</div>
             </div>
         }
         //add href

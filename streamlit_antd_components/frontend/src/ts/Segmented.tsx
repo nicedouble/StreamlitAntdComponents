@@ -2,8 +2,9 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {SegmentedControl} from '@mantine/core';
 import {strToNode} from "../js/segmented.react";
-import {GetColor, LabelWrap} from "../js/utils.react"
+import {GetColor} from "../js/utils.react"
 import "../css/segmented.css"
+import {LabelWrap} from "./utils";
 
 interface SegmentedProp {
     items: any[];

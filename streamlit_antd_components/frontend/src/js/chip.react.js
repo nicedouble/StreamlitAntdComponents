@@ -1,5 +1,6 @@
-import {deepCopy} from "./utils.react";
+import {deepCopy,} from "./utils.react";
 import React from "react";
+import {CustomIcon} from "../ts/utils";
 
 const strToNode = (obj) => {
     if (Array.isArray(obj)) {
@@ -11,11 +12,11 @@ const strToNode = (obj) => {
         if (icon !== null) {
             if (label.length > 0) {
                 obj_copy['label'] = <span>
-                    <i className={`bi bi-${icon} mr-2`}/>
+                    <CustomIcon icon={icon} style={{marginRight:5}}/>
                     {label}
                 </span>
             } else {
-                obj_copy['label'] = <i className={`bi bi-${icon}`}/>
+                obj_copy['label'] = <CustomIcon icon={icon}/>
             }
         }
         obj_copy['value'] = String(obj_copy['value'])

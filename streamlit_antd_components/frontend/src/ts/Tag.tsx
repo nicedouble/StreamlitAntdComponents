@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import {Space, Tag, ConfigProvider} from 'antd';
 import '../css/tag.css'
 import {MartineRadiusSize, GetColor, RgbaColor, getSize} from "../js/utils.react";
+import {CustomIcon} from "./utils";
 
 interface tagProp {
     label: any
@@ -49,7 +50,7 @@ const AntdTag = (props: tagProp) => {
         >
             <Tag
                 color={color}
-                icon={icon && <i className={`bi bi-${icon} mr-1`}/>}
+                icon={<CustomIcon icon={icon} style={{marginRight: 5}}/>}
                 closeIcon={closable}
                 bordered={bordered}
                 style={{

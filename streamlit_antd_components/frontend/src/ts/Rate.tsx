@@ -1,9 +1,9 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Rate, ConfigProvider} from 'antd';
-import {parseIcon, GetColor, RgbaColor, LabelWrap, getSize} from "../js/utils.react"
+import {parseIcon, GetColor, RgbaColor} from "../js/utils.react"
 import {StarFilled} from '@ant-design/icons';
-
+import {LabelWrap} from "./utils";
 
 interface RateProp {
     label: any
@@ -31,6 +31,7 @@ const AntdRate = (props: RateProp) => {
     const color = props['color'];
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const textColor = GetColor('--text-color')
+    const sizeMap: any = {'xs': 12, 'sm': 16, 'md': 20, 'lg': 30, 'xl': 50}
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -61,7 +62,7 @@ const AntdRate = (props: RateProp) => {
                         count={count}
                         character={symbol !== null ? symbol : <StarFilled/>}
                         allowHalf={half}
-                        style={{fontSize: getSize(size)+4, color: primaryColor}}
+                        style={{fontSize: typeof (size) == 'string' ? sizeMap[size] : size, color: primaryColor}}
                         onChange={onChange}
                     />
                 }

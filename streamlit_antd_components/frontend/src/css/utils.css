@@ -1,4 +1,9 @@
-
+/*markdown p*/
 .sac-markdown p {
     margin-bottom: 0;
+}
+
+/*ant icon label*/
+.anticon + span {
+    margin-left: 0 !important;
 }

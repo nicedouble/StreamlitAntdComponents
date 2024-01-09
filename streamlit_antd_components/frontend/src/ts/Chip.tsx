@@ -1,8 +1,9 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Chip, Group, Stack} from "@mantine/core";
-import {reindex, GetColor, RgbaColor, DarkenColor, LabelWrap, getSize} from "../js/utils.react"
+import {reindex, GetColor, RgbaColor, DarkenColor, getSize} from "../js/utils.react"
 import strToNode from "../js/chip.react";
+import {LabelWrap} from "./utils";
 
 interface ChipProp {
     label: any

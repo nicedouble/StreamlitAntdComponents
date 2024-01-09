@@ -4,9 +4,9 @@ import {Cascader, ConfigProvider} from 'antd';
 import {CaretDownFilled, CaretRightFilled} from '@ant-design/icons';
 import type {DefaultOptionType} from 'antd/es/cascader';
 import {strToNode} from "../js/cascader.react";
-import {reindex, StreamlitScrollbar, GetColor, RgbaColor, insertStyle,LabelWrap} from "../js/utils.react"
+import {reindex, GetColor, RgbaColor, insertStyle} from "../js/utils.react"
 import '../css/cascader.css'
-
+import {LabelWrap} from "./utils";
 
 interface CascaderProp {
     label: any
@@ -43,7 +43,6 @@ const AntdCascader = (props: CascaderProp) => {
     const textColor = GetColor('--text-color')
 
     // load css
-    StreamlitScrollbar()
     let borderStyle = `
         /*dropdown border*/
         .ant-select-dropdown {

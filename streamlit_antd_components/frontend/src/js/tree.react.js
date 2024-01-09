@@ -2,6 +2,7 @@ import React from "react";
 import {deepCopy, getSize, linkTagSize} from "./utils.react";
 import {AntdTag} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
+import {CustomIcon} from "../ts/utils";
 
 //recurve str property to react node
 const strToNode = (obj, size, treeIcon, desc_color) => {
@@ -36,7 +37,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         //add icon
         if (icon) {
             obj_copy.label = <div className={'d-flex align-items-center'}>
-                <div className={'mr-2'}>{<i className={`bi bi-${icon}`}/>}</div>
+                <CustomIcon icon={icon} style={{marginRight:5}}/>
                 <div className={'d-flex  flex-grow-1'}>{obj_copy.label}
                 </div>
             </div>

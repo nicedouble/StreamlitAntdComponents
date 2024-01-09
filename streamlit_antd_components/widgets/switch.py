@@ -9,14 +9,15 @@
 @Software : PyCharm
 """
 from ..utils import *
+from dataclasses import is_dataclass
 
 
 def switch(
         label: str = None,
         description: str = None,
         value: bool = False,
-        on_label: Union[str, BsIcon] = None,
-        off_label: Union[str, BsIcon] = None,
+        on_label: Union[str, BsIcon, AntIcon] = None,
+        off_label: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         position: MantinePosition = 'right',
         size: MantineSize = 'md',
@@ -34,8 +35,8 @@ def switch(
     :param label: switch label,support str and markdown str
     :param description: switch description,support str and markdown str
     :param value: default value
-    :param on_label: switch on status label,str or BsIcon
-    :param off_label: switch off status label,str or BsIcon
+    :param on_label: switch on status label,str or BsIcon,AntIcon
+    :param off_label: switch off status label,str or BsIcon,AntIcon
     :param align: switch align
     :param position: switch label position
     :param size: switch size,support mantine size
@@ -53,8 +54,8 @@ def switch(
     register(key, on_change, args, kwargs)
     # parse icon
     kw = dict(locals())
-    kw.update(on_label={'bs': on_label.__dict__.get('name')} if isinstance(on_label, BsIcon) else on_label)
-    kw.update(off_label={'bs': off_label.__dict__.get('name')} if isinstance(off_label, BsIcon) else off_label)
+    kw.update(on_label=parse_icon(on_label) if is_dataclass(on_label) else on_label)
+    kw.update(off_label=parse_icon(off_label) if is_dataclass(off_label) else off_label)
     kw = update_kw(kw)
     # pass component id and params to frontend
     return component(id=get_func_name(), kw=kw, default=value, key=key)

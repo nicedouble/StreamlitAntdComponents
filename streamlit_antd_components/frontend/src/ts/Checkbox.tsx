@@ -3,14 +3,8 @@ import React, {useEffect, useRef, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {
-    GetColor,
-    getSize,
-    insertStyle,
-    LabelWrap,
-    MartineRadiusSize,
-    RgbaColor
-} from "../js/utils.react"
+import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
+import {LabelWrap} from "./utils";
 
 interface CheckboxProp {
     label: any

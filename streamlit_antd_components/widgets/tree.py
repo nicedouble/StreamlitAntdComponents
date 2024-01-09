@@ -18,7 +18,7 @@ def tree(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        icon: str = None,
+        icon: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
@@ -42,7 +42,7 @@ def tree(
     :param format_func: label formatter function,receive str and return str
     :param label: tree label,support str and markdown str
     :param description: tree description,support str and markdown str
-    :param icon: bootstrap icon on all tree item. https://icons.getbootstrap.com/
+    :param icon: tree item icon
     :param align: tree align
     :param size: tree size,support mantine size and int in px
     :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
@@ -74,7 +74,7 @@ def tree(
     if isinstance(index, list) and not checkbox:
         index = index[0]
     # component params
-    kw = update_kw(locals(), items=items)
+    kw = update_kw(locals(), items=items, icon=parse_icon(icon))
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend

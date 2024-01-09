@@ -1,5 +1,6 @@
 import React from "react";
 import {deepCopy} from "./utils.react";
+import {CustomIcon} from "../ts/utils";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -13,7 +14,7 @@ const strToNode = (obj) => {
             obj_copy.children = obj_copy.children.map(obj_ => strToNode(obj_))
         }
         if (icon) {
-            obj_copy.label = <span key={obj_copy.value}><i className={`bi bi-${icon} m-1`}/>{label}</span>
+            obj_copy.label = <span key={obj_copy.value}><CustomIcon icon={icon} style={{marginRight: 5}}/>{label}</span>
         } else {
             obj_copy.label = <span key={obj_copy.value}>{label}</span>
         }

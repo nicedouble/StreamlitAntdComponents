@@ -1,8 +1,8 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import '../css/utils.css'
 import {useMantineTheme} from "@mantine/core";
+import {CustomIcon} from "../ts/utils";
 
 const MartineFontSize = {
     'xs': 12,
@@ -58,24 +58,6 @@ const linkTagSize = (x, new_default) => {
     return new_x
 }
 
-const LabelWrap = ({label, desc, size = 'md', align = 'start', grow = false, children}) => {
-    const textColor = GetColor('--text-color')
-    return <div style={{display: grow ? 'block' : 'flex', justifyContent: align}}>
-        {label !== null ?
-            <div style={{display: 'flex', flexDirection: 'column', gap: 5, width: grow ? '100%' : 'unset'}}>
-                <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
-                    <div style={{color: textColor, fontSize: getSize(size)}}>{markdown(label)}</div>
-                    <div style={{
-                        color: RgbaColor(textColor, 0.5),
-                        fontSize: getSize(size) - 2,
-                        display: desc === null ? 'none' : 'block'
-                    }}>{markdown(desc)}</div>
-                </div>
-                {children}
-            </div> : children}
-    </div>
-}
-
 
 const markdown = (x) => {
     if (x !== null) {
@@ -99,7 +81,7 @@ const insertStyle = (id, style) => {
     root && root.appendChild(element)
 }
 
-const StreamlitScrollbar = () => {
+const insertScrollbarStyle = () => {
     const textColor = GetColor('--text-color')
     let scrollBarColor = RgbaColor(textColor, 0.4)
     let style = `
@@ -113,7 +95,7 @@ const StreamlitScrollbar = () => {
             background-color: ${scrollBarColor};
         }`
     //insert style
-    insertStyle('streamlit-scrollbar', style)
+    insertStyle('sac.scrollbar', style)
 }
 
 const getRootColor = (varColor) => {
@@ -242,14 +224,14 @@ const getHrefKeys = (items) => {
 
 const parseIcon = (obj) => {
     if (Object.prototype.toString.call(obj) === '[object Object]') {
-        return <i className={`bi bi-${obj['bs']} mx-1`}/>
+        return <CustomIcon icon={obj}/>
     }
     return obj
 }
 
 export {
     deepCopy,
-    StreamlitScrollbar,
+    insertScrollbarStyle,
     getCollapseKeys,
     getHrefKeys,
     getParentKeys,
@@ -259,5 +241,5 @@ export {
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, RgbaColor, DarkenColor, LabelWrap, getSize, linkTagSize
-}
+    GetColor, RgbaColor, DarkenColor, getSize, linkTagSize
+};

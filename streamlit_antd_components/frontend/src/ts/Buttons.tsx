@@ -1,14 +1,8 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Button, Space, ConfigProvider} from 'antd';
-import {
-    getHrefKeys,
-    insertStyle,
-    GetColor,
-    RgbaColor,
-    LabelWrap,
-    MartineRadiusSize, getSize
-} from "../js/utils.react"
+import {getHrefKeys, insertStyle, GetColor, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
+import {CustomIcon, LabelWrap} from "./utils";
 import "../css/buttons.css"
 
 interface ButtonsProp {
@@ -104,7 +98,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
                 disabled={props['disabled']}
                 href={props['href'] ? props['href'] : undefined}
                 target={'_blank'}
-                icon={props['icon'] && <i className={`bi bi-${props['icon']}`}/>}
+                icon={props['icon'] && <CustomIcon icon={props.icon}/>}
                 style={{width: grow ? '100%' : undefined}}
             >
                 {props['label']}
@@ -186,7 +180,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const buttonGroup = items.map((item: any, idx) => {
             let otherType = ['primary', 'default'].find((x) => x !== variant)
             let type_: any = index != null ? selected === idx ? otherType : variant : variant
-            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null,grow)
+            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null, grow)
         }
     )
 

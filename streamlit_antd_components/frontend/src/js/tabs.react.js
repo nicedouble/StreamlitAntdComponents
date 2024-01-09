@@ -1,5 +1,6 @@
 import React from "react";
 import {deepCopy} from "./utils.react"
+import {CustomIcon} from "../ts/utils";
 
 //recurve str property to react node
 const strToNode = (obj) => {
@@ -9,11 +10,11 @@ const strToNode = (obj) => {
         if (item_['icon'] != null) {
             if (item_['label'].length > 0) {
                 item_['label'] = <>
-                    <span className={'mr-2'}><i className={`bi bi-${item['icon']}`}/></span>
+                    <CustomIcon icon={item.icon} style={{marginRight: 10}}/>
                     {item_['label']}
                 </>
             } else {
-                item_['label'] = <i className={`bi bi-${item['icon']}`}/>
+                item_['label'] = <CustomIcon icon={item.icon}/>
             }
         }
         return item_

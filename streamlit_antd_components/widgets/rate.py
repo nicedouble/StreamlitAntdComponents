@@ -9,6 +9,7 @@
 @Software : PyCharm
 """
 from ..utils import *
+from dataclasses import is_dataclass
 
 
 def rate(
@@ -16,7 +17,7 @@ def rate(
         value: float = 0,
         label: str = None,
         description: str = None,
-        symbol: Union[str, BsIcon] = None,
+        symbol: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         size: Union[MantineSize, int] = 'md',
         color: Union[MantineColor, str] = None,
@@ -32,7 +33,7 @@ def rate(
     :param value: rate default value,must be divide by 0.5
     :param label: rate label,support str and markdown str
     :param description: rate description,support str and markdown str
-    :param symbol: rate item symbol,default star,can be str or BsIcon
+    :param symbol: rate item symbol,default star,can be str or BsIcon,AntIcon
     :param align: rate align
     :param size: symbol size,support mantine size and int in px
     :param color: symbol color,default streamlit primary color,support mantine color, hex and rgb color
@@ -50,7 +51,7 @@ def rate(
     register(key, on_change, args, kwargs)
     # component params
     kw = dict(locals())
-    kw.update(symbol={'bs': symbol.__dict__.get('name')} if isinstance(symbol, BsIcon) else symbol)
+    kw.update(symbol=parse_icon(symbol) if is_dataclass(symbol) else symbol)
     kw = update_kw(kw)
     # pass component id and params to frontend
     return component(id=get_func_name(), kw=kw, default=value, key=key)

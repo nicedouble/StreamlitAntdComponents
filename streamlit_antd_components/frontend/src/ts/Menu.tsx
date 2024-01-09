@@ -4,13 +4,8 @@ import type {MenuProps} from 'antd';
 import {ConfigProvider, Menu} from 'antd';
 import {strToNode} from "../js/menu.react";
 import {
-    getCollapseKeys,
-    getHrefKeys,
-    getParentKeys,
-    reindex,
-    StreamlitScrollbar,
-    insertStyle,
-    GetColor, RgbaColor, getSize
+    getCollapseKeys, getHrefKeys, getParentKeys, reindex,
+    insertStyle, GetColor, RgbaColor, getSize
 } from "../js/utils.react"
 import '../css/menu.css'
 
@@ -49,7 +44,6 @@ const AntdMenu = (props: MenuProp) => {
     const primaryLightColor = RgbaColor(primaryColor)
 
     //custom style
-    StreamlitScrollbar()
     const textStyle = `
     li.ant-menu-item.ant-menu-item-selected .menu-desc{
         color: ${variant === 'filled' ? RgbaColor('#fff', 0.55) : 'none'} !important
@@ -126,10 +120,8 @@ const AntdMenu = (props: MenuProp) => {
                         itemBg: 'transform',
                         colorSplit: RgbaColor(textColor),
                         fontFamily: 'var(--font)',
-                        iconMarginInlineEnd: 10,
                         fontSize: getSize(size),
                         itemHeight: getSize(size) + 20,
-                        iconSize: getSize(size) + 3,
                     },
                 },
             }}
