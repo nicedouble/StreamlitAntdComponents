@@ -14,8 +14,6 @@ button:focus {
 
 .ant-btn {
     height: auto;
-    width: auto !important;
-    padding: 5px 15px;
     display: flex;
     align-items: center;
     justify-content: center;

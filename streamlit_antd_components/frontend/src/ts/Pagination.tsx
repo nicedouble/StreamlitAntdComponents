@@ -4,7 +4,6 @@ import {Pagination, ConfigProvider} from 'antd';
 import type {PaginationProps} from 'antd';
 import {GetColor, insertStyle, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
 import '../css/pagination.css'
-import {RightOutlined,LeftOutlined} from "@ant-design/icons";
 
 interface PaginationProp {
     total: any
@@ -103,14 +102,12 @@ const AntdPagination = (props: PaginationProp) => {
     const itemRender: PaginationProps['itemRender'] = (_, type, originalElement) => {
         if (type === 'prev' && previous !== null) {
             return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
-                <LeftOutlined/>
-                <span className={'ml-1'}>{previous}</span>
+                {previous}
             </button>
         }
         if (type === 'next' && next !== null) {
             return <button className={'ant-pagination-item-link px-2'} style={{fontSize: getSize(size)}}>
-                <span className={'mr-1'}>{next}</span>
-                <RightOutlined/>
+                {next}
             </button>
         }
         return originalElement;
