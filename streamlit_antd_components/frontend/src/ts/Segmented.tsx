@@ -103,6 +103,7 @@ const AntdSegmented = (props: SegmentedProp) => {
                     },
                     label: {
                         fontSize: typeof (size) == 'number' ? size : undefined,
+                        display: "flex", alignItems: 'center', justifyContent: 'center',
                         color: 'var(--text-color)',
                         marginBottom: 0,
                         '&:hover': {

@@ -81,7 +81,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
                         colorLink: linkColor,
                         colorLinkHover: linkColor,
                         colorLinkActive: linkColor,
-                        controlHeight: 3 * getSize(size) - 10,
+                        // controlHeight: 3 * getSize(size) - 10,
                         fontSize: getSize(size),
                         colorBorder: isSelect ? RgbaColor(textColor) : primary_color,
                         borderRadius: getSize(radius, MartineRadiusSize),
@@ -137,6 +137,7 @@ const AntdButtons = (props: ButtonsProp) => {
             border-color: ${RgbaColor(textColor, 0.1)} !important;
         }
         .ant-btn {
+            min-height: ${3 * getSize(size) - 10}px;
             min-width: ${3 * getSize(size) - 10}px;
         }
     `

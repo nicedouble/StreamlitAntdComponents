@@ -58,7 +58,6 @@ btn = sac.buttons(
     align='center',
     direction='horizontal',
     radius='lg',
-    compact=False,
     return_index=False,
 )
 st.write(f'The selected button label is: {btn}')
