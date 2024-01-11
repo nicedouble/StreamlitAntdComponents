@@ -18,17 +18,19 @@ interface tagProp {
 
 interface TagsProp {
     items: tagProp[]
-    align: string
-    direction: "horizontal" | "vertical"
-    return_index: boolean;
+    align?: string
+    direction?: "horizontal" | "vertical"
+    size?: any
+    radius?: any
+    color?: any
 }
 
 const AntdTag = (props: tagProp) => {
     //get data
     const label = props['label'];
     const color = props['color'];
-    const radius = props['radius'];
-    const size = props['size'];
+    const radius = props['radius'] || 'md';
+    const size = props['size'] || 'sm';
     const icon = props['icon'];
     const link = props['link'];
     const bordered = props['bordered'];
@@ -57,9 +59,10 @@ const AntdTag = (props: tagProp) => {
                     margin: 0,
                     borderRadius: getSize(radius, MartineRadiusSize),
                     fontSize: getSize(size),
-                    paddingInline: getSize(size) - 4,
-                    lineHeight: `${getSize(size) + 8}px`,
+                    paddingInline: getSize(size) * 0.5,
+                    lineHeight: `${getSize(size) * 1.4}px`,
                 }}
+                className={'d-flex align-items-center'}
             >
                 {link ?
                     <a href={link} target={'_blank'} rel={'noreferrer'} className={'text-decoration-none'}
@@ -74,6 +77,9 @@ const AntdTags = (props: TagsProp) => {
     const items = props['items'];
     const align = props['align'];
     const direction = props['direction'];
+    const size = props['size'];
+    const radius = props['radius'];
+    const color = props['color'];
 
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -92,11 +98,14 @@ const AntdTags = (props: TagsProp) => {
         }}
     >
         <Space
-            className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap align-items-end`}
+            className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap align-items-center`}
             direction={direction}
-            size={10}
+            size={5}
         >
             {items.map((item: any) => {
+                item.size = item.size || size
+                item.radius = item.radius || radius
+                item.color = item.color || color
                 return AntdTag(item)
             })}
         </Space>

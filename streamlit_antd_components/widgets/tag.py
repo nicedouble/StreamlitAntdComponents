@@ -16,6 +16,9 @@ def tags(
         format_func: Union[Formatter, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
+        size: Union[MantineSize, int] = 'sm',
+        radius: Union[MantineSize, int] = 'md',
+        color: Union[Color, str] = None,
         key=None
 ):
     """antd design tag  https://ant.design/components/tag
@@ -24,6 +27,9 @@ def tags(
     :param format_func: label formatter function,receive str and return str
     :param align: tags align
     :param direction: tags direction
+    :param size: tags size,support mantine size and int in px
+    :param radius: tags radius,support mantine size and int in px
+    :param color: tags color,support ant color, hex and rgb color
     :param key: component unique identifier
     """
     # parse items

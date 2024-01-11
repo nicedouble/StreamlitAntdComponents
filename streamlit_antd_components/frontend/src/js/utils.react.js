@@ -50,14 +50,6 @@ const DarkenColor = (color, alpha = 0.2) => {
     return theme.fn.darken(color, alpha)
 }
 
-const linkTagSize = (x, new_default) => {
-    let new_x = deepCopy(x)
-    if (new_x.size === 'sm') {
-        new_x.size = new_default
-    }
-    return new_x
-}
-
 
 const markdown = (x) => {
     if (x !== null) {
@@ -241,5 +233,5 @@ export {
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, RgbaColor, DarkenColor, getSize, linkTagSize
+    GetColor, RgbaColor, DarkenColor, getSize
 };

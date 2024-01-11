@@ -1,6 +1,6 @@
 import React from "react";
-import {deepCopy, getSize, linkTagSize} from "./utils.react";
-import {AntdTag} from "../ts/Tag";
+import {deepCopy, getSize} from "./utils.react";
+import {AntdTags} from "../ts/Tag";
 import {ConfigProvider, Tooltip} from "antd";
 import {CustomIcon} from "../ts/utils";
 
@@ -29,9 +29,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         if (tag) {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between flex-grow-1'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
-                <div className={'d-flex flex-wrap align-self-center'}>{Array.isArray(tag) ? tag.map((x) => <div
-                    className={'mx-1'}>{AntdTag(linkTagSize(x,getSize(size)-4))}</div>) : AntdTag(linkTagSize(tag,getSize(size)-4))}
-                </div>
+                <AntdTags items={Array.isArray(tag) ? tag : [tag]} align={'end'} size={getSize(size) - 4}/>
             </div>
         }
         //add icon

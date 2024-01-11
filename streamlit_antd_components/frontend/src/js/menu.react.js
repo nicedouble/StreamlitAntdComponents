@@ -1,6 +1,6 @@
 import React from "react";
-import {linkTagSize, deepCopy, getSize} from "./utils.react";
-import {AntdTag} from "../ts/Tag";
+import {deepCopy, getSize} from "./utils.react";
+import {AntdTags} from "../ts/Tag";
 import {CustomIcon} from "../ts/utils";
 
 //recurve str property to react node
@@ -37,9 +37,7 @@ const strToNode = (obj, size, variant, desc_color) => {
         if (tag) {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
-                <div className={'d-flex flex-wrap'} style={{maxWidth: '50%'}}>{Array.isArray(tag) ? tag.map((x) => <div
-                    className={'mx-1'}>{AntdTag(linkTagSize(x, getSize(size) - 2))}</div>) : AntdTag(linkTagSize(tag, getSize(size) - 2))}
-                </div>
+                <AntdTags items={Array.isArray(tag) ? tag : [tag]} align={'end'} size={getSize(size) - 2}/>
             </div>
         }
         //add group icon

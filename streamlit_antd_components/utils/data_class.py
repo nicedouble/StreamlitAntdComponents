@@ -79,12 +79,12 @@ class NestedItem(Item):
 @dataclass
 class Tag:
     label: str  # label
-    color: Union[str, Color] = None  # color
     icon: Union[str, BsIcon, AntIcon] = None  # icon
     link: str = None  # hyperlink
+    size: Union[MantineSize, int] = None
+    radius: Union[MantineSize, int] = None
+    color: Union[Color, str] = None  # color
     bordered: bool = True  # show border
-    radius: Union[MantineSize, int] = 'md'
-    size: Union[MantineSize, int] = 'sm'
     closable: bool = False  # show close button
 
     def __post_init__(self):
