@@ -62,7 +62,6 @@ const AntdTag = (props: tagProp) => {
                     paddingInline: getSize(size) * 0.5,
                     lineHeight: `${getSize(size) * 1.4}px`,
                 }}
-                className={'d-flex align-items-center'}
             >
                 {link ?
                     <a href={link} target={'_blank'} rel={'noreferrer'} className={'text-decoration-none'}
