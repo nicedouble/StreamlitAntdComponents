@@ -23,6 +23,7 @@ interface TagsProp {
     size?: any
     radius?: any
     color?: any
+    style?:React.CSSProperties
 }
 
 const AntdTag = (props: tagProp) => {
@@ -79,6 +80,7 @@ const AntdTags = (props: TagsProp) => {
     const size = props['size'];
     const radius = props['radius'];
     const color = props['color'];
+    const style = props['style'];
 
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -100,6 +102,7 @@ const AntdTags = (props: TagsProp) => {
             className={`${direction === 'horizontal' && 'd-flex'} justify-content-${align} flex-wrap align-items-center`}
             direction={direction}
             size={5}
+            style={style}
         >
             {items.map((item: any) => {
                 item.size = item.size || size

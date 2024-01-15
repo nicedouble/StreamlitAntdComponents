@@ -3,13 +3,15 @@ import {GetColor, getSize, markdown, RgbaColor} from "../js/utils.react";
 import * as antIcon from "@ant-design/icons";
 
 interface CustomIconProps {
-    icon: { size: any, color: any, name: any, type: any } | null
+    icon: { size: any, color: any, name: any, type: any } | null | any
     style?: React.CSSProperties
+    class?: string
 }
 
 const CustomIcon = (props: CustomIconProps) => {
     const icon = props.icon
     const style = props.style
+    const class_ = props.class
     if (icon) {
         const {size, color, name, type} = icon
         let innerStyle = {}
@@ -23,12 +25,12 @@ const CustomIcon = (props: CustomIconProps) => {
         }
         const iconStyle = Object.assign({}, style, innerStyle)
         if (type === 'BsIcon') {
-            return <i className={`bi bi-${name}`} style={iconStyle}/>
+            return <i className={`bi bi-${name} ${class_ || ''}`} style={iconStyle}/>
         }
         if (type === 'AntIcon') {
             // @ts-ignore
             const DynamicComponent = antIcon[name]
-            return <DynamicComponent style={iconStyle}/>
+            return <DynamicComponent className={class_ || ''} style={iconStyle}/>
         }
     }
     return <></>
@@ -68,4 +70,4 @@ const LabelWrap = (props: LabelWrapProps) => {
     </div>
 }
 
-export {CustomIcon, LabelWrap}
+export {CustomIcon, LabelWrap};

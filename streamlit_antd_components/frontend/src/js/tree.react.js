@@ -29,7 +29,12 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         if (tag) {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between flex-grow-1'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
-                <AntdTags items={Array.isArray(tag) ? tag : [tag]} align={'end'} size={getSize(size) - 4}/>
+                <AntdTags
+                    items={Array.isArray(tag) ? tag : [tag]}
+                    align={'end'}
+                    size={getSize(size) - 4}
+                    style={{lineHeight:1.2}}
+                />
             </div>
         }
         //add icon

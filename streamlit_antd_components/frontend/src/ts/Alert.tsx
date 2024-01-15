@@ -1,8 +1,9 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Alert, ConfigProvider} from 'antd';
-import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor,markdown} from "../js/utils.react";
+import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor, markdown} from "../js/utils.react";
 import Marquee from "react-fast-marquee";
+import {CustomIcon} from "./utils";
 
 interface AlertProp {
     label: string;
@@ -11,7 +12,7 @@ interface AlertProp {
     color: any
     radius: any
     variant: any
-    icon: boolean | string;
+    icon: any
     closable: boolean;
     banner: boolean | boolean[];
 }
@@ -60,10 +61,11 @@ const AntdAlert = (props: AlertProp) => {
         }
         .ant-alert.ant-alert-${element} .anticon.anticon-close{
             color: ${variant === 'filled' ? '#fff' : primary};
+            font-size: ${getSize(size) * 0.8}px;
         }
         .ant-alert-${element} .ant-alert-icon{
             color: ${variant === 'filled' ? '#fff' : primary};
-            font-size: ${getSize(size) + 8}px !important;
+            font-size: ${getSize(size) + 8}px;
         }
         .ant-alert{
             border: ${variant === 'outline' ? `1px solid ${primary}` : 0} !important;
@@ -78,7 +80,6 @@ const AntdAlert = (props: AlertProp) => {
     }
     insertStyle(`sac.alert.style`, getStyle(color, size))
 
-
     const getBanner = (ban: boolean | boolean[]) => {
         if (Array.isArray(ban)) {
             //total banner,message banner,description banner
@@ -88,6 +89,7 @@ const AntdAlert = (props: AlertProp) => {
         }
     }
     const [totalBanner, messageBanner, descriptionBanner] = getBanner(banner)
+
     return (
         <ConfigProvider
             theme={{
@@ -108,7 +110,7 @@ const AntdAlert = (props: AlertProp) => {
                 banner={totalBanner}
                 style={{borderRadius: getSize(radius, MartineRadiusSize)}}
                 onClose={() => Streamlit.setFrameHeight(0)}
-                icon={typeof (icon) === 'boolean' ? undefined : <i className={`bi bi-${icon}`}/>}
+                icon={typeof (icon) === 'boolean' ? undefined : <CustomIcon icon={icon} class={'ant-alert-icon'}/>}
             />
         </ConfigProvider>
     );

@@ -37,7 +37,12 @@ const strToNode = (obj, size, variant, desc_color) => {
         if (tag) {
             obj_copy.label = <div className={'d-flex align-items-center justify-content-between'}>
                 <div className={'mr-3'}>{obj_copy.label}</div>
-                <AntdTags items={Array.isArray(tag) ? tag : [tag]} align={'end'} size={getSize(size) - 2}/>
+                <AntdTags
+                    items={Array.isArray(tag) ? tag : [tag]}
+                    align={'end'}
+                    size={getSize(size) - 2}
+                    style={{lineHeight:1.2}}
+                />
             </div>
         }
         //add group icon

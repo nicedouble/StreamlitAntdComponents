@@ -19,7 +19,7 @@ def alert(
         color: Union[Msg, MantineColor, str] = 'info',
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['light', 'filled', 'outline', 'transparent'] = 'light',
-        icon: Union[bool, str] = False,
+        icon: Union[bool, str, BsIcon, AntIcon] = False,
         closable: bool = False,
         banner: Union[bool, List[bool]] = False,
         key=None,
@@ -37,5 +37,7 @@ def alert(
     :param banner: banner style,set list to control message and description banner.
     :param key: component unique identifier
     """
+    # update icon
+    kw = update_kw(locals(), icon=parse_icon(icon))
     # pass component id and params to frontend
-    component(id=get_func_name(), kw=locals(), key=key)
+    component(id=get_func_name(), kw=kw, key=key)

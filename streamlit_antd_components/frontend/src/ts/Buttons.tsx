@@ -168,7 +168,7 @@ const AntdButtons = (props: ButtonsProp) => {
         }
         if (st_i !== prevStValue.current) {
             setSelected(st_i);
-            Streamlit.setComponentValue(return_index ? i : kv[st_i]);
+            Streamlit.setComponentValue(return_index ? st_i : kv[st_i]);
             prevStValue.current = props['stValue']
         }
     }, [props, kv, return_index])
