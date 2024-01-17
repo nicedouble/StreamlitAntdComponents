@@ -8,9 +8,11 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
+import json
 import os
 import streamlit.components.v1 as components
 import streamlit as st
+from dataclasses import is_dataclass
 from .. import _RELEASE
 
 if not _RELEASE:
@@ -39,6 +41,14 @@ def convert_session_value(id, value, kv: dict, return_index: bool):
             return value
 
 
+class CustomEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if is_dataclass(obj):
+            print(obj,obj.name)
+            return obj.__dict__
+        return super().default(obj)
+
+
 def component(id, kw, default=None, key=None):
     # repair component session init value
     if key is not None and key not in st.session_state:
@@ -50,4 +60,4 @@ def component(id, kw, default=None, key=None):
         kw.update({"stValue": st_value})
     else:
         kw.update({"stValue": None})
-    return component_func(id=id, kw=kw, default=default, key=key)
+    return component_func(id=id, kw=json.loads(json.dumps(kw, cls=CustomEncoder)), default=default, key=key)

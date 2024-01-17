@@ -8,10 +8,31 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-
+from .data_class import BsIcon, AntIcon, Tag
+from dataclasses import is_dataclass
 from typing import List, Union, Callable, Any
 
-__all__ = ['update_kw', 'update_index', 'get_default', 'ParseItems']
+__all__ = ['update_kw', 'update_index', 'get_default', 'ParseItems', 'parse_icon']
+
+
+def parse_icon(icon):
+    if isinstance(icon, str):
+        icon = BsIcon(name=icon).__dict__
+    elif isinstance(icon, BsIcon):
+        icon = icon.__dict__
+    elif isinstance(icon, AntIcon):
+        icon = icon.__dict__
+    return icon
+
+
+def parse_tag(tag):
+    if isinstance(tag, Tag):
+        tag = tag.__dict__
+    elif isinstance(tag, str):
+        tag = Tag(tag).__dict__
+    elif isinstance(tag, list):
+        tag = [Tag(i).__dict__ if isinstance(i, str) else i.__dict__ for i in tag]
+    return tag
 
 
 def update_kw(kw: dict, **kwargs):
@@ -80,11 +101,18 @@ class ParseItems:
     @staticmethod
     def _item_to_dict(item, field: str = 'label'):
         if isinstance(item, str):
-            return {field: item}
+            it = {field: item}
+        elif is_dataclass(item):
+            it = item.__dict__
         elif isinstance(item, dict):
-            return item.copy()
+            it = item.copy()
         else:
-            return item.__dict__.copy()
+            it = {}
+        if it.get('icon'):
+            it['icon'] = parse_icon(it.get('icon'))
+        if it.get('tag'):
+            it['tag'] = parse_tag(it.get('tag'))
+        return it
 
     def single(self, key_field: str = 'key', label_field: str = 'label', key_as_str: bool = False):
         """parse single level component items data"""

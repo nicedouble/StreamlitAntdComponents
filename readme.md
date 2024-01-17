@@ -8,15 +8,8 @@
 A Streamlit custom component to implement [Antd-Design](https://ant.design/) and [Mantine](https://v6.mantine.dev/) widgets.
 
 Check out the [Demo App][share_link] for more example.
-![demo](./img/demo.png)
+![demo](./img/demo.jpg)
 
-**highlight**
-
-* support streamlit theme(light or dark mode,or custom theme)
-* support [Bootstrap Icon](https://icons.getbootstrap.com/)
-* support nested data widgets(menu,tree,cascader...)
-* more components to display data
-* more style params (size,color,radius,variant...)
 
 This library now provides component blow:
 

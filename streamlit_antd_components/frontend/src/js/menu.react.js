@@ -41,7 +41,6 @@ const strToNode = (obj, size, variant, desc_color) => {
                     items={Array.isArray(tag) ? tag : [tag]}
                     align={'end'}
                     size={getSize(size) - 2}
-                    style={{lineHeight:1.2}}
                 />
             </div>
         }

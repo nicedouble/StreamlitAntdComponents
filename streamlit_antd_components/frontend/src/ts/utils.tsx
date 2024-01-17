@@ -56,7 +56,14 @@ const LabelWrap = (props: LabelWrapProps) => {
 
     return <div style={{display: grow ? 'block' : 'flex', justifyContent: align}}>
         {label !== null ?
-            <div style={{display: 'flex', flexDirection: 'column', gap: 5, width: grow ? '100%' : 'unset'}}>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 5,
+                width: grow ? '100%' : 'unset',
+                overflowX: 'auto',
+                overflowY: 'hidden'
+            }}>
                 <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
                     <div style={{color: textColor, fontSize: getSize(size)}}>{markdown(label)}</div>
                     <div style={{

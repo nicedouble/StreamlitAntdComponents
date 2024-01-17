@@ -17,7 +17,6 @@ __all__ = [
     'Tag',
     'StepsItem', 'ChipItem', 'CheckboxItem', 'ButtonsItem', 'SegmentedItem', 'TabsItem', 'CasItem', 'MenuItem',
     'TreeItem',
-    'parse_icon'
 ]
 
 
@@ -41,34 +40,11 @@ class AntIcon(Icon):
     pass
 
 
-def parse_icon(icon):
-    if isinstance(icon, str):
-        icon = BsIcon(name=icon).__dict__
-    elif isinstance(icon, BsIcon):
-        icon = icon.__dict__
-    elif isinstance(icon, AntIcon):
-        icon = icon.__dict__
-    return icon
-
-
-def parse_tag(tag):
-    if isinstance(tag, Tag):
-        tag = tag.__dict__
-    elif isinstance(tag, str):
-        tag = Tag(tag).__dict__
-    elif isinstance(tag, list):
-        tag = [Tag(i).__dict__ if isinstance(i, str) else i.__dict__ for i in tag]
-    return tag
-
-
 @dataclass
 class Item:
     label: str = ''  # item label
     icon: Union[str, BsIcon, AntIcon] = None  # item icon
     disabled: bool = False  # disabled item
-
-    def __post_init__(self):
-        self.icon = parse_icon(self.icon)
 
 
 @dataclass
@@ -78,7 +54,7 @@ class NestedItem(Item):
 
 @dataclass
 class Tag:
-    label: str  # label
+    label: str = None  # label
     icon: Union[str, BsIcon, AntIcon] = None  # icon
     link: str = None  # hyperlink
     size: Union[MantineSize, int] = None
@@ -86,9 +62,6 @@ class Tag:
     color: Union[Color, str] = None  # color
     bordered: bool = True  # show border
     closable: bool = False  # show close button
-
-    def __post_init__(self):
-        self.icon = parse_icon(self.icon)
 
 
 @dataclass
@@ -98,9 +71,6 @@ class StepsItem:
     description: str = ''
     icon: Union[str, BsIcon, AntIcon] = None
     disabled: bool = False
-
-    def __post_init__(self):
-        self.icon = parse_icon(self.icon)
 
 
 @dataclass
@@ -127,7 +97,7 @@ class SegmentedItem(Item):
 
 @dataclass
 class TabsItem(Item):
-    pass
+    tag: Union[str, Tag, List[Union[str, Tag]]] = None  # item tag
 
 
 @dataclass
@@ -137,13 +107,9 @@ class CasItem(NestedItem):
 
 @dataclass
 class TreeItem(NestedItem):
-    tag: Union[str, Tag] = None  # item tag
+    tag: Union[str, Tag, List[Union[str, Tag]]] = None  # item tag
     description: str = None
     tooltip: str = None  # item tooltip
-
-    def __post_init__(self):
-        super(TreeItem, self).__post_init__()
-        self.tag = parse_tag(self.tag)
 
 
 @dataclass
@@ -153,10 +119,6 @@ class MenuItem(NestedItem):
     tag: Union[str, Tag, List[Union[str, Tag]]] = None  # item tag
     type: Literal['group', 'divider'] = None  # item type
     dashed: bool = False  # divider line style,available when type=='divider'
-
-    def __post_init__(self):
-        super(MenuItem, self).__post_init__()
-        self.tag = parse_tag(self.tag)
 
 
 if __name__ == '__main__':

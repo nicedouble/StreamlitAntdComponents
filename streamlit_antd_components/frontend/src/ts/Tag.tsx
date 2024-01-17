@@ -1,8 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Space, Tag, ConfigProvider} from 'antd';
-import '../css/tag.css'
-import {MartineRadiusSize, GetColor, RgbaColor, getSize} from "../js/utils.react";
+import {MartineRadiusSize, GetColor, RgbaColor, getSize, insertStyle} from "../js/utils.react";
 import {CustomIcon} from "./utils";
 
 interface tagProp {
@@ -23,7 +22,7 @@ interface TagsProp {
     size?: any
     radius?: any
     color?: any
-    style?:React.CSSProperties
+    style?: React.CSSProperties
 }
 
 const AntdTag = (props: tagProp) => {
@@ -53,7 +52,7 @@ const AntdTag = (props: tagProp) => {
         >
             <Tag
                 color={color}
-                icon={<CustomIcon icon={icon} style={{marginRight: 5}}/>}
+                icon={<CustomIcon icon={icon} style={{marginRight: label ? 5 : 0}}/>}
                 closeIcon={closable}
                 bordered={bordered}
                 style={{
@@ -61,7 +60,7 @@ const AntdTag = (props: tagProp) => {
                     borderRadius: getSize(radius, MartineRadiusSize),
                     fontSize: getSize(size),
                     paddingInline: getSize(size) * 0.5,
-                    lineHeight: `${getSize(size) * 1.4}px`,
+                    lineHeight: `${getSize(size) * 1.1}px`,
                 }}
             >
                 {link ?
@@ -84,6 +83,14 @@ const AntdTags = (props: TagsProp) => {
 
     useEffect(() => Streamlit.setFrameHeight())
 
+    let tagStyle = `
+        .anticon.anticon-close.ant-tag-close-icon{
+            color: inherit;
+            font-size: ${getSize(size) - 4}px;
+        }
+    `
+    insertStyle('sac.tags-style', tagStyle)
+
     return <ConfigProvider
         theme={{
             components: {
@@ -103,6 +110,7 @@ const AntdTags = (props: TagsProp) => {
             direction={direction}
             size={5}
             style={style}
+            classNames={{item: 'd-flex align-items-center'}}
         >
             {items.map((item: any) => {
                 item.size = item.size || size
