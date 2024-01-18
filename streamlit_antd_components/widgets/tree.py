@@ -20,7 +20,7 @@ def tree(
         description: str = None,
         icon: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'md',
+        size: Union[MantineSize, int] = 'sm',
         color: Union[MantineColor, str] = None,
         width: int = None,
         height: int = None,

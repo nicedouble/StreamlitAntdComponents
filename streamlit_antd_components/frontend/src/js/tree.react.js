@@ -22,7 +22,8 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         if (description) {
             obj_copy.label = <div style={{lineHeight: 1.2, wordBreak: 'break-word', whiteSpace: 'break-spaces'}}>
                 <div>{obj_copy.label}</div>
-                <div className={'tree-desc'} style={{color: desc_color, fontSize: getSize(size)-2}}>{description}</div>
+                <div className={'tree-desc'}
+                     style={{color: desc_color, fontSize: getSize(size) - 2}}>{description}</div>
             </div>
         }
         //add tag
@@ -39,7 +40,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
         //add icon
         if (icon) {
             obj_copy.label = <div className={'d-flex align-items-center'}>
-                <CustomIcon icon={icon} style={{marginRight:5}}/>
+                <CustomIcon icon={icon} style={{marginRight: 5, alignSelf: 'start'}}/>
                 <div className={'d-flex  flex-grow-1'}>{obj_copy.label}
                 </div>
             </div>
@@ -54,7 +55,7 @@ const strToNode = (obj, size, treeIcon, desc_color) => {
                             colorTextLightSolid: 'var(--text-color)',
                             borderRadius: 6,
                             controlHeight: 12,
-                            fontSize: getSize(size)-4,
+                            fontSize: getSize(size) - 4,
                         },
                     },
                 }}

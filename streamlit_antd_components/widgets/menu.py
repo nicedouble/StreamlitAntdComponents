@@ -17,7 +17,7 @@ def menu(
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
         size: Union[MantineSize, int] = 'md',
-        variant: Literal['light', 'filled', 'subtle'] = 'light',
+        variant: Literal['light', 'filled', 'subtle', 'border-left', 'border-right'] = 'light',
         color: Union[MantineColor, str] = None,
         indent: int = 24,
         height: int = None,

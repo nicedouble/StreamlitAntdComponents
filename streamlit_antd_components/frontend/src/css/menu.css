@@ -9,10 +9,14 @@ span.ant-menu-title-content {
 
 li.ant-menu-item {
     height: auto !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .ant-menu-submenu-title {
     height: auto !important;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .ant-tag {

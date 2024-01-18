@@ -20,7 +20,7 @@ def switch(
         off_label: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         position: MantinePosition = 'right',
-        size: MantineSize = 'md',
+        size: MantineSize = 'sm',
         radius: Union[MantineSize, int] = 'lg',
         on_color: Union[MantineColor, str] = None,
         off_color: Union[MantineColor, str] = None,

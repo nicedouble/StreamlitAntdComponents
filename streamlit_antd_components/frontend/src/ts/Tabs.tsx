@@ -79,7 +79,7 @@ const AntdTabs = (props: TabsProp) => {
             flex-grow: 1;
         }
     `
-    insertStyle('sac.tabs-style', grow ? style + growStyle : style)
+    insertStyle('sac.tabs.style', grow ? style + growStyle : style)
 
     //component height
     let tabsHeight = ['left', 'right'].includes(position) && height != null ? height : undefined

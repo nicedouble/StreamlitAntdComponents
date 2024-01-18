@@ -72,7 +72,7 @@ const AntdPagination = (props: PaginationProp) => {
         font-size:${getSize(size)}px !important
     }
     `
-    insertStyle(`sac.pagination.variant`, textStyle)
+    insertStyle(`sac.pagination.style`, textStyle)
 
     //callback
     const onChange: PaginationProps['onChange'] = (page) => {

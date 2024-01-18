@@ -89,7 +89,7 @@ const AntdTags = (props: TagsProp) => {
             font-size: ${getSize(size) - 4}px;
         }
     `
-    insertStyle('sac.tags-style', tagStyle)
+    insertStyle('sac.tags.style', tagStyle)
 
     return <ConfigProvider
         theme={{

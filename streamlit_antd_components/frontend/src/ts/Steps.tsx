@@ -50,7 +50,7 @@ const AntdSteps = (props: StepsProp) => {
         color:${RgbaColor(textColor,0.5)} !important
     }
     `
-    insertStyle(`sac.steps.title`, textStyle)
+    insertStyle(`sac.steps.style`, textStyle)
 
     //callback
     const onChange = (current: any) => {

@@ -17,7 +17,7 @@ def checkbox(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        size: Union[MantineSize, int] = 'md',
+        size: Union[MantineSize, int] = 'sm',
         radius: Union[MantineSize, int] = 'sm',
         color: Union[MantineColor, str] = None,
         align: Align = 'start',

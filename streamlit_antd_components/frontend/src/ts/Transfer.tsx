@@ -169,6 +169,7 @@ const AntdTransfer = (props: TransferProp) => {
                 desc={description}
                 align={align}
                 grow={grow}
+                style={{overflowX: 'auto'}}
                 children={
                     <Transfer
                         dataSource={dataSource}

@@ -63,7 +63,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
         }
     `
 
-    insertStyle(`btn-${idx}-style`, isSelect ? selectStyle : unSelectStyle)
+    insertStyle(`sac.buttons${idx}.style`, isSelect ? selectStyle : unSelectStyle)
 
     return (
         <ConfigProvider
@@ -135,17 +135,20 @@ const AntdButtons = (props: ButtonsProp) => {
         .ant-btn-dashed:disabled,.ant-btn-default:disabled{
             border-color: ${RgbaColor(textColor, 0.1)} !important;
         }
-        .ant-space-item .ant-btn {
+        .ant-btn {
             min-height: ${3 * getSize(size) - 10}px;
             min-width: ${3 * getSize(size) - 10}px;
             width: ${grow ? '100%' : 'auto'} !important;
-            padding: ${getSize(size) * 0.2}px ${getSize(size) * 0.8}px;
+            padding: ${getSize(size) * 0.3}px ${getSize(size) * 0.8}px;
+        }
+        .ant-btn.ant-btn-icon-only{
+            padding:${getSize(size) * 0.3}px
         }
         .ant-space-compact .ant-btn{
             flex-grow:${grow ? 1 : undefined}
         }
     `
-    insertStyle(`sac.buttons-style`, style)
+    insertStyle(`sac.buttons.style`, style)
 
     //state
     const [selected, setSelected] = useState(index)

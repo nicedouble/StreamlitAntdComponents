@@ -65,14 +65,14 @@ const AntdTree = (props: TreeProp) => {
         font-size: ${getSize(size) - 2}px !important;
     }
     .ant-tree-title{
-        line-height:${getSize(size) + 14}px !important
+        line-height:${getSize(size)+2}px !important
     }
     .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after{
         width:50% !important;
         height:50% !important;
     }
     `
-    insertStyle(`sac.tree.selected`, textStyle)
+    insertStyle(`sac.tree.style`, textStyle)
 
     //callback
     const onExpand: TreeProps['onExpand'] = (e) => {

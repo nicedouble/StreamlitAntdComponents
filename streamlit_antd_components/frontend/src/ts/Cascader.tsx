@@ -61,7 +61,7 @@ const AntdCascader = (props: CascaderProp) => {
             color: rgb(255, 255, 255);
         }
     `
-    insertStyle('sac.cascader-style', multiple ? borderStyle + checkboxStyle : borderStyle)
+    insertStyle('sac.cascader.style', multiple ? borderStyle + checkboxStyle : borderStyle)
 
     //state
     const [height, setHeight] = useState()

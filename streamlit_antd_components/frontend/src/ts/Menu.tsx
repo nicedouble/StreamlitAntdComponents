@@ -42,6 +42,7 @@ const AntdMenu = (props: MenuProp) => {
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const primaryLightColor = RgbaColor(primaryColor)
+    const bgColor = GetColor('--background-color')
 
     //custom style
     const textStyle = `
@@ -58,8 +59,20 @@ const AntdMenu = (props: MenuProp) => {
     .ant-menu-item-group-list>li{
         padding-left: ${2 * indent}px !important
     }
+    .ant-menu-item.ant-menu-item-selected{
+        border-left:${variant === 'border-left' ? `4px solid ${primaryColor}` : 'unset'} !important;
+        border-right:${variant === 'border-right' ? `4px solid ${primaryColor}` : 'unset'} !important;
+    }
+    .ant-menu-item{
+        border-left-style:${variant === 'border-left' ? 'solid' : 'unset'} !important;
+        border-left-color:${variant === 'border-left' ? 'transparent' : 'unset'} !important;
+        border-left-width:${variant === 'border-left' ? `4px` : 'unset'} !important;
+        border-right-style:${variant === 'border-right' ? 'solid' : 'unset'} !important;
+        border-right-color:${variant === 'border-right' ? 'transparent' : 'unset'} !important;
+        border-right-width:${variant === 'border-right' ? `4px` : 'unset'} !important;
+    }
     `
-    insertStyle(`sac.menu.filled`, textStyle)
+    insertStyle(`sac.menu.style`, textStyle)
 
     //state
     const [selectKey, setSelectKey] = useState(dsk)
@@ -107,7 +120,7 @@ const AntdMenu = (props: MenuProp) => {
             theme={{
                 components: {
                     Menu: {
-                        itemBorderRadius: 8,
+                        itemBorderRadius: variant === 'border-left' || variant === 'border-right' ? 0 : 8,
                         itemColor: 'var(--text-color)',
                         groupTitleColor: RgbaColor(textColor, 0.5),
                         itemDisabledColor: RgbaColor(textColor, 0.5),
@@ -115,13 +128,13 @@ const AntdMenu = (props: MenuProp) => {
                         itemHoverBg: RgbaColor(textColor),
                         itemActiveBg: RgbaColor(textColor, 0.25),
                         itemSelectedColor: variant === 'filled' ? '#fff' : primaryColor,
-                        itemSelectedBg: variant === 'light' ? primaryLightColor : variant === 'filled' ? primaryColor : 'transform',
-                        subMenuItemBg: 'transform',
-                        itemBg: 'transform',
+                        itemSelectedBg: variant === 'filled' ? primaryColor : variant === 'subtle' ? bgColor : primaryLightColor,
+                        subMenuItemBg: bgColor,
+                        itemBg: bgColor,
                         colorSplit: RgbaColor(textColor),
                         fontFamily: 'var(--font)',
                         fontSize: getSize(size),
-                        itemHeight: getSize(size) + 20,
+                        itemHeight: getSize(size) + 5,
                     },
                 },
             }}

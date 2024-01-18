@@ -1,4 +1,7 @@
-.ant-tree-node-content-wrapper.ant-tree-node-content-wrapper-normal{
+.ant-tree-node-content-wrapper{
     word-break: break-word;
     white-space: break-spaces;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    line-height: 1.2 !important;
 }

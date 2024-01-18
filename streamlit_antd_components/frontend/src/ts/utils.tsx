@@ -43,6 +43,7 @@ interface LabelWrapProps {
     align?: string
     grow?: boolean
     children: React.ReactNode
+    style?: React.CSSProperties
 }
 
 const LabelWrap = (props: LabelWrapProps) => {
@@ -52,18 +53,17 @@ const LabelWrap = (props: LabelWrapProps) => {
     const align = props.align === undefined ? 'start' : props.align
     const grow = props.grow === undefined ? false : props.grow
     const children = props.children
+    const style = props.style
     const textColor = GetColor('--text-color')
 
     return <div style={{display: grow ? 'block' : 'flex', justifyContent: align}}>
         {label !== null ?
-            <div style={{
+            <div style={Object.assign({
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 5,
                 width: grow ? '100%' : 'unset',
-                overflowX: 'auto',
-                overflowY: 'hidden'
-            }}>
+            }, style)}>
                 <div style={{lineHeight: 1.3, fontFamily: 'var(--font)'}}>
                     <div style={{color: textColor, fontSize: getSize(size)}}>{markdown(label)}</div>
                     <div style={{

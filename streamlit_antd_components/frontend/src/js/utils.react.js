@@ -19,6 +19,18 @@ const MartineRadiusSize = {
     'xl': 32,
 }
 
+const getFlexDirection = (position) => {
+    const IconPosition = {
+        'left': 'row',
+        'right': 'row-reverse',
+        'top': 'column',
+        'bottom': 'column-reverse'
+    }
+    if (Object.keys(IconPosition).indexOf(position) !== -1) {
+        return IconPosition[position]
+    }
+    return 'row'
+}
 
 const getSize = (size, base = MartineFontSize) => {
     if (['xs', 'sm', 'md', 'lg', 'xl'].indexOf(size) !== -1) {
@@ -48,6 +60,10 @@ const RgbaColor = (color, alpha = 0.2) => {
 const DarkenColor = (color, alpha = 0.2) => {
     const theme = useMantineTheme()
     return theme.fn.darken(color, alpha)
+}
+const LightenColor = (color, alpha = 0.2) => {
+    const theme = useMantineTheme()
+    return theme.fn.lighten(color, alpha)
 }
 
 
@@ -233,5 +249,5 @@ export {
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, RgbaColor, DarkenColor, getSize
+    GetColor, RgbaColor, DarkenColor,LightenColor, getSize, getFlexDirection
 };
