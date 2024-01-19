@@ -4,6 +4,7 @@ import {Button, Space, ConfigProvider} from 'antd';
 import {getHrefKeys, insertStyle, GetColor, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
 import {CustomIcon, LabelWrap} from "./utils";
 import "../css/buttons.css"
+import {transform} from "@babel/core";
 
 interface ButtonsProp {
     label: any;
@@ -38,7 +39,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
     const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
     const text_color = props['color'] != null ? props['color'] : textColor
     const linkColor = props['color'] != null ? props['color'] : '#1677ff'
-    const backgroundColor = props['background_color'] != null ? props['background_color'] : '#ffffff'; // default to white if not specified
+    const backgroundColor = props['background_color'] != null ? props['background_color'] : 'transform'; // default to white if not specified
 
     let selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
