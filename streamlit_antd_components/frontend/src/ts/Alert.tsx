@@ -14,7 +14,7 @@ interface AlertProp {
     variant: any
     icon: any
     closable: boolean;
-    banner: boolean | boolean[];
+    banner: boolean | boolean[] | any;
 }
 
 const AntdAlert = (props: AlertProp) => {
@@ -68,8 +68,8 @@ const AntdAlert = (props: AlertProp) => {
             font-size: ${getSize(size) + 8}px;
         }
         .ant-alert{
-            border: ${variant === 'outline' ? `1px solid ${primary}` : 0};
-            border-left:${variant === 'quote' || variant === 'quote-light' ? `4px solid ${primary}` : '1'};
+            border: ${variant === 'outline' ? `1px solid ${primary}` : 0} !important;
+            border-left:${variant === 'quote' || variant === 'quote-light' ? `4px solid ${primary}` : '1'} !important;
             border-top-left-radius:${variant === 'quote' || variant === 'quote-light' ? 0 : 'none'} !important;
             border-bottom-left-radius:${variant === 'quote' || variant === 'quote-light' ? 0 : 'none'} !important;
         }
@@ -83,15 +83,33 @@ const AntdAlert = (props: AlertProp) => {
     }
     insertStyle(`sac.alert.style`, getStyle(color, size))
 
-    const getBanner = (ban: boolean | boolean[]) => {
+    const getPlay = (b: any) => {
+        return typeof (b) === 'boolean' ? b : b['play']
+    }
+
+    const getBanner = (ban: any) => {
         if (Array.isArray(ban)) {
             //total banner,message banner,description banner
-            return [ban[0] || ban[1], ban[0], ban[1]]
+            const db = ban.length === 1 ? ban[0] : ban[1]
+            return [Boolean(getPlay(ban[0]) || getPlay(ban[1])), ban[0], db]
         } else {
-            return [ban, ban, ban]
+            return [getPlay(ban), ban, ban]
         }
     }
     const [totalBanner, messageBanner, descriptionBanner] = getBanner(banner)
+
+    const customMarquee = (ban: any, children: any) => {
+        if (getPlay(ban)) {
+            if (typeof (ban) === 'boolean') {
+                return <Marquee pauseOnHover={true}>{markdown(children)}</Marquee>
+            } else {
+                return <Marquee pauseOnHover={ban['pauseOnHover']} speed={ban['speed']} play={ban['play']}
+                                direction={ban['direction']}>{markdown(children)}</Marquee>
+            }
+        } else {
+            return markdown(children)
+        }
+    }
 
     return (
         <ConfigProvider
@@ -104,9 +122,8 @@ const AntdAlert = (props: AlertProp) => {
             }}
         >
             <Alert
-                message={messageBanner ? <Marquee pauseOnHover={true}>{markdown(message)}</Marquee> : markdown(message)}
-                description={description == null ? undefined : descriptionBanner ?
-                    <Marquee pauseOnHover={true}>{markdown(description)}</Marquee> : markdown(description)}
+                message={customMarquee(messageBanner, message)}
+                description={description == null ? undefined : customMarquee(descriptionBanner, description)}
                 type={Object.keys(colorList).indexOf(color) !== -1 ? color : 'info'}
                 showIcon={typeof (icon) === 'boolean' ? icon : true}
                 closable={closable}

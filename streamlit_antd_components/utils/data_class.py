@@ -14,7 +14,7 @@ from .setting import Color, MantineSize, MantineColor
 
 __all__ = [
     'BsIcon', 'AntIcon',
-    'Tag',
+    'Tag', 'Banner',
     'StepsItem', 'ChipItem', 'CheckboxItem', 'ButtonsItem', 'SegmentedItem', 'TabsItem', 'CasItem', 'MenuItem',
     'TreeItem',
 ]
@@ -38,6 +38,14 @@ class BsIcon(Icon):
 @dataclass
 class AntIcon(Icon):
     pass
+
+
+@dataclass
+class Banner:
+    play: bool = True  # Whether to play or pause the marquee
+    direction: Literal['left', 'right'] = 'left'  # The direction the marquee is sliding
+    speed: int = 50  # Speed calculated as pixels/second
+    pauseOnHover: bool = True  # Whether to pause the marquee when hovered
 
 
 @dataclass

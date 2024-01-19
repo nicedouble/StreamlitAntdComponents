@@ -44,7 +44,6 @@ def convert_session_value(id, value, kv: dict, return_index: bool):
 class CustomEncoder(json.JSONEncoder):
     def default(self, obj):
         if is_dataclass(obj):
-            print(obj,obj.name)
             return obj.__dict__
         return super().default(obj)
 
