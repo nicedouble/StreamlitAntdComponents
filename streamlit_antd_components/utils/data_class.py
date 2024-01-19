@@ -96,7 +96,7 @@ class ChipItem(Item):
 class ButtonsItem(Item):
     href: str = None  # link address
     color: Union[MantineColor, str] = None  # button color
-
+    background_color: Union[MantineColor, str] = None  # background color
 
 @dataclass
 class SegmentedItem(Item):

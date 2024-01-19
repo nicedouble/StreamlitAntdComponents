@@ -29,13 +29,17 @@ interface ButtonProp {
     disabled: any;
     href: any;
     color: any;
+    background_color: any;
 }
+
 
 const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
     const textColor = GetColor('--text-color')
     const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
     const text_color = props['color'] != null ? props['color'] : textColor
     const linkColor = props['color'] != null ? props['color'] : '#1677ff'
+    const backgroundColor = props['background_color'] != null ? props['background_color'] : '#ffffff'; // default to white if not specified
+
     let selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
             color: #fff !important;
@@ -74,7 +78,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorPrimary: primary_color,
                         colorBgContainerDisabled: 'transform',
-                        colorBgContainer: 'transform',
+                        colorBgContainer: backgroundColor,
                         colorPrimaryHover: primary_color,
                         colorPrimaryActive: primary_color,
                         colorBgTextHover: RgbaColor(textColor, 0.1),
