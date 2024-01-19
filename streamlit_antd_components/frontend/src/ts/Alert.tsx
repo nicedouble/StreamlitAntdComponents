@@ -54,7 +54,7 @@ const AntdAlert = (props: AlertProp) => {
         return `
         .ant-alert.ant-alert-${element}{
             color: ${variant === 'filled' ? '#fff' : primary};
-            background: ${variant === 'filled' ? primary : variant === 'light' ? lighten : 'transparent'};
+            background: ${variant === 'filled' ? primary : variant === 'light' || variant === 'quote-light' ? lighten : 'transparent'};
         }
         .ant-alert.ant-alert-${element} .ant-alert-message{
             color: ${variant === 'filled' ? '#fff' : primary};
@@ -68,7 +68,10 @@ const AntdAlert = (props: AlertProp) => {
             font-size: ${getSize(size) + 8}px;
         }
         .ant-alert{
-            border: ${variant === 'outline' ? `1px solid ${primary}` : 0} !important;
+            border: ${variant === 'outline' ? `1px solid ${primary}` : 0};
+            border-left:${variant === 'quote' || variant === 'quote-light' ? `4px solid ${primary}` : '1'};
+            border-top-left-radius:${variant === 'quote' || variant === 'quote-light' ? 0 : 'none'} !important;
+            border-bottom-left-radius:${variant === 'quote' || variant === 'quote-light' ? 0 : 'none'} !important;
         }
         .ant-alert-description{
             color: ${variant === 'filled' ? '#fff' : GetColor('--text-color')} !important;

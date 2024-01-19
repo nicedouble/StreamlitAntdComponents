@@ -60,16 +60,16 @@ const AntdMenu = (props: MenuProp) => {
         padding-left: ${2 * indent}px !important
     }
     .ant-menu-item.ant-menu-item-selected{
-        border-left:${variant === 'border-left' ? `4px solid ${primaryColor}` : 'unset'} !important;
-        border-right:${variant === 'border-right' ? `4px solid ${primaryColor}` : 'unset'} !important;
+        border-left:${variant === 'left-bar' ? `4px solid ${primaryColor}` : 'unset'} !important;
+        border-right:${variant === 'right-bar' ? `4px solid ${primaryColor}` : 'unset'} !important;
     }
     .ant-menu-item{
-        border-left-style:${variant === 'border-left' ? 'solid' : 'unset'} !important;
-        border-left-color:${variant === 'border-left' ? 'transparent' : 'unset'} !important;
-        border-left-width:${variant === 'border-left' ? `4px` : 'unset'} !important;
-        border-right-style:${variant === 'border-right' ? 'solid' : 'unset'} !important;
-        border-right-color:${variant === 'border-right' ? 'transparent' : 'unset'} !important;
-        border-right-width:${variant === 'border-right' ? `4px` : 'unset'} !important;
+        border-left-style:${variant === 'left-bar' ? 'solid' : 'unset'} !important;
+        border-left-color:${variant === 'left-bar' ? 'transparent' : 'unset'} !important;
+        border-left-width:${variant === 'left-bar' ? `4px` : 'unset'} !important;
+        border-right-style:${variant === 'right-bar' ? 'solid' : 'unset'} !important;
+        border-right-color:${variant === 'right-bar' ? 'transparent' : 'unset'} !important;
+        border-right-width:${variant === 'right-bar' ? `4px` : 'unset'} !important;
     }
     `
     insertStyle(`sac.menu.style`, textStyle)
@@ -120,7 +120,7 @@ const AntdMenu = (props: MenuProp) => {
             theme={{
                 components: {
                     Menu: {
-                        itemBorderRadius: variant === 'border-left' || variant === 'border-right' ? 0 : 8,
+                        itemBorderRadius: variant === 'left-bar' || variant === 'right-bar' ? 0 : 8,
                         itemColor: 'var(--text-color)',
                         groupTitleColor: RgbaColor(textColor, 0.5),
                         itemDisabledColor: RgbaColor(textColor, 0.5),
