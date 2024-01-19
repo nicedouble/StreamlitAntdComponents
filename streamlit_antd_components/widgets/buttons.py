@@ -22,6 +22,7 @@ def buttons(
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['filled', 'outline', 'dashed', 'text', 'link'] = 'outline',
         color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
         gap: Union[MantineSize, int] = 'sm',
@@ -43,6 +44,7 @@ def buttons(
     :param radius: button radius,support mantine size and int in px
     :param variant: buttons variant
     :param color: buttons color,default streamlit primary color,support mantine color, hex and rgb color
+    :param background_color: buttons background color,support mantine color, hex and rgb color
     :param align: buttons align,available when direction='horizontal'
     :param direction: buttons direction
     :param gap: buttons gap,support mantine size and int in px.set as 0 to display compact mode

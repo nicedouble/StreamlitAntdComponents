@@ -16,6 +16,7 @@ interface ButtonsProp {
     size: any
     radius: any
     color: any
+    background_color: any;
     direction: "horizontal" | "vertical" | undefined;
     gap: any;
     use_container_width: boolean;
@@ -34,12 +35,12 @@ interface ButtonProp {
 }
 
 
-const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
+const AntdButton = (idx: any, type_: any, size: any, color: any, background_color: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
     const textColor = GetColor('--text-color')
     const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
     const text_color = props['color'] != null ? props['color'] : textColor
     const linkColor = props['color'] != null ? props['color'] : '#1677ff'
-    const backgroundColor = props['background_color'] != null ? props['background_color'] : 'transform'; // default to white if not specified
+    const backgroundColor = props['background_color'] != null ? props['background_color'] : background_color != null ? background_color : 'transform'; // default to white if not specified
 
     let selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
@@ -123,6 +124,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const size = props['size']
     const radius = props['radius']
     const color = props['color']
+    const background_color = props['background_color']
     const direction = props['direction']
     const gap = props['gap']
     const grow = props['use_container_width']
@@ -193,7 +195,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const buttonGroup = items.map((item: any, idx) => {
             let otherType = ['primary', 'default'].find((x) => x !== variant)
             let type_: any = index != null ? selected === idx ? otherType : variant : variant
-            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null, grow)
+            return AntdButton(idx, type_, size, color, background_color, radius, item, onClick, index != null, grow)
         }
     )
 
