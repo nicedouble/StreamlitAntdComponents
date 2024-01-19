@@ -70,6 +70,12 @@ const AntdMenu = (props: MenuProp) => {
         border-right-style:${variant === 'right-bar' ? 'solid' : 'unset'} !important;
         border-right-color:${variant === 'right-bar' ? 'transparent' : 'unset'} !important;
         border-right-width:${variant === 'right-bar' ? `4px` : 'unset'} !important;
+        padding-top: ${getSize(size) * 0.5}px;
+        padding-bottom: ${getSize(size) * 0.5}px;
+    }
+    .ant-menu-submenu-title {
+        padding-top: ${getSize(size) * 0.5}px;
+        padding-bottom: ${getSize(size) * 0.5}px;
     }
     `
     insertStyle(`sac.menu.style`, textStyle)

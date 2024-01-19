@@ -23,7 +23,7 @@ const strToNode = (obj, size, variant, desc_color) => {
         obj_copy.icon = <CustomIcon icon={icon} style={{marginRight: 10, fontSize: getSize(size) + 3}}/>
         //add description
         if (description) {
-            obj_copy.label = <div style={{lineHeight: 1.3}} className={'py-2'}>
+            obj_copy.label = <div style={{lineHeight: 1.3}}>
                 <div style={{wordBreak: 'break-word'}}>{obj_copy.label}</div>
                 <div className={'menu-desc'} style={{
                     color: desc_color,

@@ -8,6 +8,10 @@
     justify-content: center;
 }
 
-.ant-tabs-tab-btn{
+.ant-tabs-tab-btn {
     text-shadow: none !important;
+}
+
+.ant-tabs-nav {
+    margin: 0 !important;
 }
