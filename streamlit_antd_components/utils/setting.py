@@ -11,7 +11,7 @@
 from typing import Literal
 
 __all__ = [
-    'Formatter', 'Align', 'Direction', 'MantineSize', 'Msg', 'Status', 'Position',
+    'Formatter', 'Align', 'Direction', 'MantineSize','MantineFont', 'Msg', 'Status', 'Position',
     'Color', 'MantineColor', 'MantinePosition',
 ]
 # global field type
@@ -28,3 +28,4 @@ MantinePosition = Literal["left", "right"]
 MantineColor = Literal[
     'dark', 'gray', 'red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange'
 ]
+MantineFont = Literal['arial', 'helvetica', 'tahoma', 'verdana', 'monospace', 'georgia', 'times new roman', 'serif']
