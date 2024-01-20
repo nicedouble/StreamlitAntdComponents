@@ -14,7 +14,7 @@ from ..utils import *
 
 def buttons(
         items: List[Union[str, dict, ButtonsItem]],
-        index: Union[int, None] = 0,
+        index: Literal[0, 1] = 0,
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
