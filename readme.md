@@ -89,7 +89,7 @@ npm install
 npm run build
 ```
 
-Then in source, you can debug the component in the demo app. Via
+Then in source, you can debug the components in the [demo app](https://github.com/nicedouble/StreamlitAntdComponentsDemo). Via
 ```py
 pip install .
 ```
