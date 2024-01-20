@@ -21,7 +21,6 @@ def segmented(
         align: Align = 'start',
         direction: Direction = 'horizontal',
         radius: Union[MantineSize, int] = 'md',
-        bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
         use_container_width: bool = False,
         disabled: bool = False,
@@ -33,7 +32,7 @@ def segmented(
         key=None,
         color: Union[MantineColor, str] = None,
         background_color: Union[MantineColor, str] = None,
-        size: Union[MantineSize, int] = 'md',
+        size: Union[MantineSize, int] = None,
         font: Union[MantineFont, str] = None,
 
 ) -> Union[str, int]:

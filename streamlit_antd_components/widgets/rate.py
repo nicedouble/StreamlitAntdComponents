@@ -39,10 +39,6 @@ def rate(
     :param symbol: rate item symbol,default star,can be str or BsIcon,AntIcon
     :param align: rate align
     :param size: symbol size,support mantine size and int in px
-            
-    
-    
-   symbol color,default streamlit primary color,support mantine color, hex and rgb color
     :param half: allow half select
     :param on_change: rate change callback
     :param args: callback args

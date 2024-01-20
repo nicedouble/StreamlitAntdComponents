@@ -17,7 +17,7 @@ def tabs(
         format_func: Union[Formatter, Callable] = None,
         align: Align = 'start',
         position: Position = 'top',
-        size: Union[MantineSize, int] = 'md',
+        size: Union[MantineSize, int] = None,
         variant: Literal['default', 'outline'] = 'default',
         color: Union[MantineColor, str] = None,
         height: int = None,

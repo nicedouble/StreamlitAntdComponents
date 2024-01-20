@@ -20,8 +20,6 @@ def tree(
         description: str = None,
         icon: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'sm',
-        color: Union[MantineColor, str] = None,
         width: int = None,
         height: int = None,
         open_index: List[int] = None,
@@ -33,7 +31,11 @@ def tree(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
 

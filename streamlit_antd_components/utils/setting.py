@@ -26,6 +26,6 @@ Color = Literal['magenta', 'red', 'volcano', 'orange', 'gold', 'lime', 'green', 
 MantineSize = Literal['xs', 'sm', 'md', 'lg', 'xl']
 MantinePosition = Literal["left", "right"]
 MantineColor = Literal[
-    'dark', 'gray', 'red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange'
+    'dark', 'gray', 'red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange', 'white'
 ]
 MantineFont = Literal['arial', 'helvetica', 'tahoma', 'verdana', 'monospace', 'georgia', 'times new roman', 'serif']
