@@ -8,8 +8,9 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
 from dataclasses import is_dataclass
+
+from ..utils import *
 
 
 def switch(
@@ -28,7 +29,10 @@ def switch(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
-        **theme
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 
 ) -> bool:
     """mantine switch  https://v6.mantine.dev/core/switch/
@@ -49,7 +53,11 @@ def switch(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: True when open,False when close
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: True when open,False when close
     """
     # register callback
     register(key, on_change, args, kwargs)

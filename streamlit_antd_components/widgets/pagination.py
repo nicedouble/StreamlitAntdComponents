@@ -28,7 +28,10 @@ def pagination(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
-        **theme
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 
 ) -> float:
     """antd design pagination https://ant.design/components/pagination
@@ -40,7 +43,10 @@ def pagination(
     :param size: pagination size,support mantine size and int in px
     :param radius: pagination radius,support mantine size and int in px
     :param variant: pagination variant
-    :param color: pagination color,default streamlit primary color,support mantine color, hex and rgb color
+            
+    
+    
+   pagination color,default streamlit primary color,support mantine color, hex and rgb color
     :param previous: pagination previous button text
     :param next: pagination next button text
     :param disabled: disable pagination status
@@ -51,7 +57,11 @@ def pagination(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-    :return: select page number
+        :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: select page number
     """
     # register callback
     register(key, on_change, args, kwargs)

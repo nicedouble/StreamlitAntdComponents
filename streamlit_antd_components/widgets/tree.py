@@ -45,7 +45,6 @@ def tree(
     :param icon: tree item icon
     :param align: tree align
     :param size: tree size,support mantine size and int in px
-    :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
     :param width: tree width
     :param height: tree height
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
@@ -58,7 +57,11 @@ def tree(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: list of selected item label or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: list of selected item label or index
     """
     if isinstance(index, list) and len(index) > 1 and not checkbox:
         raise ValueError(f'length of index ({len(index)}) should =1  when checkbox=False')

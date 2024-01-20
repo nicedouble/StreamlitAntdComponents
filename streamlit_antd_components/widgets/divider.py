@@ -18,7 +18,10 @@ def divider(
         align: Align = 'start',
         variant: Literal['solid', 'dashed', 'dotted'] = 'solid',
         key=None,
-        **theme
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 
 ):
     """mantine divider component https://v6.mantine.dev/core/divider/
@@ -28,7 +31,10 @@ def divider(
     :param align: label align
     :param size: divider size,support mantine size and int in px
     :param variant: divider variant
-    :param color: divider color
+            
+    
+    
+   divider color
     :param key: component unique identifier
     """
     # update icon

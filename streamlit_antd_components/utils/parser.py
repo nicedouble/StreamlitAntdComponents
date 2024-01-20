@@ -8,9 +8,10 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .data_class import BsIcon, AntIcon, Tag
 from dataclasses import is_dataclass
 from typing import List, Union, Callable, Any
+
+from .data_class import BsIcon, AntIcon, Tag
 
 __all__ = ['update_kw', 'update_index', 'get_default', 'ParseItems', 'parse_icon']
 
@@ -43,18 +44,12 @@ def parse_theme(theme):
 
 def update_kw(kw: dict, **kwargs):
     r = kw.copy()
-    if 'theme' in r.keys():
-        parse_theme(r['theme'])
-        r.update(**r['theme'])
-        del r['theme']
     r.update(**kwargs)
     delete_keys = ['format_func', 'key', 'on_change', 'args', 'kwargs']
     for k in delete_keys:
         if k in r.keys():
             del r[k]
     return r
-
-
 
 
 def update_index(i, return_type='array'):

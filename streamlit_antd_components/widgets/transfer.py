@@ -32,7 +32,10 @@ def transfer(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
-        **theme
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
@@ -44,7 +47,6 @@ def transfer(
     :param description: transfer description,support str and markdown str
     :param titles: transfer left and right box title,[left,right]
     :param align: transfer align
-    :param color: transfer color,default streamlit primary color,support mantine color, hex and rgb color
     :param search: show search bar
     :param pagination: show pagination
     :param oneway: oneway mode
@@ -58,7 +60,11 @@ def transfer(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: selected transfer label or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: selected transfer label or index
     """
     # register callback
     register(key, on_change, args, kwargs)
