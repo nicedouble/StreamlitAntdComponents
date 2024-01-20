@@ -11,7 +11,6 @@ interface TabsProp {
     align: string;
     position: any;
     variant: any;
-    centered: boolean;
     height: number | null;
     use_container_width: boolean;
     size: any
@@ -23,12 +22,11 @@ interface TabsProp {
 
 const AntdTabs = (props: TabsProp) => {
     //get data
-    const items = strToNode(props['items'])
+    const items = strToNode(props['items'],props['size'])
     const index = props['index']
     const align = props['align']
     const position = props['position']
     const variant = props['variant']
-    const centered = props['centered']
     const height = props['height']
     const grow = props['use_container_width']
     const size = props['size']
@@ -81,7 +79,7 @@ const AntdTabs = (props: TabsProp) => {
             flex-grow: 1;
         }
     `
-    insertStyle('sac.tabs-style', grow ? style + growStyle : style)
+    insertStyle('sac.tabs.style', grow ? style + growStyle : style)
 
     //component height
     let tabsHeight = ['left', 'right'].includes(position) && height != null ? height : undefined
@@ -131,8 +129,6 @@ const AntdTabs = (props: TabsProp) => {
                         fontFamily: 'var(--font)',
                         cardBg: 'transparent',
                         cardGutter: variant === 'outline' ? 0 : 2,
-                        horizontalItemGutter: 15,
-                        horizontalMargin: '0',
                         cardHeight: getSize(size) + 25,
                         colorBorderSecondary: 'transparent',
                     },
@@ -146,7 +142,6 @@ const AntdTabs = (props: TabsProp) => {
                 onTabClick={onClick}
                 type={variant === 'default' ? 'line' : 'card'}
                 tabPosition={position}
-                centered={centered}
                 style={{height: tabsHeight}}
             />
         </ConfigProvider>

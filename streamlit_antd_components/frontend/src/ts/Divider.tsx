@@ -3,6 +3,7 @@ import React, {useEffect} from "react";
 import {Divider} from '@mantine/core';
 import {getTheme, markdown, RgbaColor} from "../js/utils.react"
 import {BaseProp, CustomIcon} from "./utils";
+import {ConfigProvider} from "antd";
 
 interface DividerProp extends BaseProp {
     label: any
@@ -24,16 +25,26 @@ const AntdDivider = (props: DividerProp) => {
     useEffect(() => Streamlit.setFrameHeight())
 
     return (
-        <Divider
-            color={color == null ? RgbaColor(textColor) : color}
-            label={icon ?
-                <span className={'d-flex align-items-center'}>
+        <ConfigProvider
+            theme={{
+                components: {
+                    Divider: {
+                        ...theme,
+                    },
+                },
+            }}
+        >
+            <Divider
+                color={color == null ? RgbaColor(textColor) : color}
+                label={icon ?
+                    <span className={'d-flex align-items-center'}>
                     <CustomIcon icon={icon} style={{marginRight: 5}}/>{markdown(label)}
                 </span> : markdown(label)}
-            labelPosition={align}
-            size={size}
-            variant={variant}
-        />
+                labelPosition={align}
+                size={size}
+                variant={variant}
+            />
+        </ConfigProvider>
 
     );
 };
