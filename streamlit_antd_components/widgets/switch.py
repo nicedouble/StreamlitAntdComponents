@@ -20,7 +20,6 @@ def switch(
         off_label: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         position: MantinePosition = 'right',
-        size: MantineSize = 'sm',
         radius: Union[MantineSize, int] = 'lg',
         on_color: Union[MantineColor, str] = None,
         off_color: Union[MantineColor, str] = None,
@@ -28,7 +27,9 @@ def switch(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        **theme
+
 ) -> bool:
     """mantine switch  https://v6.mantine.dev/core/switch/
 

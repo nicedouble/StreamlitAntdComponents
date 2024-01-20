@@ -16,10 +16,10 @@ def tags(
         format_func: Union[Formatter, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        size: Union[MantineSize, int] = 'sm',
         radius: Union[MantineSize, int] = 'md',
-        color: Union[Color, str] = None,
-        key=None
+        key=None,
+        **theme
+
 ):
     """antd design tag  https://ant.design/components/tag
 

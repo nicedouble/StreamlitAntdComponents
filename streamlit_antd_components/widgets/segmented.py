@@ -22,7 +22,6 @@ def segmented(
         direction: Direction = 'horizontal',
         size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
         bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
         use_container_width: bool = False,
@@ -33,6 +32,8 @@ def segmented(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> Union[str, int]:
     """mantine segmentedControl https://mantine.dev/core/segmented-control/
 

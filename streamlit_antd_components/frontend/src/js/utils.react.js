@@ -41,6 +41,16 @@ const getSize = (size, base = MartineFontSize) => {
 }
 
 
+const getTheme = (props) => {
+    const color = props['color']
+    const font = props['font'] != null ? props['font'] : 'inherit'
+    const backgroundColor = props['background_color'] != null ? props['background_color'] : 'transparent'
+    const size = getSize(props['size'] != null ? props['size'] : 'md')
+    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    const textColor = GetColor('--text-color')
+    return {color, font, backgroundColor, size, primaryColor, textColor}
+}
+
 const GetColor = (color) => {
     const theme = useMantineTheme()
     if (color.indexOf('--') === 0) {
@@ -53,6 +63,8 @@ const GetColor = (color) => {
         }
     }
 }
+
+
 const RgbaColor = (color, alpha = 0.2) => {
     const theme = useMantineTheme()
     return theme.fn.rgba(color, alpha)
@@ -249,5 +261,6 @@ export {
     insertStyle,
     MartineFontSize,
     MartineRadiusSize,
-    GetColor, RgbaColor, DarkenColor,LightenColor, getSize, getFlexDirection
+    GetColor, RgbaColor, DarkenColor, LightenColor, getFlexDirection,
+    getTheme, getSize
 };

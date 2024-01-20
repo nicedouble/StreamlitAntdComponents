@@ -19,7 +19,6 @@ def transfer(
         description: str = None,
         titles: List[str] = None,
         align: Align = 'start',
-        color: Union[MantineColor, str] = None,
         search: bool = False,
         pagination: bool = False,
         oneway: bool = False,
@@ -32,7 +31,9 @@ def transfer(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        **theme
+
 ) -> List[Union[str, int]]:
     """antd design transfer  https://ant.design/components/transfer
 

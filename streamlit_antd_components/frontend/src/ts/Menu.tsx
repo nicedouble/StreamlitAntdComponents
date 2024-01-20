@@ -4,18 +4,24 @@ import type {MenuProps} from 'antd';
 import {ConfigProvider, Menu} from 'antd';
 import {strToNode} from "../js/menu.react";
 import {
-    getCollapseKeys, getHrefKeys, getParentKeys, reindex,
-    insertStyle, GetColor, RgbaColor, getSize
+    getCollapseKeys,
+    GetColor,
+    getHrefKeys,
+    getParentKeys,
+    getSize,
+    getTheme,
+    insertStyle,
+    reindex,
+    RgbaColor
 } from "../js/utils.react"
 import '../css/menu.css'
+import {BaseProp} from "./utils";
 
-interface MenuProp {
+interface MenuProp extends BaseProp {
     items: any[];
     index: any;
     open_index: any;
     open_all: boolean;
-    size: any
-    color: any
     variant: any
     indent: any;
     height: any;
@@ -26,23 +32,23 @@ interface MenuProp {
 
 
 const AntdMenu = (props: MenuProp) => {
-    const textColor = GetColor('--text-color')
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
     const items = strToNode(props.items, props.size, props.variant, RgbaColor(textColor, 0.5))
     const dsk = reindex(props.index)
     const openIndex = reindex(props.open_index)
     const openAll = props['open_all']
-    const size = props['size']
-    const color = props['color']
     const variant = props['variant']
     const indent = props['indent']
     const height = props['height']
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+
     const primaryLightColor = RgbaColor(primaryColor)
     const bgColor = GetColor('--background-color')
+
 
     //custom style
     const textStyle = `

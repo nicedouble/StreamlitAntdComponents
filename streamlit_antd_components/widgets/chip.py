@@ -19,7 +19,6 @@ def chip(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'lg',
         variant: Literal['outline', 'light', 'filled'] = 'filled',
         color: Union[MantineColor, str] = None,
@@ -29,6 +28,8 @@ def chip(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> Union[str, int, List[str], List[int]]:
     """mantine chip https://mantine.dev/core/chip/
 

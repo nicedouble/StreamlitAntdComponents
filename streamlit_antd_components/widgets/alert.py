@@ -15,14 +15,14 @@ from ..utils import *
 def alert(
         label: str,
         description: str = None,
-        size: Union[MantineSize, int] = 'md',
-        color: Union[Msg, MantineColor, str] = 'info',
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['light', 'filled', 'outline', 'transparent', 'quote', 'quote-light'] = 'light',
         icon: Union[bool, str, BsIcon, AntIcon] = False,
         closable: bool = False,
         banner: Union[bool, List[bool], Banner, List[Banner]] = False,
         key=None,
+        **theme
+
 ):
     """antd design alert https://ant.design/components/alert
 

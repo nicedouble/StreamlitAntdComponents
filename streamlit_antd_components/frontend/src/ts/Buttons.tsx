@@ -1,21 +1,18 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Space, ConfigProvider} from 'antd';
-import {getHrefKeys, insertStyle, GetColor, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
-import {CustomIcon, LabelWrap} from "./utils";
+import {Button, ConfigProvider, Space} from 'antd';
+import {GetColor, getHrefKeys, getSize, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
+import {BaseProp, CustomIcon, LabelWrap} from "./utils";
 import "../css/buttons.css"
-import {transform} from "@babel/core";
 
-interface ButtonsProp {
+interface ButtonsProp extends BaseProp {
     label: any;
     description: any;
     items: any[];
     index: number | null;
     variant: string;
     align: any;
-    size: any
     radius: any
-    color: any
     background_color: any;
     direction: "horizontal" | "vertical" | undefined;
     gap: any;
@@ -25,13 +22,11 @@ interface ButtonsProp {
     stValue: any
 }
 
-interface ButtonProp {
+interface ButtonProp extends BaseProp {
     label: any;
     icon: any;
     disabled: any;
     href: any;
-    color: any;
-    background_color: any;
 }
 
 

@@ -3,18 +3,16 @@ import React, {useEffect, useRef, useState} from "react";
 import {Checkbox, ConfigProvider} from 'antd';
 import type {CheckboxValueType} from "antd/es/checkbox/Group";
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
-import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
-import {LabelWrap} from "./utils";
+import {getSize, getTheme, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
+import {BaseProp, LabelWrap} from "./utils";
 
-interface CheckboxProp {
+interface CheckboxProp extends BaseProp {
     label: any
     description: any
     items: any[]
     index: any
     check_all: boolean | string
     radius: any
-    size: any
-    color: any
     align: string
     disabled: boolean
     return_index: boolean;
@@ -30,16 +28,14 @@ const AntdCheckbox = (props: CheckboxProp) => {
     const label = props['label']
     const description = props['description']
     const radius = props['radius']
-    const size = props['size']
-    const color = props['color']
     const align = props['align']
     const disabled = props['disabled']
     const return_index = props['return_index']
     const kv = props['kv']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
-    const bgColor = GetColor('--background-color')
+
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -131,14 +127,16 @@ const AntdCheckbox = (props: CheckboxProp) => {
                 components: {
                     Checkbox: {
                         colorText: '--text-color',
-                        colorPrimary: primaryColor,
                         colorPrimaryHover: 'transform',
-                        colorBgContainer: bgColor,
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorBgContainerDisabled: RgbaColor(textColor),
                         colorBorder: RgbaColor(textColor, 0.3),
-                        fontSize: getSize(size),
                         controlInteractiveSize: 2 * getSize(size) - 10,
+
+                        colorPrimary: primaryColor,
+                        colorBgContainer: backgroundColor,
+                        fontSize: size,
+                        fontFamily: font,
                     },
                 },
             }}

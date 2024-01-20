@@ -19,13 +19,12 @@ def rate(
         description: str = None,
         symbol: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
         half: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
 ) -> float:
     """antd design rate https://ant.design/components/rate
 

@@ -16,10 +16,8 @@ def pagination(
         index: int = 1,
         page_size: int = 10,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['outline', 'light', 'filled'] = 'outline',
-        color: Union[MantineColor, str] = None,
         previous: str = None,
         next: str = None,
         disabled: bool = False,
@@ -30,6 +28,8 @@ def pagination(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> float:
     """antd design pagination https://ant.design/components/pagination
 

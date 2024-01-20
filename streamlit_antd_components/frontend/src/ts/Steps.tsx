@@ -1,15 +1,14 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Steps, ConfigProvider} from 'antd';
-import {GetColor, insertStyle, RgbaColor, getSize} from "../js/utils.react";
+import {ConfigProvider, Steps} from 'antd';
+import {getSize, getTheme, insertStyle, RgbaColor} from "../js/utils.react";
 import {strToNode} from "../js/steps.react";
 import "../css/steps.css"
+import {BaseProp} from "./utils";
 
-interface StepsProp {
+interface StepsProp extends BaseProp {
     items: any[];
     index: number;
-    size: any
-    color: any
     placement: any;
     direction: any;
     variant: any;
@@ -21,19 +20,19 @@ interface StepsProp {
 
 const AntdSteps = (props: StepsProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
     const items = strToNode(props['items'])
     const index = props['index']
-    const size = props['size']
-    const color = props['color']
     const placement = props['placement']
     const direction = props['direction']
     const variant = props['variant']
     const dot = props['dot']
     const return_index = props['return_index']
     const kv = props['kv']
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
+
     const primaryLightColor = RgbaColor(primaryColor)
-    const textColor = GetColor('--text-color')
+
 
     const [current, setCurrent] = useState(index)
 
@@ -47,7 +46,7 @@ const AntdSteps = (props: StepsProp) => {
         font-size:${getSize(size)}px !important
     }
     .ant-steps-item-custom .ant-steps-item-icon .ant-steps-icon{
-        color:${RgbaColor(textColor,0.5)} !important
+        color:${RgbaColor(textColor, 0.5)} !important
     }
     `
     insertStyle(`sac.steps.style`, textStyle)
@@ -95,8 +94,8 @@ const AntdSteps = (props: StepsProp) => {
                         fontSize: getSize(size) - 2,
                         dotSize: getSize(size) - 8,
                         dotCurrentSize: getSize(size) - 6,
-                        iconTop:0,
-                        colorIconHover:'red'
+                        iconTop: 0,
+                        colorIconHover: 'red'
                     },
                 },
             }}

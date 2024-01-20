@@ -16,9 +16,7 @@ def menu(
         items: List[Union[str, dict, MenuItem]],
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
-        size: Union[MantineSize, int] = 'md',
         variant: Literal['light', 'filled', 'subtle', 'left-bar', 'right-bar'] = 'light',
-        color: Union[MantineColor, str] = None,
         indent: int = 24,
         height: int = None,
         open_index: List[int] = None,
@@ -27,7 +25,9 @@ def menu(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        **theme
+
 ) -> Union[str, int]:
     """antd design menu component https://ant.design/components/menu#menu
 

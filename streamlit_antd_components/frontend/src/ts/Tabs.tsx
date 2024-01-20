@@ -1,11 +1,12 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Tabs, ConfigProvider} from 'antd';
+import {ConfigProvider, Tabs} from 'antd';
 import {strToNode} from "../js/tabs.react";
-import {GetColor, RgbaColor, insertStyle, getSize} from "../js/utils.react"
+import {getSize, getTheme, insertStyle, RgbaColor} from "../js/utils.react"
 import '../css/tabs.css'
+import {BaseProp} from "./utils";
 
-interface TabsProp {
+interface TabsProp extends BaseProp {
     items: any[];
     index: string;
     align: string;
@@ -13,8 +14,6 @@ interface TabsProp {
     variant: any;
     height: number | null;
     use_container_width: boolean;
-    size: any
-    color: any;
     return_index: boolean;
     kv: any;
     stValue: any
@@ -22,21 +21,18 @@ interface TabsProp {
 
 const AntdTabs = (props: TabsProp) => {
     //get data
-    const items = strToNode(props['items'],props['size'])
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
+    const items = strToNode(props['items'], props['size'])
     const index = props['index']
     const align = props['align']
     const position = props['position']
     const variant = props['variant']
     const height = props['height']
     const grow = props['use_container_width']
-    const size = props['size']
-    const color = props['color']
     const return_index = props['return_index']
     const kv = props['kv']
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
     const borderColor = RgbaColor(textColor, 0.1)
-    const bgColor = GetColor('--background-color')
 
     const [activeKey, setActiveKey] = useState(index)
 
@@ -65,10 +61,10 @@ const AntdTabs = (props: TabsProp) => {
         .ant-tabs-card .ant-tabs-tab-active{
             border-width: 1px;
             border-style: solid;
-            border-color: ${position === 'top' ? `${borderColor} ${borderColor} ${bgColor} ${borderColor}` :
-        position === 'bottom' ? `${bgColor} ${borderColor} ${borderColor} ${borderColor}` :
-            position === 'left' ? `${borderColor} ${bgColor} ${borderColor} ${borderColor}` :
-                position === 'right' ? `${borderColor} ${borderColor} ${borderColor} ${bgColor}` : ''} !important
+            border-color: ${position === 'top' ? `${borderColor} ${borderColor} ${backgroundColor} ${borderColor}` :
+        position === 'bottom' ? `${backgroundColor} ${borderColor} ${borderColor} ${borderColor}` :
+            position === 'left' ? `${borderColor} ${backgroundColor} ${borderColor} ${borderColor}` :
+                position === 'right' ? `${borderColor} ${borderColor} ${borderColor} ${backgroundColor}` : ''} !important
         }
         `
     let growStyle = `
@@ -120,7 +116,7 @@ const AntdTabs = (props: TabsProp) => {
                         itemHoverColor: primaryColor,
                         itemSelectedColor: primaryColor,
                         inkBarColor: primaryColor,
-                        colorBgContainer: bgColor,
+                        colorBgContainer: backgroundColor,
                         colorText: 'var(--text-color)',
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorPrimary: primaryColor,

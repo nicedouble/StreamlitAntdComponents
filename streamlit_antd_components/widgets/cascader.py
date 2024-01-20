@@ -19,7 +19,6 @@ def cascader(
         description: str = None,
         format_func: Union[Formatter, Callable] = None,
         placeholder: str = 'Please choose',
-        color: Union[MantineColor, str] = None,
         multiple: bool = False,
         disabled: bool = False,
         search: bool = False,
@@ -29,7 +28,9 @@ def cascader(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        **theme
+
 ) -> List[Union[str, int]]:
     """antd design cascader  https://ant.design/components/cascader
 

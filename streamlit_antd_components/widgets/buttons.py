@@ -18,10 +18,8 @@ def buttons(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'md',
         variant: Literal['filled', 'outline', 'dashed', 'text', 'link'] = 'outline',
-        color: Union[MantineColor, str] = None,
         background_color: Union[MantineColor, str] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
@@ -32,6 +30,8 @@ def buttons(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> Union[str, int, None]:
     """antd design a group of buttons
 

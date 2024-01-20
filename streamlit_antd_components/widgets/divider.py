@@ -16,10 +16,10 @@ def divider(
         label: str = None,
         icon: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'xs',
         variant: Literal['solid', 'dashed', 'dotted'] = 'solid',
-        color: MantineColor = None,
-        key=None
+        key=None,
+        **theme
+
 ):
     """mantine divider component https://v6.mantine.dev/core/divider/
 

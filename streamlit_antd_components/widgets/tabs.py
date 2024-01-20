@@ -19,14 +19,15 @@ def tabs(
         position: Position = 'top',
         size: Union[MantineSize, int] = 'md',
         variant: Literal['default', 'outline'] = 'default',
-        color: Union[MantineColor, str] = None,
         height: int = None,
         use_container_width: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        **theme
+
 ) -> Union[str, int]:
     """antd design tabs  https://ant.design/components/tabs
 

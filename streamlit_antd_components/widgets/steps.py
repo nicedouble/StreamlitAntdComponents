@@ -15,9 +15,7 @@ def steps(
         items: List[Union[str, dict, StepsItem]],
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
-        size: Union[MantineSize, int] = 'md',
         variant: Literal['default', 'navigation'] = 'default',
-        color: Union[MantineColor, str] = None,
         placement: Direction = 'horizontal',
         direction: Direction = 'horizontal',
         dot: bool = False,
@@ -26,6 +24,8 @@ def steps(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> Union[str, int]:
     """antd design steps
 

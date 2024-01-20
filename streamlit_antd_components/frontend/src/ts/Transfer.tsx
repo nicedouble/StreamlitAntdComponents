@@ -1,14 +1,14 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
-import {Transfer, ConfigProvider, Button} from 'antd';
+import {Button, ConfigProvider, Transfer} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
 import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
-import {GetColor, RgbaColor, DarkenColor, insertStyle} from "../js/utils.react"
-import {strToNode, numberToStr} from "../js/transfer.react";
+import {DarkenColor, GetColor, getTheme, insertStyle, RgbaColor} from "../js/utils.react"
+import {numberToStr, strToNode} from "../js/transfer.react";
 import '../css/transfer.css'
-import {LabelWrap} from "./utils";
+import {BaseProp, LabelWrap} from "./utils";
 
-interface TransferProp {
+interface TransferProp extends BaseProp {
     label: any
     description: any
     items: any[]
@@ -17,7 +17,6 @@ interface TransferProp {
     search: boolean
     pagination: boolean
     oneway: boolean
-    color: any
     align: any
     reload: boolean | string
     disabled: boolean
@@ -31,6 +30,8 @@ interface TransferProp {
 
 const AntdTransfer = (props: TransferProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
     const label = props['label']
     const description = props['description']
     const items = strToNode(props['items'])
@@ -39,7 +40,6 @@ const AntdTransfer = (props: TransferProp) => {
     const search = props['search']
     const pagination = props['pagination']
     const oneway = props['oneway']
-    const color = props['color']
     const align = props['align']
     const reload = props['reload']
     const disabled = props['disabled']
@@ -48,9 +48,7 @@ const AntdTransfer = (props: TransferProp) => {
     const grow = props['use_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const secondaryBgColor = GetColor('--secondary-background-color')
-    const textColor = GetColor('--text-color')
 
     //data source
     const [dataSource, setDataSource] = useState(items)

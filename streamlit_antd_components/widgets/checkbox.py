@@ -17,9 +17,7 @@ def checkbox(
         format_func: Union[Formatter, Callable] = None,
         label: str = None,
         description: str = None,
-        size: Union[MantineSize, int] = 'sm',
         radius: Union[MantineSize, int] = 'sm',
-        color: Union[MantineColor, str] = None,
         align: Align = 'start',
         check_all: Union[bool, str] = False,
         disabled: bool = False,
@@ -28,6 +26,8 @@ def checkbox(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        **theme
+
 ) -> List[Union[str, int]]:
     """antd design checkbox https://ant.design/components/checkbox
 

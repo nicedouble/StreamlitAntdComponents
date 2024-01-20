@@ -1,7 +1,7 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
-import {Result, Empty, Space, ConfigProvider} from 'antd';
-import {RgbaColor, markdown, GetColor} from "../js/utils.react";
+import {ConfigProvider, Empty, Result, Space} from 'antd';
+import {GetColor, markdown, RgbaColor} from "../js/utils.react";
 import {CustomIcon} from "./utils";
 
 interface ResultProp {

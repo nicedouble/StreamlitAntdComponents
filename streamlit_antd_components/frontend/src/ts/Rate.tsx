@@ -1,11 +1,11 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
-import {Rate, ConfigProvider} from 'antd';
-import {parseIcon, GetColor, RgbaColor} from "../js/utils.react"
+import {ConfigProvider, Rate} from 'antd';
+import {getTheme, parseIcon, RgbaColor} from "../js/utils.react"
 import {StarFilled} from '@ant-design/icons';
-import {LabelWrap} from "./utils";
+import {BaseProp, LabelWrap} from "./utils";
 
-interface RateProp {
+interface RateProp extends BaseProp {
     label: any
     description: any
     value: any
@@ -13,13 +13,13 @@ interface RateProp {
     symbol: any
     align: string
     half: boolean
-    size: any
-    color: any
     stValue: any
 }
 
 const AntdRate = (props: RateProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+
     const label = props['label'];
     const description = props['description'];
     const value = props['value'];
@@ -27,10 +27,6 @@ const AntdRate = (props: RateProp) => {
     const symbol = parseIcon(props['symbol']);
     const align = props['align'];
     const half = props['half'];
-    const size = props['size'];
-    const color = props['color'];
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
     const sizeMap: any = {'xs': 12, 'sm': 16, 'md': 20, 'lg': 30, 'xl': 50}
 
     // component height
