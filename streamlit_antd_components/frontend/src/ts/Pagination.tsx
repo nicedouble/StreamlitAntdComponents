@@ -25,7 +25,7 @@ interface PaginationProp extends BaseProp {
 
 const AntdPagination = (props: PaginationProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const total = props['total'];
     const index = props['index'];
@@ -115,17 +115,14 @@ const AntdPagination = (props: PaginationProp) => {
             theme={{
                 components: {
                     Pagination: {
+                        ...theme,
                         itemActiveBg: variant === 'outline' ? 'transform' : variant === 'light' ? primaryLightColor : primaryColor,
-                        colorBgContainer: 'inherit',
-                        colorPrimary: primaryColor,
                         colorPrimaryHover: primaryColor,
-                        colorText: 'var(--text-color)',
                         colorBgTextHover: RgbaColor(textColor),
                         colorBgTextActive: RgbaColor(textColor, 0.25),
                         borderRadius: getSize(radius, MartineRadiusSize),
                         controlOutlineWidth: 0,
                         colorBorder: RgbaColor(textColor, 0.3),
-                        fontSize: getSize(size),
                         itemSize: 3 * getSize(size) - 16,
                         controlHeight: 3 * getSize(size) - 18,
                         colorTextDisabled: RgbaColor(textColor),

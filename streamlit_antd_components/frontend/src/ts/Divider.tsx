@@ -19,7 +19,7 @@ const AntdDivider = (props: DividerProp) => {
     // @ts-ignore
     const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
     const variant = props['variant'];
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -29,10 +29,7 @@ const AntdDivider = (props: DividerProp) => {
             theme={{
                 components: {
                     Divider: {
-                        colorPrimary: primaryColor,
-                        colorBgContainer: backgroundColor,
-                        fontSize: size,
-                        fontFamily: font,
+                        ...theme,
                     },
                 },
             }}

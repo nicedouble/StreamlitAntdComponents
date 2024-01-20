@@ -23,7 +23,7 @@ interface SwitchProp extends BaseProp {
 
 const AntdSwitch = (props: SwitchProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const label = props['label']
     const value = props['value']

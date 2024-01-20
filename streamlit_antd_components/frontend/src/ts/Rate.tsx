@@ -18,7 +18,7 @@ interface RateProp extends BaseProp {
 
 const AntdRate = (props: RateProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const label = props['label'];
     const description = props['description'];
@@ -42,6 +42,7 @@ const AntdRate = (props: RateProp) => {
             theme={{
                 components: {
                     Rate: {
+                        ...theme,
                         colorFillContent: RgbaColor(textColor, 0.2),
                     },
                 },

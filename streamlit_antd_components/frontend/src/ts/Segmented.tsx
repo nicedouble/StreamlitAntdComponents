@@ -26,7 +26,7 @@ interface SegmentedProp extends BaseProp {
 
 const AntdSegmented = (props: SegmentedProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const items = strToNode(props['items'])
     const index = String(props['index'])

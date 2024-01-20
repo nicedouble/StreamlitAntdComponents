@@ -24,7 +24,7 @@ const AntdAlert = (props: AlertProp) => {
     const icon = props['icon']
     const closable = props['closable']
     const banner = props['banner']
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const colorList: any = {
         'info': {'primary': 'rgb(0, 66, 128)', 'lighten': 'rgba(28, 131, 225, 0.1)'},
@@ -114,8 +114,7 @@ const AntdAlert = (props: AlertProp) => {
             theme={{
                 components: {
                     Alert: {
-                        fontSize: size,
-                        fontFamily: font,
+                        ...theme
                     },
                 },
             }}

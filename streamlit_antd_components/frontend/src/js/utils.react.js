@@ -48,7 +48,14 @@ const getTheme = (props) => {
     const size = getSize(props['size'] != null ? props['size'] : 'md')
     const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const textColor = GetColor('--text-color')
-    return {color, font, backgroundColor, size, primaryColor, textColor}
+    const theme = {
+        colorPrimary: color,
+        colorText: textColor,
+        fontSize: size,
+        fontFamily: font,
+        colorBgContainer: backgroundColor,
+    }
+    return {color, font, backgroundColor, size, primaryColor, textColor, theme}
 }
 
 const GetColor = (color) => {

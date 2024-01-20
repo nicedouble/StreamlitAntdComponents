@@ -33,7 +33,7 @@ interface MenuProp extends BaseProp {
 
 const AntdMenu = (props: MenuProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const items = strToNode(props.items, props.size, props.variant, RgbaColor(textColor, 0.5))
     const dsk = reindex(props.index)
@@ -132,6 +132,7 @@ const AntdMenu = (props: MenuProp) => {
             theme={{
                 components: {
                     Menu: {
+                        ...theme,
                         itemBorderRadius: variant === 'left-bar' || variant === 'right-bar' ? 0 : 8,
                         itemColor: 'var(--text-color)',
                         groupTitleColor: RgbaColor(textColor, 0.5),
@@ -144,8 +145,6 @@ const AntdMenu = (props: MenuProp) => {
                         subMenuItemBg: bgColor,
                         itemBg: bgColor,
                         colorSplit: RgbaColor(textColor),
-                        fontFamily: 'var(--font)',
-                        fontSize: getSize(size),
                         itemHeight: getSize(size) + 5,
                     },
                 },

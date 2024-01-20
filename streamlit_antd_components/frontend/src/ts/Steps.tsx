@@ -20,7 +20,7 @@ interface StepsProp extends BaseProp {
 
 const AntdSteps = (props: StepsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const items = strToNode(props['items'])
     const index = props['index']
@@ -80,13 +80,12 @@ const AntdSteps = (props: StepsProp) => {
             theme={{
                 components: {
                     Steps: {
+                        ...theme,
                         colorTextLabel: RgbaColor(textColor, 0.5),
                         colorFillContent: RgbaColor(textColor, 0.1),
                         colorSplit: RgbaColor(textColor, 0.5),
                         navArrowColor: RgbaColor(textColor, 0.5),
                         colorTextDescription: RgbaColor(textColor, 0.5),
-                        colorPrimary: primaryColor,
-                        colorText: 'var(--text-color)',
                         controlItemBgActive: primaryLightColor,
                         customIconFontSize: getSize(size) + 14,
                         iconFontSize: getSize(size) - 2,

@@ -35,7 +35,7 @@ const AntdChip = (props: ChipProp) => {
     const kv = props['kv']
     const secondaryBgColor = GetColor('--secondary-background-color')
 
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())

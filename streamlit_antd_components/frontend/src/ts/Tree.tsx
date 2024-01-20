@@ -28,7 +28,7 @@ interface TreeProp extends BaseProp {
 
 const AntdTree = (props: TreeProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const label = props['label']
     const description = props['description']
@@ -91,16 +91,13 @@ const AntdTree = (props: TreeProp) => {
             theme={{
                 components: {
                     Tree: {
-                        colorPrimary: primaryColor,
+                        ...theme,
                         colorPrimaryHover: primaryColor,
                         colorBgContainer: 'transform',
-                        colorText: 'var(--text-color)',
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: primaryLightColor,
                         controlInteractiveSize: getSize(size) + 2,
-                        fontSize: getSize(size),
-                        fontFamily: 'var(--font)',
                         colorBorder: RgbaColor(textColor, 0.4),
                     },
                 },

@@ -25,6 +25,8 @@ interface CascaderProp extends BaseProp {
 
 const AntdCascader = (props: CascaderProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label']
     const description = props['description']
     const items = strToNode(props.items)
@@ -38,7 +40,6 @@ const AntdCascader = (props: CascaderProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
 
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
     // const color = props['color']
     // const font = getFont(props)
     // const background_color = getBackgroundColor(props)
@@ -124,6 +125,7 @@ const AntdCascader = (props: CascaderProp) => {
             theme={{
                 components: {
                     Cascader: {
+                        ...theme,
                         colorBgContainer: 'var(--background-color)',
                         controlItemBgHover: 'var(--secondary-background-color)',
                         controlItemBgActive: RgbaColor(primaryColor),
@@ -131,12 +133,9 @@ const AntdCascader = (props: CascaderProp) => {
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorBorder: RgbaColor(textColor, 0.3),
 
-
-                        colorPrimary: primaryColor,
-                        fontFamily: font,
-                        fontSize: size,
                     },
                     Select: {
+                        ...theme,
                         colorBgContainer: 'var(--secondary-background-color)',
                         colorBgElevated: 'var(--background-color)',
                         colorBorder: 'var(--background-color) !important',
@@ -148,8 +147,6 @@ const AntdCascader = (props: CascaderProp) => {
                         controlHeight: 40,
                         controlOutlineWidth: 0,
                         lineHeight: 1.6,
-                        fontFamily: font,
-                        fontSize: size,
                         borderRadius: 8,
                         colorBgContainerDisabled: 'var(--secondary-background-color)',
                     },

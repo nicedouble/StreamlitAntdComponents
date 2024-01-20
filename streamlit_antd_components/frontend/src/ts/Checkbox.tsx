@@ -34,7 +34,7 @@ const AntdCheckbox = (props: CheckboxProp) => {
     const kv = props['kv']
     const allIndex = disabled ? [] : items.filter(item => !item.disabled).map(item => item.value)
 
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
 
     // component height
@@ -126,17 +126,13 @@ const AntdCheckbox = (props: CheckboxProp) => {
             theme={{
                 components: {
                     Checkbox: {
+                        ...theme,
                         colorText: '--text-color',
                         colorPrimaryHover: 'transform',
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorBgContainerDisabled: RgbaColor(textColor),
                         colorBorder: RgbaColor(textColor, 0.3),
                         controlInteractiveSize: 2 * getSize(size) - 10,
-
-                        colorPrimary: primaryColor,
-                        colorBgContainer: backgroundColor,
-                        fontSize: size,
-                        fontFamily: font,
                     },
                 },
             }}

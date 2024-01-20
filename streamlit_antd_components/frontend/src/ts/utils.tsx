@@ -46,6 +46,11 @@ interface BaseProp {
     font: any;
 }
 
+type BaseTheme = {
+  fontFamily: string;
+  fontSize: number;
+  // ... other common properties
+};
 
 interface CustomIconProps {
     icon: { size: any, color: any, name: any, type: any } | null | any

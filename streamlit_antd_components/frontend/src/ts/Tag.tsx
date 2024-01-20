@@ -13,19 +13,17 @@ interface tagProp extends BaseProp {
     closable: any
 }
 
-interface TagsProp {
+interface TagsProp extends BaseProp {
     items: tagProp[]
     align?: string
     direction?: "horizontal" | "vertical"
-    size?: any
     radius?: any
-    color?: any
     style?: React.CSSProperties
 }
 
 const AntdTag = (props: tagProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const label = props['label'];
     const radius = props['radius'] || 'md';
@@ -70,12 +68,12 @@ const AntdTag = (props: tagProp) => {
 
 const AntdTags = (props: TagsProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const items = props['items'];
     const align = props['align'];
     const direction = props['direction'];
-    const size = props['size'];
     const radius = props['radius'];
-    const color = props['color'];
     const style = props['style'];
 
     useEffect(() => Streamlit.setFrameHeight())
@@ -92,6 +90,7 @@ const AntdTags = (props: TagsProp) => {
         theme={{
             components: {
                 Tag: {
+                    ...theme,
                     defaultColor: 'var(--text-color)',
                     defaultBg: RgbaColor(GetColor('--text-color'), 0.05),
                     colorFillSecondary: RgbaColor(GetColor('--primary-color'), 0.1),

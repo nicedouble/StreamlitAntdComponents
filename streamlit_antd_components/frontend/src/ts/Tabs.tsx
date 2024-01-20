@@ -21,7 +21,7 @@ interface TabsProp extends BaseProp {
 
 const AntdTabs = (props: TabsProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const items = strToNode(props['items'], props['size'])
     const index = props['index']
@@ -112,17 +112,13 @@ const AntdTabs = (props: TabsProp) => {
             theme={{
                 components: {
                     Tabs: {
+                        ...theme,
                         itemActiveColor: primaryColor,
                         itemHoverColor: primaryColor,
                         itemSelectedColor: primaryColor,
                         inkBarColor: primaryColor,
-                        colorBgContainer: backgroundColor,
-                        colorText: 'var(--text-color)',
                         colorTextDisabled: RgbaColor(textColor, 0.5),
-                        colorPrimary: primaryColor,
                         colorBgContainerDisabled: 'transform',
-                        fontSize: getSize(size),
-                        fontFamily: 'var(--font)',
                         cardBg: 'transparent',
                         cardGutter: variant === 'outline' ? 0 : 2,
                         cardHeight: getSize(size) + 25,

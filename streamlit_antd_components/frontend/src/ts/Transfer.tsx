@@ -30,7 +30,7 @@ interface TransferProp extends BaseProp {
 
 const AntdTransfer = (props: TransferProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor} = getTheme(props);
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     const label = props['label']
     const description = props['description']
@@ -82,7 +82,7 @@ const AntdTransfer = (props: TransferProp) => {
                 theme={{
                     components: {
                         Button: {
-                            colorPrimary: primaryColor,
+                            ...theme,
                         }
                     }
                 }}
