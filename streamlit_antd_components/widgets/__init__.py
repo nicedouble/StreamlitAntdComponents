@@ -13,6 +13,7 @@ from .buttons import buttons
 from .cascader import cascader
 from .checkbox import checkbox
 from .chip import chip
+from .color_picker import color_picker
 from .divider import divider
 from .menu import menu
 from .pagination import pagination

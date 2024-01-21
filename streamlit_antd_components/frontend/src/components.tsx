@@ -15,6 +15,7 @@ import AntdResult from "./ts/Result";
 import {AntdTags} from "./ts/Tag";
 import AntdPagination from "./ts/Pagination";
 import AntdChip from "./ts/Chip";
+import AntdColorPicker from "./ts/ColorPicker";
 
 //named components
 const componentsMap: any = {
@@ -34,7 +35,8 @@ const componentsMap: any = {
     'result': AntdResult,
     'tags': AntdTags,
     'pagination': AntdPagination,
-    'chip': AntdChip
+    'chip': AntdChip,
+    'color_picker': AntdColorPicker,
 }
 
 export default componentsMap
