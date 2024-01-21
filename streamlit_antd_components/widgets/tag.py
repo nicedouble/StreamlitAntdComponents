@@ -12,10 +12,7 @@ from typing import List, Union, Callable
 
 import streamlit_antd_components.utils as u
 from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Direction, \
-    Formatter
-from streamlit_antd_components.utils import Tag
-
-MantineFont
+    Formatter, Tag
 
 
 def tags(

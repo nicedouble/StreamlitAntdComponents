@@ -13,8 +13,7 @@ from typing import List, Union, Callable, Tuple, Any, Dict
 
 import streamlit_antd_components.utils as u
 from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter, BsIcon, \
-    AntIcon
-from streamlit_antd_components.utils import TreeItem
+    AntIcon, TreeItem
 
 
 def tree(

@@ -12,8 +12,7 @@
 from typing import List, Union, Literal
 
 import streamlit_antd_components.utils as u
-from streamlit_antd_components.utils import BsIcon, AntIcon, Banner
-from streamlit_antd_components.utils import MantineColor, MantineSize, MantineFont
+from streamlit_antd_components.utils import MantineColor, MantineSize, MantineFont, BsIcon, AntIcon, Banner
 
 
 def alert(

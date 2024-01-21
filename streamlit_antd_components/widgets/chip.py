@@ -11,11 +11,8 @@
 from typing import List, Union, Literal, Callable, Tuple, Any, Dict
 
 import streamlit_antd_components.utils as u
-from streamlit_antd_components.utils import ChipItem
 from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Direction, \
-    Formatter
-
-MantineFont, Formatter, Align, Direction
+    Formatter, ChipItem
 
 
 def chip(

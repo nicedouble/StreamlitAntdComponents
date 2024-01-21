@@ -12,8 +12,7 @@
 from typing import Union
 
 import streamlit_antd_components.utils as u
-from streamlit_antd_components.utils import BsIcon, AntIcon
-from streamlit_antd_components.utils import Status
+from streamlit_antd_components.utils import Status, BsIcon, AntIcon
 
 
 def result(

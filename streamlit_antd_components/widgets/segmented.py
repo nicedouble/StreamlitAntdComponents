@@ -13,10 +13,7 @@ from typing import List, Union, Callable, Tuple, Any, Dict
 
 import streamlit_antd_components.utils as u
 from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Direction, \
-    Formatter
-from streamlit_antd_components.utils import SegmentedItem
-
-MantineFont
+    Formatter, SegmentedItem
 
 
 def segmented(

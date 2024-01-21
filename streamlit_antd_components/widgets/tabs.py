@@ -11,8 +11,7 @@
 from typing import List, Union, Literal, Callable, Tuple, Any, Dict
 
 import streamlit_antd_components.utils as u
-from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter, Position
-from streamlit_antd_components.utils import TabsItem
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter, Position, TabsItem
 
 
 def tabs(

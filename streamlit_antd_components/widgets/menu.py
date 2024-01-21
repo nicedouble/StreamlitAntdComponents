@@ -12,10 +12,7 @@
 from typing import List, Union, Literal, Callable, Tuple, Any, Dict
 
 import streamlit_antd_components.utils as u
-from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Formatter
-from streamlit_antd_components.utils import MenuItem
-
-MantineFont
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Formatter, MenuItem
 
 
 def menu(
