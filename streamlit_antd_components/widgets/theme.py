@@ -30,22 +30,5 @@ def theme(
     sac._theme = dict(color=color, background_color=background_color, size=size, font=font)
 
 
-def parse_theme(
-        key: str,
-        value: Union[str, int, None],
-) -> Union[str, int]:
-    """antd theme.
-
-    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
-    :param background_color: alert background color,support mantine color, hex and rgb color
-    :param size: alert size,support mantine size and int in px
-    :param font: alert font,support mantine font and str
-    """
-    _theme = sac._theme
-    if value is None:
-        value = _theme.get(key)
-    return value
-
-
 if not hasattr(sac, '_theme'):
-    sac._theme = theme()
+    theme()

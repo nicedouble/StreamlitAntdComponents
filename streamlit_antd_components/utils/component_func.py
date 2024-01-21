@@ -11,12 +11,24 @@
 import json
 import os
 from dataclasses import is_dataclass
+from typing import Union
 
 import streamlit as st
 import streamlit.components.v1 as components
 
+import streamlit_antd_components as sac
 from .. import _RELEASE
-from ..widgets.theme import parse_theme
+
+
+def parse_theme(
+        key: str,
+        value: Union[str, int, None],
+) -> Union[str, int]:
+    _theme = sac._theme
+    if value is None:
+        value = _theme.get(key)
+    return value
+
 
 if not _RELEASE:
     component_func = components.declare_component(
