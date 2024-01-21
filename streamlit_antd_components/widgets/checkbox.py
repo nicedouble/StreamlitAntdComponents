@@ -8,7 +8,13 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
+from typing import List, Union, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import CheckboxItem
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter
+
+MantineFont, Formatter, Align
 
 
 def checkbox(
@@ -41,7 +47,6 @@ def checkbox(
     :param description: checkbox description,support str and markdown str
     :param size: checkbox item size
     :param radius: checkbox item radius
-
     :param align: checkbox align
     :param check_all: check all box label
     :param disabled: disable checkbox
@@ -50,21 +55,21 @@ def checkbox(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-        :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
     :param background_color: alert background color,support mantine color, hex and rgb color
     :param size: alert size,support mantine size and int in px
     :param font: alert font,support mantine font and str
 	:return: selected item label or index
     """
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # parse items
-    items, kv = ParseItems(items, format_func).single(key_field='value')
+    items, kv = u.ParseItems(items, format_func).single(key_field='value')
     # parse index
-    index = update_index(index)
+    index = u.update_index(index)
     # component params
-    kw = update_kw(locals(), items=items, index=index)
+    kw = u.update_kw(locals(), items=items, index=index)
     # component default
-    default = get_default(index, return_index, kv)
+    default = u.get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=default, key=key)

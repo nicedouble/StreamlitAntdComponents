@@ -36,10 +36,10 @@ def parse_tag(tag):
     return tag
 
 
-def parse_theme(theme):
-    for k in theme.keys():
-        if k not in ['color', 'size', 'font', 'background_color']:
-            raise ValueError(f'unsupported theme key {k}')
+# def parse_theme(theme):
+#     for k in theme.keys():
+#         if k not in ['color', 'size', 'font', 'background_color']:
+#             raise ValueError(f'unsupported theme key {k}')
 
 
 def update_kw(kw: dict, **kwargs):

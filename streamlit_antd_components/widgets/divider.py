@@ -9,7 +9,11 @@
 @Software : PyCharm
 """
 
-from ..utils import *
+from typing import Union, Literal
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineColor, Align, BsIcon, AntIcon, \
+    MantineFont
 
 
 def divider(
@@ -38,6 +42,6 @@ def divider(
     :param key: component unique identifier
     """
     # update icon
-    kw = update_kw(locals(), icon=parse_icon(icon))
+    kw = u.update_kw(locals(), icon=u.parse_icon(icon))
     # pass component id and params to frontend
-    component(id=get_func_name(), kw=kw, key=key)
+    u.component(id=u.get_func_name(), kw=kw, key=key)

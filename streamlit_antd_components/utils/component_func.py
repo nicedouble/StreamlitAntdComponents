@@ -10,10 +10,13 @@
 """
 import json
 import os
-import streamlit.components.v1 as components
-import streamlit as st
 from dataclasses import is_dataclass
+
+import streamlit as st
+import streamlit.components.v1 as components
+
 from .. import _RELEASE
+from ..widgets.theme import parse_theme
 
 if not _RELEASE:
     component_func = components.declare_component(
@@ -49,6 +52,7 @@ class CustomEncoder(json.JSONEncoder):
 
 
 def component(id, kw, default=None, key=None):
+    kw = {k: parse_theme(k, v) for k, v in kw.items()}
     # repair component session init value
     if key is not None and key not in st.session_state:
         st.session_state[key] = default

@@ -9,7 +9,12 @@
 @Software : PyCharm
 """
 
-from ..utils import *
+from typing import List, Union, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter, BsIcon, \
+    AntIcon
+from streamlit_antd_components.utils import TreeItem
 
 
 def tree(
@@ -68,9 +73,9 @@ def tree(
     if isinstance(index, list) and len(index) > 1 and not checkbox:
         raise ValueError(f'length of index ({len(index)}) should =1  when checkbox=False')
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # parse items
-    items, kv = ParseItems(items, format_func).multi()
+    items, kv = u.ParseItems(items, format_func).multi()
     # parse index
     if index is None and checkbox:
         index = []
@@ -79,8 +84,8 @@ def tree(
     if isinstance(index, list) and not checkbox:
         index = index[0]
     # component params
-    kw = update_kw(locals(), items=items, icon=parse_icon(icon))
+    kw = u.update_kw(locals(), items=items, icon=u.parse_icon(icon))
     # component default
-    default = get_default(index, return_index, kv)
+    default = u.get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=default, key=key)

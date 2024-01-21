@@ -8,7 +8,10 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
+from typing import Union, Literal, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineColor, MantineSize, MantineFont, Align
 
 
 def pagination(
@@ -64,6 +67,6 @@ def pagination(
 	:return: select page number
     """
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=update_kw(locals()), default=index, key=key)
+    return u.component(id=u.get_func_name(), kw=u.update_kw(locals()), default=index, key=key)

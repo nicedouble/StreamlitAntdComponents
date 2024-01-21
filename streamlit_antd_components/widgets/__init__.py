@@ -23,5 +23,6 @@ from .steps import steps
 from .switch import switch
 from .tabs import tabs
 from .tag import tags
+from .theme import theme
 from .transfer import transfer
 from .tree import tree

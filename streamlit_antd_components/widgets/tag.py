@@ -8,7 +8,14 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
+from typing import List, Union, Callable
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Direction, \
+    Formatter
+from streamlit_antd_components.utils import Tag
+
+MantineFont
 
 
 def tags(
@@ -39,8 +46,8 @@ def tags(
     :param font: alert font,support mantine font and str
     """
     # parse items
-    items, kv = ParseItems(items, format_func).single()
+    items, kv = u.ParseItems(items, format_func).single()
     # component params
-    kw = update_kw(locals(), items=items)
+    kw = u.update_kw(locals(), items=items)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=[], key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=[], key=key)

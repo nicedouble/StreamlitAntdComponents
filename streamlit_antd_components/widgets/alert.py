@@ -9,13 +9,17 @@
 @Software : PyCharm
 """
 
-from ..utils import *
+from typing import List, Union, Literal
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import BsIcon, AntIcon, Banner
+from streamlit_antd_components.utils import MantineColor, MantineSize, MantineFont
 
 
 def alert(
         label: str,
         description: str = None,
-        radius: Union[MantineSize, int] = 'md',
+        radius: Union[u.MantineSize, int] = 'md',
         variant: Literal['light', 'filled', 'outline', 'transparent', 'quote', 'quote-light'] = 'light',
         icon: Union[bool, str, BsIcon, AntIcon] = True,
         closable: bool = True,
@@ -43,6 +47,6 @@ def alert(
     :param font: alert font,support mantine font and str
     """
     # update icon
-    kw = update_kw(locals(), icon=parse_icon(icon))
+    kw = u.update_kw(locals(), icon=u.parse_icon(icon))
     # pass component id and params to frontend
-    component(id=get_func_name(), kw=kw, key=key)
+    u.component(id=u.get_func_name(), kw=kw, key=key)

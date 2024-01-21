@@ -9,7 +9,14 @@
 @Software : PyCharm
 """
 
-from ..utils import *
+from typing import List, Union, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Direction, \
+    Formatter
+from streamlit_antd_components.utils import SegmentedItem
+
+MantineFont
 
 
 def segmented(
@@ -63,12 +70,12 @@ def segmented(
 	:return: selected segmented item value or index
     """
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # parse items
-    items, kv = ParseItems(items, format_func).single(key_field='value')
+    items, kv = u.ParseItems(items, format_func).single(key_field='value')
     # component params
-    kw = update_kw(locals(), items=items)
+    kw = u.update_kw(locals(), items=items)
     # component default
-    default = get_default(index, return_index, kv)
+    default = u.get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=default, key=key)

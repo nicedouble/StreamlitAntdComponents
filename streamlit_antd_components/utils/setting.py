@@ -11,7 +11,7 @@
 from typing import Literal
 
 __all__ = [
-    'Formatter', 'Align', 'Direction', 'MantineSize','MantineFont', 'Msg', 'Status', 'Position',
+    'Formatter', 'Align', 'Direction', 'MantineSize', 'MantineFont', 'Msg', 'Status', 'Position',
     'Color', 'MantineColor', 'MantinePosition',
 ]
 # global field type

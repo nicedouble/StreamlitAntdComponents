@@ -9,8 +9,10 @@
 @Software : PyCharm
 """
 from dataclasses import is_dataclass
+from typing import Union, Callable, Tuple, Any, Dict
 
-from ..utils import *
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, BsIcon, AntIcon
 
 
 def rate(
@@ -54,10 +56,10 @@ def rate(
     if value % 1 != 0 and not half:
         raise ValueError('value must be int when half is False')
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # component params
     kw = dict(locals())
-    kw.update(symbol=parse_icon(symbol) if is_dataclass(symbol) else symbol)
-    kw = update_kw(kw)
+    kw.update(symbol=u.parse_icon(symbol) if is_dataclass(symbol) else symbol)
+    kw = u.update_kw(kw)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=value, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=value, key=key)
