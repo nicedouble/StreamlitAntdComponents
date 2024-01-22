@@ -1,44 +1,40 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
-import {Cascader} from 'antd';
-import {strToNode} from "../js/cascader.react";
-import {getTheme, reindex} from "../js/utils.react"
-import '../css/cascader.css'
+import {ColorPicker} from 'antd';
+import {getTheme} from "../js/utils.react"
 import {BaseProp} from "./utils";
+import {Color} from "antd/es/color-picker";
+import '../css/color_picker.css'
 
-interface CascaderProp extends BaseProp {
-    items: any[]
-    index: any
+
+interface ColorPickerProp extends BaseProp {
 }
 
-const AntdColorPicker = (props: CascaderProp) => {
+const AntdColorPicker = (props: ColorPickerProp) => {
     //get data
-    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+    const {backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
-    const items = strToNode(props.items)
 
     //state
+    const [color, setColor] = useState(props.color);
     const [height, setHeight] = useState()
 
     // component height
-    useEffect(() => Streamlit.setFrameHeight(height))
+    useEffect(() => Streamlit.setFrameHeight(400))
+    // component height
 
     //callback
-    const onChange = (value: any) => {
-        Streamlit.setComponentValue(value)
-    }
-    const dropdownVisible = (visible: boolean) => {
-        let labelHeight = 0
-        // @ts-ignore
-        setHeight(visible ? 230 + labelHeight : undefined)
+    const onChange = (value: Color, hex: string) => {
+        setColor(value)
+        Streamlit.setComponentValue(hex)
     }
 
 
     return (
-        <Cascader
-            options={items}
+        <ColorPicker
             onChange={onChange}
-            onDropdownVisibleChange={dropdownVisible}
+            value={color}
+            defaultValue={primaryColor}
         />
 
     );
