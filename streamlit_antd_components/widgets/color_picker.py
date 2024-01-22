@@ -16,6 +16,8 @@ from streamlit_antd_components.utils import MantineSize, MantineFont, MantineCol
 
 
 def color_picker(
+        label: str = None,
+        description: str = None,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
