@@ -60,7 +60,7 @@ def pagination(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-        :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
     :param background_color: alert background color,support mantine color, hex and rgb color
     :param size: alert size,support mantine size and int in px
     :param font: alert font,support mantine font and str

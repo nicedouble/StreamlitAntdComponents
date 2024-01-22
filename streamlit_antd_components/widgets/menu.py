@@ -42,10 +42,6 @@ def menu(
     :param format_func: label formatter function,receive str and return str
     :param size: menu size,support mantine size and int in px
     :param variant: menu variant
-            
-    
-    
-   menu color,default streamlit primary color,support mantine color, hex and rgb color
     :param indent: menu item indent in px
     :param height: menu height in px
     :param open_index: default opened indexes.if none,menu will open default index's all parent nodes.
@@ -55,7 +51,7 @@ def menu(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-        :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
     :param background_color: alert background color,support mantine color, hex and rgb color
     :param size: alert size,support mantine size and int in px
     :param font: alert font,support mantine font and str

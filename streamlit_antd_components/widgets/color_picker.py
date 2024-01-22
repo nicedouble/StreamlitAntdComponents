@@ -16,9 +16,10 @@ from streamlit_antd_components.utils import MantineSize, MantineFont, MantineCol
 
 
 def color_picker(
-        label: str = None,
-        description: str = None,
-        align: Align = 'start',
+        items: list = None,
+        on_change: Callable = None,
+        args: Tuple[Any, ...] = None,
+        kwargs: Dict[str, Any] = None,
         key=None,
         color: Union[MantineColor, str] = None,
         background_color: Union[MantineColor, str] = None,
@@ -45,6 +46,9 @@ def color_picker(
     :param font: alert font,support mantine font and str
 	:return: select value
     """
+    # register callback
+    u.register(key, on_change, args, kwargs)
+
     kw = u.update_kw(locals())
     # pass component id and params to frontend
     return u.component(id=u.get_func_name(), kw=kw, key=key)

@@ -78,8 +78,8 @@ class ParseItems:
     def __init__(self, items: List[Union[str, dict, Any]], format_func: Union[str, Callable] = None):
         """
 
-        :param items: component items data
-        :param format_func: format component item label func
+    :param items: component items data
+    :param format_func: format component item label func
         """
         self.items = items if items is not None else []
         self.format_func = format_func
