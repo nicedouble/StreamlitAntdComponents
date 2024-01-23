@@ -1,11 +1,11 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Chip, Group, Stack} from "@mantine/core";
-import {reindex, GetColor, RgbaColor, DarkenColor, getSize} from "../js/utils.react"
+import {DarkenColor, GetColor, getSize, getTheme, reindex, RgbaColor} from "../js/utils.react"
 import strToNode from "../js/chip.react";
-import {LabelWrap} from "./utils";
+import {BaseProp, LabelWrap} from "./utils";
 
-interface ChipProp {
+interface ChipProp extends BaseProp {
     label: any
     description: any
     items: any[]
@@ -13,8 +13,6 @@ interface ChipProp {
     align: string
     direction: string
     radius: any
-    size: any
-    color: any
     variant: string
     multiple: boolean
     return_index: boolean;
@@ -31,15 +29,13 @@ const AntdChip = (props: ChipProp) => {
     const align = props['align']
     const direction = props['direction']
     const radius = props['radius']
-    const size = props['size']
-    const color = props['color']
     const variant = props['variant']
     const multiple = props['multiple']
     const return_index = props['return_index']
     const kv = props['kv']
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
     const secondaryBgColor = GetColor('--secondary-background-color')
+
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
@@ -109,7 +105,7 @@ const AntdChip = (props: ChipProp) => {
                             disabled={item.disabled}
                             styles={(theme) => ({
                                 label: {
-                                    height: getSize(size)+16,
+                                    height: getSize(size) + 16,
                                     marginBottom: 0,
                                     color: textColor,
                                     borderColor:

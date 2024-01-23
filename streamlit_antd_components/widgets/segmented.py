@@ -20,10 +20,7 @@ def segmented(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
-        bg_color: Union[MantineColor, str] = None,
         divider: bool = True,
         use_container_width: bool = False,
         disabled: bool = False,
@@ -33,6 +30,11 @@ def segmented(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ) -> Union[str, int]:
     """mantine segmentedControl https://mantine.dev/core/segmented-control/
 
@@ -45,8 +47,6 @@ def segmented(
     :param direction: segmented direction
     :param size: segmented size,support mantine size and int in px
     :param radius: segmented radius,support mantine size and int in px
-    :param color: segmented indicator background color,default streamlit primary color,support mantine color, hex and rgb color
-    :param bg_color: segmented background color,default streamlit secondary background color,support mantine color, hex and rgb color
     :param divider: show segmented vertical divider
     :param use_container_width: makes the segmented stretch its width to match the parent container
     :param disabled: disable segmented
@@ -56,7 +56,11 @@ def segmented(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: selected segmented item value or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: selected segmented item value or index
     """
     # register callback
     register(key, on_change, args, kwargs)

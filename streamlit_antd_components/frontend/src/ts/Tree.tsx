@@ -1,21 +1,19 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import type {TreeProps} from 'antd/es/tree';
-import {Tree, ConfigProvider} from 'antd';
+import {ConfigProvider, Tree} from 'antd';
 import {CaretDownFilled} from '@ant-design/icons';
 import {strToNode} from "../js/tree.react";
-import {reindex, getCollapseKeys, getParentKeys, insertStyle, GetColor, RgbaColor, getSize} from "../js/utils.react"
+import {getCollapseKeys, getParentKeys, getSize, getTheme, insertStyle, reindex, RgbaColor} from "../js/utils.react"
 import '../css/tree.css'
-import {LabelWrap} from "./utils";
+import {BaseProp, LabelWrap} from "./utils";
 
-interface TreeProp {
+interface TreeProp extends BaseProp {
     label: any
     description: any
     items: any[]
     index: any
     icon: any
-    size: any
-    color: any
     align: any
     width: any
     height: any
@@ -29,16 +27,15 @@ interface TreeProp {
 }
 
 const AntdTree = (props: TreeProp) => {
-    const textColor = GetColor('--text-color')
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label']
     const description = props['description']
-    const size = props['size']
     const items = strToNode(props.items, size, props.icon, RgbaColor(textColor, 0.5))
     const dsk = reindex(props.index, false)
     const openIndex = reindex(props.open_index, false)
     const openAll = props['open_all']
-    const color = props['color']
     const height = props['height']
     const width = props['width']
     const align = props['align']
@@ -48,7 +45,6 @@ const AntdTree = (props: TreeProp) => {
     const return_index = props['return_index']
     const kv = props['kv']
     const dok = openAll ? getCollapseKeys(items) : openIndex ? openIndex : dsk && getParentKeys(dsk, items)
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const primaryLightColor = RgbaColor(primaryColor)
 
     //state
@@ -65,7 +61,7 @@ const AntdTree = (props: TreeProp) => {
         font-size: ${getSize(size) - 2}px !important;
     }
     .ant-tree-title{
-        line-height:${getSize(size)+2}px !important
+        line-height:${getSize(size) + 2}px !important
     }
     .ant-tree-checkbox-indeterminate .ant-tree-checkbox-inner:after{
         width:50% !important;
@@ -95,16 +91,13 @@ const AntdTree = (props: TreeProp) => {
             theme={{
                 components: {
                     Tree: {
-                        colorPrimary: primaryColor,
+                        ...theme,
                         colorPrimaryHover: primaryColor,
                         colorBgContainer: 'transform',
-                        colorText: 'var(--text-color)',
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         controlItemBgHover: RgbaColor(textColor),
                         controlItemBgActive: primaryLightColor,
                         controlInteractiveSize: getSize(size) + 2,
-                        fontSize: getSize(size),
-                        fontFamily: 'var(--font)',
                         colorBorder: RgbaColor(textColor, 0.4),
                     },
                 },

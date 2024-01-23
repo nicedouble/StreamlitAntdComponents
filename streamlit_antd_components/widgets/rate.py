@@ -8,8 +8,9 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
 from dataclasses import is_dataclass
+
+from ..utils import *
 
 
 def rate(
@@ -19,13 +20,15 @@ def rate(
         description: str = None,
         symbol: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'md',
-        color: Union[MantineColor, str] = None,
         half: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 ) -> float:
     """antd design rate https://ant.design/components/rate
 
@@ -36,13 +39,16 @@ def rate(
     :param symbol: rate item symbol,default star,can be str or BsIcon,AntIcon
     :param align: rate align
     :param size: symbol size,support mantine size and int in px
-    :param color: symbol color,default streamlit primary color,support mantine color, hex and rgb color
     :param half: allow half select
     :param on_change: rate change callback
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-    :return: select value
+        :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: select value
     """
     assert value % 0.5 == 0, 'value must be divisible by 0.5'
     if value % 1 != 0 and not half:

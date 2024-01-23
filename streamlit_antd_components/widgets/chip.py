@@ -19,16 +19,19 @@ def chip(
         description: str = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        size: Union[MantineSize, int] = 'md',
         radius: Union[MantineSize, int] = 'lg',
         variant: Literal['outline', 'light', 'filled'] = 'filled',
-        color: Union[MantineColor, str] = None,
         multiple: bool = False,
         return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ) -> Union[str, int, List[str], List[int]]:
     """mantine chip https://mantine.dev/core/chip/
 
@@ -42,14 +45,17 @@ def chip(
     :param size: chip item size,support mantine size and int in px
     :param radius: chip item radius,support mantine size and int in px
     :param variant: chip item style
-    :param color: chip color,default streamlit primary color,support mantine color, hex and rgb color
     :param multiple: chip multiple mode
     :param return_index: return select item index
     :param on_change: item change callback
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-    :return: selected item label or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: selected item label or index
     """
     # register callback
     register(key, on_change, args, kwargs)

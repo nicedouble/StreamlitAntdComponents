@@ -4,11 +4,11 @@ import {Cascader, ConfigProvider} from 'antd';
 import {CaretDownFilled, CaretRightFilled} from '@ant-design/icons';
 import type {DefaultOptionType} from 'antd/es/cascader';
 import {strToNode} from "../js/cascader.react";
-import {reindex, GetColor, RgbaColor, insertStyle} from "../js/utils.react"
+import {getTheme, insertStyle, reindex, RgbaColor} from "../js/utils.react"
 import '../css/cascader.css'
-import {LabelWrap} from "./utils";
+import {BaseProp, LabelWrap} from "./utils";
 
-interface CascaderProp {
+interface CascaderProp extends BaseProp {
     label: any
     description: any
     items: any[]
@@ -16,7 +16,6 @@ interface CascaderProp {
     placeholder: any
     disabled: boolean
     clear: boolean
-    color: any
     search: boolean
     multiple: boolean
     strict: boolean
@@ -26,6 +25,8 @@ interface CascaderProp {
 
 const AntdCascader = (props: CascaderProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label']
     const description = props['description']
     const items = strToNode(props.items)
@@ -34,13 +35,17 @@ const AntdCascader = (props: CascaderProp) => {
     const multiple = props['multiple']
     const disabled = props['disabled']
     const search = props['search']
-    const color = props['color']
     const allowClear = props['clear']
     const strict = props['strict']
     const return_index = props['return_index']
     const kv = props['kv']
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
-    const textColor = GetColor('--text-color')
+
+    // const color = props['color']
+    // const font = getFont(props)
+    // const background_color = getBackgroundColor(props)
+    // const size = getSize(props)
+    // const primaryColor = GetColor(color == null ? '--primary-color' : color)
+    // const textColor = GetColor('--text-color')
 
     // load css
     let borderStyle = `
@@ -120,15 +125,17 @@ const AntdCascader = (props: CascaderProp) => {
             theme={{
                 components: {
                     Cascader: {
+                        ...theme,
                         colorBgContainer: 'var(--background-color)',
                         controlItemBgHover: 'var(--secondary-background-color)',
                         controlItemBgActive: RgbaColor(primaryColor),
-                        colorPrimary: primaryColor,
                         colorPrimaryHover: primaryColor,
                         colorTextDisabled: RgbaColor(textColor, 0.5),
                         colorBorder: RgbaColor(textColor, 0.3),
+
                     },
                     Select: {
+                        ...theme,
                         colorBgContainer: 'var(--secondary-background-color)',
                         colorBgElevated: 'var(--background-color)',
                         colorBorder: 'var(--background-color) !important',
@@ -140,9 +147,8 @@ const AntdCascader = (props: CascaderProp) => {
                         controlHeight: 40,
                         controlOutlineWidth: 0,
                         lineHeight: 1.6,
-                        fontFamily: 'var(--font)',
                         borderRadius: 8,
-                        colorBgContainerDisabled:'var(--secondary-background-color)',
+                        colorBgContainerDisabled: 'var(--secondary-background-color)',
                     },
                 },
             }}

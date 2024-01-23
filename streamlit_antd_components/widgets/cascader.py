@@ -19,7 +19,6 @@ def cascader(
         description: str = None,
         format_func: Union[Formatter, Callable] = None,
         placeholder: str = 'Please choose',
-        color: Union[MantineColor, str] = None,
         multiple: bool = False,
         disabled: bool = False,
         search: bool = False,
@@ -29,7 +28,12 @@ def cascader(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ) -> List[Union[str, int]]:
     """antd design cascader  https://ant.design/components/cascader
 
@@ -39,7 +43,6 @@ def cascader(
     :param description: cascader description,support str and markdown str
     :param format_func: label formatter function,receive str and return str
     :param placeholder: placeholder
-    :param color: primary color,default streamlit primary color,support mantine color, hex and rgb color
     :param multiple: multiple select
     :param disabled: disabled status
     :param search: allow search
@@ -50,7 +53,12 @@ def cascader(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: list of selected item label or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+
+	:return: list of selected item label or index
     """
     # register callback
     register(key, on_change, args, kwargs)

@@ -81,3 +81,15 @@ st.write(f'The selected button label is: {btn}')
 [download_badge]: https://badgen.net/pypi/dm/streamlit-antd-components
 
 [download_link]: https://pypi.org/project/streamlit-antd-components/#files
+
+# Developer mode
+In `frontend` folder run
+```sh
+npm install
+npm run build
+```
+
+Then in source, you can debug the components in the [demo app](https://github.com/nicedouble/StreamlitAntdComponentsDemo). Via
+```py
+pip install .
+```

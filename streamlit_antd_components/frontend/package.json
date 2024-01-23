@@ -3,7 +3,10 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.23.7",
+    "@emotion/react": "^11.11.3",
     "@mantine/core": "6.0.19",
+    "@mantine/hooks": "^6.0.19",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "antd": "^5.7.2",

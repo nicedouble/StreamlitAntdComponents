@@ -1,20 +1,19 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Button, Space, ConfigProvider} from 'antd';
-import {getHrefKeys, insertStyle, GetColor, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
-import {CustomIcon, LabelWrap} from "./utils";
+import {Button, ConfigProvider, Space} from 'antd';
+import {getHrefKeys, getSize, getTheme, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
+import {BaseProp, CustomIcon, LabelWrap} from "./utils";
 import "../css/buttons.css"
 
-interface ButtonsProp {
+interface ButtonsProp extends BaseProp {
     label: any;
     description: any;
     items: any[];
     index: number | null;
     variant: string;
     align: any;
-    size: any
     radius: any
-    color: any
+    background_color: any;
     direction: "horizontal" | "vertical" | undefined;
     gap: any;
     use_container_width: boolean;
@@ -23,40 +22,41 @@ interface ButtonsProp {
     stValue: any
 }
 
-interface ButtonProp {
+interface ButtonProp extends BaseProp {
     label: any;
     icon: any;
     disabled: any;
     href: any;
-    color: any;
 }
 
-const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
-    const textColor = GetColor('--text-color')
-    const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
-    const text_color = props['color'] != null ? props['color'] : textColor
+
+const AntdButton = (idx: any, type_: any, radius: any, props: ButtonProp, onClick: any, isSelect: boolean, grow: boolean) => {
+    //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const linkColor = props['color'] != null ? props['color'] : '#1677ff'
+
     let selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
             color: #fff !important;
-            border-color: ${primary_color} !important;
-            background: ${primary_color} !important;
+            border-color: ${primaryColor} !important;
+            background: ${primaryColor} !important;
         }
         #btn-${idx}.ant-btn-primary:not(:disabled):active {
-            color: ${primary_color} !important;
+            color: ${primaryColor} !important;
             background: transparent !important;
-            border-color: ${primary_color} !important;
+            border-color: ${primaryColor} !important;
         }
     `
     let unSelectStyle = `
         #btn-${idx}.ant-btn-primary:not(:disabled):hover{
-            box-shadow: 0 0 3px ${primary_color}, 0 0 3px rgba(0, 0, 0, .05);
+            box-shadow: 0 0 3px ${primaryColor}, 0 0 3px rgba(0, 0, 0, .05);
         }
         #btn-${idx}.ant-btn-text:not(:disabled):hover{
-            color:${text_color};
+            color:${textColor};
         }
         #btn-${idx}.ant-btn-text{
-            color:${text_color};
+            color:${textColor};
         }
         #btn-${idx}.ant-btn-text:disabled{
             color:${RgbaColor(textColor, 0.5)};
@@ -70,22 +70,19 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
             theme={{
                 components: {
                     Button: {
-                        colorText: isSelect ? textColor : primary_color,
+                        ...theme,
+                        colorText: isSelect ? textColor : primaryColor,
                         colorTextDisabled: RgbaColor(textColor, 0.5),
-                        colorPrimary: primary_color,
                         colorBgContainerDisabled: 'transform',
-                        colorBgContainer: 'transform',
-                        colorPrimaryHover: primary_color,
-                        colorPrimaryActive: primary_color,
+                        colorPrimaryHover: primaryColor,
+                        colorPrimaryActive: primaryColor,
                         colorBgTextHover: RgbaColor(textColor, 0.1),
                         colorLink: linkColor,
                         colorLinkHover: linkColor,
                         colorLinkActive: linkColor,
                         // controlHeight: 3 * getSize(size) - 10,
-                        fontSize: getSize(size),
-                        colorBorder: isSelect ? RgbaColor(textColor) : primary_color,
+                        colorBorder: isSelect ? RgbaColor(textColor) : primaryColor,
                         borderRadius: getSize(radius, MartineRadiusSize),
-                        fontFamily: 'var(--font)'
                     },
                 },
             }}
@@ -108,6 +105,8 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
 
 const AntdButtons = (props: ButtonsProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label']
     const description = props['description']
     const items = props['items']
@@ -115,15 +114,12 @@ const AntdButtons = (props: ButtonsProp) => {
     let variant = props['variant']
     variant = variant === 'outline' ? 'default' : variant === 'filled' ? 'primary' : variant
     const align = props['align']
-    const size = props['size']
     const radius = props['radius']
-    const color = props['color']
     const direction = props['direction']
     const gap = props['gap']
     const grow = props['use_container_width']
     const return_index = props['return_index']
     const kv = props['kv']
-    const textColor = GetColor('--text-color')
 
     //load custom style
     let style = `      
@@ -188,7 +184,11 @@ const AntdButtons = (props: ButtonsProp) => {
     const buttonGroup = items.map((item: any, idx) => {
             let otherType = ['primary', 'default'].find((x) => x !== variant)
             let type_: any = index != null ? selected === idx ? otherType : variant : variant
-            return AntdButton(idx, type_, size, color, radius, item, onClick, index != null, grow)
+            item.color = item.color != null ? item.color : color
+            item.background_color = item.background_color != null ? item.background_color : backgroundColor
+            item.size = item.size != null ? item.size : size
+            item.font = item.font != null ? item.font : font
+            return AntdButton(idx, type_, radius, item, onClick, index != null, grow)
         }
     )
 

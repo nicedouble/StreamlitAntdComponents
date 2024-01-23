@@ -15,11 +15,14 @@ from ..utils import *
 def divider(
         label: str = None,
         icon: Union[str, BsIcon, AntIcon] = None,
-        align: Align = 'start',
-        size: Union[MantineSize, int] = 'xs',
+        align: Align = 'center',
         variant: Literal['solid', 'dashed', 'dotted'] = 'solid',
-        color: MantineColor = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = "xs",
+        font: Union[MantineFont, str] = None,
+
 ):
     """mantine divider component https://v6.mantine.dev/core/divider/
 
@@ -28,7 +31,10 @@ def divider(
     :param align: label align
     :param size: divider size,support mantine size and int in px
     :param variant: divider variant
-    :param color: divider color
+            
+    
+    
+   divider color
     :param key: component unique identifier
     """
     # update icon

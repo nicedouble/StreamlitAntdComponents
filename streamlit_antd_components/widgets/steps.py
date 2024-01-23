@@ -15,9 +15,7 @@ def steps(
         items: List[Union[str, dict, StepsItem]],
         index: int = 0,
         format_func: Union[Formatter, Callable] = None,
-        size: Union[MantineSize, int] = 'md',
         variant: Literal['default', 'navigation'] = 'default',
-        color: Union[MantineColor, str] = None,
         placement: Direction = 'horizontal',
         direction: Direction = 'horizontal',
         dot: bool = False,
@@ -26,6 +24,11 @@ def steps(
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
         key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ) -> Union[str, int]:
     """antd design steps
 
@@ -34,7 +37,6 @@ def steps(
     :param format_func: label formatter function,receive str and return str
     :param size: steps size,support mantine size and int in px
     :param variant: steps variant
-    :param color: steps color,default streamlit primary color,support built-in mantine color, hex and rgb color
     :param placement: item title placement
     :param direction: steps direction
     :param dot: dot style steps
@@ -43,7 +45,11 @@ def steps(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component key
-    :return: selected item title or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: selected item title or index
     """
     # register callback
     register(key, on_change, args, kwargs)

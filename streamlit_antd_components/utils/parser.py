@@ -8,9 +8,10 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .data_class import BsIcon, AntIcon, Tag
 from dataclasses import is_dataclass
 from typing import List, Union, Callable, Any
+
+from .data_class import BsIcon, AntIcon, Tag
 
 __all__ = ['update_kw', 'update_index', 'get_default', 'ParseItems', 'parse_icon']
 
@@ -33,6 +34,12 @@ def parse_tag(tag):
     elif isinstance(tag, list):
         tag = [Tag(i).__dict__ if isinstance(i, str) else i.__dict__ for i in tag]
     return tag
+
+
+def parse_theme(theme):
+    for k in theme.keys():
+        if k not in ['color', 'size', 'font', 'background_color']:
+            raise ValueError(f'unsupported theme key {k}')
 
 
 def update_kw(kw: dict, **kwargs):

@@ -2,6 +2,15 @@ import React from "react";
 import {GetColor, getSize, markdown, RgbaColor} from "../js/utils.react";
 import * as antIcon from "@ant-design/icons";
 
+
+interface BaseProp {
+    color: any;
+    background_color: any;
+    size: any;
+    font: any;
+}
+
+
 interface CustomIconProps {
     icon: { size: any, color: any, name: any, type: any } | null | any
     style?: React.CSSProperties
@@ -77,3 +86,4 @@ const LabelWrap = (props: LabelWrapProps) => {
 }
 
 export {CustomIcon, LabelWrap};
+export type {BaseProp};

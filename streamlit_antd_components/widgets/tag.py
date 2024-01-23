@@ -16,10 +16,13 @@ def tags(
         format_func: Union[Formatter, Callable] = None,
         align: Align = 'start',
         direction: Direction = 'horizontal',
-        size: Union[MantineSize, int] = 'sm',
         radius: Union[MantineSize, int] = 'md',
-        color: Union[Color, str] = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ):
     """antd design tag  https://ant.design/components/tag
 
@@ -29,8 +32,11 @@ def tags(
     :param direction: tags direction
     :param size: tags size,support mantine size and int in px
     :param radius: tags radius,support mantine size and int in px
-    :param color: tags color,support ant color, hex and rgb color
     :param key: component unique identifier
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
     """
     # parse items
     items, kv = ParseItems(items, format_func).single()

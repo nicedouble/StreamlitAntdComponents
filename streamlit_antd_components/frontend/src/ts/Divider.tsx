@@ -1,15 +1,14 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Divider} from '@mantine/core';
-import {RgbaColor, GetColor, markdown} from "../js/utils.react"
-import {CustomIcon} from "./utils";
+import {getTheme, markdown, RgbaColor} from "../js/utils.react"
+import {BaseProp, CustomIcon} from "./utils";
+import {ConfigProvider} from "antd";
 
-interface DividerProp {
+interface DividerProp extends BaseProp {
     label: any
-    color: any
     icon: any
     align: any
-    size: any
     variant: any
 }
 
@@ -17,27 +16,36 @@ const AntdDivider = (props: DividerProp) => {
     //get data
     const label = props['label'];
     const icon = props['icon'];
-    const color = props['color'];
     // @ts-ignore
     const align = {'start': 'left', 'center': 'center', 'end': 'right'}[props['align']]
-    const size = props['size'];
     const variant = props['variant'];
-    const textColor = GetColor('--text-color')
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
 
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
     return (
-        <Divider
-            color={color == null ? RgbaColor(textColor) : color}
-            label={icon ?
-                <span className={'d-flex align-items-center'}>
+        <ConfigProvider
+            theme={{
+                components: {
+                    Divider: {
+                        ...theme,
+                    },
+                },
+            }}
+        >
+            <Divider
+                color={color == null ? RgbaColor(textColor) : color}
+                label={icon ?
+                    <span className={'d-flex align-items-center'}>
                     <CustomIcon icon={icon} style={{marginRight: 5}}/>{markdown(label)}
                 </span> : markdown(label)}
-            labelPosition={align}
-            size={size}
-            variant={variant}
-        />
+                labelPosition={align}
+                size={size}
+                variant={variant}
+            />
+        </ConfigProvider>
+
     );
 };
 

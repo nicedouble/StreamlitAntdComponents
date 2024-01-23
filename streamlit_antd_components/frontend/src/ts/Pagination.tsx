@@ -1,19 +1,18 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
-import {Pagination, ConfigProvider} from 'antd';
 import type {PaginationProps} from 'antd';
-import {GetColor, insertStyle, RgbaColor, MartineRadiusSize, getSize} from "../js/utils.react"
+import {ConfigProvider, Pagination} from 'antd';
+import {getSize, getTheme, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react"
 import '../css/pagination.css'
+import {BaseProp} from "./utils";
 
-interface PaginationProp {
+interface PaginationProp extends BaseProp {
     total: any
     index: any
     page_size: any
     jump: any
     align: string
     circle: string
-    color: any
-    size: any
     radius: any
     variant: any
     previous: any
@@ -26,13 +25,13 @@ interface PaginationProp {
 
 const AntdPagination = (props: PaginationProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const total = props['total'];
     const index = props['index'];
     const page_size = props['page_size'];
     const jump = props['jump'];
     const align = props['align'];
-    const color = props['color'];
-    const size = props['size'];
     const radius = props['radius'];
     const variant = props['variant'];
     const previous = props['previous'];
@@ -40,9 +39,7 @@ const AntdPagination = (props: PaginationProp) => {
     const simple = props['simple'];
     const disabled = props['disabled'];
     const show_total = props['show_total'];
-    const primaryColor = GetColor(color == null ? '--primary-color' : color)
     const primaryLightColor = RgbaColor(primaryColor)
-    const textColor = GetColor('--text-color')
 
     const [current, setCurrent] = useState(index);
 
@@ -118,17 +115,14 @@ const AntdPagination = (props: PaginationProp) => {
             theme={{
                 components: {
                     Pagination: {
+                        ...theme,
                         itemActiveBg: variant === 'outline' ? 'transform' : variant === 'light' ? primaryLightColor : primaryColor,
-                        colorBgContainer: 'inherit',
-                        colorPrimary: primaryColor,
                         colorPrimaryHover: primaryColor,
-                        colorText: 'var(--text-color)',
                         colorBgTextHover: RgbaColor(textColor),
                         colorBgTextActive: RgbaColor(textColor, 0.25),
                         borderRadius: getSize(radius, MartineRadiusSize),
                         controlOutlineWidth: 0,
                         colorBorder: RgbaColor(textColor, 0.3),
-                        fontSize: getSize(size),
                         itemSize: 3 * getSize(size) - 16,
                         controlHeight: 3 * getSize(size) - 18,
                         colorTextDisabled: RgbaColor(textColor),
