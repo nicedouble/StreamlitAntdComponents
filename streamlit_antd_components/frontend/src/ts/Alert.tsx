@@ -1,15 +1,13 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
 import {Alert, ConfigProvider} from 'antd';
-import {GetColor, getSize, insertStyle, MartineRadiusSize, RgbaColor, markdown} from "../js/utils.react";
+import {GetColor, getSize, getTheme, insertStyle, markdown, MartineRadiusSize, RgbaColor} from "../js/utils.react";
 import Marquee from "react-fast-marquee";
-import {CustomIcon} from "./utils";
+import {BaseProp, CustomIcon} from "./utils";
 
-interface AlertProp {
+interface AlertProp extends BaseProp {
     label: string;
     description: string;
-    size: any
-    color: any
     radius: any
     variant: any
     icon: any
@@ -21,13 +19,13 @@ const AntdAlert = (props: AlertProp) => {
     //get data
     const message = props['label']
     const description = props['description']
-    const size = props['size']
-    const color = props['color']
     const radius = props['radius']
     const variant = props['variant']
     const icon = props['icon']
     const closable = props['closable']
     const banner = props['banner']
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const colorList: any = {
         'info': {'primary': 'rgb(0, 66, 128)', 'lighten': 'rgba(28, 131, 225, 0.1)'},
         'success': {'primary': 'rgb(23, 114, 51)', 'lighten': 'rgba(33, 195, 84, 0.1)'},
@@ -116,7 +114,7 @@ const AntdAlert = (props: AlertProp) => {
             theme={{
                 components: {
                     Alert: {
-                        fontSize: getSize(size),
+                        ...theme
                     },
                 },
             }}

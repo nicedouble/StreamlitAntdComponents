@@ -9,7 +9,11 @@
 @Software : PyCharm
 """
 
-from ..utils import *
+from typing import List, Union, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, Formatter, BsIcon, \
+    AntIcon, TreeItem
 
 
 def tree(
@@ -20,8 +24,6 @@ def tree(
         description: str = None,
         icon: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
-        size: Union[MantineSize, int] = 'sm',
-        color: Union[MantineColor, str] = None,
         width: int = None,
         height: int = None,
         open_index: List[int] = None,
@@ -33,7 +35,11 @@ def tree(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
 ) -> List[Union[str, int]]:
     """antd design tree  https://ant.design/components/tree
 
@@ -45,7 +51,6 @@ def tree(
     :param icon: tree item icon
     :param align: tree align
     :param size: tree size,support mantine size and int in px
-    :param color: tree color,default streamlit primary color,support mantine color, hex and rgb color
     :param width: tree width
     :param height: tree height
     :param open_index: default opened indexes.if none,tree will open default index's parent nodes.
@@ -58,14 +63,18 @@ def tree(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: list of selected item label or index
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: list of selected item label or index
     """
     if isinstance(index, list) and len(index) > 1 and not checkbox:
         raise ValueError(f'length of index ({len(index)}) should =1  when checkbox=False')
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # parse items
-    items, kv = ParseItems(items, format_func).multi()
+    items, kv = u.ParseItems(items, format_func).multi()
     # parse index
     if index is None and checkbox:
         index = []
@@ -74,8 +83,8 @@ def tree(
     if isinstance(index, list) and not checkbox:
         index = index[0]
     # component params
-    kw = update_kw(locals(), items=items, icon=parse_icon(icon))
+    kw = u.update_kw(locals(), items=items, icon=u.parse_icon(icon))
     # component default
-    default = get_default(index, return_index, kv)
+    default = u.get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=default, key=key)

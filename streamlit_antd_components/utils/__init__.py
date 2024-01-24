@@ -8,13 +8,13 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from .data_class import *
-from .setting import *
-from .parser import *
-from .component_func import component
-from .callback import register
-from typing import Callable, Union, Dict, Tuple, Any, List, Literal
 import inspect
+
+from .callback import register
+from .component_func import component
+from .data_class import *
+from .parser import *
+from .setting import *
 
 
 def get_func_name():

@@ -15,19 +15,9 @@ import streamlit_antd_components.utils as u
 from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Formatter, CasItem
 
 
-def cascader(
-        items: List[Union[str, dict, CasItem]] = None,
-        index: Union[int, List[int]] = None,
+def color_picker(
         label: str = None,
         description: str = None,
-        format_func: Union[Formatter, Callable] = None,
-        placeholder: str = 'Please choose',
-        multiple: bool = False,
-        disabled: bool = False,
-        search: bool = False,
-        clear: bool = False,
-        strict: bool = False,
-        return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
@@ -38,20 +28,8 @@ def cascader(
         font: Union[MantineFont, str] = None,
 
 ) -> List[Union[str, int]]:
-    """antd design cascader  https://ant.design/components/cascader
+    """ant design color-picker  https://ant.design/components/color-picker
 
-    :param items: cascader data
-    :param index: default selected cascader item index
-    :param label: cascader label,support str and markdown str
-    :param description: cascader description,support str and markdown str
-    :param format_func: label formatter function,receive str and return str
-    :param placeholder: placeholder
-    :param multiple: multiple select
-    :param disabled: disabled status
-    :param search: allow search
-    :param clear: add clear all button
-    :param strict: parent item and children item are not associated
-    :param return_index: if True,return item index,default return label
     :param on_change: item change callback
     :param args: callback args
     :param kwargs: callback kwargs
@@ -66,13 +44,11 @@ def cascader(
     # register callback
     u.register(key, on_change, args, kwargs)
     # parse items
-    items, kv = u.ParseItems(items, format_func).multi(field='value')
+    # items, kv = u.ParseItems(items, format_func).multi(field='value')
     # parse index
-    if index is None:
-        index = []
     # component params
-    kw = u.update_kw(locals(), items=items)
+    kw = u.update_kw(locals())
     # component default
-    default = u.get_default(index, return_index, kv)
+    # default = 0
     # pass component id and params to frontend
-    return u.component(id=u.get_func_name(), kw=kw, default=default, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, key=key)

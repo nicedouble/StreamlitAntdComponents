@@ -1,9 +1,10 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useRef, useState} from "react";
 import {Switch} from '@mantine/core';
-import {parseIcon, GetColor, RgbaColor, getSize, markdown} from "../js/utils.react"
+import {GetColor, getSize, getTheme, markdown, parseIcon, RgbaColor} from "../js/utils.react"
+import {BaseProp} from "./utils";
 
-interface SwitchProp {
+interface SwitchProp extends BaseProp {
     label: any;
     value: any;
     description: any;
@@ -22,6 +23,8 @@ interface SwitchProp {
 
 const AntdSwitch = (props: SwitchProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label']
     const value = props['value']
     const description = props['description']
@@ -29,14 +32,11 @@ const AntdSwitch = (props: SwitchProp) => {
     const offLabel = parseIcon(props['off_label'])
     const align = props['align']
     const position = props['position']
-    const size = props['size']
     const onColor = props['on_color']
     const offColor = props['off_color']
     const radius = props['radius']
     const disabled = props['disabled']
     const key = props['key']
-    const primaryColor = GetColor(onColor == null ? '--primary-color' : onColor)
-    const textColor = GetColor('--text-color')
     const secondaryBgColor = GetColor(offColor == null ? RgbaColor(textColor) : offColor)
 
     const [checked, setChecked] = useState(value)

@@ -1,0 +1,7 @@
+.ant-popover-content {
+    padding: 0 !important;
+    overflow: unset !important;
+}
+li.ant-colorpicker-menu-item {
+    overflow: unset !important;
+}

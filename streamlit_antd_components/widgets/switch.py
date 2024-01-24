@@ -8,8 +8,14 @@
 @Project  : StreamlitAntdComponents
 @Software : PyCharm
 """
-from ..utils import *
 from dataclasses import is_dataclass
+from typing import Union, Callable, Tuple, Any, Dict
+
+import streamlit_antd_components.utils as u
+from streamlit_antd_components.utils import MantineSize, MantineFont, MantineColor, Align, BsIcon, AntIcon, \
+    MantinePosition
+
+MantineFont
 
 
 def switch(
@@ -20,7 +26,6 @@ def switch(
         off_label: Union[str, BsIcon, AntIcon] = None,
         align: Align = 'start',
         position: MantinePosition = 'right',
-        size: MantineSize = 'sm',
         radius: Union[MantineSize, int] = 'lg',
         on_color: Union[MantineColor, str] = None,
         off_color: Union[MantineColor, str] = None,
@@ -28,7 +33,12 @@ def switch(
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
-        key=None
+        key=None,
+        color: Union[MantineColor, str] = None,
+        background_color: Union[MantineColor, str] = None,
+        size: Union[MantineSize, int] = None,
+        font: Union[MantineFont, str] = None,
+
 ) -> bool:
     """mantine switch  https://v6.mantine.dev/core/switch/
 
@@ -48,14 +58,18 @@ def switch(
     :param args: callback args
     :param kwargs: callback kwargs
     :param key: component unique identifier
-    :return: True when open,False when close
+    :param color: alert color,support 'success', 'info', 'warning', 'error' and mantine color, hex and rgb color
+    :param background_color: alert background color,support mantine color, hex and rgb color
+    :param size: alert size,support mantine size and int in px
+    :param font: alert font,support mantine font and str
+	:return: True when open,False when close
     """
     # register callback
-    register(key, on_change, args, kwargs)
+    u.register(key, on_change, args, kwargs)
     # parse icon
     kw = dict(locals())
-    kw.update(on_label=parse_icon(on_label) if is_dataclass(on_label) else on_label)
-    kw.update(off_label=parse_icon(off_label) if is_dataclass(off_label) else off_label)
-    kw = update_kw(kw)
+    kw.update(on_label=u.parse_icon(on_label) if is_dataclass(on_label) else on_label)
+    kw.update(off_label=u.parse_icon(off_label) if is_dataclass(off_label) else off_label)
+    kw = u.update_kw(kw)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=value, key=key)
+    return u.component(id=u.get_func_name(), kw=kw, default=value, key=key)

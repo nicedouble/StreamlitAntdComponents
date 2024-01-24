@@ -10,6 +10,7 @@
 """
 from dataclasses import dataclass
 from typing import List, Literal, Union
+
 from .setting import Color, MantineSize, MantineColor
 
 __all__ = [
@@ -96,6 +97,7 @@ class ChipItem(Item):
 class ButtonsItem(Item):
     href: str = None  # link address
     color: Union[MantineColor, str] = None  # button color
+    background_color: Union[MantineColor, str] = None  # background color
 
 
 @dataclass

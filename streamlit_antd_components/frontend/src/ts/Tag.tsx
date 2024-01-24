@@ -1,41 +1,36 @@
 import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect} from "react";
-import {Space, Tag, ConfigProvider} from 'antd';
-import {MartineRadiusSize, GetColor, RgbaColor, getSize, insertStyle} from "../js/utils.react";
-import {CustomIcon} from "./utils";
+import {ConfigProvider, Space, Tag} from 'antd';
+import {GetColor, getSize, getTheme, insertStyle, MartineRadiusSize, RgbaColor} from "../js/utils.react";
+import {BaseProp, CustomIcon} from "./utils";
 
-interface tagProp {
+interface tagProp extends BaseProp {
     label: any
-    color: any
     radius: any
-    size: any
     icon: any
     link: any
     bordered: any
     closable: any
 }
 
-interface TagsProp {
+interface TagsProp extends BaseProp {
     items: tagProp[]
     align?: string
     direction?: "horizontal" | "vertical"
-    size?: any
     radius?: any
-    color?: any
     style?: React.CSSProperties
 }
 
 const AntdTag = (props: tagProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const label = props['label'];
-    const color = props['color'];
     const radius = props['radius'] || 'md';
-    const size = props['size'] || 'sm';
     const icon = props['icon'];
     const link = props['link'];
     const bordered = props['bordered'];
     const closable = props['closable'];
-    const textColor = GetColor('--text-color')
 
     useEffect(() => Streamlit.setFrameHeight())
 
@@ -73,12 +68,12 @@ const AntdTag = (props: tagProp) => {
 
 const AntdTags = (props: TagsProp) => {
     //get data
+    const {color, font, backgroundColor, size, primaryColor, textColor, theme} = getTheme(props);
+
     const items = props['items'];
     const align = props['align'];
     const direction = props['direction'];
-    const size = props['size'];
     const radius = props['radius'];
-    const color = props['color'];
     const style = props['style'];
 
     useEffect(() => Streamlit.setFrameHeight())
@@ -95,6 +90,7 @@ const AntdTags = (props: TagsProp) => {
         theme={{
             components: {
                 Tag: {
+                    ...theme,
                     defaultColor: 'var(--text-color)',
                     defaultBg: RgbaColor(GetColor('--text-color'), 0.05),
                     colorFillSecondary: RgbaColor(GetColor('--primary-color'), 0.1),
