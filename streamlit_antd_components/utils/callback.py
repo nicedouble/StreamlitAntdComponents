@@ -9,7 +9,7 @@
 @Software : PyCharm
 """
 from streamlit import session_state as _state
-from streamlit.components.v1 import components as _components
+from streamlit.components.v1 import custom_component as _components
 
 
 def _patch_register_widget(register_widget):
