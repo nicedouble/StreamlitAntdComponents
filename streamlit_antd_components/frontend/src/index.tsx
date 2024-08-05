@@ -1,3 +1,7 @@
+// NOTE: The following line needs to be the first import to ensure that we
+// correctly configure where chunked static assets are fetched from.
+import "./setWebpackPublicPath"
+
 import {ComponentProps, withStreamlitConnection} from "streamlit-component-lib";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react"
