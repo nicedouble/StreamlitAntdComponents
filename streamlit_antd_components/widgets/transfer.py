@@ -10,7 +10,6 @@
 """
 from ..utils import *
 
-
 def transfer(
         items: List[str] = None,
         index: List[int] = None,
@@ -27,8 +26,9 @@ def transfer(
         reload: Union[bool, str] = False,
         width: int = None,
         height: int = None,
-        use_container_width=False,
-        return_index=False,
+        listStyle: Dict[str, Any] = None,
+        use_container_width: bool = False,
+        return_index: bool = False,
         on_change: Callable = None,
         args: Tuple[Any, ...] = None,
         kwargs: Dict[str, Any] = None,
@@ -51,6 +51,7 @@ def transfer(
     :param reload: reload button,set str to rename button label
     :param width: width in px
     :param height: height in px
+    :param listStyle: custom style for transfer list (e.g., {'color': 'white'})
     :param use_container_width: makes the transfer stretch its width to match the parent container
     :param return_index: return item index
     :param on_change: item change callback
@@ -61,11 +62,19 @@ def transfer(
     """
     # register callback
     register(key, on_change, args, kwargs)
+    
     # parse items
     items, kv = ParseItems(items, format_func).transfer()
+    
     # component params
-    kw = update_kw(locals(), items=items)
+    kw = update_kw(locals(), items=items, **(kwargs or {}))
+    
+    # Include listStyle explicitly if provided
+    if listStyle:
+        kw['listStyle'] = listStyle
+    
     # component default
     default = get_default(index, return_index, kv)
+    
     # pass component id and params to frontend
     return component(id=get_func_name(), kw=kw, default=default, key=key)
