@@ -36,7 +36,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
     const primary_color = GetColor(props['color'] != null ? props['color'] : color != null ? color : '--primary-color')
     const text_color = props['color'] != null ? props['color'] : textColor
     const linkColor = props['color'] != null ? props['color'] : '#1677ff'
-    let selectStyle = `
+    const selectStyle = `
         #btn-${idx}.ant-btn-default:not(:disabled):active,#btn-${idx}.ant-btn-dashed:not(:disabled):active {
             color: #fff !important;
             border-color: ${primary_color} !important;
@@ -48,7 +48,7 @@ const AntdButton = (idx: any, type_: any, size: any, color: any, radius: any, pr
             border-color: ${primary_color} !important;
         }
     `
-    let unSelectStyle = `
+    const unSelectStyle = `
         #btn-${idx}.ant-btn-primary:not(:disabled):hover{
             box-shadow: 0 0 3px ${primary_color}, 0 0 3px rgba(0, 0, 0, .05);
         }
@@ -126,7 +126,7 @@ const AntdButtons = (props: ButtonsProp) => {
     const textColor = GetColor('--text-color')
 
     //load custom style
-    let style = `      
+    const style = `
         .ant-btn-primary:disabled{
             color: ${RgbaColor(textColor, 0.5)} !important;
             background: ${RgbaColor(textColor, 0.1)} !important;
@@ -186,8 +186,8 @@ const AntdButtons = (props: ButtonsProp) => {
     }
 
     const buttonGroup = items.map((item: any, idx) => {
-            let otherType = ['primary', 'default'].find((x) => x !== variant)
-            let type_: any = index != null ? selected === idx ? otherType : variant : variant
+            const otherType = ['primary', 'default'].find((x) => x !== variant)
+            const type_: any = index != null ? selected === idx ? otherType : variant : variant
             return AntdButton(idx, type_, size, color, radius, item, onClick, index != null, grow)
         }
     )

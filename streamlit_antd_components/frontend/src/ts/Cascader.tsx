@@ -43,7 +43,7 @@ const AntdCascader = (props: CascaderProp) => {
     const textColor = GetColor('--text-color')
 
     // load css
-    let borderStyle = `
+    const borderStyle = `
         /*dropdown border*/
         .ant-select-dropdown {
             border: 1px solid ${RgbaColor(textColor, 0.1)};
@@ -56,7 +56,7 @@ const AntdCascader = (props: CascaderProp) => {
             color:${primaryColor} !important
         }
     `
-    let checkboxStyle = `
+    const checkboxStyle = `
         .ant-select-selection-item{
             color: rgb(255, 255, 255);
         }
@@ -71,13 +71,13 @@ const AntdCascader = (props: CascaderProp) => {
 
     //callback
     const onChange = (value: any) => {
-        let v = value === undefined ? [] : value
-        let flatten_value = Array.from(new Set(v.flat())).sort()
+        const v = value === undefined ? [] : value
+        const flatten_value = Array.from(new Set(v.flat())).sort()
         const st = flatten_value.map((x: any) => return_index ? x : kv[x])
         Streamlit.setComponentValue(st)
     }
     const dropdownVisible = (visible: boolean) => {
-        let labelHeight = label !== null ? 30 : 0
+        const labelHeight = label !== null ? 30 : 0
         // @ts-ignore
         setHeight(visible ? 230 + labelHeight : undefined)
     }

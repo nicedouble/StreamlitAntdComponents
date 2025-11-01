@@ -98,7 +98,7 @@ const AntdChip = (props: ChipProp) => {
                 value={value}
                 multiple={multiple}
             >
-                <Wrap spacing={'xs'}>
+                <Wrap wrap="wrap" gap="xs">
                     {items.map((item: any, idx: any) =>
                         <Chip
                             key={idx}

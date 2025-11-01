@@ -108,7 +108,7 @@ const AntdMenu = (props: MenuProp) => {
     //callback
     const onSelect: MenuProps['onSelect'] = (e) => {
         //only not href item will fire
-        let hrefKeys = getHrefKeys(items)
+        const hrefKeys = getHrefKeys(items)
         if (hrefKeys.indexOf(e.key) === -1) {
             setSelectKey([e.key]);
             Streamlit.setComponentValue(return_index ? Number(e.key) : kv[Number(e.key)]);

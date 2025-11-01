@@ -1,0 +1,40 @@
+[project]
+authors = [{name = "jihaoran"}]
+name = "streamlit_antd_components"
+description = "A collection of Streamlit components built with Ant Design and Mantine"
+requires-python = ">= 3.11"
+version = "0.3.2"
+dependencies = [
+    "streamlit>=1.40.0,<2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.custom]
+path = "hatch_build_hook.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["streamlit_antd_components"]
+exclude = ["streamlit_antd_components/frontend/**"]
+artifacts = [
+    "streamlit_antd_components/frontend/build/**",
+    "!*.map",
+    "!*.LICENSE.txt",
+]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["osx-arm64", "linux-64"]
+
+[tool.pixi.pypi-dependencies]
+streamlit_antd_components = { path = ".", editable = true }
+
+[tool.pixi.dependencies]
+streamlit = ">=1.40.0,<2"
+nodejs = "*"
+hatch = "*"
+
+[tool.pixi.tasks]
+wheel = "hatch build -t wheel"

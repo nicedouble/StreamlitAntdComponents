@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
-import {useMantineTheme} from "@mantine/core";
+import {useMantineTheme, darken, lighten, rgba} from "@mantine/core";
 import {CustomIcon} from "../ts/utils";
 
 const MartineFontSize = {
@@ -54,16 +54,13 @@ const GetColor = (color) => {
     }
 }
 const RgbaColor = (color, alpha = 0.2) => {
-    const theme = useMantineTheme()
-    return theme.fn.rgba(color, alpha)
+    return rgba(color, alpha)
 }
 const DarkenColor = (color, alpha = 0.2) => {
-    const theme = useMantineTheme()
-    return theme.fn.darken(color, alpha)
+    return darken(color, alpha)
 }
 const LightenColor = (color, alpha = 0.2) => {
-    const theme = useMantineTheme()
-    return theme.fn.lighten(color, alpha)
+    return lighten(color, alpha)
 }
 
 
@@ -85,8 +82,10 @@ const insertStyle = (id, style) => {
         element.id = id;
     }
     element.innerHTML = style;
-    let root = document.getElementById("root");
-    root && root.appendChild(element)
+    const root = document.getElementById("root");
+    if (root) {
+        root.appendChild(element);
+    }
 }
 
 const insertScrollbarStyle = () => {

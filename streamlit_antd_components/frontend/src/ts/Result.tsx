@@ -14,7 +14,7 @@ interface ResultProp {
 
 const AntdResult = (props: ResultProp) => {
     //get data
-    let title = props['label']
+    const title = props['label']
     const subtitle = props['description']
     const status = props['status']
     const icon = props['icon']

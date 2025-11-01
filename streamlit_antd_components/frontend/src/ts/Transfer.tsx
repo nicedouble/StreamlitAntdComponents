@@ -2,6 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider, Button} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
+import type { Key } from 'antd/es/table/interface';
 import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
 import {GetColor, RgbaColor, DarkenColor, insertStyle} from "../js/utils.react"
 import {strToNode, numberToStr} from "../js/transfer.react";
@@ -58,7 +59,7 @@ const AntdTransfer = (props: TransferProp) => {
     const [targetKeys, setTargetKeys] = useState(index);
 
     //callback
-    const onChange = (nextTargetKeys: string[], direction: TransferDirection, moveKeys: string[]) => {
+    const onChange = (nextTargetKeys: Key[], direction: TransferDirection, moveKeys: Key[]) => {
         setTargetKeys(nextTargetKeys);
         Streamlit.setComponentValue(nextTargetKeys.map((x) => return_index ? Number(x) : kv[Number(x)]));
     };
@@ -78,7 +79,7 @@ const AntdTransfer = (props: TransferProp) => {
             direction: TransferDirection;
         },
     ) => {
-        let float = info !== undefined ? info.direction : 'left'
+        const float = info !== undefined ? info.direction : 'left'
         return (
             <ConfigProvider
                 theme={{
@@ -100,7 +101,7 @@ const AntdTransfer = (props: TransferProp) => {
     // component height
     useEffect(() => Streamlit.setFrameHeight())
 
-    let textStyle = `
+    const textStyle = `
     .ant-transfer-list-content-item-remove:hover{
         color: ${primaryColor} !important;
     }

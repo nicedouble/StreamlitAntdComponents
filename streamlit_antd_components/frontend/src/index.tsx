@@ -1,7 +1,8 @@
 import {ComponentProps, withStreamlitConnection} from "streamlit-component-lib";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import React from "react"
-import ReactDOM from "react-dom"
+import ReactDOM from "react-dom/client";
+import { MantineProvider } from '@mantine/core'
 import componentsMap from "./components";
 import {insertScrollbarStyle} from "./js/utils.react";
 import './css/utils.css'
@@ -28,9 +29,11 @@ const AntdComponent = (props: ComponentProps) => {
 const StreamlitAntdComponent = withStreamlitConnection(AntdComponent)
 
 //render component
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+root.render(
     <React.StrictMode>
-        <StreamlitAntdComponent/>
-    </React.StrictMode>,
-    document.getElementById("root")
+        <MantineProvider>
+            <StreamlitAntdComponent/>
+        </MantineProvider>
+    </React.StrictMode>
 )

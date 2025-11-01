@@ -62,8 +62,6 @@ def tree(
     """
     if isinstance(index, list) and len(index) > 1 and not checkbox:
         raise ValueError(f'length of index ({len(index)}) should =1  when checkbox=False')
-    # register callback
-    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).multi()
     # parse index
@@ -78,4 +76,5 @@ def tree(
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return component(id=get_func_name(), kw=kw, default=default, key=key,
+                     on_change=on_change, args=args, kwargs=kwargs)

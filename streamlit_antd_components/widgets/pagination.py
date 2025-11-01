@@ -53,7 +53,6 @@ def pagination(
     :param key: component key
     :return: select page number
     """
-    # register callback
-    register(key, on_change, args, kwargs)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=update_kw(locals()), default=index, key=key)
+    return component(id=get_func_name(), kw=update_kw(locals()), default=index, key=key,
+                     on_change=on_change, args=args, kwargs=kwargs)

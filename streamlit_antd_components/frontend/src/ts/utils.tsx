@@ -14,7 +14,7 @@ const CustomIcon = (props: CustomIconProps) => {
     const class_ = props.class
     if (icon) {
         const {size, color, name, type} = icon
-        let innerStyle = {}
+        const innerStyle = {}
         if (size) {
             // @ts-ignore
             innerStyle['fontSize'] = getSize(size)

@@ -82,10 +82,10 @@ const AntdTree = (props: TreeProp) => {
         setValue(selectedKeys_)
         Streamlit.setComponentValue(checkable ?
             selectedKeys_.map((x: any) => return_index ? x : kv[x]) :
-            return_index ? selectedKeys_[0] : kv[selectedKeys_[0]]);
+            return_index ? selectedKeys_[0] : kv[String(selectedKeys_[0])]);
     };
     const onCheck: TreeProps['onCheck'] = (checkedKeys_, info) => {
-        let ck = (Array.isArray(checkedKeys_)) ? checkedKeys_ : checkedKeys_['checked']
+        const ck = (Array.isArray(checkedKeys_)) ? checkedKeys_ : checkedKeys_['checked']
         setValue(ck)
         Streamlit.setComponentValue(ck.map((x: any) => return_index ? x : kv[x]))
     }

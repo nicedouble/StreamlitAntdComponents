@@ -1,0 +1,11 @@
+dist/
+build/
+node_modules/
+
+.npm/
+.eslintcache
+.node_repl_history
+.env*
+.vite/
+.next/
+.DS_Store

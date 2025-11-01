@@ -83,7 +83,7 @@ const AntdTags = (props: TagsProp) => {
 
     useEffect(() => Streamlit.setFrameHeight())
 
-    let tagStyle = `
+    const tagStyle = `
         .anticon.anticon-close.ant-tag-close-icon{
             color: inherit;
             font-size: ${getSize(size) - 4}px;

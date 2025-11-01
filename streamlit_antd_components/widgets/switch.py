@@ -50,12 +50,11 @@ def switch(
     :param key: component unique identifier
     :return: True when open,False when close
     """
-    # register callback
-    register(key, on_change, args, kwargs)
     # parse icon
     kw = dict(locals())
     kw.update(on_label=parse_icon(on_label) if is_dataclass(on_label) else on_label)
     kw.update(off_label=parse_icon(off_label) if is_dataclass(off_label) else off_label)
     kw = update_kw(kw)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=value, key=key)
+    return component(id=get_func_name(), kw=kw, default=value, key=key,
+                     on_change=on_change, args=args, kwargs=kwargs)

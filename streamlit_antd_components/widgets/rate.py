@@ -47,11 +47,10 @@ def rate(
     assert value % 0.5 == 0, 'value must be divisible by 0.5'
     if value % 1 != 0 and not half:
         raise ValueError('value must be int when half is False')
-    # register callback
-    register(key, on_change, args, kwargs)
     # component params
     kw = dict(locals())
     kw.update(symbol=parse_icon(symbol) if is_dataclass(symbol) else symbol)
     kw = update_kw(kw)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=value, key=key)
+    return component(id=get_func_name(), kw=kw, default=value, key=key,
+                     on_change=on_change, args=args, kwargs=kwargs)

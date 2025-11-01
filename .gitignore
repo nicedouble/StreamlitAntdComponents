@@ -1,14 +1,10 @@
 .idea
+.vscode
+.pixi
 __pycache__/
 build/
 dist/
 venv*/
 .streamlit
 *.egg-info/
-**/node_modules/
-test*
-**/package-lock.json
-**/tsconfig.json
-poetry.lock
-pyproject.toml
-.vscode
+.DS_Store

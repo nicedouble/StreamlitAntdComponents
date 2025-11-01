@@ -41,7 +41,7 @@ const AntdTabs = (props: TabsProp) => {
     const [activeKey, setActiveKey] = useState(index)
 
     // load style
-    let style = `
+    const style = `
         .ant-tabs-nav-wrap{
             justify-content: ${align};
         }
@@ -71,7 +71,7 @@ const AntdTabs = (props: TabsProp) => {
                 position === 'right' ? `${borderColor} ${borderColor} ${borderColor} ${bgColor}` : ''} !important
         }
         `
-    let growStyle = `
+    const growStyle = `
         .ant-tabs-tab{
             flex-grow: 1;
         }
@@ -82,7 +82,7 @@ const AntdTabs = (props: TabsProp) => {
     insertStyle('sac.tabs.style', grow ? style + growStyle : style)
 
     //component height
-    let tabsHeight = ['left', 'right'].includes(position) && height != null ? height : undefined
+    const tabsHeight = ['left', 'right'].includes(position) && height != null ? height : undefined
 
     // set component height
     useEffect(() => Streamlit.setFrameHeight(tabsHeight))

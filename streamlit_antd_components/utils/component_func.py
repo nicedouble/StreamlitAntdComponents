@@ -10,21 +10,15 @@
 """
 import json
 import os
+from functools import partial
+
 import streamlit.components.v1 as components
 import streamlit as st
 from dataclasses import is_dataclass
-from .. import _RELEASE
 
-if not _RELEASE:
-    component_func = components.declare_component(
-        "sac",
-        url="http://localhost:3000",
-    )
-else:
-    parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    build_dir = os.path.join(parent_dir, "frontend/build")
-    component_func = components.declare_component("sac", path=build_dir)
-
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+build_dir = os.path.join(parent_dir, "frontend/build")
+component_func = components.declare_component("sac", path=build_dir)
 
 def convert_session_value(id, value, kv: dict, return_index: bool):
     if value is not None:
@@ -48,7 +42,7 @@ class CustomEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-def component(id, kw, default=None, key=None):
+def component(id, kw, default=None, key=None, on_change=None, args=None, kwargs=None):
     # repair component session init value
     if key is not None and key not in st.session_state:
         st.session_state[key] = default
@@ -59,4 +53,9 @@ def component(id, kw, default=None, key=None):
         kw.update({"stValue": st_value})
     else:
         kw.update({"stValue": None})
-    return component_func(id=id, kw=json.loads(json.dumps(kw, cls=CustomEncoder)), default=default, key=key)
+
+    # wrap on_change with args and kwargs since streamlit only supports no-arg callback for custom components
+    on_change = partial(on_change, *args, **(kwargs or {})) if on_change is not None else None
+
+    return component_func(id=id, kw=json.loads(json.dumps(kw, cls=CustomEncoder)), default=default, key=key,
+                          on_change=on_change)

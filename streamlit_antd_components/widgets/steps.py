@@ -45,8 +45,6 @@ def steps(
     :param key: component key
     :return: selected item title or index
     """
-    # register callback
-    register(key, on_change, args, kwargs)
     # parse items
     items, kv = ParseItems(items, format_func).single(label_field='title')
     # component params
@@ -54,4 +52,5 @@ def steps(
     # component default
     default = get_default(index, return_index, kv)
     # pass component id and params to frontend
-    return component(id=get_func_name(), kw=kw, default=default, key=key)
+    return component(id=get_func_name(), kw=kw, default=default, key=key,
+                     on_change=on_change, args=args, kwargs=kwargs)
